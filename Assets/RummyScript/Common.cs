@@ -5,11 +5,13 @@ using UnityEngine;
 public class Common : MonoBehaviour
 {
 
-public static string LAMI_MESSAGE = "LAMI_MESSAGE";
+    public static string LAMI_MESSAGE = "LAMI_MESSAGE";
 
     public static string SEAT_STRING = "SEAT_STRING";    
     public const string PLAYER_STATUS = "PLAYER_STATUS";
     public static string PLAYER_INFO = "PLAYER_COMMON_INFO";
+    public static string NEW_PLAYER_INFO = "NEW_PLAYER_COMMON_INFO";
+    public static string NEW_PLAYER_STATUS = "NEW_PLAYER_COMMON_STATUS";
 
     public static string PLAYER_NAME = "PLAYER_NAME";    
     public static string PLAYER_PIC = "PLAYER_PICTURE";

@@ -11,8 +11,6 @@ namespace Assets.RummyScript.LamiGame
         {
             this.parent = parent;
         }
-
-
         public void Add(string data)
         {
             // data format: lineNumber-color:number,color:number,...

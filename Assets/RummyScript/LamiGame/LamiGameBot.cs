@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Assets.RummyScript.LamiGame
 {
@@ -27,7 +28,7 @@ namespace Assets.RummyScript.LamiGame
         public int frameId;
         public int friendItemId;
         public int requestId;
-
+        public int status;
         LamiPlayerMgr parent;
 
         public string[] skillLevelList = new string[] { "Novice", "Expert", "Hero", "Elite", "King", "Master" };
@@ -37,7 +38,8 @@ namespace Assets.RummyScript.LamiGame
             this.parent = parent;
         }
         public void Init()
-        {            
+        {
+            status = (int)LamiPlayerStatus.Init;
             id = -(Random.Range(1000, 9999));
             name = "Guest" + "[" + Random.Range(1000, 9999).ToString() + "]";
             pic = "new_avatar/avatar_" + Random.Range(1, 26).ToString();
@@ -58,14 +60,17 @@ namespace Assets.RummyScript.LamiGame
         }
         internal string getBotString()
         {
+            //data : 0:id, 1:name, 2:picUrl, 3:coinValue, 4:skillLevel, 5:frameId
+            //      format: id:name:picUrl:coinValue:skillLevel:frameId:status
             string infoString = "";
-            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}",
+            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
                     id,
                     name,
                     pic,
                     coinValue,
                     skillLevel,
-                    frameId
+                    frameId,
+                    status
                     );
             return infoString;
         }
@@ -79,8 +84,31 @@ namespace Assets.RummyScript.LamiGame
             coinValue = int.Parse(tmp[3]);
             skillLevel = tmp[4];
             frameId = int.Parse(tmp[5]);
+            status = int.Parse(tmp[6]);
         }
+        internal void SendMyInfo()
+        {
+            string infoString = "";
+            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                    id,
+                    name,
+                    pic,
+                    coinValue,
+                    skillLevel,
+                    frameId,
+                    status
+                    );
 
+                // Send Add New player Message. - OnUserEnteredRoom
+            Hashtable props = new Hashtable
+            {
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
+                {Common.NEW_PLAYER_INFO, infoString},
+                {Common.NEW_PLAYER_STATUS, status}
+            };
+    
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        }
 
         /*************************************************** */
     }

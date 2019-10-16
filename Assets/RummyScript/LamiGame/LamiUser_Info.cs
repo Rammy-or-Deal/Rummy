@@ -7,7 +7,7 @@
         public string picUrl;
         public int coinValue;
         public string skillLevel;
-        public string framePic;
+        public int  frameId;
 
         public LamiUser_Info()
         {
@@ -23,7 +23,7 @@
             picUrl = tmp[2];
             coinValue = int.Parse(tmp[3]);
             skillLevel = tmp[4];
-            framePic = tmp[5];
+            frameId = int.Parse(tmp[5]);
         }
     }
 }

@@ -17,12 +17,15 @@ namespace Assets.RummyScript.LamiGame
         public bool isBot = false;
         internal bool canShow = false;
 
+        public LamiPlayerMgr parent;
         public LamiPlayer()
         {
 
         }
         public void SetUserInfo(string data)
         {
+            var tmp = data.Split(':');
+            status = int.Parse(tmp[6]);
             user_Info.SetInfo(data);
         }
         public void SetAdditionalCardInfo(string data)
@@ -48,7 +51,14 @@ namespace Assets.RummyScript.LamiGame
 
             if (isBot)  //If this player is bot, pull data from parent's bot information
             {
-                
+                for(int i = 0; i < parent.m_botList.Count; i++)
+                {
+                    if(parent.m_botList[i].id == tmpActor)
+                    {
+                        status = parent.m_botList[i].status;
+                        SetUserInfo(parent.m_botList[i].getBotString());
+                    }
+                }
             }
         }
 

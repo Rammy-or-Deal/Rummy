@@ -34,21 +34,36 @@ namespace Assets.RummyScript.LamiGame
 
         internal void SendMyInfo()
         {
+            //data : 0:id, 1:name, 2:picUrl, 3:coinValue, 4:skillLevel, 5:frameId, 6:status
+            //      format: id:name:picUrl:coinValue:skillLevel:frameId:status
             string infoString = "";
-            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}",
-                    0,
+            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
                     DataController.Inst.userInfo.name,
                     DataController.Inst.userInfo.pic,
                     DataController.Inst.userInfo.coinValue,
                     DataController.Inst.userInfo.skillLevel,
-                    DataController.Inst.userInfo.frameId
-                    );
+                    DataController.Inst.userInfo.frameId,
+                    status
+                );
+
+            // Set local player's property.                    
             Hashtable props = new Hashtable
             {
                 {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Init},
                 {Common.PLAYER_INFO, infoString}
             };
-    
+
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+            // Send Add New player Message. - OnUserEnteredRoom
+            props = new Hashtable
+            {
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
+                {Common.NEW_PLAYER_INFO, infoString},
+                {Common.NEW_PLAYER_STATUS, status}
+            };
+
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
