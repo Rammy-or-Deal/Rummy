@@ -52,12 +52,7 @@ namespace Assets.RummyScript.LamiGame
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
-
-
-
-
         /************************* */
-
 
         public void SetMyCards(string data)
         {

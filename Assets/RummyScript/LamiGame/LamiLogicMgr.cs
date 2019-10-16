@@ -8,12 +8,11 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Assets.RummyScript.LamiGame
 {
-    public class LamiLogicMgr
+    public class LamiLogicMgr :MsgMgr
     {
-        LamiMgr parent;
-        public LamiLogicMgr(LamiMgr parent)
+        public LamiLogicMgr(LamiMgr parent) : base(parent)
         {
-            this.parent = parent;
+            
         }
 
         #region Join Or Create Room
