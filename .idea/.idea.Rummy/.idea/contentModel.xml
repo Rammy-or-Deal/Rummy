@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Administrator\.Rider2018.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Administrator\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_Rummy.-243480723.00" t="ExcludeRecursive" />
-    <e p="E:\UnityWork\Rummy" t="IncludeRecursive">
+    <e p="C:\Users\akio\.Rider2018.3\config\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\akio\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\akio\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_Rummy.870328890.00" t="ExcludeRecursive" />
+    <e p="E:\work\Rummy\Rummy" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -180,6 +181,7 @@
           <e p="License.txt" t="Include" />
           <e p="Readme.txt" t="Include" />
         </e>
+        <e p="LogMgr.cs" t="Include" />
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
@@ -628,17 +630,18 @@
             <e p="UIMyCardPanel.cs" t="Include" />
           </e>
           <e p="LamiGame" t="Include">
-            <e p="Card_Additional_Info.cs" t="Include" />
-            <e p="LamiCard.cs" t="Include" />
+            <e p="Lami_Card_Additional_Info.cs" t="Include" />
             <e p="LamiCardLine.cs" t="Include" />
+            <e p="LamiGameBot.cs" t="Include" />
+            <e p="LamiLineCard.cs" t="Include" />
+            <e p="LamiLogicMgr.cs" t="Include" />
             <e p="LamiMe.cs" t="Include" />
             <e p="LamiMgr.cs" t="Include" />
             <e p="LamiMyCard.cs" t="Include" />
+            <e p="LamiPanMgr.cs" t="Include" />
             <e p="LamiPlayer.cs" t="Include" />
-            <e p="LogicMgr.cs" t="Include" />
-            <e p="PanMgr.cs" t="Include" />
-            <e p="PlayerMgr.cs" t="Include" />
-            <e p="User_Info.cs" t="Include" />
+            <e p="LamiPlayerMgr.cs" t="Include" />
+            <e p="LamiUser_Info.cs" t="Include" />
           </e>
           <e p="Lobby" t="Include">
             <e p="LobbyController.cs" t="Include" />
