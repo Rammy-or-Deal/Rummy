@@ -13,7 +13,7 @@ namespace Assets.RummyScript.LamiGame
         LamiMgr parent;
         public LamiLogicMgr(LamiMgr parent)
         {
-            this.parent = parent;
+            this.parent = parent;                    
         }
 
         #region Join Or Create Room
@@ -79,7 +79,7 @@ namespace Assets.RummyScript.LamiGame
                     parent.playerMgr.OnRoomSeatUpdate();
                     break;
                 case (int)LamiMessages.OnBotInfoChanged:
-                
+                    parent.playerMgr.OnBotInfoChanged();
                     break;
             }
         }

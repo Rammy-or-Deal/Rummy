@@ -100,6 +100,9 @@ namespace Assets.RummyScript.LamiGame
                 };
             PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
         }
+
+
+
         internal void OnJoinSuccess()
         {
             UIController.Inst.loadingDlg.gameObject.SetActive(false);
@@ -113,7 +116,7 @@ namespace Assets.RummyScript.LamiGame
             string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
 
             // Prepare seatNumList      - this is to remove unneeded for statement
-            if(seatString != "")
+            if (seatString != "")
                 seatNumList.Clear();
             var tmp = seatString.Split(',');
             for (int i = 0; i < tmp.Length; i++)
@@ -122,10 +125,10 @@ namespace Assets.RummyScript.LamiGame
             }
 
             // Get seat no from seat string
-            for(int i = 0; i < m_playerList.Length; i++)
+            for (int i = 0; i < m_playerList.Length; i++)
                 m_playerList[i].canShow = false;
 
-            for(int i = 0; i < tmp.Length; i++)
+            for (int i = 0; i < tmp.Length; i++)
             {
                 int tmpActor = int.Parse(tmp[i].Split(':')[0]);
                 int tmpSeat = int.Parse(tmp[i].Split(':')[1]);
@@ -133,13 +136,13 @@ namespace Assets.RummyScript.LamiGame
             }
 
             // Show/Hide players;
-            for(int i = 0; i < m_playerList.Length; i++)
+            for (int i = 0; i < m_playerList.Length; i++)
                 m_playerList[i].Show();
         }
 
         private int GetUserSeat(int seatNo_in_seatString)
         {
-            
+
             int seatPos;
             if (seatNo_in_seatString == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
             {
@@ -157,5 +160,71 @@ namespace Assets.RummyScript.LamiGame
             return seatPos;
         }
 
+        #region  Bot Section
+        internal void OnBotInfoChanged()
+        {
+            string botListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BOT_LIST_STRING];
+
+            var tmp = botListString.Split(',');
+            m_botList.Clear();
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                LamiGameBot bot = new LamiGameBot(this);
+                bot.SetBotInfo(tmp[i]);
+                m_botList.Add(bot);
+
+                LogMgr.Log("Bot Created : " + bot.getBotString(), (int)LogLevels.BotLog);
+            }
+        }
+        internal void OnRemovedBot()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int removedBotId = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.REMOVED_BOT_ID];
+                m_botList = m_botList.Where(x => x.id != removedBotId).ToList();
+                SendBotListString();
+            }
+        }
+        void SendBotListString()
+        {
+            string botString = "";
+            for (int i = 0; i < m_botList.Count; i++)
+            {
+                botString += m_botList[i].getBotString() + ",";
+            }
+            botString = botString.Trim(',');
+
+            Hashtable botChangeString = new Hashtable
+            {
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnBotInfoChanged},
+                {Common.BOT_LIST_STRING, botString}
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(botChangeString);
+        }
+        void MakeOneBot()
+        {
+            LamiGameBot mBot = new LamiGameBot(this);
+            mBot.Init();
+            bool isIdSet = false;
+
+            while(isIdSet == false)
+            {
+                isIdSet = true;
+                for(int i = 0; i < m_botList.Count; i++)
+                {
+                    if(mBot.id == m_botList[i].id)
+                        isIdSet = false;
+                }
+                if(isIdSet == false)
+                {
+                    mBot.id = -(UnityEngine.Random.Range(1000, 9999));
+                }
+            }
+            m_botList.Add(mBot);
+            LogMgr.Log("Bot Created : " + mBot.getBotString(), (int)LogLevels.BotLog);
+            SendBotListString();
+        }
+
+        #endregion
     }
 }
