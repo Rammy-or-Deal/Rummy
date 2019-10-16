@@ -126,13 +126,13 @@ namespace Assets.RummyScript.LamiGame
             Sort();
 
             // Get Available Line Number
-            for (int i = 0; i < panMgr.m_cardLineList.Count; i++)
-            {
-                if (GetAvilableLineNum(sel_cards, panMgr.m_cardLineList[i])) // condition)
-                {
-                    avail_lineList.Add(i);
-                }
-            }
+            // for (int i = 0; i < panMgr.m_cardLineList.Count; i++)
+            // {
+            //     if (GetAvilableLineNum(sel_cards, panMgr.m_cardLineList[i])) // condition)
+            //     {
+            //         avail_lineList.Add(i);
+            //     }
+            // }
         }
 
         public bool GetAvilableLineNum(List<LamiMyCard> sel_cards, LamiCardLine cardLine)
