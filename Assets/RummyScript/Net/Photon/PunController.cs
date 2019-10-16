@@ -1,0 +1,437 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Photon.Pun;
+using Photon.Pun.Demo.Asteroids;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
+using UnityEngine;
+using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
+public class PunController : MonoBehaviourPunCallbacks
+{
+    static public PunController Inst;
+
+    public Dictionary<string, RoomInfo> cachedRoomList;
+
+    private int mTierIdx;
+
+
+
+    public void Awake()
+    {
+        if (!Inst)
+            Inst = this;
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
+    public void Start()
+    {
+        Debug.Log("PunController started");
+        UIController.Inst.loadingDlg.gameObject.SetActive(true);
+        cachedRoomList = new Dictionary<string, RoomInfo>();
+
+        Login();
+    }
+
+    public void StartLamiTier()
+    {
+        PhotonNetwork.LoadLevel("2_Lami");
+    }
+
+    public void Login()
+    {
+        string playerName = DataController.Inst.userInfo.name;
+
+
+        if (!playerName.Equals("") || !PhotonNetwork.IsConnected)
+        {
+            Debug.Log("!PhotonNetwork.IsConnected");
+            PhotonNetwork.LocalPlayer.NickName = playerName;
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        else
+        {
+            Debug.LogError("Player Name is invalid.");
+        }
+    }
+
+    public void LeaveGame()
+    {
+        Debug.Log("leave game");
+
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public void CreateOrJoinRoom(int tierIdx)
+    {
+        UIController.Inst.loadingDlg.gameObject.SetActive(true);
+        mTierIdx = tierIdx;
+        string roomName = "rummy_" + mTierIdx.ToString();
+        bool isNewRoom = true;
+
+        Debug.Log("cachedRoom : " + cachedRoomList.Count);
+
+        foreach (RoomInfo info in cachedRoomList.Values)
+        {
+            Debug.Log(info);
+
+            if (info.Name.Contains(roomName))
+            {
+                isNewRoom = false;
+                JoinRoom(info.Name);
+            }
+            else
+            {
+                Debug.Log(info.Name + "can't join");
+            }
+        }
+
+        if (isNewRoom)
+        {
+            CreateRoom(roomName);
+        }
+    }
+
+    public void CreateOrJoinBaccaratRoom()
+    {
+        UIController.Inst.loadingDlg.gameObject.SetActive(true);
+        string roomName = "baccarat_";
+        bool isNewRoom = true;
+
+        Debug.Log("cachedRoom : " + cachedRoomList.Count);
+
+        foreach (RoomInfo info in cachedRoomList.Values)
+        {
+            Debug.Log(info);
+
+            if (info.Name.Contains(roomName))
+            {
+                isNewRoom = false;
+                JoinRoom(info.Name);
+            }
+            else
+            {
+                Debug.Log(info.Name + "can't join");
+            }
+        }
+
+        if (isNewRoom)
+        {
+            roomName = roomName + "_" + DateTime.Now.ToString("MMddHHmmss");
+
+            byte maxPlayers = 10;
+            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
+            PhotonNetwork.CreateRoom(roomName, options, null);
+            Debug.Log("room created " + roomName);
+        }
+    }
+
+    public void CreateOrJoinLuckyRoom(int tierIdx)
+    {
+        string roomName = "lucky_" + mTierIdx.ToString();
+        bool isNewRoom = true;
+
+        Debug.Log("cachedRoom : " + cachedRoomList.Count);
+
+        foreach (RoomInfo info in cachedRoomList.Values)
+        {
+            Debug.Log(info);
+
+            if (info.Name.Contains(roomName))
+            {
+                isNewRoom = false;
+                JoinRoom(info.Name);
+            }
+            else
+            {
+                Debug.Log(info.Name + "can't join");
+            }
+        }
+
+        if (isNewRoom)
+        {
+            roomName = roomName + "_" + DateTime.Now.ToString("MMddHHmmss");
+
+            byte maxPlayers = 4;
+            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
+            PhotonNetwork.CreateRoom(roomName, options, null);
+            Debug.Log("room created " + roomName);
+        }
+    }
+
+    public void CreateRoom(string roomName)
+    {
+        roomName = roomName + "_" + DateTime.Now.ToString("MMddHHmmss");
+
+        byte maxPlayers = 4;
+        RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
+        PhotonNetwork.CreateRoom(roomName, options, TypedLobby.Default);
+        Debug.Log("room created " + roomName);
+    }
+
+    public void JoinRoom(string roomName)
+    {
+        PhotonNetwork.JoinRoom(roomName, null);
+        Debug.Log("join room" + roomName);
+    }
+
+    public void UpdateCachedRoomList(List<RoomInfo> roomList)
+    {
+        foreach (RoomInfo info in roomList)
+        {
+            Debug.Log("roomList" + info);
+            // Remove room from cached room list if it got closed, became invisible or was marked as removed
+            if (!info.IsOpen || !info.IsVisible || info.RemovedFromList || info.PlayerCount == info.MaxPlayers)
+            {
+                Debug.Log(
+                    "!info.IsOpen || !info.IsVisible || info.RemovedFromList || info.PlayerCount == info.MaxPlayers");
+                if (cachedRoomList.ContainsKey(info.Name))
+                {
+                    Debug.Log("cachedRoomList.Remove" + info.Name);
+                    cachedRoomList.Remove(info.Name);
+                }
+
+                continue;
+            }
+
+            // Update cached room info
+            if (cachedRoomList.ContainsKey(info.Name))
+            {
+                cachedRoomList[info.Name] = info;
+
+                Debug.Log("ContainsKey(info.Name)" + info);
+            }
+            // Add new room info to cache
+            else
+            {
+                cachedRoomList.Add(info.Name, info);
+                Debug.Log("else" + info);
+            }
+        }
+
+        //        Debug.Log("update cached RoomList:" + cachedRoomList.Count);
+    }
+
+    #region PUN CALLBACKS
+
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("onConnectedMaster LobbyPun");
+        if (!PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinLobby();
+        }
+
+        UIController.Inst.loadingDlg.gameObject.SetActive(false);
+    }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("OnJoinedLobby LobbyPun");
+        if (!PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinLobby();
+        }
+
+        UIController.Inst.loadingDlg.gameObject.SetActive(false);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        UIController.Inst.loadingDlg.gameObject.SetActive(false);
+        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
+        {
+            throw new NotImplementedException();
+            //Call
+            //LamiMgr -> LamiLogicMgr
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+
+        {
+            PhotonNetwork.LoadLevel("3_PlayBaccarat");
+            Hashtable props = new Hashtable
+            {
+                {Common.PLAYER_LEVEL, DataController.Inst.userInfo.skillLevel},
+                {Common.PLAYER_PIC, DataController.Inst.userInfo.pic},
+                {Common.PLAYER_COIN, DataController.Inst.userInfo.coinValue},
+            };
+
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("lucky"))
+        {
+
+        }
+
+
+        //        Hashtable turnProps = new Hashtable();
+        //        turnProps[Common.Game_START] = false;
+        //        PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
+
+    }
+
+
+    private void RemoveBotString(int removed_bot_id)
+    {
+
+        string botListString = "";
+        try
+        {
+            botListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BOT_LIST_STRING];
+        }
+        catch { }
+
+        var bots = botListString.Split(',');
+        for (int i = 0; i < bots.Length; i++)
+        {
+            var items = bots[i].Split(':');
+            if (items[0] == removed_bot_id + "")
+            {
+                bots[i] = "";
+            }
+        }
+        string botString = "";
+        for (int i = 0; i < bots.Length; i++)
+        {
+            if (bots[i] != "")
+            {
+                botString += bots[i] + ",";
+            }
+        }
+        botString = botString.Trim(',');
+
+        Hashtable props = new Hashtable
+        {
+            {Common.BOT_LIST_STRING, botString},
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("join room failed");
+        string roomName = "rummy_" + mTierIdx.ToString();
+        CreateRoom(roomName);
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("OnCreateRoomFailed");
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        Debug.Log("OnRoomListUpdate");
+        UpdateCachedRoomList(roomList);
+    }
+
+    public override void OnLeftLobby()
+    {
+        Debug.Log("OnLeftLobby");
+        cachedRoomList.Clear();
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log(PhotonNetwork.NickName + "/me/Left Room");
+        PhotonNetwork.LoadLevel("2_Lobby");
+        cachedRoomList.Clear();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log(newPlayer.NickName + "   Entered");
+        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
+        {
+            LamiGameController.Inst.NewPlayerEnteredRoom(newPlayer);
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+        {
+            BaccaratGameController.Inst.NewPlayerEnteredRoom(newPlayer);
+        }
+
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log(otherPlayer.NickName + "/other/left room");
+
+        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
+        {
+            LamiGameController.Inst.OtherPlayerLeftRoom(otherPlayer);
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+        {
+            BaccaratGameController.Inst.OtherPlayerLeftRoom(otherPlayer);
+        }
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
+        {
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player otherPlayer, Hashtable hashtable)
+    {
+        Debug.Log("OnPlayerPropertiesUpdate : " + otherPlayer.NickName);
+        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
+        {
+            if (hashtable.ContainsKey(Common.eventID_player))
+            {
+                switch ((int)hashtable[Common.eventID_player])
+                {
+                    case 10:    // Click Ready Button
+                        LamiGameController.Inst.OnPlayerReadyClicked(otherPlayer, hashtable);
+                        break;
+
+                }
+            }
+            else
+            {
+                LamiGameController.Inst.PlayerPropertiesUpdate(otherPlayer, hashtable);
+                LamiGameUIManager.Inst.PlayerCardUpdate(otherPlayer, hashtable);
+            }
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+        {
+            BaccaratGameController.Inst.PlayerPropertiesUpdate(otherPlayer, hashtable);
+        }
+
+    }
+
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        Debug.Log("On Room Properties Update called.");
+        if (propertiesThatChanged.ContainsKey(Common.eventID_room))
+        {
+            Debug.Log("EventID exist" + (int)propertiesThatChanged[Common.eventID_room]);
+            switch ((int)propertiesThatChanged[Common.eventID_room])
+            {
+                case 11: //11: Player Joined
+                    Debug.Log("Room Event Player Joined.");
+                    LamiGameController.Inst.RoomPropertiesUpdate(propertiesThatChanged);
+                    break;
+                //case 21: // 21: Bot Added
+                //    LamiGameController.Inst.OnBotAdd(propertiesThatChanged);
+                //    break;
+                case 22:    // 22: Bot List Changed
+                    LamiGameController.Inst.OnBotListChanged(propertiesThatChanged);
+                    break;
+                case 23:    // 23: Bot Remove
+                    break;
+            }
+        }
+    }
+
+    #endregion
+
+    #region UI CALLBACKS
+
+    #endregion
+}

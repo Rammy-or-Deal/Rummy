@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1858295920460990}
+  m_IsPrefabParent: 1
+--- !u!1 &1858295920460990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4484708567615412}
+  - component: {fileID: 114874063255455716}
+  m_Layer: 0
+  m_Name: AvataMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4484708567615412
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1858295920460990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114874063255455716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1858295920460990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281e501d1b2b60343941925909df064a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LoginUserID: 
+  m_DefaultSprite: {fileID: 21300000, guid: 39b52db6e93040f48afc7254686fea42, type: 3}
+  m_AvataSpriteList:
+  - {fileID: 21300000, guid: ab26849bf6ac2564f839c75eacccb8ea, type: 3}
+  - {fileID: 21300000, guid: 4a9ed40a41feb184091d61df497ceb25, type: 3}
+  - {fileID: 21300000, guid: cc8b1526c02cfb247868afabdb2c3499, type: 3}
+  - {fileID: 21300000, guid: 5cca9c84a19d25a429548b931a79fa57, type: 3}
+  - {fileID: 21300000, guid: 72cd2651ea4838349b46cbef1a29984e, type: 3}
+  - {fileID: 21300000, guid: 90ba2af937478314a95cf75f6e9e2317, type: 3}
+  - {fileID: 21300000, guid: a5ef66ce702b08941a57f6c8a1cb62b9, type: 3}
+  - {fileID: 21300000, guid: 656adf8fc0a824741ae48098122f7667, type: 3}
+  - {fileID: 21300000, guid: 325c67679a6e17e46b9363d15e15ab43, type: 3}
+  - {fileID: 21300000, guid: 633689a952ebf954b9a9be8dcf69d810, type: 3}
+  - {fileID: 21300000, guid: 028fa598b4721634ea7116f45e87bb4c, type: 3}
+  - {fileID: 21300000, guid: de7de891bac9ea54e80f947efc2f3df3, type: 3}
+  - {fileID: 21300000, guid: e1a74e5edc06e2f48bb0b2420aa6ec96, type: 3}
+  - {fileID: 21300000, guid: 29e1adf1543bc444ab24fba304ca1c14, type: 3}
+  - {fileID: 21300000, guid: 9c50eacf030dc014690953dcd5bfe7ba, type: 3}
+  - {fileID: 21300000, guid: 13d5c01f72bb8bd428698ee36e5e8868, type: 3}
+  - {fileID: 21300000, guid: 0ee547d9eff177042b1129c2d91801e2, type: 3}
+  - {fileID: 21300000, guid: ecceac8f5743c5e4b9cd2dbc61686afe, type: 3}
+  - {fileID: 21300000, guid: b23301388ac9c774d8d73f3948f08465, type: 3}
+  - {fileID: 21300000, guid: 2bbca5529d3c0084bbc0be51d7afda5c, type: 3}
+  - {fileID: 21300000, guid: be4c7827993619d40aecf053545dcf04, type: 3}
+  - {fileID: 21300000, guid: b43aefc4753a36b4ab1595e7283e434a, type: 3}
+  - {fileID: 21300000, guid: 362591804eb54364cb8d7123fc15281b, type: 3}
+  - {fileID: 21300000, guid: add6093aad723784aa3ade89aabaceab, type: 3}
+  - {fileID: 21300000, guid: 9befd0de0825cce418fb72e9ac3826a2, type: 3}
+  - {fileID: 21300000, guid: cc1da253fa5f2b546a0792e35937e172, type: 3}
+  - {fileID: 21300000, guid: c6586c10a178dc64089ead243b8dcf90, type: 3}
+  - {fileID: 21300000, guid: 68e027c0184022a4ca9d7ac24fe9df69, type: 3}
+  - {fileID: 21300000, guid: 22ab33c02f124e4489c4c7204a6dffab, type: 3}
+  - {fileID: 21300000, guid: d676027c7060a6e4fbd697ebbbf16a7c, type: 3}
+  m_AvataBlackSpriteList:
+  - {fileID: 21300000, guid: 91fc0cf0b4d4a524480e6a9c8d6396d2, type: 3}
+  - {fileID: 21300000, guid: 15e2d4f0d2739984d910b2f4dffb167c, type: 3}
+  - {fileID: 21300000, guid: 7392e030c2645a54e9381293da4c431f, type: 3}
+  - {fileID: 21300000, guid: 3548b3234f8e6404e9a9917a6bc72e9c, type: 3}
+  - {fileID: 21300000, guid: 0f400506196597f49a528062a2a261ea, type: 3}
+  - {fileID: 21300000, guid: cebb6dc63567102459f115addaeddad5, type: 3}
+  - {fileID: 21300000, guid: 0b1cdc2b217c8cd448a76c38b8738ad8, type: 3}
+  - {fileID: 21300000, guid: 41010834952f08447814b33ccb7797ad, type: 3}
+  - {fileID: 21300000, guid: 57c07a39e33a6884682afd338638660c, type: 3}
+  - {fileID: 21300000, guid: c9224f8b81c5f634cbd6b246b0a7fbc3, type: 3}
+  - {fileID: 21300000, guid: b014a297e905de44ebc18995f5654550, type: 3}
+  - {fileID: 21300000, guid: b1ee58d662146f042afa0c62cb44c3da, type: 3}
+  - {fileID: 21300000, guid: 9389efa6c0f457441a80102b5aff2433, type: 3}
+  - {fileID: 21300000, guid: f0418a34e38bad84dba6b7f404b36916, type: 3}
+  - {fileID: 21300000, guid: 3729fe4fa66012e43a3ead3e58a33a09, type: 3}
+  - {fileID: 21300000, guid: 6b221f3da0e2cb54f967870de29418a6, type: 3}
+  - {fileID: 21300000, guid: 6c5e3d26db63c3d408f38e6732712b5c, type: 3}
+  - {fileID: 21300000, guid: c5fae2865bdeafd43a3eaf65e6e62758, type: 3}
+  - {fileID: 21300000, guid: a551262639ee39540bfab6dd50929ef7, type: 3}
+  - {fileID: 21300000, guid: 8a4b60fbf0744a545801892c8b51940f, type: 3}
+  - {fileID: 21300000, guid: c64a70b3c0699984a9bc85ac1f2114ff, type: 3}
+  - {fileID: 21300000, guid: 695b4ec0541354f49b24c204a8081610, type: 3}
+  - {fileID: 21300000, guid: 600c7d4f605bc7b46a2ffd47340a922d, type: 3}
+  - {fileID: 21300000, guid: 47407fb0312bd2d4589f39c356061b86, type: 3}
+  - {fileID: 21300000, guid: d73415409bf3c794cb3b9f1026529984, type: 3}
+  - {fileID: 21300000, guid: 86ce5c808547a364bb5c9fc1401f78e7, type: 3}
+  - {fileID: 21300000, guid: 1deae59f539bd884ca929fac9385cf99, type: 3}
+  - {fileID: 21300000, guid: cde4ac5f35ac7994988aeabb9ba4c08f, type: 3}
+  - {fileID: 21300000, guid: 7c7b018276f6ce74ea4b32d9f8fa4ecb, type: 3}
+  - {fileID: 21300000, guid: d768a86c44536a14682e2e4b2e3cbedd, type: 3}
+  m_AvataGender: 000000000100000000000000010000000100000001000000010000000000000000000000
