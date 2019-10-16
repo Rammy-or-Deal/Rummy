@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 
 enum LamiPlayerStatus{
@@ -26,16 +27,26 @@ enum LamiMessages{
 
 namespace Assets.RummyScript.LamiGame
 {
-    public class LamiMgr
+    public class LamiMgr  : MonoBehaviour
     {
+        public static LamiMgr Inst;
         public LamiPlayerMgr playerMgr;
         public LamiLogicMgr logicMgr;
         public LamiPanMgr panMgr;
-        public LamiMgr()
+        
+        private void Awake()
         {
+            if (!Inst)
+                Inst= this;
+            
             playerMgr = new LamiPlayerMgr(this);
             logicMgr = new LamiLogicMgr(this);
             panMgr = new LamiPanMgr(this);
+        }
+            
+        public void SendMessage(int messageId)
+        {
+            logicMgr.OnMessageArrived(messageId);
         }
     }
 }

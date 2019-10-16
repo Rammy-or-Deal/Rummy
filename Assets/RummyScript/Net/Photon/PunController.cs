@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.RummyScript.LamiGame;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.UtilityScripts;
@@ -244,9 +245,7 @@ public class PunController : MonoBehaviourPunCallbacks
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            throw new NotImplementedException();
-            //Call
-            //LamiMgr -> LamiLogicMgr
+            LamiMgr.Inst.SendMessage((int) LamiMessages.OnJoinSuccess);
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
 

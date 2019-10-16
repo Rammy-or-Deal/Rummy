@@ -22,9 +22,7 @@ public class UITierPanel : MonoBehaviour
             PunController.Inst.CreateOrJoinRoom(idx);
         }
     }
-    
    
-
     public void OnUpClick()
     {
         Debug.Log("UPClick");
@@ -32,7 +30,6 @@ public class UITierPanel : MonoBehaviour
         {
             if (mTiers[i].activeSelf)
             {
-                
                 if (i == 5 )
                 {
                     mTiers[i].SetActive(false);
