@@ -78,9 +78,10 @@ namespace Assets.RummyScript.LamiGame
                 case (int)LamiMessages.OnRoomSeatUpdate:
                     parent.playerMgr.OnRoomSeatUpdate();
                     break;
+                case (int)LamiMessages.OnBotInfoChanged:
                 
+                    break;
             }
         }
-
     }
 }
