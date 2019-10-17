@@ -21,6 +21,8 @@ public class Common : MonoBehaviour
 
     public static string REMOVED_BOT_ID = "REMOVED_BOT_ID";
     public static string BOT_LIST_STRING = "BotListString";
+    public static string BOT_ID = "Bot_ID";
+    public static string BOT_STATUS = "BOT_STATUS";
     /********************************************* */
 
 

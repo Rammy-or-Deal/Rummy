@@ -67,6 +67,8 @@ namespace Assets.RummyScript.LamiGame
 
         #endregion
 
+
+        #region Creating Bot
         private void Start()
         {
             UIController.Inst.userInfoPanel.gameObject.SetActive(false);
@@ -77,8 +79,6 @@ namespace Assets.RummyScript.LamiGame
             StartCoroutine(CreateBot());
 
         }
-        #region Creating Bot
-
         public IEnumerator CreateBot()
         {
             if (PhotonNetwork.LocalPlayer.IsMasterClient)
@@ -119,6 +119,10 @@ namespace Assets.RummyScript.LamiGame
                     break;
                 case (int)LamiMessages.OnUserReady:
                     LamiPlayerMgr.Inst.OnUserReady(p.ActorNumber);
+                    break;
+                case (int)LamiMessages.OnUserReady_BOT:
+                    int id = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BOT_ID];
+                    LamiPlayerMgr.Inst.OnUserReady(id);
                     break;
                 case (int)LamiMessages.OnUserLeave_M:
                     if (PhotonNetwork.IsMasterClient)

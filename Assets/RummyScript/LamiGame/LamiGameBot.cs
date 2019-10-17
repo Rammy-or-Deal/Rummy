@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -39,7 +41,7 @@ namespace Assets.RummyScript.LamiGame
         }
         public void Init()
         {
-            status = (int)LamiPlayerStatus.Init;
+            status = (int)LamiPlayerStatus.Ready;
             id = -(Random.Range(1000, 9999));
             name = "Guest" + "[" + Random.Range(1000, 9999).ToString() + "]";
             pic = "new_avatar/avatar_" + Random.Range(1, 26).ToString();
@@ -90,7 +92,7 @@ namespace Assets.RummyScript.LamiGame
         }
         public void PublishMe()
         {
-            string infoString = "";
+            string infoString = "";            
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
                     id,
                     name,
@@ -108,6 +110,22 @@ namespace Assets.RummyScript.LamiGame
                 {Common.NEW_PLAYER_INFO, infoString},
                 {Common.NEW_PLAYER_STATUS, status},
                 {Common.IS_BOT, true}
+            };
+    
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);            
+
+            ReadyMessageSend();
+        }
+        async void ReadyMessageSend()
+        {
+            await Task.Delay(1000);
+            status = (int)LamiPlayerStatus.Ready;
+
+            Hashtable props = new Hashtable
+            {
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReady_BOT},
+                {Common.BOT_ID, id},
+                {Common.BOT_STATUS, status},
             };
     
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);

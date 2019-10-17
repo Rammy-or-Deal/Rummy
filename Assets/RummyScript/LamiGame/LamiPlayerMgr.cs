@@ -117,6 +117,9 @@ namespace Assets.RummyScript.LamiGame
         internal void OnCardDistributed()
         {
             var cardListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
+
+            LogMgr.Inst.Log("Card Distributed: " + cardListString, (int)LogLevels.PlayerLog2);
+
             var tmp = cardListString.Split('/');
 
             for (int i = 0; i < tmp.Length; i++)
@@ -130,7 +133,11 @@ namespace Assets.RummyScript.LamiGame
                 {
                     for (int j = 0; j < m_botList.Count; j++)
                     {
-                        m_botList[j].SetMyCards(tmp[i]);
+                        if (m_botList[j].id == tmpActor)
+                        {
+                            m_botList[j].SetMyCards(tmp[i]);
+                            break;
+                        }
                     }
                 }
             }
@@ -167,7 +174,7 @@ namespace Assets.RummyScript.LamiGame
             UIController.Inst.loadingDlg.gameObject.SetActive(false);
             PhotonNetwork.LoadLevel("3_PlayLami");
             Debug.Log("Joined Room and Lami Play started");
-            
+
             LamiMe.Inst.PublishMe();
         }
         internal void OnRoomSeatUpdate()
@@ -211,9 +218,19 @@ namespace Assets.RummyScript.LamiGame
         }
         internal void OnUserReady(int actornumber)
         {
-            int userSeat = GetUserSeat(actornumber);
-            m_playerList[userSeat].status = (int)LamiPlayerStatus.Ready;
-            m_playerList[userSeat].Show();
+            LogMgr.Inst.Log(actornumber + " Clicked Ready button.", (int)LogLevels.PlayerLog1);
+
+            for (int i = 0; i < m_playerList.Length; i++)
+            {
+                if (m_playerList[i].id == actornumber)
+                {
+                    m_playerList[i].status = (int)LamiPlayerStatus.Ready;
+                    m_playerList[i].canShow = true;
+                    m_playerList[i].Show();
+                    break;
+                }
+            }
+
 
             //Check if all players are ready
 
@@ -235,6 +252,7 @@ namespace Assets.RummyScript.LamiGame
                     };
                     PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
+                    LogMgr.Inst.Log("All players are ready.", (int)LogLevels.RoomLog1);
                     // Distribute all cards
                     LamiCardMgr.Inst.GenerateCard();
 
@@ -284,6 +302,7 @@ namespace Assets.RummyScript.LamiGame
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(botChangeString);
         }
+
         public void MakeOneBot()
         {
             // Check if there's empty seat
@@ -314,12 +333,13 @@ namespace Assets.RummyScript.LamiGame
                 }
             }
 
-            m_botList.Add(mBot);
+            mBot.PublishMe();
 
+            m_botList.Add(mBot);
             LogMgr.Inst.Log("Bot Created : " + mBot.getBotString(), (int)LogLevels.BotLog);
             SendBotListString();
 
-            mBot.PublishMe();
+
         }
 
         #endregion
