@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UnityEngine;
 
 namespace Assets.RummyScript.LamiGame
 {
@@ -14,8 +15,10 @@ namespace Assets.RummyScript.LamiGame
         public int number { get; set; }
         public int color { get; set; }
     }
-    public class LamiMe
+    public class LamiMe : MonoBehaviour
     {
+        public static LamiMe Inst;
+
         List<LamiMyCard> m_cardList = new List<LamiMyCard>(); // my cards
         List<LamiMyCard> sel_cards = new List<LamiMyCard>(); // selected cards
 
@@ -25,17 +28,21 @@ namespace Assets.RummyScript.LamiGame
         List<int> avail_lineList = new List<int>();
         LamiPlayerMgr parent;
 
-        int status = (int)LamiPlayerStatus.Init;
-        public LamiMe(LamiPlayerMgr parent)
-        {
-            this.parent = parent;
+        public int status;
+
+        private void Awake() {
+            if(!Inst)
+                Inst = this;
             status = (int)LamiPlayerStatus.Init;
         }
 
-        internal void SendMyInfo()
+        internal void PublishMe()
         {
             //data : 0:id, 1:name, 2:picUrl, 3:coinValue, 4:skillLevel, 5:frameId, 6:status
             //      format: id:name:picUrl:coinValue:skillLevel:frameId:status
+
+            LogMgr.Inst.Log("Publish Me Called. ", (int)LogLevels.MeLog);
+
             string infoString = "";
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
                     (int)PhotonNetwork.LocalPlayer.ActorNumber,
@@ -55,7 +62,7 @@ namespace Assets.RummyScript.LamiGame
             };
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-
+            LogMgr.Inst.Log("My Info stored in photon. " + infoString, (int)LogLevels.MeLog);
             // Send Add New player Message. - OnUserEnteredRoom
             props = new Hashtable
             {
@@ -64,7 +71,8 @@ namespace Assets.RummyScript.LamiGame
                 {Common.NEW_PLAYER_STATUS, status}
             };
 
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
         }
         public void SendMyStatus()
         {

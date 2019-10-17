@@ -11,7 +11,7 @@ namespace Assets.RummyScript.LamiGame
     public class LamiPlayerMgr : MonoBehaviour
     {
 
-        public LamiMe m_lamiMe;
+
         public LamiUserSeat[] m_playerList;
 
         public List<LamiGameBot> m_botList = new List<LamiGameBot>();
@@ -29,10 +29,12 @@ namespace Assets.RummyScript.LamiGame
         }
 
         #region Room Management functions
-        internal void OnUserEnteredRoom_M(int ActorNumber)
+        internal void OnUserEnteredRoom_M()
         {
             string newPlayerInfo = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NEW_PLAYER_INFO];
+            LogMgr.Inst.Log("New Player Info: " + newPlayerInfo, (int)LogLevels.MasterLog);
 
+            int ActorNumber = int.Parse(newPlayerInfo.Split(':')[0]);
             string seatString = "";
             if (!PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(Common.SEAT_STRING))    // If it's new room
             {
@@ -122,7 +124,7 @@ namespace Assets.RummyScript.LamiGame
                 int tmpActor = int.Parse(tmp[i].Split(':')[0]);
                 if (tmpActor == PhotonNetwork.LocalPlayer.ActorNumber)
                 {
-                    m_lamiMe.SetMyCards(tmp[i]);
+                    LamiMe.Inst.SetMyCards(tmp[i]);
                 }
                 if (tmpActor < 0)
                 {
@@ -165,14 +167,14 @@ namespace Assets.RummyScript.LamiGame
             UIController.Inst.loadingDlg.gameObject.SetActive(false);
             PhotonNetwork.LoadLevel("3_PlayLami");
             Debug.Log("Joined Room and Lami Play started");
-            m_lamiMe = new LamiMe(this);
-            m_lamiMe.SendMyInfo();
+            
+            LamiMe.Inst.PublishMe();
         }
         internal void OnRoomSeatUpdate()
         {
             string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
 
-            LogMgr.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
+            LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
             // Prepare seatNumList      - this is to remove unneeded for statement
             if (seatString != "")
                 seatNumList.Clear();
@@ -244,16 +246,17 @@ namespace Assets.RummyScript.LamiGame
         internal void OnBotInfoChanged()
         {
             string botListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BOT_LIST_STRING];
-
+            LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
             var tmp = botListString.Split(',');
             m_botList.Clear();
+
             for (int i = 0; i < tmp.Length; i++)
             {
                 LamiGameBot bot = new LamiGameBot(this);
                 bot.SetBotInfo(tmp[i]);
                 m_botList.Add(bot);
 
-                LogMgr.Log("Bot Created : " + bot.getBotString(), (int)LogLevels.BotLog);
+                LogMgr.Inst.Log("Bot Created : " + bot.getBotString(), (int)LogLevels.BotLog);
             }
         }
         internal void OnRemovedBot()
@@ -286,7 +289,7 @@ namespace Assets.RummyScript.LamiGame
             // Check if there's empty seat
             string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
 
-            LogMgr.Log("Check Users before making bot. ", (int)LogLevels.BotLog);
+            LogMgr.Inst.Log("Check Users before making bot. " + seatString, (int)LogLevels.BotLog);
 
             var tmp = seatString.Split(',');
             // if all seats are not empty, return.
@@ -313,10 +316,10 @@ namespace Assets.RummyScript.LamiGame
 
             m_botList.Add(mBot);
 
-            LogMgr.Log("Bot Created : " + mBot.getBotString(), (int)LogLevels.BotLog);
+            LogMgr.Inst.Log("Bot Created : " + mBot.getBotString(), (int)LogLevels.BotLog);
             SendBotListString();
 
-            mBot.SendMyInfo();
+            mBot.PublishMe();
         }
 
         #endregion

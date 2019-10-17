@@ -77,6 +77,8 @@ namespace Assets.RummyScript.LamiGame
 
         internal void SetBotInfo(string v)
         {
+            LogMgr.Inst.Log("Bot String: " + v, (int)LogLevels.BotLog);
+
             var tmp = v.Split(':');
             id = int.Parse(tmp[0]);
             name = tmp[1];
@@ -86,7 +88,7 @@ namespace Assets.RummyScript.LamiGame
             frameId = int.Parse(tmp[5]);
             status = int.Parse(tmp[6]);
         }
-        internal void SendMyInfo()
+        public void PublishMe()
         {
             string infoString = "";
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
@@ -104,10 +106,11 @@ namespace Assets.RummyScript.LamiGame
             {
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
                 {Common.NEW_PLAYER_INFO, infoString},
-                {Common.NEW_PLAYER_STATUS, status}
+                {Common.NEW_PLAYER_STATUS, status},
+                {Common.IS_BOT, true}
             };
     
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
         internal void SetMyCards(string cardString)
         {

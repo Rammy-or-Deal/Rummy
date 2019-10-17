@@ -10,6 +10,8 @@ enum LogLevels
     PlayerLog1,
     PlayerLog2,
     BotLog,
+    MasterLog,
+    MeLog,
 }
 
 public class LogMgr : MonoBehaviour
@@ -27,9 +29,11 @@ public class LogMgr : MonoBehaviour
         avail_logs.Add((int)LogLevels.PlayerLog1);
         avail_logs.Add((int)LogLevels.PlayerLog2);
         avail_logs.Add((int)LogLevels.BotLog);
+        avail_logs.Add((int)LogLevels.MasterLog);
+        avail_logs.Add((int)LogLevels.MeLog);
     }
     // Start is called before the first frame update
-    public static void Log(string log, int level = 0)
+    public void Log(string log, int level = 0)
     {
         if (avail_logs.Contains(level))
             Debug.Log(log);

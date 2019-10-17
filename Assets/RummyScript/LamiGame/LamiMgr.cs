@@ -40,9 +40,10 @@ namespace Assets.RummyScript.LamiGame
 
         private void Awake()
         {
+            Debug.Log("LamiMgr Created.");
+
             if (!DataController.Inst)
                 SceneManager.LoadScene("2_Lobby");
-
             if (!Inst)
                 Inst = this;
         }

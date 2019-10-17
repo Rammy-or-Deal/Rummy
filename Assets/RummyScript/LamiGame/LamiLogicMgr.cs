@@ -27,7 +27,7 @@ namespace Assets.RummyScript.LamiGame
             string roomName = "rummy_" + mTierIdx.ToString();
             bool isNewRoom = true;
 
-            LogMgr.Log("cachedRoom : " + PunController.Inst.cachedRoomList.Count);
+            LogMgr.Inst.Log("cachedRoom : " + PunController.Inst.cachedRoomList.Count);
 
             foreach (RoomInfo info in PunController.Inst.cachedRoomList.Values)
             {
@@ -88,7 +88,7 @@ namespace Assets.RummyScript.LamiGame
                 while (true)
                 {
                     yield return new WaitForSeconds(botWaitTime);
-                    LogMgr.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
+                    LogMgr.Inst.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
                     LamiPlayerMgr.Inst.MakeOneBot();
                 }
             }
@@ -97,7 +97,7 @@ namespace Assets.RummyScript.LamiGame
 
         public void OnMessageArrived(int message, Player p = null)
         {
-            LogMgr.Log(message + "");
+            LogMgr.Inst.Log("Message Arrived: " + (LamiMessages)message);
 
             switch (message)
             {
@@ -106,7 +106,7 @@ namespace Assets.RummyScript.LamiGame
                     break;
                 case (int)LamiMessages.OnUserEnteredRoom_M:
                     if (PhotonNetwork.IsMasterClient)
-                        LamiPlayerMgr.Inst.OnUserEnteredRoom_M(p.ActorNumber);
+                        LamiPlayerMgr.Inst.OnUserEnteredRoom_M();
                     break;
                 case (int)LamiMessages.OnRoomSeatUpdate:
                     LamiPlayerMgr.Inst.OnRoomSeatUpdate();
