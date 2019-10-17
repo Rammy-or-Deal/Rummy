@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.RummyScript.LamiGame
 {
-    public class LamiPanMgr
+    public class LamiPanMgr : MonoBehaviour
     {
         public List<LamiCardLine> m_cardLineList = new List<LamiCardLine>();
-        LamiMgr parent;
-        public LamiPanMgr(LamiMgr parent)
-        {
-            this.parent = parent;
+        
+        public static LamiPanMgr Inst;
+        private void Awake() {
+            if(!Inst)
+                Inst = this;
         }
         public void Add(string data)
         {

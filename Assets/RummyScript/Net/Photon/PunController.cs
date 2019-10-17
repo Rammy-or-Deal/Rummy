@@ -245,6 +245,7 @@ public class PunController : MonoBehaviourPunCallbacks
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
+            PhotonNetwork.LoadLevel("3_PlayLami");
             LamiMgr.Inst.SendMessage((int)LamiMessages.OnJoinSuccess);
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))

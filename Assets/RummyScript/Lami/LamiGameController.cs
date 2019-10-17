@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.RummyScript.LamiGame;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.Demo.Cockpit;
@@ -26,6 +27,7 @@ public class LamiGameController : MonoBehaviour
 
     void Awake()
     {
+        return;
         if (!DataController.Inst)
             SceneManager.LoadScene("2_Lobby");
 
@@ -35,6 +37,7 @@ public class LamiGameController : MonoBehaviour
 
     void Start()
     {
+        return;
         UIController.Inst.userInfoPanel.gameObject.SetActive(false);
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
         seatNumList = new Dictionary<int, int>();

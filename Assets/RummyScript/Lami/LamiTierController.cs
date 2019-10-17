@@ -5,27 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class LamiTierController : MonoBehaviour
 {
-    
+
     public GameObject[] mTiers;
     public GameObject[] mLamiDialogs;
-    
+
     public Transform userInfoPanel;
     public Transform moneyPanel;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-//        Debug.Log("roomCount:"+PunController.Inst.cachedRoomList.Count);
-//        position = aTransform.localPosition;
-//        rotation = aTransform.localRotation;
-//        localScale = aTransform.localScale;
-        UIController.Inst.loadingDlg.gameObject.SetActive(false);
+        //        Debug.Log("roomCount:"+PunController.Inst.cachedRoomList.Count);
+        //        position = aTransform.localPosition;
+        //        rotation = aTransform.localRotation;
+        //        localScale = aTransform.localScale;
+        try
+        {
+            UIController.Inst.loadingDlg.gameObject.SetActive(false);
+        }
+        catch { }
         UIController.Inst.userInfoPanel.gameObject.SetActive(true);
         UIController.Inst.moneyPanel.gameObject.SetActive(true);
         UIController.Inst.userInfoPanel.transform.position = userInfoPanel.position;
-        UIController.Inst.moneyPanel.transform.position= moneyPanel.position;
+        UIController.Inst.moneyPanel.transform.position = moneyPanel.position;
         UIController.Inst.userInfoPanel.transform.localScale = userInfoPanel.localScale;
-        UIController.Inst.moneyPanel.transform.localScale= moneyPanel.localScale;
+        UIController.Inst.moneyPanel.transform.localScale = moneyPanel.localScale;
     }
 
     public void OnClickBack()
@@ -42,14 +46,14 @@ public class LamiTierController : MonoBehaviour
             mLamiDialogs[idx].SetActive(true);
         }
     }
-    
+
     public void OnClickLamiTier(int type)
-    {        
-        Debug.Log("TierButton click:"+type+"  roomCount:"+PunController.Inst.cachedRoomList.Count);
+    {
+        Debug.Log("TierButton click:" + type + "  roomCount:" + PunController.Inst.cachedRoomList.Count);
         int idx = (int)type;
         if (idx < mTiers.Length)
         {
-            
+
             PunController.Inst.CreateOrJoinRoom(idx);
         }
     }

@@ -21,9 +21,12 @@ public class LogMgr : MonoBehaviour
     {
         if (!Inst)
             Inst = this;
-        avail_logs.Add(0);
-        avail_logs.Add(1);
-        avail_logs.Add(2);
+        avail_logs.Add((int)LogLevels.RoomLog1);
+        avail_logs.Add((int)LogLevels.RoomLog2);
+        avail_logs.Add((int)LogLevels.RoomLog3);
+        avail_logs.Add((int)LogLevels.PlayerLog1);
+        avail_logs.Add((int)LogLevels.PlayerLog2);
+        avail_logs.Add((int)LogLevels.BotLog);
     }
     // Start is called before the first frame update
     public static void Log(string log, int level = 0)

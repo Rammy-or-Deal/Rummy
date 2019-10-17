@@ -1,31 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.RummyScript.LamiGame;
 using Photon.Pun;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Assets.RummyScript.LamiGame
 {
-    public class LamiPlayerMgr
+    public class LamiPlayerMgr : MonoBehaviour
     {
+
         public LamiMe m_lamiMe;
-        public LamiPlayer[] m_playerList;
+        public LamiUserSeat[] m_playerList;
+
         public List<LamiGameBot> m_botList = new List<LamiGameBot>();
         public Dictionary<int, int> seatNumList;
-        public LamiMgr parent;
         string master_seatString = "";
-        public LamiPlayerMgr(LamiMgr parent)
+
+        public static LamiPlayerMgr Inst;
+        private void Awake()
         {
-            this.parent = parent;
-            seatNumList = new Dictionary<int, int>();
+            if (!Inst)
+            {
+                Inst = this;
+                seatNumList = new Dictionary<int, int>();
+            }
         }
 
         #region Room Management functions
-        internal void OnUserEnteredRoom_M()
+        internal void OnUserEnteredRoom_M(int ActorNumber)
         {
             string newPlayerInfo = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NEW_PLAYER_INFO];
-            int ActorNumber = int.Parse(newPlayerInfo.Split(':')[0]);
 
             string seatString = "";
             if (!PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(Common.SEAT_STRING))    // If it's new room
@@ -111,16 +117,16 @@ namespace Assets.RummyScript.LamiGame
             var cardListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
             var tmp = cardListString.Split('/');
 
-            for(int i = 0; i < tmp.Length; i++)
+            for (int i = 0; i < tmp.Length; i++)
             {
                 int tmpActor = int.Parse(tmp[i].Split(':')[0]);
-                if(tmpActor == PhotonNetwork.LocalPlayer.ActorNumber)
+                if (tmpActor == PhotonNetwork.LocalPlayer.ActorNumber)
                 {
                     m_lamiMe.SetMyCards(tmp[i]);
                 }
-                if(tmpActor < 0)
+                if (tmpActor < 0)
                 {
-                    for(int j = 0; j < m_botList.Count; j++)
+                    for (int j = 0; j < m_botList.Count; j++)
                     {
                         m_botList[j].SetMyCards(tmp[i]);
                     }
@@ -166,6 +172,7 @@ namespace Assets.RummyScript.LamiGame
         {
             string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
 
+            LogMgr.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
             // Prepare seatNumList      - this is to remove unneeded for statement
             if (seatString != "")
                 seatNumList.Clear();
@@ -274,10 +281,13 @@ namespace Assets.RummyScript.LamiGame
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(botChangeString);
         }
-        void MakeOneBot()
+        public void MakeOneBot()
         {
             // Check if there's empty seat
             string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+
+            LogMgr.Log("Check Users before making bot. ", (int)LogLevels.BotLog);
+
             var tmp = seatString.Split(',');
             // if all seats are not empty, return.
             if (tmp.Length >= 4) return;
@@ -295,7 +305,7 @@ namespace Assets.RummyScript.LamiGame
                     if (mBot.id == m_botList[i].id)
                         isIdSet = false;
                 }
-                if (isIdSet == false)
+                if (isIdSet == true)
                 {
                     mBot.id = -(UnityEngine.Random.Range(1000, 9999));
                 }

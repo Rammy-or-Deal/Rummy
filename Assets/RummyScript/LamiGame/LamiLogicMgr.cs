@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
@@ -8,12 +9,14 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Assets.RummyScript.LamiGame
 {
-    public class LamiLogicMgr
+    public class LamiLogicMgr : MonoBehaviour
     {
-        LamiMgr parent;
-        public LamiLogicMgr(LamiMgr parent)
+        public static LamiLogicMgr Inst;
+
+        private void Awake()
         {
-            this.parent = parent;
+            if (!Inst)
+                Inst = this;
         }
 
         #region Join Or Create Room
@@ -64,6 +67,34 @@ namespace Assets.RummyScript.LamiGame
 
         #endregion
 
+        private void Start()
+        {
+            UIController.Inst.userInfoPanel.gameObject.SetActive(false);
+            UIController.Inst.moneyPanel.gameObject.SetActive(false);
+            //        ShowPlayers();
+            LamiCountdownTimer.Inst.StartTimer();
+
+            StartCoroutine(CreateBot());
+
+        }
+        #region Creating Bot
+
+        public IEnumerator CreateBot()
+        {
+            if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                int botWaitTime = UnityEngine.Random.RandomRange(5, 10);
+
+                while (true)
+                {
+                    yield return new WaitForSeconds(botWaitTime);
+                    LogMgr.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
+                    LamiPlayerMgr.Inst.MakeOneBot();
+                }
+            }
+        }
+        #endregion
+
         public void OnMessageArrived(int message, Player p = null)
         {
             LogMgr.Log(message + "");
@@ -71,33 +102,34 @@ namespace Assets.RummyScript.LamiGame
             switch (message)
             {
                 case (int)LamiMessages.OnJoinSuccess:
-                    parent.playerMgr.OnJoinSuccess();
+                    LamiPlayerMgr.Inst.OnJoinSuccess();
                     break;
                 case (int)LamiMessages.OnUserEnteredRoom_M:
                     if (PhotonNetwork.IsMasterClient)
-                        parent.playerMgr.OnUserEnteredRoom_M();
+                        LamiPlayerMgr.Inst.OnUserEnteredRoom_M(p.ActorNumber);
                     break;
                 case (int)LamiMessages.OnRoomSeatUpdate:
-                    parent.playerMgr.OnRoomSeatUpdate();
+                    LamiPlayerMgr.Inst.OnRoomSeatUpdate();
                     break;
                 case (int)LamiMessages.OnRemovedBot:
-                    parent.playerMgr.OnRemovedBot();
+                    LamiPlayerMgr.Inst.OnRemovedBot();
                     break;
                 case (int)LamiMessages.OnBotInfoChanged:
-                    parent.playerMgr.OnBotInfoChanged();
+                    LamiPlayerMgr.Inst.OnBotInfoChanged();
                     break;
                 case (int)LamiMessages.OnUserReady:
-                    parent.playerMgr.OnUserReady(p.ActorNumber);
+                    LamiPlayerMgr.Inst.OnUserReady(p.ActorNumber);
                     break;
                 case (int)LamiMessages.OnUserLeave_M:
                     if (PhotonNetwork.IsMasterClient)
-                        parent.playerMgr.OnUserLeave(p.ActorNumber);
+                        LamiPlayerMgr.Inst.OnUserLeave(p.ActorNumber);
                     break;
                 case (int)LamiMessages.OnStartGame:
-                    parent.playerMgr.OnStartGame();
+                    StopCoroutine(CreateBot());
+                    LamiPlayerMgr.Inst.OnStartGame();
                     break;
                 case (int)LamiMessages.OnCardDistributed:
-                    parent.playerMgr.OnCardDistributed();
+                    LamiPlayerMgr.Inst.OnCardDistributed();
                     break;
             }
         }

@@ -27,8 +27,7 @@ public class LobbyController : MonoBehaviour
 //       SceneManager.LoadScene("2_Lami");
 //         PunController.Inst.StartLamiTier();   
         UIController.Inst.loadingDlg.gameObject.SetActive(true);
-         PhotonNetwork.LoadLevel("2_Lami");
-        
+        PhotonNetwork.LoadLevel("2_Lami");        
     }
     
     public void OnClickBaccarat()
