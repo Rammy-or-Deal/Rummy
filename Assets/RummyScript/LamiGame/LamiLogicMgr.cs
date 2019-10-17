@@ -13,7 +13,7 @@ namespace Assets.RummyScript.LamiGame
         LamiMgr parent;
         public LamiLogicMgr(LamiMgr parent)
         {
-            this.parent = parent;                    
+            this.parent = parent;
         }
 
         #region Join Or Create Room
@@ -23,7 +23,7 @@ namespace Assets.RummyScript.LamiGame
             int mTierIdx = tierIdx;
             string roomName = "rummy_" + mTierIdx.ToString();
             bool isNewRoom = true;
-            
+
             LogMgr.Log("cachedRoom : " + PunController.Inst.cachedRoomList.Count);
 
             foreach (RoomInfo info in PunController.Inst.cachedRoomList.Values)
@@ -64,8 +64,10 @@ namespace Assets.RummyScript.LamiGame
 
         #endregion
 
-        public void OnMessageArrived(int message)
+        public void OnMessageArrived(int message, Player p = null)
         {
+            LogMgr.Log(message + "");
+
             switch (message)
             {
                 case (int)LamiMessages.OnJoinSuccess:
@@ -83,6 +85,19 @@ namespace Assets.RummyScript.LamiGame
                     break;
                 case (int)LamiMessages.OnBotInfoChanged:
                     parent.playerMgr.OnBotInfoChanged();
+                    break;
+                case (int)LamiMessages.OnUserReady:
+                    parent.playerMgr.OnUserReady(p.ActorNumber);
+                    break;
+                case (int)LamiMessages.OnUserLeave_M:
+                    if (PhotonNetwork.IsMasterClient)
+                        parent.playerMgr.OnUserLeave(p.ActorNumber);
+                    break;
+                case (int)LamiMessages.OnStartGame:
+                    parent.playerMgr.OnStartGame();
+                    break;
+                case (int)LamiMessages.OnCardDistributed:
+                    parent.playerMgr.OnCardDistributed();
                     break;
             }
         }

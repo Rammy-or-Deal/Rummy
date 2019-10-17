@@ -245,10 +245,9 @@ public class PunController : MonoBehaviourPunCallbacks
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            LamiMgr.Inst.SendMessage((int) LamiMessages.OnJoinSuccess);
+            LamiMgr.Inst.SendMessage((int)LamiMessages.OnJoinSuccess);
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-
         {
             PhotonNetwork.LoadLevel("3_PlayBaccarat");
             Hashtable props = new Hashtable
@@ -270,44 +269,6 @@ public class PunController : MonoBehaviourPunCallbacks
         //        turnProps[Common.Game_START] = false;
         //        PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
 
-    }
-
-
-    private void RemoveBotString(int removed_bot_id)
-    {
-
-        string botListString = "";
-        try
-        {
-            botListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BOT_LIST_STRING];
-        }
-        catch { }
-
-        var bots = botListString.Split(',');
-        for (int i = 0; i < bots.Length; i++)
-        {
-            var items = bots[i].Split(':');
-            if (items[0] == removed_bot_id + "")
-            {
-                bots[i] = "";
-            }
-        }
-        string botString = "";
-        for (int i = 0; i < bots.Length; i++)
-        {
-            if (bots[i] != "")
-            {
-                botString += bots[i] + ",";
-            }
-        }
-        botString = botString.Trim(',');
-
-        Hashtable props = new Hashtable
-        {
-            {Common.BOT_LIST_STRING, botString},
-        };
-
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -346,7 +307,7 @@ public class PunController : MonoBehaviourPunCallbacks
         Debug.Log(newPlayer.NickName + "   Entered");
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            LamiGameController.Inst.NewPlayerEnteredRoom(newPlayer);
+            //LamiGameController.Inst.NewPlayerEnteredRoom(newPlayer);
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
@@ -361,7 +322,8 @@ public class PunController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            LamiGameController.Inst.OtherPlayerLeftRoom(otherPlayer);
+            //LamiGameController.Inst.OtherPlayerLeftRoom(otherPlayer);
+            LamiMgr.Inst.SendMessage((int)LamiMessages.OnUserLeave_M, otherPlayer);
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
@@ -381,20 +343,9 @@ public class PunController : MonoBehaviourPunCallbacks
         Debug.Log("OnPlayerPropertiesUpdate : " + otherPlayer.NickName);
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            if (hashtable.ContainsKey(Common.eventID_player))
+            if (hashtable.ContainsKey(Common.LAMI_MESSAGE))
             {
-                switch ((int)hashtable[Common.eventID_player])
-                {
-                    case 10:    // Click Ready Button
-                        LamiGameController.Inst.OnPlayerReadyClicked(otherPlayer, hashtable);
-                        break;
-
-                }
-            }
-            else
-            {
-                LamiGameController.Inst.PlayerPropertiesUpdate(otherPlayer, hashtable);
-                LamiGameUIManager.Inst.PlayerCardUpdate(otherPlayer, hashtable);
+                LamiMgr.Inst.SendMessage((int)hashtable[Common.LAMI_MESSAGE], otherPlayer);
             }
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
@@ -407,23 +358,11 @@ public class PunController : MonoBehaviourPunCallbacks
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
         Debug.Log("On Room Properties Update called.");
-        if (propertiesThatChanged.ContainsKey(Common.eventID_room))
+        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            Debug.Log("EventID exist" + (int)propertiesThatChanged[Common.eventID_room]);
-            switch ((int)propertiesThatChanged[Common.eventID_room])
+            if (propertiesThatChanged.ContainsKey(Common.LAMI_MESSAGE))
             {
-                case 11: //11: Player Joined
-                    Debug.Log("Room Event Player Joined.");
-                    LamiGameController.Inst.RoomPropertiesUpdate(propertiesThatChanged);
-                    break;
-                //case 21: // 21: Bot Added
-                //    LamiGameController.Inst.OnBotAdd(propertiesThatChanged);
-                //    break;
-                case 22:    // 22: Bot List Changed
-                    LamiGameController.Inst.OnBotListChanged(propertiesThatChanged);
-                    break;
-                case 23:    // 23: Bot Remove
-                    break;
+                LamiMgr.Inst.SendMessage((int)propertiesThatChanged[Common.LAMI_MESSAGE]);
             }
         }
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 
@@ -22,7 +24,10 @@ enum LamiMessages{
     OnGameFinished=19,         // When all players are unable to play
     OnUserReady=20,            // When a user clicks "Ready" button
     OnBotInfoChanged=21,       // When the bot is changed
-    OnRemovedBot = 22,
+    OnRemovedBot = 22,          // When the bot is removed
+    OnUserLeave_M = 23,           // When the user left the room
+    OnStartGame = 24,           // When this game can start
+    OnCardDistributed = 25,     // When the card is distributed
 }
 
 namespace Assets.RummyScript.LamiGame
@@ -44,9 +49,9 @@ namespace Assets.RummyScript.LamiGame
             panMgr = new LamiPanMgr(this);
         }
             
-        public void SendMessage(int messageId)
+        public void SendMessage(int messageId, Player p = null)
         {
-            logicMgr.OnMessageArrived(messageId);
+            logicMgr.OnMessageArrived(messageId, p);
         }
     }
 }

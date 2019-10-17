@@ -66,20 +66,35 @@ namespace Assets.RummyScript.LamiGame
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
+        public void SendMyStatus()
+        {
+            Hashtable props = new Hashtable{
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReady},
+                {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
+                {Common.PLAYER_STATUS, status}
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
-        /************************* */
+        }
+        public void OnReadyButtonClicked()
+        {
+            status = (int)LamiPlayerStatus.Ready;
+            SendMyStatus();
+        }
 
         public void SetMyCards(string data)
         {
-            var cards = data.Split(',');
-            // data format: color:number,color:number,...
+            var cards = LamiCardMgr.ConvertCardStrToCardList(data);
             for (int i = 0; i < cards.Length; i++)
             {
-                var tmp = cards[i].Split(':');
-                LamiMyCard card = new LamiMyCard(int.Parse(tmp[0]), int.Parse(tmp[1]));
-                m_cardList.Add(card);
+                m_cardList.Add(new LamiMyCard(cards[i].color, cards[i].num));                
             }
+            for( int i = 0; i < m_cardList.Count; i++)
+                m_cardList[i].Show();
         }
+        /************************* */
+
+
 
         //get selected cards are SET
         private bool IsSelSet()
@@ -494,5 +509,7 @@ namespace Assets.RummyScript.LamiGame
                     break;
             }
         }
+
+
     }
 }

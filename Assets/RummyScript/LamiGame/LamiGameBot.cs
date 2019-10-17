@@ -7,8 +7,8 @@ namespace Assets.RummyScript.LamiGame
 {
     public class LamiGameBot
     {
-        List<tmpCard> m_cardList = new List<tmpCard>(); // my cards
-        List<tmpCard> remained = new List<tmpCard>(); // selected cards
+        Card[] m_cardList; // my cards
+        Card [] remained; // selected cards
         public int id;
         public string name = "";
         public string pic;
@@ -109,7 +109,10 @@ namespace Assets.RummyScript.LamiGame
     
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
-
+        internal void SetMyCards(string cardString)
+        {
+            m_cardList = LamiCardMgr.ConvertCardStrToCardList(cardString);
+        }
         /*************************************************** */
     }
 }

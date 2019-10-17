@@ -21,11 +21,12 @@ namespace Assets.RummyScript.LamiGame
             seatNumList = new Dictionary<int, int>();
         }
 
+        #region Room Management functions
         internal void OnUserEnteredRoom_M()
         {
             string newPlayerInfo = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NEW_PLAYER_INFO];
             int ActorNumber = int.Parse(newPlayerInfo.Split(':')[0]);
-            
+
             string seatString = "";
             if (!PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(Common.SEAT_STRING))    // If it's new room
             {
@@ -105,6 +106,54 @@ namespace Assets.RummyScript.LamiGame
             PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
         }
 
+        internal void OnCardDistributed()
+        {
+            var cardListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
+            var tmp = cardListString.Split('/');
+
+            for(int i = 0; i < tmp.Length; i++)
+            {
+                int tmpActor = int.Parse(tmp[i].Split(':')[0]);
+                if(tmpActor == PhotonNetwork.LocalPlayer.ActorNumber)
+                {
+                    m_lamiMe.SetMyCards(tmp[i]);
+                }
+                if(tmpActor < 0)
+                {
+                    for(int j = 0; j < m_botList.Count; j++)
+                    {
+                        m_botList[j].SetMyCards(tmp[i]);
+                    }
+                }
+            }
+        }
+
+        internal void OnUserLeave(int actorNumber)
+        {
+            string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+            var tmp = seatString.Split(',');
+            seatString = "";
+
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                int tmpActor = int.Parse(tmp[i].Split(':')[0]);
+                if (actorNumber != tmpActor)
+                {
+                    seatString += tmp[i] + ",";
+                }
+            }
+            seatString = seatString.Trim(',');
+            // Send RoomUpdate Messages to all players.
+            Debug.Log("SeatString updated: " + seatString);
+            Hashtable turnProps = new Hashtable
+                {
+                    {Common.LAMI_MESSAGE, (int)LamiMessages.OnRoomSeatUpdate},
+                    {Common.SEAT_STRING, seatString},
+                };
+            master_seatString = seatString;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
+        }
+
         internal void OnJoinSuccess()
         {
             UIController.Inst.loadingDlg.gameObject.SetActive(false);
@@ -142,24 +191,46 @@ namespace Assets.RummyScript.LamiGame
                 m_playerList[i].Show();
         }
 
-        private int GetUserSeat(int seatNo_in_seatString)
+        #endregion
+        internal void OnStartGame()
         {
+            for (int i = 0; i < m_playerList.Length; i++)
+            {
+                m_playerList[i].status = (int)LamiPlayerStatus.Init;
+                m_playerList[i].Show();
+            }
+        }
+        internal void OnUserReady(int actornumber)
+        {
+            int userSeat = GetUserSeat(actornumber);
+            m_playerList[userSeat].status = (int)LamiPlayerStatus.Ready;
+            m_playerList[userSeat].Show();
 
-            int seatPos;
-            if (seatNo_in_seatString == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
-            {
-                seatPos = 0;
-            }
-            else if (seatNo_in_seatString > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
-            {
-                seatPos = seatNo_in_seatString - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber];
-            }
-            else
-            {
-                seatPos = 4 - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + seatNo_in_seatString;
-            }
+            //Check if all players are ready
 
-            return seatPos;
+            int readyUsers = 0;
+            for (int i = 0; i < m_playerList.Length; i++)
+            {
+                if (m_playerList[i].canShow && m_playerList[i].status == (int)LamiPlayerStatus.Ready)
+                {
+                    readyUsers++;
+                }
+            }
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (readyUsers == 4) // if All users are ready and there are 4 users, send StartGame message
+                {
+                    // Send Game Start Message
+                    Hashtable props = new Hashtable{
+                        {Common.LAMI_MESSAGE, (int)LamiMessages.OnStartGame}
+                    };
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+
+                    // Distribute all cards
+                    LamiCardMgr.Inst.GenerateCard();
+
+                }
+            }
         }
 
         #region  Bot Section
@@ -208,36 +279,56 @@ namespace Assets.RummyScript.LamiGame
             // Check if there's empty seat
             string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
             var tmp = seatString.Split(',');
-                    // if all seats are not empty, return.
-            if(tmp.Length >= 4) return;
+            // if all seats are not empty, return.
+            if (tmp.Length >= 4) return;
 
             // Create a bot
             LamiGameBot mBot = new LamiGameBot(this);
             mBot.Init();
             bool isIdSet = false;
 
-            while(isIdSet == false)
+            while (isIdSet == false)
             {
                 isIdSet = true;
-                for(int i = 0; i < m_botList.Count; i++)
+                for (int i = 0; i < m_botList.Count; i++)
                 {
-                    if(mBot.id == m_botList[i].id)
+                    if (mBot.id == m_botList[i].id)
                         isIdSet = false;
                 }
-                if(isIdSet == false)
+                if (isIdSet == false)
                 {
                     mBot.id = -(UnityEngine.Random.Range(1000, 9999));
                 }
             }
 
-            mBot.SendMyInfo();
-            
-            m_botList.Add(mBot);            
+            m_botList.Add(mBot);
 
             LogMgr.Log("Bot Created : " + mBot.getBotString(), (int)LogLevels.BotLog);
             SendBotListString();
+
+            mBot.SendMyInfo();
         }
 
         #endregion
+
+        private int GetUserSeat(int seatNo_in_seatString)
+        {
+
+            int seatPos;
+            if (seatNo_in_seatString == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+            {
+                seatPos = 0;
+            }
+            else if (seatNo_in_seatString > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+            {
+                seatPos = seatNo_in_seatString - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber];
+            }
+            else
+            {
+                seatPos = 4 - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + seatNo_in_seatString;
+            }
+
+            return seatPos;
+        }
     }
 }

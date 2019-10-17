@@ -1,3 +1,5 @@
+using System;
+
 namespace Assets.RummyScript.LamiGame
 {
     public class LamiMyCard
@@ -33,6 +35,11 @@ namespace Assets.RummyScript.LamiGame
         public void OnClick()
         {
             isSelected = (!isSelected);
+        }
+
+        internal void Show()
+        {
+            
         }
     }
 }

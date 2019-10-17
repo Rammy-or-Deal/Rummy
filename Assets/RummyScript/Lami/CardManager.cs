@@ -9,17 +9,17 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class Card
-{
-    public int num;
-    public int color;
+// public class Card
+// {
+//     public int num;
+//     public int color;
 
-    public Card(int num0, int color0)
-    {
-        num = num0;
-        color = color0;
-    }
-}
+//     public Card(int num0, int color0)
+//     {
+//         num = num0;
+//         color = color0;
+//     }
+// }
 public class CardManager : MonoBehaviour
 {
     public const int JokerNum = 0;
