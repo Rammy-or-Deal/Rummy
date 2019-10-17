@@ -5,8 +5,6 @@ using Photon.Pun;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-namespace Assets.RummyScript.LamiGame
-{
     public class LamiGameBot
     {
         Card[] m_cardList; // my cards
@@ -136,4 +134,3 @@ namespace Assets.RummyScript.LamiGame
         }
         /*************************************************** */
     }
-}

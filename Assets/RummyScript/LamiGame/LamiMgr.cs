@@ -32,26 +32,22 @@ enum LamiMessages
     OnStartGame,           // When this game can start
     OnCardDistributed,     // When the card is distributed
 }
-
-namespace Assets.RummyScript.LamiGame
+public class LamiMgr : MonoBehaviour
 {
-    public class LamiMgr : MonoBehaviour
+    public static LamiMgr Inst;
+
+    private void Awake()
     {
-        public static LamiMgr Inst;
+        Debug.Log("LamiMgr Created.");
 
-        private void Awake()
-        {
-            Debug.Log("LamiMgr Created.");
+        if (!DataController.Inst)
+            SceneManager.LoadScene("2_Lobby");
+        if (!Inst)
+            Inst = this;
+    }
 
-            if (!DataController.Inst)
-                SceneManager.LoadScene("2_Lobby");
-            if (!Inst)
-                Inst = this;
-        }
-
-        public void SendMessage(int messageId, Player p = null)
-        {
-            LamiLogicMgr.Inst.OnMessageArrived(messageId, p);
-        }
+    public void SendMessage(int messageId, Player p = null)
+    {
+        LamiLogicMgr.Inst.OnMessageArrived(messageId, p);
     }
 }

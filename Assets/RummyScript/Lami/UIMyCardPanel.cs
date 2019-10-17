@@ -26,7 +26,7 @@ public class UIMyCardPanel : MonoBehaviour
             LamiMyCard cardEntry = myCards[i];
             cardEntry.num = cards[i].num;
             cardEntry.color = cards[i].color;
-            cardEntry.UpdateValue();
+            //cardEntry.UpdateValue();
         }
 
         gameObject.SetActive(true);
@@ -40,6 +40,8 @@ public class UIMyCardPanel : MonoBehaviour
 //            LamiGameUIManager.Inst.AddGameCard(card);
 //        }
 
+
+/*
         string cardStr = CardManager.ConvertSelectedListToString(selectedCards);
         int remainCard = RemainCards();
         Hashtable gameCards = new Hashtable
@@ -53,6 +55,7 @@ public class UIMyCardPanel : MonoBehaviour
         PhotonNetwork.LocalPlayer.SetCustomProperties(gameCards);
         Debug.Log("deal cards");
         RemoveCards();
+        */
     }
 
     public void RemoveCards()
@@ -60,7 +63,7 @@ public class UIMyCardPanel : MonoBehaviour
         foreach (LamiMyCard card in selectedCards)
         {
             myCards.Remove(card);
-            card.gameObject.SetActive(false);
+            //card.gameObject.SetActive(false);
         }
         selectedCards.Clear();
     }

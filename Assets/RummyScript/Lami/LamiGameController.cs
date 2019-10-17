@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.RummyScript.LamiGame;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.Demo.Cockpit;
@@ -226,7 +225,7 @@ public class LamiGameController : MonoBehaviour
         PhotonNetwork.CurrentRoom.IsVisible = false;
         Debug.Log("Game started");
         isStartedGame = true;
-        CardManager.Inst.GenerateCard();
+        //CardManager.Inst.GenerateCard();
     }
 
 
@@ -357,7 +356,7 @@ public class LamiGameController : MonoBehaviour
         {
             Debug.Log("cardList" + (string) cardList);
             int seat_id = seatNumList[otherPlayer.ActorNumber];
-            Card[] cards =
+           /* Card[] cards =
                 CardManager.Inst.ReceivedCardList(seat_id, CardManager.ConvertCardStrToCardList((string) cardList));
 
             if (seat_id == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
@@ -383,6 +382,7 @@ public class LamiGameController : MonoBehaviour
             seat.mAceJokerPanel.SetActive(true);
             seat.mAceValue.text = CardManager.Inst.GetACount(seat_id).ToString();
             seat.mJokerValue.text = CardManager.Inst.GetJokerCount(seat_id).ToString();
+            */
         }
     }
 

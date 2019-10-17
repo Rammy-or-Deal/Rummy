@@ -1,45 +1,43 @@
 using System;
 
-namespace Assets.RummyScript.LamiGame
+public class LamiMyCard
 {
-    public class LamiMyCard
+    public int color;
+    public int number;
+    public int num;
+    private LamiMe lamiMe;
+
+    public bool isSelected; //LamiMe => false: normal, true:selected
+
+    int x;
+    int y;
+
+    public LamiMyCard(int color, int number)
     {
-        public int color;
-        public int number;
-        private LamiMe lamiMe;
+        this.color = color;
+        this.number = number;
+        isSelected = false;
+    }
 
-        public bool isSelected; //LamiMe => false: normal, true:selected
+    public string getImage()
+    {
 
-        int x;
-        int y;
+        string res = "";
+        res = string.Format("new_card/card_{0}_{1}", color, number);
+        if (number < 0)
+            res = string.Format("new_card/card_{0}_{1}", 0, 0);
 
-        public LamiMyCard(int color, int number)
-        {
-            this.color = color;
-            this.number = number;
-            isSelected = false;
-        }
+        return res;
+    }
 
-        public string getImage()
-        {
-            
-            string res = "";
-            res = string.Format("new_card/card_{0}_{1}", color, number);
-            if (number < 0)
-                res = string.Format("new_card/card_{0}_{1}", 0, 0);
+    // If card clicked, call LamiMe.OnSelectedCard() 
+    public void OnClick()
+    {
+        isSelected = (!isSelected);
+    }
 
-            return res;
-        }
+    internal void Show()
+    {
 
-        // If card clicked, call LamiMe.OnSelectedCard() 
-        public void OnClick()
-        {
-            isSelected = (!isSelected);
-        }
-
-        internal void Show()
-        {
-            
-        }
     }
 }
