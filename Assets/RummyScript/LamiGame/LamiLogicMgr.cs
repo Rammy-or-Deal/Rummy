@@ -82,11 +82,11 @@ public class LamiLogicMgr : MonoBehaviour
     {
 
         int botWaitTime = UnityEngine.Random.RandomRange(5, 10);
-
-        while (!isStart)
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            while (!isStart)
             {
+
                 yield return new WaitForSeconds(botWaitTime);
                 LogMgr.Inst.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
                 LamiPlayerMgr.Inst.MakeOneBot();

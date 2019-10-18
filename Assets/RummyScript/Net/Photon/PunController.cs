@@ -245,6 +245,7 @@ public class PunController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
             //UnityEngine.SceneManagement.SceneManager.LoadScene("3_PlayLami");
+            Debug.Log("Join Success");
             PhotonNetwork.LoadLevel("3_PlayLami");
             
             /*string infoString = "";
