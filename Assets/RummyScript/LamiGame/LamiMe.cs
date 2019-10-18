@@ -7,15 +7,13 @@ using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine;
 
-public class tmpCard
-{   // This is temp class for MyCard
-    public int MyCardId { get; set; }
-    public int number { get; set; }
-    public int color { get; set; }
-}
+
 public class LamiMe : MonoBehaviour
 {
     public static LamiMe Inst;
+
+    List<Card> original_cardList = new List<Card>(); // selected cards
+    List<Card> remained_cardList = new List<Card>(); // selected cards
 
     List<LamiMyCard> m_cardList = new List<LamiMyCard>(); // my cards
     List<LamiMyCard> sel_cards = new List<LamiMyCard>(); // selected cards
@@ -63,7 +61,7 @@ public class LamiMe : MonoBehaviour
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         LogMgr.Inst.Log("My Info stored in photon. " + infoString, (int)LogLevels.MeLog);
         // Send Add New player Message. - OnUserEnteredRoom
-        
+
         props = new Hashtable
             {
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
@@ -73,7 +71,7 @@ public class LamiMe : MonoBehaviour
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
-        
+
     }
     public void SendMyStatus()
     {
@@ -93,16 +91,20 @@ public class LamiMe : MonoBehaviour
 
     public void SetMyCards(string data)
     {
-        /*
-        var cards = LamiCardMgr.ConvertCardStrToCardList(data);
+        Card[] cards = LamiCardMgr.ConvertCardStrToCardList((string)data);
+
+        LamiGameUIManager.Inst.myCardPanel.InitCards(cards);
+        LamiGameUIManager.Inst.InitButtonsFirst();
+
+        original_cardList.Clear();
+        remained_cardList.Clear();
         for (int i = 0; i < cards.Length; i++)
         {
-            m_cardList.Add(new LamiMyCard(cards[i].color, cards[i].num));
+            remained_cardList.Add(cards[i]);
+            original_cardList.Add(cards[i]);
         }
-        for (int i = 0; i < m_cardList.Count; i++)
-            m_cardList[i].Show();
-            */
     }
+
     /************************* */
 
 
@@ -289,6 +291,7 @@ public class LamiMe : MonoBehaviour
     public void GetAvaiableCards()  // Get the cards we can deal.
     {
 
+/*
         // Get Continuous Cards (without JOKER)
         List<List<tmpCard>> continue_List = new List<List<tmpCard>>();
         for (int c = 0; c < 4; c++)
@@ -342,128 +345,125 @@ public class LamiMe : MonoBehaviour
             if (alreadyIn)
                 same_List.Add(list);
         }
-
+*/
         // 
     }
 
 
 
-    private List<tmpCard> GetContinueCard(int first, int c)
+    private List<Card> GetContinueCard(int first, int c)
     {
-        List<tmpCard> res = new List<tmpCard>();
-        for (int i = first; i <= 13; i++)
-        {
-            bool isFound = false;
-            for (int j = 0; j < m_cardList.Count; j++)
-            {
-                if (m_cardList[j].color == c && m_cardList[j].num == i)
-                {
-                    tmpCard card = new tmpCard();
-                    card.MyCardId = j;
-                    card.number = i;
-                    card.color = c;
-                    res.Add(card);
-                    isFound = true;
-                    break;
-                }
-            }
-            if (isFound != true)
-            {
-                break;
-            }
-        }
+        
+        List<Card> res = new List<Card>();
+        // for (int i = first; i <= 13; i++)
+        // {
+        //     bool isFound = false;
+        //     for (int j = 0; j < m_cardList.Count; j++)
+        //     {
+        //         if (m_cardList[j].color == c && m_cardList[j].num == i)
+        //         {
+        //             Card card = new Card();
+        //             card.MyCardId = j;
+        //             card.number = i;
+        //             card.color = c;
+        //             res.Add(card);
+        //             isFound = true;
+        //             break;
+        //         }
+        //     }
+        //     if (isFound != true)
+        //     {
+        //         break;
+        //     }
+        // }
         return res;
     }
 
-    private List<tmpCard> ArrangeWithColor() // Get Arranged CardList
+    private List<Card> ArrangeWithColor() // Get Arranged CardList
     {
-        List<tmpCard> resList = new List<tmpCard>();
+        List<Card> resList = new List<Card>();
 
-        for (int i = 0; i < m_cardList.Count; i++)
-        {
-            tmpCard item = new tmpCard();
-            item.MyCardId = i;
-            item.number = m_cardList[i].num;
-            item.color = m_cardList[i].color;
-            resList.Add(item);
-        }
+        // for (int i = 0; i < m_cardList.Count; i++)
+        // {
+        //     Card item = new Card();
+        //     item.MyCardId = i;
+        //     item.number = m_cardList[i].num;
+        //     item.color = m_cardList[i].color;
+        //     resList.Add(item);
+        // }
 
-        tmpCard[] array = resList.ToArray();
-        resList.Clear();
-        for (int i = 0; i < array.Length - 1; i++)
-        {
-            for (int j = i + 1; j < array.Length; j++)
-            {
-                if (Math.Abs(array[i].number) > Math.Abs(array[j].number))
-                {
-                    int MyCardId, number, color;
-                    MyCardId = array[i].MyCardId; color = array[i].color; number = array[i].number;
-                    array[i].MyCardId = array[j].MyCardId; array[i].color = array[j].color; array[i].number = array[j].number;
-                    array[j].MyCardId = MyCardId; array[j].color = color; array[j].number = number;
-                }
-            }
-        }
+        // Card[] array = resList.ToArray();
+        // resList.Clear();
+        // for (int i = 0; i < array.Length - 1; i++)
+        // {
+        //     for (int j = i + 1; j < array.Length; j++)
+        //     {
+        //         if (Math.Abs(array[i].number) > Math.Abs(array[j].number))
+        //         {
+        //             int MyCardId, number, color;
+        //             MyCardId = array[i].MyCardId; color = array[i].color; number = array[i].number;
+        //             array[i].MyCardId = array[j].MyCardId; array[i].color = array[j].color; array[i].number = array[j].number;
+        //             array[j].MyCardId = MyCardId; array[j].color = color; array[j].number = number;
+        //         }
+        //     }
+        // }
 
-        for (int i = 0; i < array.Length - 1; i++)
-        {
-            for (int j = i + 1; j < array.Length; j++)
-            {
-                if (Math.Abs(array[i].color) > Math.Abs(array[j].color))
-                {
-                    int MyCardId, number, color;
-                    MyCardId = array[i].MyCardId; color = array[i].color; number = array[i].number;
-                    array[i].MyCardId = array[j].MyCardId; array[i].color = array[j].color; array[i].number = array[j].number;
-                    array[j].MyCardId = MyCardId; array[j].color = color; array[j].number = number;
-                }
-            }
-        }
-
-
+        // for (int i = 0; i < array.Length - 1; i++)
+        // {
+        //     for (int j = i + 1; j < array.Length; j++)
+        //     {
+        //         if (Math.Abs(array[i].color) > Math.Abs(array[j].color))
+        //         {
+        //             int MyCardId, number, color;
+        //             MyCardId = array[i].MyCardId; color = array[i].color; number = array[i].number;
+        //             array[i].MyCardId = array[j].MyCardId; array[i].color = array[j].color; array[i].number = array[j].number;
+        //             array[j].MyCardId = MyCardId; array[j].color = color; array[j].number = number;
+        //         }
+        //     }
+        // }
 
 
-
-
-        for (int i = 0; i < array.Length; i++)
-        {
-            resList.Add(array[i]);
-        }
+        // for (int i = 0; i < array.Length; i++)
+        // {
+        //     resList.Add(array[i]);
+        // }
 
         return resList;
     }
 
-    private List<tmpCard> ArrangeWithNumber()
+    private List<Card> ArrangeWithNumber()
     {
-        List<tmpCard> resList = new List<tmpCard>();
+        List<Card> resList = new List<Card>();
 
-        for (int i = 0; i < m_cardList.Count; i++)
-        {
-            tmpCard item = new tmpCard();
-            item.MyCardId = i;
-            item.number = m_cardList[i].num;
-            item.color = m_cardList[i].color;
-            resList.Add(item);
-        }
+        // for (int i = 0; i < m_cardList.Count; i++)
+        // {
+        //     Card item = new Card();
+        //     item.MyCardId = i;
+        //     item.number = m_cardList[i].num;
+        //     item.color = m_cardList[i].color;
+        //     resList.Add(item);
+        // }
 
-        tmpCard[] array = resList.ToArray();
-        resList.Clear();
-        for (int i = 0; i < array.Length - 1; i++)
-        {
-            for (int j = i + 1; j < array.Length; j++)
-            {
-                if (Math.Abs(array[i].number) > Math.Abs(array[j].number))
-                {
-                    int MyCardId, number, color;
-                    MyCardId = array[i].MyCardId; color = array[i].color; number = array[i].number;
-                    array[i].MyCardId = array[j].MyCardId; array[i].color = array[j].color; array[i].number = array[j].number;
-                    array[j].MyCardId = MyCardId; array[j].color = color; array[j].number = number;
-                }
-            }
-        }
+        // Card[] array = resList.ToArray();
+        // resList.Clear();
+        // for (int i = 0; i < array.Length - 1; i++)
+        // {
+        //     for (int j = i + 1; j < array.Length; j++)
+        //     {
+        //         if (Math.Abs(array[i].number) > Math.Abs(array[j].number))
+        //         {
+        //             int MyCardId, number, color;
+        //             MyCardId = array[i].MyCardId; color = array[i].color; number = array[i].number;
+        //             array[i].MyCardId = array[j].MyCardId; array[i].color = array[j].color; array[i].number = array[j].number;
+        //             array[j].MyCardId = MyCardId; array[j].color = color; array[j].number = number;
+        //         }
+        //     }
+        // }
 
-        for (int i = 0; i < array.Length; i++)
-        {
-            resList.Add(array[i]);
-        }
+        // for (int i = 0; i < array.Length; i++)
+        // {
+        //     resList.Add(array[i]);
+        // }
 
         return resList;
     }

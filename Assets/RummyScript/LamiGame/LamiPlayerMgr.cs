@@ -310,7 +310,13 @@ public class LamiPlayerMgr : MonoBehaviour
     public void MakeOneBot()
     {
         // Check if there's empty seat
-        string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        string seatString = "";
+        try{
+        seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        }catch{
+
+        }
+        if(seatString == "") return;
 
         LogMgr.Inst.Log("Check Users before making bot. " + seatString, (int)LogLevels.BotLog);
 

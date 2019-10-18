@@ -7,8 +7,9 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LamiGameBot
 {
-    Card[] m_cardList; // my cards
-    Card[] remained; // selected cards
+    List<Card> original_cardList = new List<Card>(); // selected cards
+    List<Card> remained_cardList = new List<Card>(); // selected cards
+
     public int id;
     public string name = "";
     public string pic;
@@ -116,23 +117,32 @@ public class LamiGameBot
     }
     async void ReadyMessageSend()
     {
-        try{
-        await Task.Delay(1000);
-        status = (int)LamiPlayerStatus.Ready;
+        try
+        {
+            await Task.Delay(1000);
+            status = (int)LamiPlayerStatus.Ready;
 
-        Hashtable props = new Hashtable
+            Hashtable props = new Hashtable
             {
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReady_BOT},
                 {Common.BOT_ID, id},
                 {Common.BOT_STATUS, status},
             };
 
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        }catch{}
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+        catch { }
     }
     internal void SetMyCards(string cardString)
     {
-        m_cardList = LamiCardMgr.ConvertCardStrToCardList(cardString);
+        var tmp = LamiCardMgr.ConvertCardStrToCardList(cardString);
+        remained_cardList.Clear();
+        original_cardList.Clear();
+        for (int i = 0; i < tmp.Length; i++)
+        {
+            remained_cardList.Add(tmp[i]);
+            original_cardList.Add(tmp[i]);
+        }
     }
     /*************************************************** */
 }

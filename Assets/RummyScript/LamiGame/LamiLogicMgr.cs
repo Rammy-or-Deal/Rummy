@@ -10,7 +10,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class LamiLogicMgr : MonoBehaviour
 {
     public static LamiLogicMgr Inst;
-    public static bool isStart = false;
+    public bool isStart = false;
 
     private void Awake()
     {
@@ -74,7 +74,7 @@ public class LamiLogicMgr : MonoBehaviour
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
         //        ShowPlayers();
         LamiCountdownTimer.Inst.StartTimer();
-
+        isStart = false;
         StartCoroutine(CreateBot());
     }
 

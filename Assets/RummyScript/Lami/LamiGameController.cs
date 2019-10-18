@@ -356,6 +356,8 @@ public class LamiGameController : MonoBehaviour
         {
             Debug.Log("cardList" + (string) cardList);
             int seat_id = seatNumList[otherPlayer.ActorNumber];
+
+            
            /* Card[] cards =
                 CardManager.Inst.ReceivedCardList(seat_id, CardManager.ConvertCardStrToCardList((string) cardList));
 

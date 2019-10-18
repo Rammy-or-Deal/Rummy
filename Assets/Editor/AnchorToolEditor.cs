@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
-using UnityEngine;
 
 
 [InitializeOnLoad]
@@ -37,7 +36,6 @@ public class AnchorToolsEditor : EditorWindow
         EditorApplication.delayCall += () => {
             PerformAction(AnchorToolsEditor.m_isEnable);
         };
-
         SceneView.onSceneGUIDelegate += OnScene;
     }
 
