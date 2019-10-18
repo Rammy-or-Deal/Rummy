@@ -168,10 +168,10 @@ public class LamiPlayerMgr : MonoBehaviour
     internal void OnJoinSuccess()
     {
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
-        PhotonNetwork.LoadLevel("3_PlayLami");
+        //PhotonNetwork.LoadLevel("3_PlayLami");
         Debug.Log("Joined Room and Lami Play started");
 
-        LamiMe.Inst.PublishMe();
+        //LamiMe.Inst.PublishMe();
     }
     internal void OnRoomSeatUpdate()
     {

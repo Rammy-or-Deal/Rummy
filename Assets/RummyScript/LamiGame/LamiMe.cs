@@ -63,6 +63,7 @@ public class LamiMe : MonoBehaviour
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         LogMgr.Inst.Log("My Info stored in photon. " + infoString, (int)LogLevels.MeLog);
         // Send Add New player Message. - OnUserEnteredRoom
+        
         props = new Hashtable
             {
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
@@ -72,6 +73,7 @@ public class LamiMe : MonoBehaviour
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
+        
     }
     public void SendMyStatus()
     {

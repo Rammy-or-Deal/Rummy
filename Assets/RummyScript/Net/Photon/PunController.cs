@@ -244,8 +244,36 @@ public class PunController : MonoBehaviourPunCallbacks
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("3_PlayLami");
             PhotonNetwork.LoadLevel("3_PlayLami");
-            LamiMgr.Inst.SendMessage((int)LamiMessages.OnJoinSuccess);
+            //LamiMgr.Inst.SendMessage((int)LamiMessages.OnJoinSuccess);
+            string infoString = "";
+            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
+                    DataController.Inst.userInfo.name,
+                    DataController.Inst.userInfo.pic,
+                    DataController.Inst.userInfo.coinValue,
+                    DataController.Inst.userInfo.skillLevel,
+                    DataController.Inst.userInfo.frameId,
+                    (int)LamiPlayerStatus.Init
+                );
+            // Set local player's property.                    
+            Hashtable props = new Hashtable
+            {
+                {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Init},
+                {Common.PLAYER_INFO, infoString}
+            };
+
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+            props = new Hashtable
+            {
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
+                {Common.NEW_PLAYER_INFO, infoString},
+                {Common.NEW_PLAYER_STATUS, (int)LamiPlayerStatus.Init}
+            };
+
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
