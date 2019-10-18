@@ -244,11 +244,11 @@ public class PunController : MonoBehaviourPunCallbacks
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("3_PlayLami");
             Debug.Log("Join Success");
-            PhotonNetwork.LoadLevel("3_PlayLami");
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("3_PlayLami");
+            PhotonNetwork.LoadLevel("3_PlayLami");            
             
-            /*string infoString = "";
+            string infoString = "";
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
                     (int)PhotonNetwork.LocalPlayer.ActorNumber,
                     DataController.Inst.userInfo.name,
@@ -258,6 +258,7 @@ public class PunController : MonoBehaviourPunCallbacks
                     DataController.Inst.userInfo.frameId,
                     (int)LamiPlayerStatus.Init
                 );
+
             // Set local player's property.                    
             Hashtable props = new Hashtable
             {
@@ -266,6 +267,7 @@ public class PunController : MonoBehaviourPunCallbacks
             };
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            // Send Add New player Message. - OnUserEnteredRoom
 
             props = new Hashtable
             {
@@ -275,7 +277,6 @@ public class PunController : MonoBehaviourPunCallbacks
             };
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-            */
 
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))

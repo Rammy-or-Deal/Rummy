@@ -86,7 +86,6 @@ public class LamiLogicMgr : MonoBehaviour
         {
             while (!isStart)
             {
-
                 yield return new WaitForSeconds(botWaitTime);
                 LogMgr.Inst.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
                 LamiPlayerMgr.Inst.MakeOneBot();

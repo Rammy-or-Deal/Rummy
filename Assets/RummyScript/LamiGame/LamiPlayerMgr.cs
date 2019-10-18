@@ -42,6 +42,13 @@ public class LamiPlayerMgr : MonoBehaviour
             Debug.Log("OnJoinedRoom After");
             seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
             var userSeatList = seatString.Split(',');
+            for(int i = 0; i < userSeatList.Length; i++)
+            {
+                if(int.Parse(userSeatList[i].Split(':')[0]) == ActorNumber)
+                {
+                    break;
+                }
+            }
 
             if (userSeatList.Length < 4) // If there is seat that the user can play.
             {
@@ -180,7 +187,7 @@ public class LamiPlayerMgr : MonoBehaviour
 
         LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
         // Prepare seatNumList      - this is to remove unneeded for statement
-        if (seatString != "")
+        //if (seatString != "")
             seatNumList.Clear();
         var tmp = seatString.Split(',');
         for (int i = 0; i < tmp.Length; i++)

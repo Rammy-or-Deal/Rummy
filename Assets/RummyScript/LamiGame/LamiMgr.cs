@@ -45,10 +45,7 @@ public class LamiMgr : MonoBehaviour
         if (!Inst)
             Inst = this;
     }
-    private void Start() {
-        LogMgr.Inst.Log("LamiMgr is called", (int)LogLevels.RoomLog1);
-        SendMessage((int)LamiMessages.OnJoinSuccess);
-    }
+
     public void SendMessage(int messageId, Player p = null)
     {
         LamiLogicMgr.Inst.OnMessageArrived(messageId, p);
