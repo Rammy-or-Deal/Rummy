@@ -1,43 +1,34 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
+using UITween;
+using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
-public class LamiMyCard
+public class LamiMyCard : MonoBehaviour
 {
+    public Image mCard;
+    public bool isSelected;
     public int color;
-    public int number;
     public int num;
-    private LamiMe lamiMe;
-
-    public bool isSelected; //LamiMe => false: normal, true:selected
-
-    int x;
-    int y;
-
-    public LamiMyCard(int color, int number)
+    // Start is called before the first frame update
+    void Start()
     {
-        this.color = color;
-        this.number = number;
         isSelected = false;
+        UpdateValue();
     }
 
-    public string getImage()
+    public void UpdateValue()
     {
-
-        string res = "";
-        res = string.Format("new_card/card_{0}_{1}", color, number);
-        if (number < 0)
-            res = string.Format("new_card/card_{0}_{1}", 0, 0);
-
-        return res;
+        mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_" + color + "_" + num);
     }
-
-    // If card clicked, call LamiMe.OnSelectedCard() 
     public void OnClick()
     {
         isSelected = (!isSelected);
-    }
-
-    internal void Show()
-    {
-
+        int move = 10 * (isSelected ? -1 : 1);
+        LeanTween.moveY(gameObject, transform.position.y - move, 0.1f);
+        
+        LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState(this);
     }
 }

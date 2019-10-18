@@ -93,6 +93,7 @@ public class LamiMe : MonoBehaviour
 
     public void SetMyCards(string data)
     {
+        /*
         var cards = LamiCardMgr.ConvertCardStrToCardList(data);
         for (int i = 0; i < cards.Length; i++)
         {
@@ -100,6 +101,7 @@ public class LamiMe : MonoBehaviour
         }
         for (int i = 0; i < m_cardList.Count; i++)
             m_cardList[i].Show();
+            */
     }
     /************************* */
 
@@ -114,12 +116,12 @@ public class LamiMe : MonoBehaviour
         {
             if (first_num == -1) // Get the first number
             {
-                first_num = Math.Abs(sel_cards[i].number);
+                first_num = Math.Abs(sel_cards[i].num);
             }
             else
             {
                 isSet = true;
-                if (first_num != Math.Abs(sel_cards[i].number)
+                if (first_num != Math.Abs(sel_cards[i].num)
                 ) // If first_num <> sel_cards[i] then, this line is not SET. it's FLUSH.
                     isSet = false;
                 break;
@@ -139,14 +141,14 @@ public class LamiMe : MonoBehaviour
         {
             if (first_num == -1) // Get the first number
             {
-                first_num = Math.Abs(sel_cards[i].number) - 1;
+                first_num = Math.Abs(sel_cards[i].num) - 1;
                 first_col = sel_cards[i].color;
             }
             else
             {
                 isFlush = true;
                 first_num++;
-                if (first_num != Math.Abs(sel_cards[i].number) || first_col != sel_cards[i].color
+                if (first_num != Math.Abs(sel_cards[i].num) || first_col != sel_cards[i].color
                 ) // If first_num <> sel_cards[i] then, this line is not FLUSH.
                     isFlush = false;
                 break;
@@ -168,7 +170,7 @@ public class LamiMe : MonoBehaviour
         {
             for (int j = i + 1; j < array.Length; j++)
             {
-                if (Math.Abs(array[i].number) > Math.Abs(array[j].number))
+                if (Math.Abs(array[i].num) > Math.Abs(array[j].num))
                 {
                     //SwitchCard(array[i], array[j]);
                 }
@@ -218,7 +220,7 @@ public class LamiMe : MonoBehaviour
             if (cardLine.isSet) // card line is SET
             {
                 //If Any one Number is Same, return True
-                if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].number)) return true;
+                if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].num)) return true;
             }
             else // card Line is FLUSH
             {
@@ -226,13 +228,13 @@ public class LamiMe : MonoBehaviour
                 if (cardLine.m_cardList[0].color == sel_cards[0].color || sel_cards[0].color == 0)
                 {
                     // If the last Number of CardLine is "-1" than Selected card Or the first Number of CardLine is "+1"  , return True 
-                    if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].number) + 1 ||
+                    if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].num) + 1 ||
                         cardLine.m_cardList[cardLine.m_cardList.Count - 1].number ==
-                        Math.Abs(sel_cards[0].number) - 1)
+                        Math.Abs(sel_cards[0].num) - 1)
                         return true;
                     // If the last number of CardLine is "K" and Selected card is "A", return True;
                     if (cardLine.m_cardList[cardLine.m_cardList.Count - 1].number == 13 &&
-                        Math.Abs(sel_cards[0].number) == 1) return true;
+                        Math.Abs(sel_cards[0].num) == 1) return true;
                 }
                 else
                     return false;
@@ -244,14 +246,14 @@ public class LamiMe : MonoBehaviour
 
             // If CardLine and SelectedCards are SET
             if (cardLine.isSet && IsSelSet() && cardLine.m_cardList[0].color == sel_cards[0].color &&
-                cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].number)) return true;
+                cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].num)) return true;
 
             //If CardLine and SelectedCards are FLUSH and Colors are same
             if (!cardLine.isSet && IsSelFlush() && cardLine.m_cardList[0].color == sel_cards[0].color)
             {
-                if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[sel_cards.Count - 1].number) + 1 ||
+                if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[sel_cards.Count - 1].num) + 1 ||
                     cardLine.m_cardList[cardLine.m_cardList.Count - 1].number ==
-                    Math.Abs(sel_cards[0].number) - 1)
+                    Math.Abs(sel_cards[0].num) - 1)
                     return true;
             }
         }
@@ -313,18 +315,18 @@ public class LamiMe : MonoBehaviour
             tmpCard card = new tmpCard();
             card.MyCardId = j;
             card.color = m_cardList[j].color;
-            card.number = m_cardList[j].number;
+            card.number = m_cardList[j].num;
             list.Add(card);
 
 
             for (int i = j + 1; i < m_cardList.Count; i++)
             {
-                if (m_cardList[i].number == m_cardList[j].number)
+                if (m_cardList[i].num == m_cardList[j].num)
                 {
                     tmpCard card1 = new tmpCard();
                     card1.MyCardId = i;
                     card1.color = m_cardList[i].color;
-                    card1.number = m_cardList[i].number;
+                    card1.number = m_cardList[i].num;
                     list.Add(card1);
                 }
             }
@@ -354,7 +356,7 @@ public class LamiMe : MonoBehaviour
             bool isFound = false;
             for (int j = 0; j < m_cardList.Count; j++)
             {
-                if (m_cardList[j].color == c && m_cardList[j].number == i)
+                if (m_cardList[j].color == c && m_cardList[j].num == i)
                 {
                     tmpCard card = new tmpCard();
                     card.MyCardId = j;
@@ -381,7 +383,7 @@ public class LamiMe : MonoBehaviour
         {
             tmpCard item = new tmpCard();
             item.MyCardId = i;
-            item.number = m_cardList[i].number;
+            item.number = m_cardList[i].num;
             item.color = m_cardList[i].color;
             resList.Add(item);
         }
@@ -437,7 +439,7 @@ public class LamiMe : MonoBehaviour
         {
             tmpCard item = new tmpCard();
             item.MyCardId = i;
-            item.number = m_cardList[i].number;
+            item.number = m_cardList[i].num;
             item.color = m_cardList[i].color;
             resList.Add(item);
         }
@@ -486,7 +488,7 @@ public class LamiMe : MonoBehaviour
         {
             if (m_cardList[i].isSelected)
             {
-                cards = string.Format("{0}:{1}", m_cardList[i].color, m_cardList[i].number);
+                cards = string.Format("{0}:{1}", m_cardList[i].color, m_cardList[i].num);
                 m_cardList.Remove(m_cardList[i]);
             }
         }
