@@ -10,6 +10,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class LamiLogicMgr : MonoBehaviour
 {
     public static LamiLogicMgr Inst;
+    public static bool isStart = false;
 
     private void Awake()
     {
@@ -75,15 +76,16 @@ public class LamiLogicMgr : MonoBehaviour
         LamiCountdownTimer.Inst.StartTimer();
 
         StartCoroutine(CreateBot());
-
     }
+
     public IEnumerator CreateBot()
     {
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            int botWaitTime = UnityEngine.Random.RandomRange(5, 10);
 
-            while (true)
+        int botWaitTime = UnityEngine.Random.RandomRange(5, 10);
+
+        while (!isStart)
+        {
+            if (PhotonNetwork.LocalPlayer.IsMasterClient)
             {
                 yield return new WaitForSeconds(botWaitTime);
                 LogMgr.Inst.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
@@ -129,6 +131,7 @@ public class LamiLogicMgr : MonoBehaviour
             case (int)LamiMessages.OnStartGame:
                 StopCoroutine(CreateBot());
                 LamiPlayerMgr.Inst.OnStartGame();
+                isStart = true;
                 break;
             case (int)LamiMessages.OnCardDistributed:
                 LamiPlayerMgr.Inst.OnCardDistributed();

@@ -246,8 +246,8 @@ public class PunController : MonoBehaviourPunCallbacks
         {
             //UnityEngine.SceneManagement.SceneManager.LoadScene("3_PlayLami");
             PhotonNetwork.LoadLevel("3_PlayLami");
-            //LamiMgr.Inst.SendMessage((int)LamiMessages.OnJoinSuccess);
-            string infoString = "";
+            
+            /*string infoString = "";
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
                     (int)PhotonNetwork.LocalPlayer.ActorNumber,
                     DataController.Inst.userInfo.name,
@@ -274,6 +274,8 @@ public class PunController : MonoBehaviourPunCallbacks
             };
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            */
+
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {

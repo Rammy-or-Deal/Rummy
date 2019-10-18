@@ -169,12 +169,13 @@ public class LamiPlayerMgr : MonoBehaviour
     {
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         //PhotonNetwork.LoadLevel("3_PlayLami");
-        Debug.Log("Joined Room and Lami Play started");
-
-        //LamiMe.Inst.PublishMe();
+        
+        LamiMe.Inst.PublishMe();
     }
     internal void OnRoomSeatUpdate()
     {
+        //OnBotInfoChanged();
+        
         string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
 
         LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
@@ -329,13 +330,11 @@ public class LamiPlayerMgr : MonoBehaviour
             }
         }
 
-        mBot.PublishMe();
-
         m_botList.Add(mBot);
         LogMgr.Inst.Log("Bot Created : " + mBot.getBotString(), (int)LogLevels.BotLog);
         SendBotListString();
 
-
+        mBot.PublishMe();
     }
 
     #endregion
