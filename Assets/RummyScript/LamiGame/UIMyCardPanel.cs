@@ -43,7 +43,7 @@ public class UIMyCardPanel : MonoBehaviour
 
 
         string cardStr = LamiCardMgr.ConvertSelectedListToString(selectedCards);
-
+        cardStr = PhotonNetwork.LocalPlayer.ActorNumber + ":" + cardStr;
         int remainCard = RemainCards();
         Hashtable gameCards = new Hashtable
         {   
