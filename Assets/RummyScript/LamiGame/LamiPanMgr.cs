@@ -55,8 +55,6 @@ public class LamiPanMgr : MonoBehaviour
         //     {Common.GAME_CARD_PAN, 0},
         // };
         string cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD];
-        var numList = cardString.Split(':').Select(Int32.Parse).ToArray();
-        var colorList = cardString.Split(':').Select(Int32.Parse).ToArray();
 
         LamiGameUIManager.Inst.OnDealCard(cardString);
     }
