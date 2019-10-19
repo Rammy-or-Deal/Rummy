@@ -220,7 +220,6 @@ public class LamiPlayerMgr : MonoBehaviour
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
-
     }
 
     internal void OnUserReadyToStart_M()

@@ -141,6 +141,7 @@ public class LamiLogicMgr : MonoBehaviour
                 break;
             case (int)LamiMessages.OnDealCard:
                 LamiPlayerMgr.Inst.OnDealCard();
+                LamiPanMgr.Inst.OnDealCard();
                 break;
             case (int)LamiMessages.OnUserTurnChanged:
                 LamiPlayerMgr.Inst.OnUserTurnChanged();

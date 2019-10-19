@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 public class LamiPanMgr : MonoBehaviour
 {
@@ -40,5 +42,22 @@ public class LamiPanMgr : MonoBehaviour
         {
             m_cardLineList[i].Show();
         }
+    }
+
+    internal void OnDealCard()
+    {
+        //         Hashtable gameCards = new Hashtable
+        // {   
+        //     {Common.LAMI_MESSAGE, (int)LamiMessages.OnDealCard},
+        //     {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
+        //     {Common.REMAIN_CARD_COUNT, remainCard},
+        //     {Common.GAME_CARD, cardStr},
+        //     {Common.GAME_CARD_PAN, 0},
+        // };
+        string cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD];
+        var numList = cardString.Split(':').Select(Int32.Parse).ToArray();
+        var colorList = cardString.Split(':').Select(Int32.Parse).ToArray();
+
+        LamiGameUIManager.Inst.OnDealCard(cardString);
     }
 }

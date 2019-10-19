@@ -77,9 +77,9 @@ public class LamiGameUIManager : MonoBehaviour
     public void OnClickPlay()
     {
         //added GameCardList
-//        curGameCardList = Instantiate(gameCardListPrefab,gameCardPanelPan.transform);
-//        curGameCardList.gameObject.transform.localScale = Vector3.one;
-//        mGameCardPanelList.Add(curGameCardList);
+        //        curGameCardList = Instantiate(gameCardListPrefab,gameCardPanelPan.transform);
+        //        curGameCardList.gameObject.transform.localScale = Vector3.one;
+        //        mGameCardPanelList.Add(curGameCardList);
 
         myCardPanel.DealCards();
         playButton.gameObject.SetActive(false);
@@ -98,7 +98,22 @@ public class LamiGameUIManager : MonoBehaviour
         entry.color = card.color;
         curGameCardList.mGameCardList.Add(entry);
     }
+    public void OnDealCard(string cardStr)
+    {
+        Debug.Log(cardStr);
+        curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
+        curGameCardList.gameObject.transform.localScale = Vector3.one;
+        mGameCardPanelList.Add(curGameCardList);
 
+        foreach (Card card in LamiCardMgr.ConvertCardStrToCardList(cardStr))
+        {
+            LamiGameCard entry = Instantiate(gameCardPrefab, curGameCardList.transform);
+            entry.gameObject.transform.localScale = Vector3.one;
+            entry.num = card.num;
+            entry.color = card.color;
+            curGameCardList.mGameCardList.Add(entry);
+        }
+    }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
         object cardList;
@@ -113,7 +128,7 @@ public class LamiGameUIManager : MonoBehaviour
         if (dealCard.TryGetValue(Common.GAME_CARD, out cardList))
         {
             id = LamiGameController.Inst.seatNumList[otherPlayer.ActorNumber];
-            string cardStr = (string) cardList;
+            string cardStr = (string)cardList;
             Debug.Log(cardStr);
             curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
             curGameCardList.gameObject.transform.localScale = Vector3.one;
@@ -154,25 +169,25 @@ public class LamiGameUIManager : MonoBehaviour
 
         if (dealCard.TryGetValue(Common.PLAYER_TURN, out isTurn))
         {
-            int seatPos = LamiGameController.Inst.GetUserSeat((int) isTurn);
+            int seatPos = LamiGameController.Inst.GetUserSeat((int)isTurn);
 
         }
 
         if (dealCard.TryGetValue(Common.GAME_CARD_PAN, out cardList_pan))
         {
-//            Debug.Log("cardListPan ID:" + (int)cardList_pan);
-            card_pan_id = (int) cardList_pan;
+            //            Debug.Log("cardListPan ID:" + (int)cardList_pan);
+            card_pan_id = (int)cardList_pan;
         }
 
         if (dealCard.TryGetValue(Common.GAME_CARD_PAN, out cardList_pan_pos))
         {
-//            Debug.Log("cardListPanPos:" + (int)cardList_pan_pos);
-            card_pan_pos = (int) cardList_pan_pos;
+            //            Debug.Log("cardListPanPos:" + (int)cardList_pan_pos);
+            card_pan_pos = (int)cardList_pan_pos;
         }
 
         if (dealCard.TryGetValue(Common.REMAIN_CARD_COUNT, out reaminCard))
         {
-            Debug.Log("REMAIN_CARD_COUNT:" + (int) reaminCard);
+            Debug.Log("REMAIN_CARD_COUNT:" + (int)reaminCard);
             LamiGameController.Inst.GetUserSeat(otherPlayer).mCardNum.text = reaminCard.ToString();
         }
     }
