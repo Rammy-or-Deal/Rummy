@@ -389,7 +389,7 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        Debug.Log("On Room Properties Update called.");
+        //Debug.Log("On Room Properties Update called.");
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
             if (propertiesThatChanged.ContainsKey(Common.LAMI_MESSAGE))

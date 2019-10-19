@@ -85,8 +85,8 @@ public class LamiGameUIManager : MonoBehaviour
         playButton.gameObject.SetActive(false);
         tipButton.gameObject.SetActive(false);
         //
-        LamiCountdownTimer.Inst.StopTurnTimer();
-        LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(false);
+        //LamiCountdownTimer.Inst.StopTurnTimer();
+        //LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(false);
     }
 
     public void AddGameCard(LamiMyCard card)

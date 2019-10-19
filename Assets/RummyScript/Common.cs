@@ -61,4 +61,5 @@ public class Common : MonoBehaviour
     //player trun
     public static string PLAYER_TURN = "IsTurn";
 
+    public static string NOW_TURN = "NowTurn";
 }

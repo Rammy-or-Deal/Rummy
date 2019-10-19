@@ -135,6 +135,16 @@ public class LamiLogicMgr : MonoBehaviour
             case (int)LamiMessages.OnCardDistributed:
                 LamiPlayerMgr.Inst.OnCardDistributed();
                 break;
+            case (int)LamiMessages.OnUserReadyToStart_M:
+                if (PhotonNetwork.IsMasterClient)
+                    LamiPlayerMgr.Inst.OnUserReadyToStart_M();
+                break;
+            case (int)LamiMessages.OnDealCard:
+                LamiPlayerMgr.Inst.OnDealCard();
+                break;
+            case (int)LamiMessages.OnUserTurnChanged:
+                LamiPlayerMgr.Inst.OnUserTurnChanged();
+                break;
         }
     }
 }

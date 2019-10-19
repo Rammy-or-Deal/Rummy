@@ -10,7 +10,8 @@ using UnityEngine.SceneManagement;
 
 enum LamiPlayerStatus
 {
-    Init, Ready, GiveUp, Thinking, Burnt, Game
+    Init, Ready, GiveUp, Thinking, Burnt, Game,
+    ReadyToStart
 }
 enum LamiMessages
 {
@@ -31,6 +32,7 @@ enum LamiMessages
     OnUserLeave_M,           // When the user left the room
     OnStartGame,           // When this game can start
     OnCardDistributed,     // When the card is distributed
+    OnUserReadyToStart_M,     // When the user received all cards and showed
 }
 public class LamiMgr : MonoBehaviour
 {

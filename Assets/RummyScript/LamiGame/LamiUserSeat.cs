@@ -26,7 +26,6 @@ public class LamiUserSeat : MonoBehaviour
     public GameObject mClock;
     public GameObject mAceJokerPanel;
 
-    public int actorNumber;
     public Image playerReadyImage;
 
     public int id;
@@ -124,11 +123,13 @@ public class LamiUserSeat : MonoBehaviour
             if (status == (int)LamiPlayerStatus.Ready)
             {
                 playerReadyImage.gameObject.SetActive(true);
+                
             }
             else
             {
                 playerReadyImage.gameObject.SetActive(false);
             }
+            
         }
         else
             gameObject.SetActive(false);
