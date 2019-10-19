@@ -195,7 +195,8 @@ public class LamiPlayerMgr : MonoBehaviour
         catch { }
         LogMgr.Inst.Log("UserTurnChanged: turn = " + turn, (int)LogLevels.RoomLog2);
         if (turn < 0) return;
-
+        turn = GetUserSeat(turn);
+        
         int actor = m_playerList[turn].id;
         LogMgr.Inst.Log("UserTurnChanged: Actor = " + actor + "   /myID=" + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.RoomLog2);
 
