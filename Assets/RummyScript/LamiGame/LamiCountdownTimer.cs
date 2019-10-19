@@ -13,7 +13,6 @@ public class LamiCountdownTimer : MonoBehaviour
     public Text Text;
     private Coroutine myCoroutine;
     private Coroutine userCoroutine;
-    public Text turnTime;
 
     private float countdownValue = 100;
     private float turnTimeValue = 30;
@@ -51,7 +50,7 @@ public class LamiCountdownTimer : MonoBehaviour
         currCountdownValue = turnTimeValue;
         while (currCountdownValue > 0)
         {
-            turnTime.text =  string.Format("{0}", currCountdownValue.ToString());
+            Text.text =  string.Format("{0}", currCountdownValue.ToString());
             yield return new WaitForSeconds(1.0f);
             currCountdownValue--;
         }  
@@ -65,7 +64,7 @@ public class LamiCountdownTimer : MonoBehaviour
     
     public void StartTurnTimer()
     {
-        turnTime.gameObject.SetActive(true);
+        Text.gameObject.SetActive(true);
         userCoroutine = StartCoroutine(StartTurnTime());
         
     }
@@ -73,7 +72,7 @@ public class LamiCountdownTimer : MonoBehaviour
     {
         Debug.Log("Turn Timer stopped");
         StopCoroutine(userCoroutine);
-        turnTime.gameObject.SetActive(false);
+        Text.gameObject.SetActive(false);
     }
 
     public void StopTimer()

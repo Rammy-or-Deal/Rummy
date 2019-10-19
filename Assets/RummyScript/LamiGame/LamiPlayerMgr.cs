@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class LamiPlayerMgr : MonoBehaviour
@@ -42,9 +43,9 @@ public class LamiPlayerMgr : MonoBehaviour
             Debug.Log("OnJoinedRoom After");
             seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
             var userSeatList = seatString.Split(',');
-            for(int i = 0; i < userSeatList.Length; i++)
+            for (int i = 0; i < userSeatList.Length; i++)
             {
-                if(int.Parse(userSeatList[i].Split(':')[0]) == ActorNumber)
+                if (int.Parse(userSeatList[i].Split(':')[0]) == ActorNumber)
                 {
                     break;
                 }
@@ -146,6 +147,106 @@ public class LamiPlayerMgr : MonoBehaviour
         }
     }
 
+    internal void OnDealCard()
+    {
+        //         Hashtable gameCards = new Hashtable
+        // {   
+        //     {Common.LAMI_MESSAGE, (int)LamiMessages.OnDealCard},
+        //     {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
+        //     {Common.REMAIN_CARD_COUNT, remainCard},
+        //     {Common.GAME_CARD, cardStr},
+        //     {Common.GAME_CARD_PAN, 0},
+        // };
+
+        // Change players list
+        int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        int remained = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.REMAIN_CARD_COUNT];
+        int nowTurn = -1;
+
+        LogMgr.Inst.Log("User Dealt card -  actor=" + actor + ", remained=" + remained + ", nowTurn=" + nowTurn, (int)LogLevels.RoomLog2);
+
+        for (int i = 0; i < m_playerList.Length; i++)
+        {
+            if (m_playerList[i].id == actor)
+            {
+                m_playerList[i].mCardNum.text = remained + "";
+                nowTurn = i;
+            }
+        }
+
+        if (PhotonNetwork.IsMasterClient && nowTurn >= 0)
+        {
+            nowTurn = (nowTurn + 1) % 4;
+            Hashtable props = new Hashtable{
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},
+                {Common.NOW_TURN, nowTurn}
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+    }
+
+    internal void OnUserTurnChanged()
+    {
+        int turn = -1;
+        try
+        {
+            turn = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_TURN];
+        }
+        catch { }
+        LogMgr.Inst.Log("UserTurnChanged: turn = " + turn, (int)LogLevels.RoomLog2);
+        if (turn < 0) return;
+
+        int actor = m_playerList[turn].id;
+        LogMgr.Inst.Log("UserTurnChanged: Actor = " + actor + "   /myID=" + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.RoomLog2);
+
+        if (actor == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            LamiMe.Inst.SetMyTurn(true);
+        }
+        else
+        {
+            LamiMe.Inst.SetMyTurn(false);
+        }
+        // if this player is bot
+        if (!PhotonNetwork.IsMasterClient) return;   // If this isn't master, return.
+
+        if (actor < 0 && turn >= 0)
+        {
+            turn = (turn + 1) % 4;
+            Hashtable props = new Hashtable{
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},
+                {Common.NOW_TURN, turn}
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+
+    }
+
+    internal void OnUserReadyToStart_M()
+    {
+        bool AllReady = true;
+
+        // Check if all players are ready.
+        foreach (var p in PhotonNetwork.PlayerList)
+        {
+            if ((int)p.CustomProperties[Common.PLAYER_STATUS] != (int)LamiPlayerStatus.ReadyToStart)
+            {
+                AllReady = false;
+            }
+        }
+        if (AllReady != true) return;
+
+        // If all players are ready, Set the turn
+        int turn = UnityEngine.Random.Range(0, 4);
+        Hashtable props = new Hashtable{
+            {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},
+            {Common.NOW_TURN, turn}
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        LogMgr.Inst.Log("First Turn is determined. - " + turn, (int)LogLevels.RoomLog2);
+    }
+
     internal void OnUserLeave(int actorNumber)
     {
         string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
@@ -176,25 +277,26 @@ public class LamiPlayerMgr : MonoBehaviour
     {
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         //PhotonNetwork.LoadLevel("3_PlayLami");
-        
+
         LamiMe.Inst.PublishMe();
     }
     internal void OnRoomSeatUpdate()
     {
         //OnBotInfoChanged();
-        
+
         string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
 
         LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
         // Prepare seatNumList      - this is to remove unneeded for statement
         //if (seatString != "")
-            seatNumList.Clear();
+        seatNumList.Clear();
         var tmp = seatString.Split(',');
         for (int i = 0; i < tmp.Length; i++)
         {
             seatNumList.Add(int.Parse(tmp[i].Split(':')[0]), int.Parse(tmp[i].Split(':')[1]));
         }
-
+        LogMgr.Inst.Log("seatNumList: " + seatNumList.ToStringFull(), (int)LogLevels.PlayerLog1);
+        
         // Get seat no from seat string
         for (int i = 0; i < m_playerList.Length; i++)
             m_playerList[i].canShow = false;
@@ -203,6 +305,7 @@ public class LamiPlayerMgr : MonoBehaviour
         {
             int tmpActor = int.Parse(tmp[i].Split(':')[0]);
             int tmpSeat = int.Parse(tmp[i].Split(':')[1]);
+
             m_playerList[GetUserSeat(tmpSeat)].SetProperty(tmpActor);
         }
 
@@ -311,12 +414,15 @@ public class LamiPlayerMgr : MonoBehaviour
     {
         // Check if there's empty seat
         string seatString = "";
-        try{
-        seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
-        }catch{
+        try
+        {
+            seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        }
+        catch
+        {
 
         }
-        if(seatString == "") return;
+        if (seatString == "") return;
 
         LogMgr.Inst.Log("Check Users before making bot. " + seatString, (int)LogLevels.BotLog);
 

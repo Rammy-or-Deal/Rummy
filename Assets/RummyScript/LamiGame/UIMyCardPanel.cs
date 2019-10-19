@@ -41,21 +41,22 @@ public class UIMyCardPanel : MonoBehaviour
 //        }
 
 
-/*
-        string cardStr = CardManager.ConvertSelectedListToString(selectedCards);
+
+        string cardStr = LamiCardMgr.ConvertSelectedListToString(selectedCards);
+
         int remainCard = RemainCards();
         Hashtable gameCards = new Hashtable
-        {
+        {   
+            {Common.LAMI_MESSAGE, (int)LamiMessages.OnDealCard},
+            {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
             {Common.REMAIN_CARD_COUNT, remainCard},
             {Common.GAME_CARD, cardStr},
             {Common.GAME_CARD_PAN, 0},
-            {Common.GAME_CARD_PAN_POS, 0},    
         };
 
-        PhotonNetwork.LocalPlayer.SetCustomProperties(gameCards);
-        Debug.Log("deal cards");
+        PhotonNetwork.CurrentRoom.SetCustomProperties(gameCards);
+        LogMgr.Inst.Log("User dealt card: " + cardStr, (int)LogLevels.PlayerLog2);
         RemoveCards();
-        */
     }
 
     public void RemoveCards()
@@ -63,7 +64,7 @@ public class UIMyCardPanel : MonoBehaviour
         foreach (LamiMyCard card in selectedCards)
         {
             myCards.Remove(card);
-            //card.gameObject.SetActive(false);
+            card.gameObject.SetActive(false);
         }
         selectedCards.Clear();
     }

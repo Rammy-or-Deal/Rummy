@@ -103,8 +103,38 @@ public class LamiMe : MonoBehaviour
             remained_cardList.Add(cards[i]);
             original_cardList.Add(cards[i]);
         }
+
+        // Set I am ready to Start
+        Hashtable props = new Hashtable{
+            {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReadyToStart_M},
+            {Common.PLAYER_STATUS, (int)LamiPlayerStatus.ReadyToStart}
+        };
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
     }
 
+    internal void SetMyTurn(bool isMyTurn)
+    {
+        if (isMyTurn)
+        {
+            LogMgr.Inst.Log("This is my turn: " + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.PlayerLog2);
+
+            LamiGameUIManager.Inst.playButton.gameObject.SetActive(true);
+            LamiGameUIManager.Inst.playButton.interactable = false;
+            LamiGameUIManager.Inst.tipButton.gameObject.SetActive(true);
+            //GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
+            //LamiCountdownTimer.Inst.StartTurnTimer();
+        }
+        else
+        {
+            LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
+            LamiGameUIManager.Inst.playButton.interactable = false;
+            LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
+            //GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
+//            LamiCountdownTimer.Inst.StartTurnTimer();
+        }
+    }
     /************************* */
 
 
@@ -184,6 +214,7 @@ public class LamiMe : MonoBehaviour
             sel_cards.Add(array[i]);
         }
     }
+
 
     public void OnSelectedCard() //If one card is selected, this function should be called.
     {
@@ -291,61 +322,61 @@ public class LamiMe : MonoBehaviour
     public void GetAvaiableCards()  // Get the cards we can deal.
     {
 
-/*
-        // Get Continuous Cards (without JOKER)
-        List<List<tmpCard>> continue_List = new List<List<tmpCard>>();
-        for (int c = 0; c < 4; c++)
-        {
-            for (int i = 1; i <= 13; i++)
-            {
-                if (m_cardList[i].color != c)
-                    continue;
-                List<tmpCard> list = GetContinueCard(i, c);
-
-                if (list.Count > 0)
-                    continue_List.Add(list);
-                if (list.Count > 1)
-                    i += list.Count;
-            }
-        }
-
-        // Get Same Cards
-        List<List<tmpCard>> same_List = new List<List<tmpCard>>();
-
-        for (int j = 0; j < m_cardList.Count - 1; j++)
-        {
-            List<tmpCard> list = new List<tmpCard>();
-            tmpCard card = new tmpCard();
-            card.MyCardId = j;
-            card.color = m_cardList[j].color;
-            card.number = m_cardList[j].num;
-            list.Add(card);
-
-
-            for (int i = j + 1; i < m_cardList.Count; i++)
-            {
-                if (m_cardList[i].num == m_cardList[j].num)
+        /*
+                // Get Continuous Cards (without JOKER)
+                List<List<tmpCard>> continue_List = new List<List<tmpCard>>();
+                for (int c = 0; c < 4; c++)
                 {
-                    tmpCard card1 = new tmpCard();
-                    card1.MyCardId = i;
-                    card1.color = m_cardList[i].color;
-                    card1.number = m_cardList[i].num;
-                    list.Add(card1);
-                }
-            }
+                    for (int i = 1; i <= 13; i++)
+                    {
+                        if (m_cardList[i].color != c)
+                            continue;
+                        List<tmpCard> list = GetContinueCard(i, c);
 
-            bool alreadyIn = true;
-            for (int k = 0; k < same_List.Count; k++)
-            {
-                if (same_List[k][0].number == list[0].number)
-                {
-                    alreadyIn = false;
+                        if (list.Count > 0)
+                            continue_List.Add(list);
+                        if (list.Count > 1)
+                            i += list.Count;
+                    }
                 }
-            }
-            if (alreadyIn)
-                same_List.Add(list);
-        }
-*/
+
+                // Get Same Cards
+                List<List<tmpCard>> same_List = new List<List<tmpCard>>();
+
+                for (int j = 0; j < m_cardList.Count - 1; j++)
+                {
+                    List<tmpCard> list = new List<tmpCard>();
+                    tmpCard card = new tmpCard();
+                    card.MyCardId = j;
+                    card.color = m_cardList[j].color;
+                    card.number = m_cardList[j].num;
+                    list.Add(card);
+
+
+                    for (int i = j + 1; i < m_cardList.Count; i++)
+                    {
+                        if (m_cardList[i].num == m_cardList[j].num)
+                        {
+                            tmpCard card1 = new tmpCard();
+                            card1.MyCardId = i;
+                            card1.color = m_cardList[i].color;
+                            card1.number = m_cardList[i].num;
+                            list.Add(card1);
+                        }
+                    }
+
+                    bool alreadyIn = true;
+                    for (int k = 0; k < same_List.Count; k++)
+                    {
+                        if (same_List[k][0].number == list[0].number)
+                        {
+                            alreadyIn = false;
+                        }
+                    }
+                    if (alreadyIn)
+                        same_List.Add(list);
+                }
+        */
         // 
     }
 
@@ -353,7 +384,7 @@ public class LamiMe : MonoBehaviour
 
     private List<Card> GetContinueCard(int first, int c)
     {
-        
+
         List<Card> res = new List<Card>();
         // for (int i = first; i <= 13; i++)
         // {
