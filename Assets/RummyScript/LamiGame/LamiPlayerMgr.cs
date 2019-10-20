@@ -125,7 +125,7 @@ public class LamiPlayerMgr : MonoBehaviour
         LogMgr.Inst.Log("Card Distributed: " + cardListString, (int)LogLevels.PlayerLog2);
 
         var tmp = cardListString.Split('/');
-
+        
         for (int i = 0; i < tmp.Length; i++)
         {
             int tmpActor = int.Parse(tmp[i].Split(':')[0]);

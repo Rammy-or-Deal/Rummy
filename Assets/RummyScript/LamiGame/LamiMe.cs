@@ -12,9 +12,6 @@ public class LamiMe : MonoBehaviour
 {
     public static LamiMe Inst;
 
-    List<Card> original_cardList = new List<Card>(); // selected cards
-    List<Card> remained_cardList = new List<Card>(); // selected cards
-
     List<LamiMyCard> m_cardList = new List<LamiMyCard>(); // my cards
     List<LamiMyCard> sel_cards = new List<LamiMyCard>(); // selected cards
 
@@ -96,14 +93,6 @@ public class LamiMe : MonoBehaviour
         LamiGameUIManager.Inst.myCardPanel.InitCards(cards);
         LamiGameUIManager.Inst.InitButtonsFirst();
 
-        original_cardList.Clear();
-        remained_cardList.Clear();
-        for (int i = 0; i < cards.Length; i++)
-        {
-            remained_cardList.Add(cards[i]);
-            original_cardList.Add(cards[i]);
-        }
-
         // Set I am ready to Start
         Hashtable props = new Hashtable{
             {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReadyToStart_M},
@@ -112,6 +101,7 @@ public class LamiMe : MonoBehaviour
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
+        LamiGameUIManager.Inst.myCardPanel.ArrangeMyCard();
     }
 
     internal void SetMyTurn(bool isMyTurn)

@@ -198,6 +198,8 @@ public class LamiGameUIManager : MonoBehaviour
 
     public void OnClickArrange()
     {
+        LogMgr.Inst.Log("Arrange Button is clicked", (int)LogLevels.RoomLog3);
+        myCardPanel.ArrangeMyCard();
     }
 
     public void OnClickChat()
