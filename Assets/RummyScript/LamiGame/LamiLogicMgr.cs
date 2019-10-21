@@ -80,8 +80,7 @@ public class LamiLogicMgr : MonoBehaviour
 
     public IEnumerator CreateBot()
     {
-
-        int botWaitTime = UnityEngine.Random.RandomRange(5, 10);
+        int botWaitTime = UnityEngine.Random.Range(5, 10);
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             while (!isStart)

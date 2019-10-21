@@ -116,6 +116,7 @@ public class LamiGameUIManager : MonoBehaviour
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
+        /*
         object cardList;
         object cardList_pan;
         object cardList_pan_pos;
@@ -190,6 +191,7 @@ public class LamiGameUIManager : MonoBehaviour
             Debug.Log("REMAIN_CARD_COUNT:" + (int)reaminCard);
             LamiGameController.Inst.GetUserSeat(otherPlayer).mCardNum.text = reaminCard.ToString();
         }
+        */
     }
 
     public void OnClickTips()

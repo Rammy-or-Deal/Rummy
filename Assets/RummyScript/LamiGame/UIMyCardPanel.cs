@@ -107,7 +107,7 @@ public class UIMyCardPanel : MonoBehaviour
                     {
                         if (myCards[j].color != col) continue;
 
-                        if (myCards[i].num > myCards[j].num || myCards[i].num == 0)
+                        if (myCards[i].num > myCards[j].num)
                         {
                             int color = myCards[i].color;
                             int num = myCards[i].num;
@@ -130,7 +130,7 @@ public class UIMyCardPanel : MonoBehaviour
             {
                 for (int j = i + 1; j < myCards.Count; j++)
                 {
-                    if (myCards[i].num > myCards[j].num || myCards[i].num == 0)
+                    if (myCards[i].num > myCards[j].num)
                     {
                         int color = myCards[i].color;
                         int num = myCards[i].num;
@@ -164,6 +164,21 @@ public class UIMyCardPanel : MonoBehaviour
                 }
             }
             */
+        }
+
+        // push joker to the last
+        for(int i = 0; i < myCards.Count-1; i++)
+        {
+            if(myCards[i].num == 0)
+            {
+                for(int j = i + 1; j < myCards.Count; j++)
+                {
+                    myCards[j-1].num = myCards[j].num;
+                    myCards[j-1].color = myCards[j].color;
+                }
+                myCards[myCards.Count-1].num = 0 ;
+                myCards[myCards.Count-1].color = 0 ;
+            }
         }
 
         for (int i = 0; i < myCards.Count; i++)
