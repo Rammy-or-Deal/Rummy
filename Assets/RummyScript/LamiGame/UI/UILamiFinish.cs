@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UILamiFinish : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public UILamiFinishScorePan scorePan;
     void Start()
     {
         

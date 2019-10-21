@@ -12,11 +12,9 @@ public class UILamiFinishCardPan : MonoBehaviour
         LamiMyCard card = mCards[0];
         for (int i = 1; i < cardCount; i++)
         {
-            LamiMyCard newCard = Instantiate(card);
-            newCard.transform.parent = this.transform;
+            LamiMyCard newCard = Instantiate(card,card.transform.position, Quaternion.identity,this.transform);
             mCards.Add(newCard);
         }
-        
     }
 
     // Update is called once per frame

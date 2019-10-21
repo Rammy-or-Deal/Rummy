@@ -13,6 +13,12 @@ public class UILamiFinishScorePan : MonoBehaviour
     public Text username;
 
     public Text rankTxt;
+
+    public UILamiFinishCardPan cardPan;
+    public Text cardPoints;
+    public Text aceCount;
+    public Text jockerCount;
+    public Text score;
     
     void Start()
     {
