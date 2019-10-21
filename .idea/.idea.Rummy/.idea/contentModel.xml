@@ -181,7 +181,6 @@
           <e p="License.txt" t="Include" />
           <e p="Readme.txt" t="Include" />
         </e>
-        <e p="LogMgr.cs" t="Include" />
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
@@ -640,6 +639,11 @@
             <e p="LamiPlayerMgr.cs" t="Include" />
             <e p="LamiUser_Info.cs" t="Include" />
             <e p="LamiUserSeat.cs" t="Include" />
+            <e p="UI" t="Include">
+              <e p="UILamiFinish.cs" t="Include" />
+              <e p="UILamiFinishCardPan.cs" t="Include" />
+              <e p="UILamiFinishScorePan.cs" t="Include" />
+            </e>
             <e p="UIMyCardPanel.cs" t="Include" />
           </e>
           <e p="Lobby" t="Include">
@@ -701,6 +705,9 @@
           </e>
           <e p="UIController.cs" t="Include" />
           <e p="UIManager.cs" t="Include" />
+          <e p="Utils" t="Include">
+            <e p="LogMgr.cs" t="Include" />
+          </e>
         </e>
         <e p="UITween" t="Include">
           <e p="Editor" t="Include">
