@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UILamiFinish : MonoBehaviour
 {
-    public UILamiFinishScorePan scorePan;
+    public UILamiFinishScorePan[] scorePan;
     void Start()
     {
         
