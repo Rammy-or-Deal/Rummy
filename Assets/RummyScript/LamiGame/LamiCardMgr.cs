@@ -22,7 +22,7 @@ public class Card
 }
 public class LamiCardMgr : MonoBehaviour
 {
-    public const int JokerNum = 0;
+    public const int JokerNum = 15;
     public static LamiCardMgr Inst;
     public Card[][] playerCard = new Card[4][];
     public int[][] initCard = new int[4][];

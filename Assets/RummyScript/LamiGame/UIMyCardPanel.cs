@@ -86,7 +86,7 @@ public class UIMyCardPanel : MonoBehaviour
                 // first sort by color
                 for (int j = i + 1; j < myCards.Count; j++)
                 {
-                    if (myCards[i].color < myCards[j].color)
+                    if (myCards[i].color > myCards[j].color)
                     {
                         int col = myCards[i].color;
                         int num = myCards[i].num;
