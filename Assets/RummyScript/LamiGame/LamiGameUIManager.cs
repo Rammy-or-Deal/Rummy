@@ -89,14 +89,9 @@ public class LamiGameUIManager : MonoBehaviour
         //LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(false);
     }
 
-    public void AddGameCard(LamiMyCard card)
+    public void AddGameCard(Card card)
     {
-        //
-        LamiGameCard entry = Instantiate(gameCardPrefab, curGameCardList.transform);
-        entry.gameObject.transform.localScale = Vector3.one;
-        entry.num = card.num;
-        entry.color = card.color;
-        curGameCardList.mGameCardList.Add(entry);
+        curGameCardList.AddGameCard(card);
     }
     public void OnDealCard(string cardStr)
     {
@@ -104,15 +99,14 @@ public class LamiGameUIManager : MonoBehaviour
         curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
         curGameCardList.gameObject.transform.localScale = Vector3.one;
         mGameCardPanelList.Add(curGameCardList);
+        curGameCardList.Init();
 
         foreach (Card card in LamiCardMgr.ConvertCardStrToCardList(cardStr))
         {
-            LamiGameCard entry = Instantiate(gameCardPrefab, curGameCardList.transform);
-            entry.gameObject.transform.localScale = Vector3.one;
-            entry.num = card.num;
-            entry.color = card.color;
-            curGameCardList.mGameCardList.Add(entry);
+            curGameCardList.AddGameCard(card);
         }
+        
+        curGameCardList.ShowCards();
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {

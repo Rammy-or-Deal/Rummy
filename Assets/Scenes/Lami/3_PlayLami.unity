@@ -7959,7 +7959,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 130, y: 43}
+  m_CellSize: {x: 143, y: 43}
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 2
   m_ConstraintCount: 4
@@ -8224,8 +8224,8 @@ GameObject:
   - component: {fileID: 1712245487}
   - component: {fileID: 1712245491}
   - component: {fileID: 1712245490}
-  - component: {fileID: 1712245489}
   - component: {fileID: 1712245488}
+  - component: {fileID: 1712245489}
   m_Layer: 5
   m_Name: HandPoint
   m_TagString: Untagged
@@ -8249,7 +8249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -157.6, y: 60.1}
+  m_AnchoredPosition: {x: -157.6, y: 50}
   m_SizeDelta: {x: 25.920013, y: 24.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!73398921 &1712245488
@@ -8298,9 +8298,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1712245486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c2f4b27196f84954b44753aaac214bb, type: 3}
+  m_Script: {fileID: 11500000, guid: feb6451a2cde7204dbf1be462dafa551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 0.4
+  yPos: 10
 --- !u!114 &1712245490
 MonoBehaviour:
   m_ObjectHideFlags: 0
