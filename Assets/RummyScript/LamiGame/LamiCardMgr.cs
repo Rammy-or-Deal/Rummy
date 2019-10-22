@@ -14,10 +14,16 @@ public class Card
     public int num;
     public int color;
 
+    public int MyCardId = -1;
+
     public Card(int num0, int color0)
     {
         num = num0;
         color = color0;
+    }
+    public Card()
+    {
+        
     }
 }
 public class LamiCardMgr : MonoBehaviour

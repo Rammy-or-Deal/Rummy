@@ -12,6 +12,8 @@ public class UIMyCardPanel : MonoBehaviour
     public List<LamiMyCard> myCards;
     public bool sortedByColor;
 
+
+
     [HideInInspector] public List<LamiMyCard> selectedCards;
 
     // Start is called before the first frame update

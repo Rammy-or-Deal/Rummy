@@ -193,9 +193,10 @@ public class LamiGameUIManager : MonoBehaviour
         }
         */
     }
-
+    
     public void OnClickTips()
-    {
+    {        
+        LamiMe.Inst.SelectTipCard_Flush();
     }
 
     public void OnClickArrange()
