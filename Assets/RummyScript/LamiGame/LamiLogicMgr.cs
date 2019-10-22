@@ -80,7 +80,8 @@ public class LamiLogicMgr : MonoBehaviour
 
     public IEnumerator CreateBot()
     {
-        int botWaitTime = UnityEngine.Random.Range(5, 10);
+        //int botWaitTime = UnityEngine.Random.Range(5, 10);
+        int botWaitTime = 2;
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             while (!isStart)
@@ -124,7 +125,8 @@ public class LamiLogicMgr : MonoBehaviour
                 break;
             case (int)LamiMessages.OnUserLeave_M:
                 if (PhotonNetwork.IsMasterClient)
-                    LamiPlayerMgr.Inst.OnUserLeave(p.ActorNumber);
+                    LamiPlayerMgr.Inst.OnUserLeave_M(p.ActorNumber);
+                    
                 break;
             case (int)LamiMessages.OnStartGame:
                 StopCoroutine(CreateBot());

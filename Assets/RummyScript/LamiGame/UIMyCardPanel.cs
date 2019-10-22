@@ -12,6 +12,8 @@ public class UIMyCardPanel : MonoBehaviour
     public List<LamiMyCard> myCards;
     public bool sortedByColor;
 
+
+
     [HideInInspector] public List<LamiMyCard> selectedCards;
 
     // Start is called before the first frame update
@@ -86,7 +88,7 @@ public class UIMyCardPanel : MonoBehaviour
                 // first sort by color
                 for (int j = i + 1; j < myCards.Count; j++)
                 {
-                    if (myCards[i].color < myCards[j].color)
+                    if (myCards[i].color > myCards[j].color)
                     {
                         int col = myCards[i].color;
                         int num = myCards[i].num;

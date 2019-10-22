@@ -14,15 +14,21 @@ public class Card
     public int num;
     public int color;
 
+    public int MyCardId = -1;
+
     public Card(int num0, int color0)
     {
         num = num0;
         color = color0;
     }
+    public Card()
+    {
+        
+    }
 }
 public class LamiCardMgr : MonoBehaviour
 {
-    public const int JokerNum = 0;
+    public const int JokerNum = 15;
     public static LamiCardMgr Inst;
     public Card[][] playerCard = new Card[4][];
     public int[][] initCard = new int[4][];

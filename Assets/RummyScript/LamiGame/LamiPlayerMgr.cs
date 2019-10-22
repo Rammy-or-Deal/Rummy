@@ -247,7 +247,7 @@ public class LamiPlayerMgr : MonoBehaviour
         LogMgr.Inst.Log("First Turn is determined. - " + turn, (int)LogLevels.RoomLog2);
     }
 
-    internal void OnUserLeave(int actorNumber)
+    internal void OnUserLeave_M(int actorNumber)
     {
         string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
         var tmp = seatString.Split(',');
@@ -363,6 +363,9 @@ public class LamiPlayerMgr : MonoBehaviour
                 // Distribute all cards
                 LamiCardMgr.Inst.GenerateCard();
 
+                // Close Game room
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+                PhotonNetwork.CurrentRoom.IsVisible = false;
             }
         }
     }

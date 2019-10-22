@@ -10,9 +10,12 @@ using UnityEngine;
 
 public class LamiMe : MonoBehaviour
 {
+    List<List<Card>> flushList;
+    int nowFlush = 0;
     public static LamiMe Inst;
 
-    List<LamiMyCard> m_cardList = new List<LamiMyCard>(); // my cards
+    public List<Card> m_tmpCardList = new List<Card>();
+    public List<LamiMyCard> m_cardList = new List<LamiMyCard>(); // my cards
     List<LamiMyCard> sel_cards = new List<LamiMyCard>(); // selected cards
 
     int cardLineNumber;
@@ -103,7 +106,26 @@ public class LamiMe : MonoBehaviour
 
         LamiGameUIManager.Inst.myCardPanel.ArrangeMyCard();
     }
-
+    public void SelectTipCard_Flush()
+    {
+        if (flushList.Count > nowFlush )
+        {
+            for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
+            {
+                LamiGameUIManager.Inst.myCardPanel.myCards[i].SetUpdate(false);
+            }
+            string log = "";
+            for (int i = 0; i < flushList[nowFlush].Count; i++)
+            {
+                log += flushList[nowFlush][i].num + ",";
+                LamiGameUIManager.Inst.myCardPanel.myCards[flushList[nowFlush][i].MyCardId].SetUpdate(true);
+            }
+            LogMgr.Inst.Log("now tip " + log, (int)LogLevels.PlayerLog2);    
+        }
+        LogMgr.Inst.Log("now tip turn = " + nowFlush + " / total= " + flushList.Count, (int)LogLevels.PlayerLog2);
+        nowFlush++;
+        nowFlush = nowFlush % flushList.Count;
+    }
     internal void SetMyTurn(bool isMyTurn)
     {
         if (isMyTurn)
@@ -115,6 +137,21 @@ public class LamiMe : MonoBehaviour
             LamiGameUIManager.Inst.tipButton.gameObject.SetActive(true);
             //GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
             //LamiCountdownTimer.Inst.StartTurnTimer();
+
+            // Get all available cards
+            // Get available Flush List
+            try
+            {
+                for (int i = 0; i < flushList.Count; i++)
+                {
+                    flushList[i].Clear();
+                }
+                flushList.Clear();
+            }
+            catch { }
+            nowFlush = 0;
+
+            flushList = GetAvailableCards_Flush();
         }
         else
         {
@@ -122,7 +159,7 @@ public class LamiMe : MonoBehaviour
             LamiGameUIManager.Inst.playButton.interactable = false;
             LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
             //GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
-//            LamiCountdownTimer.Inst.StartTurnTimer();
+            //            LamiCountdownTimer.Inst.StartTurnTimer();
         }
     }
     /************************* */
@@ -205,6 +242,181 @@ public class LamiMe : MonoBehaviour
         }
     }
 
+    public List<List<Card>> GetAvailableCards_Flush()
+    {
+        m_tmpCardList.Clear();
+
+        for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
+        {
+            Card card = new Card();
+            card.color = LamiGameUIManager.Inst.myCardPanel.myCards[i].color;
+            card.num = LamiGameUIManager.Inst.myCardPanel.myCards[i].num;
+            card.MyCardId = i;
+            m_tmpCardList.Add(card);
+        }
+
+        List<List<List<int>>> continue_intList = new List<List<List<int>>>();
+        List<List<List<Card>>> continue_List = new List<List<List<Card>>>();
+
+        //init
+        List<List<int>> t0 = new List<List<int>>();
+        List<int> t1 = new List<int>();
+        t1.Add(m_tmpCardList[0].num);
+        t0.Add(t1);
+        continue_intList.Add(t0);
+
+        List<List<Card>> t00 = new List<List<Card>>();
+        List<Card> t11 = new List<Card>();
+        t11.Add(m_tmpCardList[0]);
+        t00.Add(t11);
+        continue_List.Add(t00);
+
+        for (int i = 0; i < m_tmpCardList.Count; i++)
+        {
+            if (m_tmpCardList[i].num == 15) continue;
+            bool canInsert = true;
+            for (int j = 0; j < continue_intList[0].Count; j++)
+            {
+                if (continue_intList[0][j].Contains(m_tmpCardList[i].num))
+                {
+                    canInsert = false;
+                }
+            }
+            if (canInsert)
+            {
+                List<int> tt1 = new List<int>();
+                tt1.Add(m_tmpCardList[i].num);
+
+                continue_intList[0].Add(tt1);
+
+
+                List<Card> tt11 = new List<Card>();
+                tt11.Add(m_tmpCardList[i]);
+                continue_List[0].Add(tt11);
+            }
+        }
+
+        // Inserting Joker
+        int count = continue_intList[0].Count;
+        for (int j = 0; j < count; j++)
+        {
+            for (int i = 0; i < m_tmpCardList.Where(x => x.num == 15).Count(); i++)
+            {
+                List<int> tt1 = continue_intList[0][j].ToList();
+                int firstValue = continue_intList[0][j][continue_intList[0][j].Count - 1];
+                firstValue = firstValue - (i + 1);
+
+                if (firstValue > 0)
+                {
+                    List<int> insert_intList = new List<int>();
+                    for (int k = 0; k < i + 1; k++)
+                    {
+                        insert_intList.Add(firstValue + k);
+                    }
+
+                    tt1.InsertRange(0, insert_intList);
+                    continue_intList[0].Add(tt1);
+
+                    List<Card> tt11 = continue_List[0][j].ToList();
+                    List<Card> insert_List = new List<Card>();
+                    for (int k = 0; k < i + 1; k++)
+                    {
+                        insert_List.Add(m_tmpCardList.Where(x => x.num == 15).ToList()[k]);
+                    }
+                    tt11.InsertRange(0, insert_List);
+                    continue_List[0].Add(tt11);
+                }
+
+            }
+        }
+
+
+        bool canContinue = true;
+        int level = 0;
+        while (canContinue)
+        {
+            canContinue = false;
+            level++;
+            List<List<int>> first_int = new List<List<int>>();
+            List<List<Card>> first_tmpCard = new List<List<Card>>();
+            continue_intList.Add(first_int);
+            continue_List.Add(first_tmpCard);
+            count = continue_List[level - 1].Count;
+            for (int i = 0; i < count; i++)
+            {
+                bool isSet = false;
+                for (int j = 0; j < m_tmpCardList.Count; j++)
+                {
+                    if (!continue_intList[level - 1][i].Contains(m_tmpCardList[j].num) &&
+                        (continue_intList[level - 1][i].Max() + 1 == m_tmpCardList[j].num || (continue_intList[level - 1][i].Max() + 1 == 14 && m_tmpCardList[j].num == 1))
+                        && continue_List[level - 1][i][0].color == m_tmpCardList[j].color)
+                    {
+                        var tmp1 = continue_intList[level - 1][i].ToList();
+                        tmp1.Add(m_tmpCardList[j].num);
+                        continue_intList[level].Add(tmp1);
+
+                        var tmp2 = continue_List[level - 1][i].ToList();
+                        tmp2.Add(m_tmpCardList[j]);
+                        continue_List[level].Add(tmp2);
+                        canContinue = true;
+                        isSet = true;
+                    }
+                }
+                if (isSet == false && continue_List[level - 1][i].Count(x => x.num == 15) < m_tmpCardList.Count(x => x.num == 15))
+                {
+                    var tmp2 = continue_List[level - 1][i].ToList();
+                    //tmp2.Add(new tmpCard { color = 15, num = 15, MyCardId = m_tmpCardList.First(x=>x.num==15).MyCardId });
+                    for (int tt = 0; tt < m_tmpCardList.Count; tt++)
+                    {
+                        if (m_tmpCardList[tt].num != 15) continue;
+
+                        bool isSelectJoker = false;
+                        Card tmp_Joker = new Card();
+                        for (int kk = 0; kk < tmp2.Count; kk++)
+                        {
+                            if (tmp2[kk].num != 15) continue;
+                            if (m_tmpCardList[tt].MyCardId != tmp2[kk].MyCardId)
+                            {
+                                tmp_Joker.MyCardId = m_tmpCardList[tt].MyCardId;
+                                tmp_Joker.num = m_tmpCardList[tt].num;
+                                tmp_Joker.color = m_tmpCardList[tt].color;
+                                isSelectJoker = true;
+                                break;
+                            }
+                        }
+                        if (isSelectJoker)
+                        {
+                            var tmp1 = continue_intList[level - 1][i].ToList();
+                            tmp1.Add(tmp1.Max() + 1);
+                            continue_intList[level].Add(tmp1);
+
+                            tmp2.Add(tmp_Joker);
+                            continue_List[level].Add(tmp2);
+
+                            canContinue = true;
+
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        List<List<Card>> resList = new List<List<Card>>();
+
+        for (int i = continue_List.Count-1; i >= 0; i--)
+        {
+            for (int j = continue_List[i].Count-1; j >=0 ; j--)
+            {
+                var tmp = continue_List[i][j].ToList();
+                resList.Add(tmp);
+            }
+        }
+
+        resList.Sort((a,b)=>b.Count - a.Count);
+        return resList;
+    }
 
     public void OnSelectedCard() //If one card is selected, this function should be called.
     {
