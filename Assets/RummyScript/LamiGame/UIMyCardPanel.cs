@@ -195,7 +195,7 @@ public class UIMyCardPanel : MonoBehaviour
             selectedCards.Add(clickedCard);
         else
             selectedCards.Remove(clickedCard);
-        LogMgr.Inst.Log("Selected Card = " + selectedCards.Count, (int)LogLevels.PlayerLog2);
+//        LogMgr.Inst.Log("Selected Card = " + selectedCards.Count, (int)LogLevels.PlayerLog2);
         LamiGameUIManager.Inst.playButton.interactable = (selectedCards.Count > 0);
     }
 }

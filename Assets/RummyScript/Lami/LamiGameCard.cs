@@ -20,6 +20,13 @@ public class LamiGameCard : MonoBehaviour
         mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_" + color + "_" + num);
     }
 
+    public void UpdateCard(Card card)
+    {
+        num = card.num;
+        color = card.color;
+        UpdateValue();
+    }
+
     // Update is called once per frame
     void Update()
     {

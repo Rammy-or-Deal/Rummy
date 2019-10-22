@@ -271,41 +271,30 @@ public class LamiMe : MonoBehaviour
             m_tmpCardList.Add(card);
         }
 
-        List<List<List<int>>> continue_intList = new List<List<List<int>>>();
         List<List<List<Card>>> continue_List = new List<List<List<Card>>>();
 
-        //init
-        List<List<int>> t0 = new List<List<int>>();
-        List<int> t1 = new List<int>();
-        t1.Add(m_tmpCardList[0].num);
-        t0.Add(t1);
-        continue_intList.Add(t0);
-
         List<List<Card>> t00 = new List<List<Card>>();
-        List<Card> t11 = new List<Card>();
-        t11.Add(m_tmpCardList[0]);
-        t00.Add(t11);
         continue_List.Add(t00);
 
+        bool con = false;
+
+        // Add first card
         for (int i = 0; i < m_tmpCardList.Count; i++)
         {
             if (m_tmpCardList[i].num == 15) continue;
-            bool canInsert = true;
-            for (int j = 0; j < continue_intList[0].Count; j++)
+            con = true;
+            for (int j = 0; j < continue_List[0].Count; j++)
             {
-                if (continue_intList[0][j].Contains(m_tmpCardList[i].num))
+                for (int k = 0; k < continue_List[0][j].Count; k++)
                 {
-                    canInsert = false;
+                    if (continue_List[0][j][k].num == m_tmpCardList[i].num && continue_List[0][j][k].color == m_tmpCardList[i].color)
+                    {
+                        con = false;
+                    }
                 }
             }
-            if (canInsert)
+            if (con)
             {
-                List<int> tt1 = new List<int>();
-                tt1.Add(m_tmpCardList[i].num);
-
-                continue_intList[0].Add(tt1);
-
-
                 List<Card> tt11 = new List<Card>();
                 tt11.Add(m_tmpCardList[i]);
                 continue_List[0].Add(tt11);
@@ -313,40 +302,69 @@ public class LamiMe : MonoBehaviour
         }
 
         // Inserting Joker
-        int count = continue_intList[0].Count;
+        int count = continue_List[0].Count;
         for (int j = 0; j < count; j++)
         {
             for (int i = 0; i < m_tmpCardList.Where(x => x.num == 15).Count(); i++)
             {
-                List<int> tt1 = continue_intList[0][j].ToList();
-                int firstValue = continue_intList[0][j][continue_intList[0][j].Count - 1];
-                firstValue = firstValue - (i + 1);
+                int firstColor = continue_List[0][j][continue_List[0][j].Count - 1].color;
+                int firstValue = continue_List[0][j][continue_List[0][j].Count - 1].virtual_num;
 
-                if (firstValue > 0)
+                if (firstValue != 1)
                 {
-                    List<int> insert_intList = new List<int>();
-                    for (int k = 0; k < i + 1; k++)
-                    {
-                        insert_intList.Add(firstValue + k);
-                    }
+                    firstValue = firstValue - (i + 1);
 
-                    tt1.InsertRange(0, insert_intList);
-                    continue_intList[0].Add(tt1);
-
-                    List<Card> tt11 = continue_List[0][j].ToList();
-                    List<Card> insert_List = new List<Card>();
-                    for (int k = 0; k < i + 1; k++)
+                    if (firstValue > 0)
                     {
-                        var j_card = m_tmpCardList.Where(x => x.num == 15).ToList()[k];
-                        j_card.virtual_num = firstValue + k;
-                        insert_List.Add(j_card);
+                        List<Card> tt11 = continue_List[0][j].ToList();
+                        List<Card> insert_List = new List<Card>();
+                        for (int k = 0; k < i + 1; k++)
+                        {
+                            var j_card = new Card();
+                            j_card.MyCardId = m_tmpCardList.Where(x => x.num == 15).ToList()[k].MyCardId;
+                            j_card.num = 15;
+                            j_card.color = firstColor;
+
+                            j_card.virtual_num = firstValue + k;
+                            j_card.color = firstColor;
+                            insert_List.Add(j_card);
+                        }
+                        insert_List.AddRange(tt11);
+                        continue_List[0].Add(insert_List);
                     }
-                    tt11.InsertRange(0, insert_List);
-                    continue_List[0].Add(tt11);
                 }
+                else
+                {
+                    firstValue = 14 - (i + 1);
 
+                    if (firstValue > 0)
+                    {
+                        List<Card> tt11 = continue_List[0][j].ToList();
+                        Card card = new Card();
+                        card.MyCardId = tt11[0].MyCardId;
+                        card.color = tt11[0].color;
+                        card.num = tt11[0].num;
+
+                        card.virtual_num = -1;
+                        List<Card> insert_List = new List<Card>();
+                        for (int k = 0; k < i + 1; k++)
+                        {
+                            var j_card = new Card();
+                            j_card.MyCardId = m_tmpCardList.Where(x => x.num == 15).ToList()[k].MyCardId;
+                            j_card.num = 15;
+                            j_card.color = firstColor;
+
+                            j_card.virtual_num = firstValue + k;
+                            j_card.color = firstColor;
+                            insert_List.Add(j_card);
+                        }
+                        insert_List.Add(card);
+                        continue_List[0].Add(insert_List);
+                    }
+                }
             }
         }
+
 
 
         bool canContinue = true;
@@ -355,31 +373,44 @@ public class LamiMe : MonoBehaviour
         {
             canContinue = false;
             level++;
-            List<List<int>> first_int = new List<List<int>>();
-            List<List<Card>> first_tmpCard = new List<List<Card>>();
-            continue_intList.Add(first_int);
-            continue_List.Add(first_tmpCard);
+            continue_List.Add(new List<List<Card>>());
             count = continue_List[level - 1].Count;
+
             for (int i = 0; i < count; i++)
             {
+                // Add continuous card(except joker)
+                if (continue_List[level - 1][i][continue_List[level - 1][i].Count - 1].virtual_num == -1) continue; // if Joker is used as Q, K, A(joker), continue;
+
                 for (int j = 0; j < m_tmpCardList.Count; j++)
                 {
-                    if (!continue_intList[level - 1][i].Contains(m_tmpCardList[j].num) &&
-                        (continue_intList[level - 1][i].Max() + 1 == m_tmpCardList[j].num || (continue_intList[level - 1][i].Max() + 1 == 14 && m_tmpCardList[j].num == 1))
-                        && continue_List[level - 1][i][0].color == m_tmpCardList[j].color)
-                    {
-                        var tmp1 = continue_intList[level - 1][i].ToList();
-                        tmp1.Add(m_tmpCardList[j].num);
-                        continue_intList[level].Add(tmp1);
+                    if (m_tmpCardList[j].num == 15) continue;
 
+                    if ((continue_List[level - 1][i][continue_List[level - 1][i].Count - 1].virtual_num + 1 == m_tmpCardList[j].num ||  // if continuous
+                           (continue_List[level - 1][i][continue_List[level - 1][i].Count - 1].virtual_num + 1 == 14 && m_tmpCardList[j].num == 1)) // if A
+                        && continue_List[level - 1][i][0].color == m_tmpCardList[j].color)  // if same color
+                    {
                         var tmp2 = continue_List[level - 1][i].ToList();
-                        tmp2.Add(m_tmpCardList[j]);
+                        var newCard = new Card();
+                        newCard.num = m_tmpCardList[j].num;
+                        newCard.color = m_tmpCardList[j].color;
+                        newCard.MyCardId = m_tmpCardList[j].MyCardId;
+                        newCard.virtual_num = m_tmpCardList[j].num;
+
+
+                        if (tmp2[tmp2.Count - 1].virtual_num + 1 == 14)
+                        {
+                            newCard.virtual_num = -1;
+                        }
+
+                        tmp2.Add(newCard);
+
                         continue_List[level].Add(tmp2);
                         canContinue = true;
                         break;
                     }
                 }
 
+                // Add joker
                 if (continue_List[level - 1][i].Count(x => x.num == 15) < m_tmpCardList.Count(x => x.num == 15))
                 {
                     var tmp2 = continue_List[level - 1][i].ToList();
@@ -387,7 +418,7 @@ public class LamiMe : MonoBehaviour
                     bool isSelectJoker = false;
                     for (int tt = 0; tt < m_tmpCardList.Count && !isSelectJoker; tt++)
                     {
-                        if (m_tmpCardList[tt].num == 15) continue;
+                        if (m_tmpCardList[tt].num != 15) continue;
                         for (int kk = 0; kk < tmp2.Count && !isSelectJoker; kk++)
                         {
                             if (tmp2[kk].MyCardId != m_tmpCardList[tt].MyCardId)
@@ -402,16 +433,12 @@ public class LamiMe : MonoBehaviour
 
                     if (isSelectJoker)
                     {
-                        var tmp1 = continue_intList[level - 1][i].ToList();
-                        tmp1.Add(tmp1.Max() + 1);
-                        continue_intList[level].Add(tmp1);
-                        sel_joker.virtual_num = tmp1.Max();
+                        sel_joker.virtual_num = tmp2[tmp2.Count - 1].virtual_num + 1;
+                        if (sel_joker.virtual_num == 14) sel_joker.virtual_num = -1;
                         tmp2.Add(sel_joker);
                         continue_List[level].Add(tmp2);
 
                         canContinue = true;
-
-                        break;
                     }
                 }
             }
@@ -429,7 +456,9 @@ public class LamiMe : MonoBehaviour
             }
         }
 
-        resList.Sort((a, b) => b.Count - a.Count);
+        //resList.Sort((a, b) => b.Count(x=>x.num==15) - a.Count(x=>x.num==15));
+        //resList.Sort((a, b) => a.Where(x=>x.num != 15).Sum(x=>x.num) - b.Where(x=>x.num != 15).Sum(x=>x.num));
+        resList.Sort((a, b) => b.Where(x=>x.num != 15).Sum(x=>x.virtual_num) - a.Where(x=>x.num != 15).Sum(x=>x.virtual_num));
         return resList;
     }
 
