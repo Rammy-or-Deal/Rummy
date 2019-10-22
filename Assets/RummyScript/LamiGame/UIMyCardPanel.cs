@@ -11,9 +11,6 @@ public class UIMyCardPanel : MonoBehaviour
     //MyCard
     public List<LamiMyCard> myCards;
     public bool sortedByColor;
-
-
-
     [HideInInspector] public List<LamiMyCard> selectedCards;
 
     // Start is called before the first frame update
@@ -71,6 +68,7 @@ public class UIMyCardPanel : MonoBehaviour
             card.gameObject.SetActive(false);
         }
         selectedCards.Clear();
+        LamiGameUIManager.Inst.playButton.interactable = (selectedCards.Count > 0);
     }
 
     public int RemainCards()
@@ -80,7 +78,7 @@ public class UIMyCardPanel : MonoBehaviour
 
     public void ArrangeMyCard()
     {
-        if (sortedByColor)
+        if (!sortedByColor)
         {
             // Arrange cards by color
             for (int i = 0; i < myCards.Count - 1; i++)
@@ -197,9 +195,7 @@ public class UIMyCardPanel : MonoBehaviour
             selectedCards.Add(clickedCard);
         else
             selectedCards.Remove(clickedCard);
-
+        LogMgr.Inst.Log("Selected Card = " + selectedCards.Count, (int)LogLevels.PlayerLog2);
         LamiGameUIManager.Inst.playButton.interactable = (selectedCards.Count > 0);
     }
-
-
 }

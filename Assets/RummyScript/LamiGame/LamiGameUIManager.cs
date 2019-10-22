@@ -193,9 +193,9 @@ public class LamiGameUIManager : MonoBehaviour
         }
         */
     }
-    
+
     public void OnClickTips()
-    {        
+    {
         LamiMe.Inst.SelectTipCard_Flush();
     }
 
@@ -203,6 +203,12 @@ public class LamiGameUIManager : MonoBehaviour
     {
         LogMgr.Inst.Log("Arrange Button is clicked", (int)LogLevels.RoomLog3);
         myCardPanel.ArrangeMyCard();
+        for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
+        {
+            LamiGameUIManager.Inst.myCardPanel.myCards[i].isSelected=false;
+            LamiGameUIManager.Inst.myCardPanel.myCards[i].SetUpdate();
+        }
+        LamiMe.Inst.Init_FlashList();
     }
 
     public void OnClickChat()

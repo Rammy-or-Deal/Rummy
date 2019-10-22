@@ -15,7 +15,7 @@ public class Card
     public int color;
 
     public int MyCardId = -1;
-
+    public int virtual_num;
     public Card(int num0, int color0)
     {
         num = num0;
@@ -23,7 +23,7 @@ public class Card
     }
     public Card()
     {
-        
+
     }
 }
 public class LamiCardMgr : MonoBehaviour

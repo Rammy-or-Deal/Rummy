@@ -10,16 +10,18 @@ public class LamiMyCard : MonoBehaviour
 {
     public Image mCard;
     public bool isSelected;
+    private bool isBeforeSelected;
     public int color;
     public int num;
     public int MyCardId;
+    public int virtual_num;
     [HideInInspector] public bool disable; // disable effect status When game finish window
-    float initPos;
+
     void Start()
     {
         isSelected = false;
         UpdateValue();
-        initPos = transform.position.y;        
+
     }
 
     public void UpdateValue()
@@ -37,14 +39,16 @@ public class LamiMyCard : MonoBehaviour
     public void OnClick()
     {
         isSelected = (!isSelected);
-        int move = 10 * (isSelected ? -1 : 0);
-        LeanTween.moveY(gameObject, initPos - move, 0.1f);
-        LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState(this);
+        SetUpdate();
     }
-    public void SetUpdate(bool sel)
+    public void SetUpdate()
     {
-        isSelected = sel;
-        int move = 10 * (isSelected ? -1 : 0);
-        LeanTween.moveY(gameObject, initPos - move, 0.1f);
+        if (isSelected != isBeforeSelected)
+        {
+            int move = 10 * (isSelected ? -1 : 1);
+            LeanTween.moveY(gameObject, transform.position.y - move, 0.1f);
+        }
+        LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState(this);
+        isBeforeSelected=isSelected;
     }
 }
