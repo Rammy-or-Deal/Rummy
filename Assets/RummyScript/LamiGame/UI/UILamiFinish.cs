@@ -17,11 +17,12 @@ public class UILamiFinish : MonoBehaviour
     
     public void OnExitBtn()
     {
-        
+        //gameObject.SetActive(false);
+        PunController.Inst.LeaveGame();
     }
     
     public void OnContinueBtn()
     {
-        
+        gameObject.SetActive(false);
     }
 }

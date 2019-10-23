@@ -25,9 +25,19 @@ public class UILamiFinishScorePan : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateInfo(string picSprite,string frameName,string skillName,string userName,string rankText,int cardPoint,int aceCnt,int jockerCnt,int scoreVal,List<Card> cards)
     {
+        avatar.sprite=Resources.Load<Sprite>(picSprite);
+        frame.sprite=Resources.Load<Sprite>("new_frame/frame_"+frameName);
+        skill.sprite=Resources.Load<Sprite>("new_skill/"+skillName);
+        username.text =userName;
+        rankTxt.text = rankText;
+
+        cardPoints.text = cardPoint.ToString();
+        aceCount.text = aceCnt.ToString();
+        jockerCount.text = jockerCnt.ToString();
+        score.text = scoreVal.ToString();
         
+        cardPan.UpdateCards(cards);
     }
 }

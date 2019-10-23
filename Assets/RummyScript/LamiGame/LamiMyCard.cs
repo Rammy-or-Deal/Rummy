@@ -15,26 +15,34 @@ public class LamiMyCard : MonoBehaviour
     public int num;
     public int MyCardId;
     public int virtual_num;
-    [HideInInspector] public bool disable; // disable effect status When game finish window
-
+    public const int JOKER_NUM = 15;
     void Start()
     {
         isSelected = false;
         isBeforeSelected = false;
         UpdateValue();
-
     }
 
-    public void UpdateValue()
+    public void UpdateFinishCard(Card card)// when Finish
     {
-        mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_" + color + "_" + num);
-        if (disable)
+        num = card.num;
+        color = card.color;
+        UpdateValue();
+        if (card.MyCardId == 0)  //default:-1 , 0:disable
         {
             Color col = mCard.color;
             col.a = 0.5f;
             mCard.color = col;
             GetComponent<Image>().color = col;
         }
+    }
+
+    public void UpdateValue()
+    {
+        if(num == JOKER_NUM)
+            mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_15_15");
+        else
+            mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_" + color + "_" + num);
     }
 
     public void OnClick()
