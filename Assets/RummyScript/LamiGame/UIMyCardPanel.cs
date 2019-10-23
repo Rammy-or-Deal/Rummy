@@ -268,12 +268,16 @@ public class UIMyCardPanel : MonoBehaviour
         {
             cursorPoints[curCursorNum].SetActive(false);
         }
+        LamiGameUIManager.Inst.InitLineNumbers();
     }
 
     private void ShowCursorpoint(int lineNum){  // Show cursor by lineNum
-        cursorPoints[curCursorNum].transform.position =
-            LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform.position;
+        Vector3 pos=LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform.position;
+        int xDiff = 60;
+//        RectTransform rect = (RectTransform) LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform;
+        cursorPoints[curCursorNum].transform.position =new Vector3(pos.x+xDiff,pos.y,pos.z);
         cursorPoints[curCursorNum].SetActive(true);
+        LamiGameUIManager.Inst.mGameCardPanelList[lineNum].lineNum = lineNum;
         curCursorNum++;
     }
 }
