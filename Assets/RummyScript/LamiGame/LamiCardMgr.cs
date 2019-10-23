@@ -148,10 +148,13 @@ public class LamiCardMgr : MonoBehaviour
         string[] str = cardStr.Split(':');        
         int[] numList = str[1].Split(',').Select(Int32.Parse).ToArray();
         int[] colList = str[2].Split(',').Select(Int32.Parse).ToArray();
+        int[] v_numList = str[3].Split(',').Select(Int32.Parse).ToArray();
+
         Card[] cardList = new Card[numList.Length];
         for (int i = 0; i < cardList.Length; i++)
         {
             cardList[i] = new Card(numList[i], colList[i]);
+            cardList[i].virtual_num = v_numList[i];
         }
         return cardList;
     }
@@ -160,14 +163,18 @@ public class LamiCardMgr : MonoBehaviour
     {
         int[] numList = new int[cardList.Count];
         int[] colList = new int[cardList.Count];
+        int[] v_numList = new int[cardList.Count];
+
         for (int i = 0; i < cardList.Count; i++)
         {
             numList[i] = cardList[i].num;
             colList[i] = cardList[i].color;
+            v_numList[i] = cardList[i].virtual_num;
         }
         string numString = string.Join(",", numList);
         string colString = string.Join(",", colList);
-        return numString + ":" + colString;
+        string v_numString = string.Join(",", v_numList);
+        return numString + ":" + colString + ":" + v_numString;
     }
 
     public Card[] ReceivedCardList(int id, Card[] cardList)

@@ -104,7 +104,8 @@ public class LamiGameUIManager : MonoBehaviour
         foreach (Card card in LamiCardMgr.ConvertCardStrToCardList(cardStr))
         {
             curGameCardList.AddGameCard(card);
-        }
+            
+        }        
         
         curGameCardList.ShowCards();
     }

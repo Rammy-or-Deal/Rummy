@@ -134,9 +134,11 @@ public class LamiMe : MonoBehaviour
         }
         LogMgr.Inst.Log("now tip turn = " + nowFlush + " / total= " + flushList.Count, (int)LogLevels.PlayerLog2);
         nowFlush++;
-        try{
-        nowFlush = nowFlush % flushList.Count;
-        }catch{}
+        try
+        {
+            nowFlush = nowFlush % flushList.Count;
+        }
+        catch { }
     }
     public void Init_FlashList()
     {
@@ -460,7 +462,7 @@ public class LamiMe : MonoBehaviour
 
         //resList.Sort((a, b) => b.Count(x=>x.num==15) - a.Count(x=>x.num==15));
         //resList.Sort((a, b) => a.Where(x=>x.num != 15).Sum(x=>x.num) - b.Where(x=>x.num != 15).Sum(x=>x.num));
-        resList.Sort((a, b) => b.Where(x=>x.num != 15).Sum(x=>x.num) - a.Where(x=>x.num != 15).Sum(x=>x.num));
+        resList.Sort((a, b) => b.Where(x => x.num != 15).Sum(x => x.num) - a.Where(x => x.num != 15).Sum(x => x.num));
         return resList;
     }
 
