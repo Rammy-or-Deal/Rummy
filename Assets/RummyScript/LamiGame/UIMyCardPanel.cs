@@ -340,6 +340,7 @@ public class UIMyCardPanel : MonoBehaviour
             cursorPoints[curCursorNum].SetActive(false);
         }
         LamiGameUIManager.Inst.InitLineNumbers();
+        curCursorNum = 0;
     }
 
     private void ShowCursorpoint(int lineNum)
