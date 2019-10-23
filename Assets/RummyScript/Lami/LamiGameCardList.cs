@@ -12,7 +12,8 @@ public class LamiGameCardList : MonoBehaviour
     public LamiGameCard[] centerCards;
     
     private float[] spacingList = {-17,-21.2f,-23.53f,-24.7f,-25.53f,-26.25f,-26.69f,-27.11f,-27.35f,-27.58f,-28f,-28.22f,-28.4f};
-    
+
+    public int lineNum=-1;
     void Start()
     {
         
@@ -58,8 +59,16 @@ public class LamiGameCardList : MonoBehaviour
                     centerCards[i-2].UpdateCard(mGameCardList[i]);
                     centerCards[i-2].gameObject.SetActive(true);    
                 }
-                
             }
+        }
+    }
+
+    public void OnClickLine()
+    {
+        LogMgr.Inst.Log("Clicked: " + lineNum, (int)LogLevels.PlayerLog2);
+        if (lineNum > 0)
+        {
+//            LameMe.Inst.OnClickLine(lineNum);    
         }
     }
 }

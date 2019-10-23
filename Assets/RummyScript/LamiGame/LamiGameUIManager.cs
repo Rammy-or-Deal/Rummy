@@ -52,6 +52,14 @@ public class LamiGameUIManager : MonoBehaviour
         mGameCardPanelList = new List<LamiGameCardList>();
     }
 
+    public void InitLineNumbers()
+    {
+        foreach (var obj in mGameCardPanelList)
+        {
+            obj.lineNum = -1;
+        }
+    }
+
     public void InitButtonsFirst()
     {
         playButton.gameObject.SetActive(false);

@@ -11,6 +11,8 @@ public class UIMyCardPanel : MonoBehaviour
     //MyCard
     public Dictionary<int, List<Card>> attachList = new Dictionary<int, List<Card>>();
     public List<LamiMyCard> myCards;
+    public GameObject[] cursorPoints;
+    private int curCursorNum = 0;
     public bool sortedByColor;
     [HideInInspector] public List<LamiMyCard> selectedCards;
 
@@ -301,11 +303,21 @@ public class UIMyCardPanel : MonoBehaviour
 
     private void InitPanList() ///// Remove all cursors
     {
-        throw new NotImplementedException();
+        for (int i = 0; i < curCursorNum; i++)
+        {
+            cursorPoints[curCursorNum].SetActive(false);
+        }
+        LamiGameUIManager.Inst.InitLineNumbers();
     }
 
     private void ShowCursorpoint(int lineNum)
     {  // Show cursor by lineNum
-        throw new NotImplementedException();
+        Vector3 pos=LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform.position;
+        int xDiff = 60;
+//        RectTransform rect = (RectTransform) LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform;
+        cursorPoints[curCursorNum].transform.position =new Vector3(pos.x+xDiff,pos.y,pos.z);
+        cursorPoints[curCursorNum].SetActive(true);
+        LamiGameUIManager.Inst.mGameCardPanelList[lineNum].lineNum = lineNum;
+        curCursorNum++;
     }
 }
