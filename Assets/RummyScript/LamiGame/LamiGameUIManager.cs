@@ -20,6 +20,7 @@ public class LamiGameUIManager : MonoBehaviour
     public Button playButton;
     public Button arrangeButton;
     public GameObject settingDlg;
+    public UILamiFinish finishDlg;
 
     //Menu
     public GameObject mMenuPanel;
