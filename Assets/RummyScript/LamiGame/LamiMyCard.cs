@@ -43,6 +43,7 @@ public class LamiMyCard : MonoBehaviour
     }
     public void SetUpdate()
     {
+        
         if (isSelected != isBeforeSelected)
         {
             int move = 10 * (isSelected ? -1 : 1);
@@ -50,5 +51,6 @@ public class LamiMyCard : MonoBehaviour
         }
         LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState(this);
         isBeforeSelected=isSelected;
+//        LogMgr.Inst.Log("Card Clicked: num:=" + num + ", color:=" + color + ", seat:=" + MyCardId + ", selected:=" + isSelected, (int)LogLevels.RoomLog2);
     }
 }

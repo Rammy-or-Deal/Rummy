@@ -42,8 +42,7 @@ public class UIMyCardPanel : MonoBehaviour
         //        }
 
 
-
-        string cardStr = LamiCardMgr.ConvertSelectedListToString(selectedCards);
+        string cardStr = LamiCardMgr.ConvertSelectedListToString(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList());
         cardStr = PhotonNetwork.LocalPlayer.ActorNumber + ":" + cardStr;
         int remainCard = RemainCards();
         Hashtable gameCards = new Hashtable
@@ -62,13 +61,13 @@ public class UIMyCardPanel : MonoBehaviour
 
     public void RemoveCards()
     {
-        foreach (LamiMyCard card in selectedCards)
+        foreach (LamiMyCard card in LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList())
         {
             myCards.Remove(card);
             card.gameObject.SetActive(false);
         }
         selectedCards.Clear();
-        LamiGameUIManager.Inst.playButton.interactable = (selectedCards.Count > 0);
+        LamiGameUIManager.Inst.playButton.interactable = (LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true) > 0);
     }
 
     public int RemainCards()
@@ -141,43 +140,43 @@ public class UIMyCardPanel : MonoBehaviour
                     }
                 }
             }
-/*
-            for (int num = 0; num < 14; num++)
-            {
-                for (int i = 0; i < myCards.Count - 1; i++)
-                {
-                    if(myCards[i].num != num) continue;
-                    // first sort by color
-                    for (int j = i + 1; j < myCards.Count; j++)
-                    {
-                        if(myCards[i].num != num) continue;
-                        if (myCards[i].color < myCards[j].color)
+            /*
+                        for (int num = 0; num < 14; num++)
                         {
-                            int col = myCards[i].color;
-                            int number = myCards[i].num;
-                            myCards[i].color = myCards[j].color;
-                            myCards[i].num = myCards[j].num;
-                            myCards[j].color = col;
-                            myCards[j].num = number;
+                            for (int i = 0; i < myCards.Count - 1; i++)
+                            {
+                                if(myCards[i].num != num) continue;
+                                // first sort by color
+                                for (int j = i + 1; j < myCards.Count; j++)
+                                {
+                                    if(myCards[i].num != num) continue;
+                                    if (myCards[i].color < myCards[j].color)
+                                    {
+                                        int col = myCards[i].color;
+                                        int number = myCards[i].num;
+                                        myCards[i].color = myCards[j].color;
+                                        myCards[i].num = myCards[j].num;
+                                        myCards[j].color = col;
+                                        myCards[j].num = number;
+                                    }
+                                }
+                            }
                         }
-                    }
-                }
-            }
-            */
+                        */
         }
 
         // push joker to the last
-        for(int i = 0; i < myCards.Count-1; i++)
+        for (int i = 0; i < myCards.Count - 1; i++)
         {
-            if(myCards[i].num == 0)
+            if (myCards[i].num == 0)
             {
-                for(int j = i + 1; j < myCards.Count; j++)
+                for (int j = i + 1; j < myCards.Count; j++)
                 {
-                    myCards[j-1].num = myCards[j].num;
-                    myCards[j-1].color = myCards[j].color;
+                    myCards[j - 1].num = myCards[j].num;
+                    myCards[j - 1].color = myCards[j].color;
                 }
-                myCards[myCards.Count-1].num = 0 ;
-                myCards[myCards.Count-1].color = 0 ;
+                myCards[myCards.Count - 1].num = 0;
+                myCards[myCards.Count - 1].color = 0;
             }
         }
 
@@ -191,11 +190,53 @@ public class UIMyCardPanel : MonoBehaviour
 
     public void SetPlayButtonState(LamiMyCard clickedCard)
     {
-        if (clickedCard.isSelected)
-            selectedCards.Add(clickedCard);
-        else
-            selectedCards.Remove(clickedCard);
-//        LogMgr.Inst.Log("Selected Card = " + selectedCards.Count, (int)LogLevels.PlayerLog2);
-        LamiGameUIManager.Inst.playButton.interactable = (selectedCards.Count > 0);
+        // if (clickedCard.isSelected)
+        //     selectedCards.Add(clickedCard);
+        // else
+        //     selectedCards.Remove(clickedCard);
+        //LogMgr.Inst.Log("Selected Card Count: = " + LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true), (int)LogLevels.PlayerLog2);
+
+        //LamiGameUIManager.Inst.playButton.interactable = (LamiGameUIManager.Inst.myCardPanel.myCards.Count(x=>x.isSelected == true) > 0);
+        int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);
+        var selectedList = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList();
+        string log = "";
+        foreach (var card in selectedList){
+            log += card.MyCardId + "/ num="+card.num+", color="+card.color+", virtual="+card.virtual_num + "  :  ";
+        }
+        LogMgr.Inst.Log("selectedCard: " + log, (int)LogLevels.PlayerLog2);
+        bool isCorrect = false;
+        foreach (var org in LamiMe.Inst.flushList.Where(x => x.Count == count).ToList())
+        {
+            bool wrong = true;
+            
+            foreach (var card in selectedList)
+            {
+                wrong = false;
+                if (org.Count(x => x.num == card.num && x.color == card.color) == 0)
+                {
+                    wrong = true;
+                    break;
+                }
+            }
+            if (wrong == false)
+            {
+                foreach (var card in org)
+                {
+                    wrong = false;
+                    if (selectedList.Count(x => x.num == card.num && x.color == card.color) == 0)
+                    {
+                        wrong = true;
+                        break;
+                    }
+                }
+            }
+
+            if (wrong == false)
+            {
+                isCorrect = true;
+                break;
+            }
+        }
+        LamiGameUIManager.Inst.playButton.interactable = isCorrect;
     }
 }
