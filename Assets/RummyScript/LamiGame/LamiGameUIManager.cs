@@ -93,7 +93,7 @@ public class LamiGameUIManager : MonoBehaviour
         //SetPlayButtonState
 
         myCardPanel.OnClickLine();
-        
+
         //
         //LamiCountdownTimer.Inst.StopTurnTimer();
         //LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(false);
@@ -106,18 +106,30 @@ public class LamiGameUIManager : MonoBehaviour
     public void OnDealCard(string cardStr)
     {
         Debug.Log(cardStr);
-        curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
-        curGameCardList.gameObject.transform.localScale = Vector3.one;
-        mGameCardPanelList.Add(curGameCardList);
-        curGameCardList.Init();
+        int lineNum = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD_PAN];
 
-        foreach (Card card in LamiCardMgr.ConvertCardStrToCardList(cardStr))
+        var cardList = LamiCardMgr.ConvertCardStrToCardList(cardStr);
+        LogMgr.Inst.Log("User dealt card, line number:= " + lineNum, (int)LogLevels.RoomLog3);
+        if (lineNum == -1)
         {
-            curGameCardList.AddGameCard(card);
-
+            curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
+            curGameCardList.gameObject.transform.localScale = Vector3.one;
+            mGameCardPanelList.Add(curGameCardList);
+            curGameCardList.Init();
+            foreach (Card card in cardList)
+            {
+                curGameCardList.AddGameCard(card);
+            }
+            curGameCardList.ShowCards();
         }
-
-        curGameCardList.ShowCards();
+        else
+        {
+            List<Card> list = cardList.ToList();
+            if(list[list.Count-1].virtual_num+1 == mGameCardPanelList[lineNum].mGameCardList[0].virtual_num)
+                mGameCardPanelList[lineNum].AddStartCards(list);
+            else
+                mGameCardPanelList[lineNum].AddEndCards(list);
+        }
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
@@ -201,7 +213,7 @@ public class LamiGameUIManager : MonoBehaviour
 
     public void OnClickTips()
     {
-        LamiMe.Inst.SelectTipCard_Flush();
+        LamiMe.Inst.SelectTipCard();
     }
 
     public void OnClickArrange()

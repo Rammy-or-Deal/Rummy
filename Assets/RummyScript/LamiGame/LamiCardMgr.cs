@@ -124,7 +124,7 @@ public class LamiCardMgr : MonoBehaviour
         {
             { Common.LAMI_MESSAGE, (int)LamiMessages.OnCardDistributed},
             { Common.CARD_LIST_STRING, totalCardString }
-        };        
+        };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         LogMgr.Inst.Log("Prepare CardList: " + totalCardString, (int)LogLevels.PlayerLog2);
     }
@@ -146,16 +146,25 @@ public class LamiCardMgr : MonoBehaviour
 
     public static Card[] ConvertCardStrToCardList(string cardStr)
     {
-        string[] str = cardStr.Split(':');        
+        string[] str = cardStr.Split(':');
         int[] numList = str[1].Split(',').Select(Int32.Parse).ToArray();
         int[] colList = str[2].Split(',').Select(Int32.Parse).ToArray();
-        //int[] v_numList = str[3].Split(',').Select(Int32.Parse).ToArray();
+
 
         Card[] cardList = new Card[numList.Length];
         for (int i = 0; i < cardList.Length; i++)
         {
             cardList[i] = new Card(numList[i], colList[i]);
-            
+        }
+
+        // add virtual number
+        if (str.Length >= 4)
+        {
+            int[] v_numList = str[3].Split(',').Select(Int32.Parse).ToArray();
+            for (int i = 0; i < cardList.Length; i++)
+            {
+                cardList[i].virtual_num = v_numList[i];
+            }
         }
         return cardList;
     }

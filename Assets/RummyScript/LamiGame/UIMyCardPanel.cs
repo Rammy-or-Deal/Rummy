@@ -52,6 +52,7 @@ public class UIMyCardPanel : MonoBehaviour
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(gameCards);
         LogMgr.Inst.Log("User dealt card: " + cardStr, (int)LogLevels.PlayerLog2);
+        LamiMe.Inst.isFirstTurn = false;
     }
 
     public void RemoveCards()
@@ -183,7 +184,7 @@ public class UIMyCardPanel : MonoBehaviour
     public void SetPlayButtonState()
     {
         attachList.Clear();
-        int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);
+        int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);    // Get Selected Card
         var selectedList = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList();
         string log = "";
         foreach (var card in selectedList)
@@ -192,19 +193,19 @@ public class UIMyCardPanel : MonoBehaviour
         }
 
         LogMgr.Inst.Log("selectedCard: " + log, (int)LogLevels.PlayerLog2);
-        bool isCorrect = false;
+
 
         List<List<Card>> m_machedList = new List<List<Card>>();
 
         // Get all mached lists
-        foreach (var org in LamiMe.Inst.flushList.Where(x => x.Count == count).ToList())
+        foreach (var org in LamiMe.Inst.availList.Where(x => x.Count == count).ToList())
         {
             bool wrong = true;
 
             foreach (var card in selectedList)
             {
                 wrong = false;
-                if (org.Count(x => x.num == card.num && x.color == card.color) == 0)
+                if (org.Count(x => (x.num == card.num && x.color == card.color) || (x.num==15 && card.num==15)) == 0)
                 {
                     wrong = true;
                     break;
@@ -215,7 +216,7 @@ public class UIMyCardPanel : MonoBehaviour
                 foreach (var card in org)
                 {
                     wrong = false;
-                    if (selectedList.Count(x => x.num == card.num && x.color == card.color) == 0)
+                    if (selectedList.Count(x => (x.num == card.num && x.color == card.color)  || (x.num==15 && card.num==15)) == 0)
                     {
                         wrong = true;
                         break;
@@ -225,12 +226,11 @@ public class UIMyCardPanel : MonoBehaviour
 
             if (wrong == false)
             {
-                isCorrect = true;
                 m_machedList.Add(org);
             }
         }
 
-        //InitPanList();  // Remove all cursors
+        InitPanList();  // Remove all cursors
 
         // Check if it's matched pan game cards.
 
@@ -240,11 +240,14 @@ public class UIMyCardPanel : MonoBehaviour
             var line = LamiGameUIManager.Inst.mGameCardPanelList[i];
             for (int j = 0; j < m_machedList.Count; j++)
             {
-                if (m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1 || // can attach  dealt card to first
-                    m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1)     // can attach  dealt card to end
+                // Check if these cards can be added in Flush list
+                if (((m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1) || // can attach  dealt card to first
+                        (m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1)
+                      && m_machedList[j][0].color == line.mGameCardList[0].color) ||    // can attach  dealt card to end
+                    (line.mGameCardList[0].virtual_num == line.mGameCardList[1].virtual_num && m_machedList[j][0].virtual_num == line.mGameCardList[1].virtual_num))    // can attach in set list
                 {
                     canAttach = true;
-                    //ShowCursorpoint(int lineNum);
+                    ShowCursorpoint(i);
                     try
                     {
                         attachList.Add(i, m_machedList[j].ToList());
@@ -254,6 +257,19 @@ public class UIMyCardPanel : MonoBehaviour
                 }
             }
         }
+
+        LogMgr.Inst.Log("---- m_machedList ---");
+        for(int i = 0; i < m_machedList.Count; i++)
+        {
+            var list = m_machedList[i];
+            string tmp = "";
+            foreach(var card in list)
+            {
+                tmp += card.num + "(" + card.virtual_num + ":" + card.color + ")" + ",";
+            }
+            LogMgr.Inst.Log(tmp);
+        }
+        LogMgr.Inst.Log("---- end ---");
 
         if (canAttach == false)
         {
@@ -266,13 +282,28 @@ public class UIMyCardPanel : MonoBehaviour
             //SendDealtCard(-1, m_machedList.Where(x=>x.Count>=3).First());
         }
 
-        LamiGameUIManager.Inst.playButton.interactable = canAttach;
+        LogMgr.Inst.Log("---- attachList ---");
+        for(int i = 0; i < attachList.Count; i++)
+        {
+            var list = attachList.ElementAt(i).Value;
+            string tmp = "";
+            foreach(var card in list)
+            {
+                tmp += card.num + "(" + card.virtual_num + ")" + ",";
+            }
+            LogMgr.Inst.Log(tmp);
+        }
+        LogMgr.Inst.Log("---- end ---");
+
+
+        LamiGameUIManager.Inst.playButton.interactable = (attachList.Count > 0);
     }
     public void OnClickLine(int lineNum = -1)
     {
         if (attachList.Count > 1 && lineNum == -1) return;
 
         SendDealtCard(attachList.First().Key, attachList[attachList.First().Key]);
+
         for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
         {
             myCards[i].isSelected = false;
@@ -280,7 +311,6 @@ public class UIMyCardPanel : MonoBehaviour
         }
         LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
         LamiGameUIManager.Inst.gameObject.SetActive(false);
-
     }
     public void SendDealtCard(int v, List<Card> list)
     {
@@ -291,11 +321,13 @@ public class UIMyCardPanel : MonoBehaviour
 
     private void RemoveSentCard(List<Card> list)
     {
-        foreach (var card in list)
+        foreach (var card in myCards.Where(x=>x.isSelected==true).ToList())
         {
-            var tmp = myCards.Where(x => x.num == card.num).First();
-            myCards.Remove(tmp);
-            tmp.gameObject.SetActive(false);
+            //var tmp = myCards.Where(x => (x.num == card.num && x.color == card.color) || (x.num==15 &&  card.num==15)).First();
+            //myCards.Remove(tmp);
+            //tmp.gameObject.SetActive(false);
+            myCards.Remove(card);
+            card.gameObject.SetActive(false);
         }
         selectedCards.Clear();
         LamiGameUIManager.Inst.playButton.interactable = false;
