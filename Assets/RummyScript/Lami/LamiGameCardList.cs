@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class LamiGameCardList : MonoBehaviour
 {
-    
     public List<Card> mGameCardList;    //Game cards list
     public HorizontalLayoutGroup centerLayout;
     public LamiGameCard[] showCards;
@@ -32,6 +31,18 @@ public class LamiGameCardList : MonoBehaviour
         mGameCardList.Add(card);
     }
 
+    public void AddStartCards(List<Card> cards)
+    {
+        mGameCardList.InsertRange(0,cards);
+        ShowCards();
+    }
+    
+    public void AddEndCards(List<Card> cards)
+    {
+        mGameCardList.AddRange(cards);
+        ShowCards();
+    }
+    
     public void ShowCards()
     {
         if (mGameCardList.Count > 5)
