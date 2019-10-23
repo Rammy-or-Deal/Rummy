@@ -20,6 +20,7 @@ public class Card
     {
         num = num0;
         color = color0;
+        virtual_num = num;
     }
     public Card()
     {
@@ -148,13 +149,13 @@ public class LamiCardMgr : MonoBehaviour
         string[] str = cardStr.Split(':');        
         int[] numList = str[1].Split(',').Select(Int32.Parse).ToArray();
         int[] colList = str[2].Split(',').Select(Int32.Parse).ToArray();
-        int[] v_numList = str[3].Split(',').Select(Int32.Parse).ToArray();
+        //int[] v_numList = str[3].Split(',').Select(Int32.Parse).ToArray();
 
         Card[] cardList = new Card[numList.Length];
         for (int i = 0; i < cardList.Length; i++)
         {
             cardList[i] = new Card(numList[i], colList[i]);
-            cardList[i].virtual_num = v_numList[i];
+            
         }
         return cardList;
     }
