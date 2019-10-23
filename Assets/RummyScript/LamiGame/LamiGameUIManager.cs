@@ -81,9 +81,11 @@ public class LamiGameUIManager : MonoBehaviour
         //        curGameCardList.gameObject.transform.localScale = Vector3.one;
         //        mGameCardPanelList.Add(curGameCardList);
 
-        myCardPanel.DealCards();
-        playButton.gameObject.SetActive(false);
-        tipButton.gameObject.SetActive(false);
+        //myCardPanel.DealCards();
+        //SetPlayButtonState
+
+        myCardPanel.OnClickLine();
+        
         //
         //LamiCountdownTimer.Inst.StopTurnTimer();
         //LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(false);
@@ -104,9 +106,9 @@ public class LamiGameUIManager : MonoBehaviour
         foreach (Card card in LamiCardMgr.ConvertCardStrToCardList(cardStr))
         {
             curGameCardList.AddGameCard(card);
-            
-        }        
-        
+
+        }
+
         curGameCardList.ShowCards();
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
@@ -200,7 +202,7 @@ public class LamiGameUIManager : MonoBehaviour
         myCardPanel.ArrangeMyCard();
         for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
         {
-            LamiGameUIManager.Inst.myCardPanel.myCards[i].isSelected=false;
+            LamiGameUIManager.Inst.myCardPanel.myCards[i].isSelected = false;
             LamiGameUIManager.Inst.myCardPanel.myCards[i].SetUpdate();
         }
         LamiMe.Inst.Init_FlashList();

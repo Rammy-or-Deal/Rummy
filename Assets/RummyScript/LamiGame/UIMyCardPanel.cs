@@ -9,6 +9,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class UIMyCardPanel : MonoBehaviour
 {
     //MyCard
+    public Dictionary<int, List<Card>> attachList = new Dictionary<int, List<Card>>();
     public List<LamiMyCard> myCards;
     public bool sortedByColor;
     [HideInInspector] public List<LamiMyCard> selectedCards;
@@ -33,30 +34,22 @@ public class UIMyCardPanel : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void DealCards()
+    public void DealCards(int lineNo, List<Card> list)
     {
-
-        //        foreach (LamiMyCard card in selectedCards)
-        //        {
-        //            LamiGameUIManager.Inst.AddGameCard(card);
-        //        }
-
-
-        string cardStr = LamiCardMgr.ConvertSelectedListToString(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList());
+        string cardStr = LamiCardMgr.ConvertSelectedListToString(list);
         cardStr = PhotonNetwork.LocalPlayer.ActorNumber + ":" + cardStr;
-        int remainCard = LamiGameUIManager.Inst.myCardPanel.myCards.Count - LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);
+        int remainCard = LamiGameUIManager.Inst.myCardPanel.myCards.Count - list.Count;
         Hashtable gameCards = new Hashtable
         {
             {Common.LAMI_MESSAGE, (int)LamiMessages.OnDealCard},
             {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
             {Common.REMAIN_CARD_COUNT, remainCard},
             {Common.GAME_CARD, cardStr},
-            {Common.GAME_CARD_PAN, 0},
+            {Common.GAME_CARD_PAN, lineNo},
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(gameCards);
         LogMgr.Inst.Log("User dealt card: " + cardStr, (int)LogLevels.PlayerLog2);
-        RemoveCards();
     }
 
     public void RemoveCards()
@@ -183,8 +176,11 @@ public class UIMyCardPanel : MonoBehaviour
         sortedByColor = !sortedByColor;
     }
 
+
+
     public void SetPlayButtonState()
     {
+        attachList.Clear();
         int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);
         var selectedList = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList();
         string log = "";
@@ -232,32 +228,75 @@ public class UIMyCardPanel : MonoBehaviour
             }
         }
 
-        InitPanList();  // Remove all cursors
+        //InitPanList();  // Remove all cursors
 
         // Check if it's matched pan game cards.
+
         bool canAttach = false;
         for (int i = 0; i < LamiGameUIManager.Inst.mGameCardPanelList.Count; i++)
         {
             var line = LamiGameUIManager.Inst.mGameCardPanelList[i];
             for (int j = 0; j < m_machedList.Count; j++)
             {
-                if (m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num || // can attach  dealt card to first
-                    m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num)     // can attach  dealt card to end
+                if (m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1 || // can attach  dealt card to first
+                    m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1)     // can attach  dealt card to end
                 {
                     canAttach = true;
-                    ShowCursorpoint(i);
+                    //ShowCursorpoint(int lineNum);
+                    try
+                    {
+                        attachList.Add(i, m_machedList[j].ToList());
+                    }
+                    catch { }
                     LogMgr.Inst.Log("Show Cursor: " + i, (int)LogLevels.PlayerLog2);
                 }
             }
         }
 
-        if(canAttach == false)
+        if (canAttach == false)
         {
             // Send new line.
-            
+            if (m_machedList.Count(x => x.Count >= 3) > 0)
+            {
+                attachList.Add(-1, m_machedList.Where(x => x.Count >= 3).First());
+                canAttach = true;
+            }
+            //SendDealtCard(-1, m_machedList.Where(x=>x.Count>=3).First());
         }
 
-        LamiGameUIManager.Inst.playButton.interactable = isCorrect;
+        LamiGameUIManager.Inst.playButton.interactable = canAttach;
+    }
+    public void OnClickLine(int lineNum = -1)
+    {
+        if (attachList.Count > 1 && lineNum == -1) return;
+
+        SendDealtCard(attachList.First().Key, attachList[attachList.First().Key]);
+        for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
+        {
+            myCards[i].isSelected = false;
+            myCards[i].SetUpdate();
+        }
+        LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
+        LamiGameUIManager.Inst.gameObject.SetActive(false);
+
+    }
+    public void SendDealtCard(int v, List<Card> list)
+    {
+        //RemoveCards();
+        DealCards(v, list);
+        RemoveSentCard(list);
+    }
+
+    private void RemoveSentCard(List<Card> list)
+    {
+        foreach (var card in list)
+        {
+            var tmp = myCards.Where(x => x.num == card.num).First();
+            myCards.Remove(tmp);
+            tmp.gameObject.SetActive(false);
+        }
+        selectedCards.Clear();
+        LamiGameUIManager.Inst.playButton.interactable = false;
     }
 
     private void InitPanList() ///// Remove all cursors
@@ -265,7 +304,8 @@ public class UIMyCardPanel : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void ShowCursorpoint(int lineNum){  // Show cursor by lineNum
+    private void ShowCursorpoint(int lineNum)
+    {  // Show cursor by lineNum
         throw new NotImplementedException();
     }
 }

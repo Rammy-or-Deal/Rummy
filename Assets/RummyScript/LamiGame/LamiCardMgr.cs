@@ -160,7 +160,7 @@ public class LamiCardMgr : MonoBehaviour
         return cardList;
     }
 
-    public static string ConvertSelectedListToString(List<LamiMyCard> cardList)
+    public static string ConvertSelectedListToString(List<Card> cardList)
     {
         int[] numList = new int[cardList.Count];
         int[] colList = new int[cardList.Count];

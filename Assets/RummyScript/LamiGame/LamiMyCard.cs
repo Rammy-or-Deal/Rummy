@@ -20,6 +20,7 @@ public class LamiMyCard : MonoBehaviour
     void Start()
     {
         isSelected = false;
+        isBeforeSelected = false;
         UpdateValue();
 
     }

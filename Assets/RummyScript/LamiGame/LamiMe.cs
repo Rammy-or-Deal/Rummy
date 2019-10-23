@@ -131,7 +131,7 @@ public class LamiMe : MonoBehaviour
             }
             // Update Play Button
             LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState();
-            
+
             LogMgr.Inst.Log("now tip " + log, (int)LogLevels.PlayerLog2);
         }
         LogMgr.Inst.Log("now tip turn = " + nowFlush + " / total= " + flushList.Count, (int)LogLevels.PlayerLog2);
@@ -156,6 +156,10 @@ public class LamiMe : MonoBehaviour
         nowFlush = 0;
 
         flushList = GetAvailableCards_Flush();
+    }
+    public void OnClickLine(int lineNum)
+    {
+        LamiGameUIManager.Inst.myCardPanel.OnClickLine(lineNum);
     }
     internal void SetMyTurn(bool isMyTurn)
     {
