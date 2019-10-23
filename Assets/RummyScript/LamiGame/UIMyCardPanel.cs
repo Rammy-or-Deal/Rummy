@@ -183,15 +183,8 @@ public class UIMyCardPanel : MonoBehaviour
         sortedByColor = !sortedByColor;
     }
 
-    public void SetPlayButtonState(LamiMyCard clickedCard)
+    public void SetPlayButtonState()
     {
-        // if (clickedCard.isSelected)
-        //     selectedCards.Add(clickedCard);
-        // else
-        //     selectedCards.Remove(clickedCard);
-        //LogMgr.Inst.Log("Selected Card Count: = " + LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true), (int)LogLevels.PlayerLog2);
-
-        //LamiGameUIManager.Inst.playButton.interactable = (LamiGameUIManager.Inst.myCardPanel.myCards.Count(x=>x.isSelected == true) > 0);
         int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);
         var selectedList = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList();
         string log = "";
@@ -248,17 +241,20 @@ public class UIMyCardPanel : MonoBehaviour
             var line = LamiGameUIManager.Inst.mGameCardPanelList[i];
             for (int j = 0; j < m_machedList.Count; j++)
             {
-                if (m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num)  // can attach  dealt card to first
+                if (m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num || // can attach  dealt card to first
+                    m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num)     // can attach  dealt card to end
                 {
                     canAttach = true;
-                    //LamiGameUIManager.Inst.mGameCardPanelList[i].gameObject.transform
                     ShowCursorpoint(i);
-                }
-                if (m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num)  // can attach  dealt card to end
-                {
-                    canAttach = true;
+                    LogMgr.Inst.Log("Show Cursor: " + i, (int)LogLevels.PlayerLog2);
                 }
             }
+        }
+
+        if(canAttach == false)
+        {
+            // Send new line.
+            
         }
 
         LamiGameUIManager.Inst.playButton.interactable = isCorrect;

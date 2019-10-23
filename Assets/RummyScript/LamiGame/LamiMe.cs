@@ -129,7 +129,9 @@ public class LamiMe : MonoBehaviour
             {
                 LamiGameUIManager.Inst.myCardPanel.myCards[i].SetUpdate();
             }
-
+            // Update Play Button
+            LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState();
+            
             LogMgr.Inst.Log("now tip " + log, (int)LogLevels.PlayerLog2);
         }
         LogMgr.Inst.Log("now tip turn = " + nowFlush + " / total= " + flushList.Count, (int)LogLevels.PlayerLog2);
