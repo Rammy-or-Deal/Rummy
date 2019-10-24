@@ -93,7 +93,9 @@ public class LamiGameUIManager : MonoBehaviour
         //SetPlayButtonState
 
         myCardPanel.OnClickLine();
+        myCardPanel.InitPanList();
 
+        //InitPanList
         //
         //LamiCountdownTimer.Inst.StopTurnTimer();
         //LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(false);

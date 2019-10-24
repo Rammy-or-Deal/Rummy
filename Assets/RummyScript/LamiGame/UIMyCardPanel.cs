@@ -240,6 +240,12 @@ public class UIMyCardPanel : MonoBehaviour
             var line = LamiGameUIManager.Inst.mGameCardPanelList[i];
             for (int j = 0; j < m_machedList.Count; j++)
             {
+                Debug.Log("Check1: " + (m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1) );
+                Debug.Log("Check2: " + (m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1) );
+                Debug.Log("Check3: " + ( m_machedList[j][0].color == line.mGameCardList[0].color) );
+                Debug.Log("Check4: " + (line.mGameCardList[0].virtual_num == line.mGameCardList[1].virtual_num) );
+                Debug.Log("Check4: " + (m_machedList[j][0].virtual_num == line.mGameCardList[1].virtual_num) );
+
                 // Check if these cards can be added in Flush list
                 if (((m_machedList[j][m_machedList.Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1) || // can attach  dealt card to first
                         (m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1)
@@ -333,7 +339,7 @@ public class UIMyCardPanel : MonoBehaviour
         LamiGameUIManager.Inst.playButton.interactable = false;
     }
 
-    private void InitPanList() ///// Remove all cursors
+    public void InitPanList() ///// Remove all cursors
     {
         for (int i = 0; i < curCursorNum; i++)
         {
