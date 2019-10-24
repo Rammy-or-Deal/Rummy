@@ -21,7 +21,6 @@ public class LamiGameUIManager : MonoBehaviour
     public Button arrangeButton;
     public GameObject settingDlg;
     public UILamiFinish finishDlg;
-
     //Menu
     public GameObject mMenuPanel;
 
@@ -131,6 +130,8 @@ public class LamiGameUIManager : MonoBehaviour
             else
                 mGameCardPanelList[lineNum].AddEndCards(list);
         }
+        //it should be edited 
+        LamiEffectDialog.Inst.ShowMessage(MessageStatus.Flush);
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
