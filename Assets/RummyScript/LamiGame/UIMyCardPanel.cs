@@ -337,7 +337,7 @@ public class UIMyCardPanel : MonoBehaviour
     {
         for (int i = 0; i < curCursorNum; i++)
         {
-            cursorPoints[curCursorNum].SetActive(false);
+            cursorPoints[i].SetActive(false);
         }
         LamiGameUIManager.Inst.InitLineNumbers();
         curCursorNum = 0;
