@@ -244,7 +244,8 @@ public class LamiGameUIManager : MonoBehaviour
     public void OnExitClick()
     {
         Debug.Log("Exit clicked");
-        PunController.Inst.LeaveGame();
+//        PunController.Inst.LeaveGame();
+        finishDlg.gameObject.SetActive(true);
     }
 
     public void OnHelpClick()

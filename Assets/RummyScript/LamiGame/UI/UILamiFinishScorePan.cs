@@ -25,9 +25,9 @@ public class UILamiFinishScorePan : MonoBehaviour
         
     }
 
-    public void UpdateInfo(string picSprite,string frameName,string skillName,string userName,string rankText,int cardPoint,int aceCnt,int jockerCnt,int scoreVal,List<Card> cards)
+    public void UpdateInfo(Sprite picSprite,string frameName,string skillName,string userName,string rankText,int cardPoint,string aceCnt,string jockerCnt,int scoreVal)//,List<Card> cards)
     {
-        avatar.sprite=Resources.Load<Sprite>(picSprite);
+        avatar.sprite=picSprite;
         frame.sprite=Resources.Load<Sprite>("new_frame/frame_"+frameName);
         skill.sprite=Resources.Load<Sprite>("new_skill/"+skillName);
         username.text =userName;
@@ -38,6 +38,6 @@ public class UILamiFinishScorePan : MonoBehaviour
         jockerCount.text = jockerCnt.ToString();
         score.text = scoreVal.ToString();
         
-        cardPan.UpdateCards(cards);
+//        cardPan.UpdateCards(cards);
     }
 }
