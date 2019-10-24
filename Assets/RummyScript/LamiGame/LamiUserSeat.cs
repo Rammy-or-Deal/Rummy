@@ -79,7 +79,6 @@ public class LamiUserSeat : MonoBehaviour
             {
                 string user_info = (string)p.CustomProperties[Common.PLAYER_INFO];
                 status = (int)p.CustomProperties[Common.PLAYER_STATUS];
-
                 infoString = user_info;
                 isBot = false;
                 break;
