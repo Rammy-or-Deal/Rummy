@@ -205,6 +205,7 @@ public class LamiMe : MonoBehaviour
                 {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
                 {Common.PLAYER_STATUS, status},
             };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
 

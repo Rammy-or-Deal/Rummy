@@ -25,8 +25,10 @@ public class LamiUserSeat : MonoBehaviour
     public Text mJokerValue;
     public GameObject mClock;
     public GameObject mAceJokerPanel;
-
     public Image playerReadyImage;
+    public GameObject playerBurntImage;
+    public GameObject playerGiveupImage;
+
 
     public int id;
     private bool isPlayerReady;
@@ -65,11 +67,6 @@ public class LamiUserSeat : MonoBehaviour
 
     #region Property
 
-    public void SetStatus(int s)
-    {
-        this.status = s;
-        
-    }
 
     internal void SetProperty(int tmpActor)
     {
@@ -82,7 +79,7 @@ public class LamiUserSeat : MonoBehaviour
             {
                 string user_info = (string)p.CustomProperties[Common.PLAYER_INFO];
                 status = (int)p.CustomProperties[Common.PLAYER_STATUS];
-                
+
                 infoString = user_info;
                 isBot = false;
                 break;
@@ -106,7 +103,7 @@ public class LamiUserSeat : MonoBehaviour
             var tmp = infoString.Split(':');
             id = int.Parse(tmp[0]);
             name = tmp[1];
-            mUserName.text =tmp[1];
+            mUserName.text = tmp[1];
             mUserPic.sprite = Resources.Load<Sprite>((string)tmp[2]);
             mCoinValue.text = tmp[3];
             mUserSkillName.text = tmp[4];
@@ -126,21 +123,33 @@ public class LamiUserSeat : MonoBehaviour
     }
     #endregion
 
+    void InitStatus()
+    {
+        playerReadyImage.gameObject.SetActive(false);
+        playerGiveupImage.gameObject.SetActive(false);
+        playerBurntImage.gameObject.SetActive(false);
+
+    }
     public void Show()
     {
+        InitStatus();
         if (canShow)
         {
             gameObject.SetActive(true);
-            if (status == (int)LamiPlayerStatus.Ready)
+
+            switch (status)
             {
-                playerReadyImage.gameObject.SetActive(true);
-                
+                case (int)LamiPlayerStatus.Ready:
+                    playerReadyImage.gameObject.SetActive(true);
+                    break;
+                case (int)LamiPlayerStatus.GiveUp:
+                    playerGiveupImage.gameObject.SetActive(true);
+                    break;
+                case (int)LamiPlayerStatus.Burnt:
+                    playerBurntImage.gameObject.SetActive(true);
+                    break;
             }
-            else
-            {
-                playerReadyImage.gameObject.SetActive(false);
-            }
-            
+
         }
         else
             gameObject.SetActive(false);
@@ -151,7 +160,7 @@ public class LamiUserSeat : MonoBehaviour
     }
     private void OnPlayerNumberingChanged()
     {
-       
+
     }
 
     public void SetPlayerIsReady(bool playerReady)

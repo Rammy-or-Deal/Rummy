@@ -155,7 +155,8 @@ public class LamiPlayerMgr : MonoBehaviour
         {
             if (m_playerList[i].id == player_id)
             {
-                m_playerList[i].SetStatus(status);
+                m_playerList[i].status = status;
+                m_playerList[i].Show();
             }
         }
 
@@ -187,7 +188,6 @@ public class LamiPlayerMgr : MonoBehaviour
         int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         int remained = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.REMAIN_CARD_COUNT];
 
-
         LogMgr.Inst.Log("User Dealt card -  actor=" + actor + ", remained=" + remained + ", nowTurn=" + nowTurn, (int)LogLevels.RoomLog2);
 
         for (int i = 0; i < m_playerList.Length; i++)
@@ -206,19 +206,27 @@ public class LamiPlayerMgr : MonoBehaviour
     }
     public void TurnChange()
     {
+        int first = nowTurn;
         nowTurn = (nowTurn + 1) % 4;
-        while (m_playerList[GetUserSeat(nowTurn)].status != (int)LamiPlayerStatus.GiveUp ||
-            m_playerList[GetUserSeat(nowTurn)].status != (int)LamiPlayerStatus.Burnt)
+
+        while ((m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.GiveUp ||
+            m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.Burnt) && first != nowTurn)
         {
             nowTurn = (nowTurn + 1) % 4;
         }
-
-
-        Hashtable props = new Hashtable{
+        if (first == nowTurn &&
+            (m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.GiveUp ||m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.Burnt) )
+        {
+            LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
+        }
+        else
+        {
+            Hashtable props = new Hashtable{
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},
                 {Common.NOW_TURN, nowTurn}
             };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
     }
     internal void OnUserTurnChanged()
     {
@@ -249,12 +257,16 @@ public class LamiPlayerMgr : MonoBehaviour
 
         if (actor < 0 && turn >= 0)
         {
-            turn = (turn + 1) % 4;
-            Hashtable props = new Hashtable{
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},
-                {Common.NOW_TURN, turn}
-            };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            for(int i = 0; i < m_botList.Count; i++)
+                if(m_botList[i].id == actor)
+                    m_botList[i].SetMyTurn();
+            
+            // turn = (turn + 1) % 4;
+            // Hashtable props = new Hashtable{
+            //     {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},
+            //     {Common.NOW_TURN, turn}
+            // };
+            // PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
 

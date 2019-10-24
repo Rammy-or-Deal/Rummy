@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Photon.Pun;
@@ -79,17 +80,17 @@ public class LamiGameBot
     internal void SetBotInfo(string v)
     {
         LogMgr.Inst.Log("Bot String: " + v, (int)LogLevels.BotLog);
-    
+
         var tmp = v.Split(':');
-        if(tmp.Length > 5)
+        if (tmp.Length > 5)
         {
-        id = int.Parse(tmp[0]);
-        name = tmp[1];
-        pic = tmp[2];
-        coinValue = int.Parse(tmp[3]);
-        skillLevel = tmp[4];
-        frameId = int.Parse(tmp[5]);
-        status = int.Parse(tmp[6]);
+            id = int.Parse(tmp[0]);
+            name = tmp[1];
+            pic = tmp[2];
+            coinValue = int.Parse(tmp[3]);
+            skillLevel = tmp[4];
+            frameId = int.Parse(tmp[5]);
+            status = int.Parse(tmp[6]);
         }
     }
     public void PublishMe()
@@ -146,6 +147,23 @@ public class LamiGameBot
             remained_cardList.Add(tmp[i]);
             original_cardList.Add(tmp[i]);
         }
+    }
+
+    internal void SetMyTurn()
+    {
+        status = (int)LamiPlayerStatus.Burnt;
+        SendMyStatus();
+    }
+
+    private async void SendMyStatus()
+    {
+        await Task.Delay(1000);
+            Hashtable props = new Hashtable{
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnPlayerStatusChanged},
+                {Common.PLAYER_ID, id},
+                {Common.PLAYER_STATUS, status},
+            };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
     /*************************************************** */
 }
