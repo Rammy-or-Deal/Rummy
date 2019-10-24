@@ -6,16 +6,14 @@ using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-public class LamiMyCard : MonoBehaviour
+public class LamiMyCard : LamiGameCard
 {
-    public Image mCard;
     public bool isSelected;
     private bool isBeforeSelected;
-    public int color;
-    public int num;
+    
     public int MyCardId;
     public int virtual_num;
-    public const int JOKER_NUM = 15;
+    
     void Start()
     {
         isSelected = false;
@@ -36,15 +34,7 @@ public class LamiMyCard : MonoBehaviour
             GetComponent<Image>().color = col;
         }
     }
-
-    public void UpdateValue()
-    {
-        if(num == JOKER_NUM)
-            mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_15_15");
-        else
-            mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_" + color + "_" + num);
-    }
-
+    
     public void OnClick()
     {
         isSelected = (!isSelected);
