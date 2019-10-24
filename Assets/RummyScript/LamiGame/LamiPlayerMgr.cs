@@ -149,8 +149,21 @@ public class LamiPlayerMgr : MonoBehaviour
 
     internal void OnPlayerStatusChanged()
     {
+        string seat_string = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        LogMgr.Inst.Log("Seat String:=" + seat_string);
+        string tmpStr = "";
+        for (int i = 0; i < m_playerList.Length; i++)
+        {
+            tmpStr += m_playerList[i].id + "(" + m_playerList[i].status + "), ";
+        }
+        LogMgr.Inst.Log("Current String:=" + tmpStr);
+
+
+
         int player_id = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         int status = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_STATUS];
+        LogMgr.Inst.Log("Current Request String:=" + player_id + ", " + status);
+        
         for (int i = 0; i < m_playerList.Length; i++)
         {
             if (m_playerList[i].id == player_id)

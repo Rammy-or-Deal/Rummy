@@ -216,6 +216,7 @@ public class LamiMe : MonoBehaviour
         List<List<Card>> attachList = new List<List<Card>>();
         List<List<Card>> addList = new List<List<Card>>();
 
+/* 
         LogMgr.Inst.Log("--------------------- lines -----------------------");
         for (int i = 0; i < AllList.Count; i++)
         {
@@ -227,6 +228,8 @@ public class LamiMe : MonoBehaviour
             LogMgr.Inst.Log(tmp);
         }
         LogMgr.Inst.Log("--------------------- end -------------------");
+*/
+
 
         bool canAttach = false;
 
@@ -237,12 +240,13 @@ public class LamiMe : MonoBehaviour
             //Check if the card can attach to the existing lines.
             for (int j = 0; j < LamiGameUIManager.Inst.mGameCardPanelList.Count && canAttach == false; j++)
             {
-                var line = LamiGameUIManager.Inst.mGameCardPanelList[j];
+                var line = LamiGameUIManager.Inst.mGameCardPanelList[j].mGameCardList;
 
-                if (((AllList[i][AllList[i].Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1 || // can attach  dealt card to first
-                        AllList[i][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1) &&
-                        AllList[i][0].color == line.mGameCardList[0].color && line.mGameCardList[0].virtual_num != line.mGameCardList[1].virtual_num)    // can attach  dealt card to end)
-                    || (line.mGameCardList[0].virtual_num == line.mGameCardList[1].virtual_num && AllList[i][0].virtual_num == line.mGameCardList[1].virtual_num))    // can attach in set list
+                if (((AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1 || // can attach  dealt card to first
+                        AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1) &&
+                        AllList[i][0].color == line[0].color && line[0].virtual_num != line[line.Count-1].virtual_num)    // can attach  dealt card to end)
+                    || (line[0].virtual_num == line[line.Count-1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i].Count==1) ||
+                    (AllList[i].Count>1 && line[0].virtual_num == line[line.Count-1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i][1].virtual_num == line[line.Count-1].virtual_num ))    // can attach in set list
                 {
                     canAttach = true;
                     attachList.Add(AllList[i].ToList());

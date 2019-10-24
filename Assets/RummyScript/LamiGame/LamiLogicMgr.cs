@@ -125,8 +125,7 @@ public class LamiLogicMgr : MonoBehaviour
                 break;
             case (int)LamiMessages.OnUserLeave_M:
                 if (PhotonNetwork.IsMasterClient)
-                    LamiPlayerMgr.Inst.OnUserLeave_M(p.ActorNumber);
-                    
+                    LamiPlayerMgr.Inst.OnUserLeave_M(p.ActorNumber);                    
                 break;
             case (int)LamiMessages.OnStartGame:
                 StopCoroutine(CreateBot());
@@ -149,6 +148,8 @@ public class LamiLogicMgr : MonoBehaviour
                 break;
             case (int)LamiMessages.OnPlayerStatusChanged:
                 LamiPlayerMgr.Inst.OnPlayerStatusChanged();
+                break;
+            case (int)LamiMessages.OnGameFinished:
                 break;
         }
     }

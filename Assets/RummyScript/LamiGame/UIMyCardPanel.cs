@@ -253,10 +253,10 @@ public class UIMyCardPanel : MonoBehaviour
             }
             LogMgr.Inst.Log(tmpStr);
 
-            var line = LamiGameUIManager.Inst.mGameCardPanelList[i];
+            var line = LamiGameUIManager.Inst.mGameCardPanelList[i].mGameCardList;
             for (int j = 0; j < m_machedList.Count; j++)
             {
-                if (line.mGameCardList.Count == 0)
+                if (line.Count == 0)
                 {
                     Debug.Log(i + " st line has no element");
                     break;
@@ -271,17 +271,19 @@ public class UIMyCardPanel : MonoBehaviour
                 LogMgr.Inst.Log(j+" st matched line=" + tmp);
 
 
-                Debug.Log("Check1: " + (m_machedList[j][m_machedList[j].Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1));
-                Debug.Log("Check2: " + (m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1));
-                Debug.Log("Check3: " + (m_machedList[j][0].color == line.mGameCardList[0].color));
-                Debug.Log("Check4: " + (line.mGameCardList[0].virtual_num == line.mGameCardList[1].virtual_num));
-                Debug.Log("Check4: " + (m_machedList[j][0].virtual_num == line.mGameCardList[1].virtual_num));
+                Debug.Log("Check1-1: " + (m_machedList[j][m_machedList[j].Count - 1].virtual_num == line[0].virtual_num - 1));
+                Debug.Log("Check1-2: " + (m_machedList[j][0].virtual_num == line[line.Count - 1].virtual_num + 1));
+                Debug.Log("Check2-1: " + (m_machedList[j][0].color == line[0].color));
+                Debug.Log("Check2-2: " + (line[0].virtual_num == line[line.Count-1].virtual_num));
+                Debug.Log("Check3: " + (line[0].virtual_num == line[line.Count-1].virtual_num && m_machedList[j][0].virtual_num == line[1].virtual_num && m_machedList[j].Count==1));
+                Debug.Log("Check4: " + (m_machedList[j].Count>1 && line[0].virtual_num == line[line.Count-1].virtual_num && m_machedList[j][0].virtual_num == line[1].virtual_num && m_machedList[j][1].virtual_num == line[1].virtual_num));
 
                 // Check if these cards can be added in Flush list
-                if (((m_machedList[j][m_machedList[j].Count - 1].virtual_num == line.mGameCardList[0].virtual_num - 1) || // can attach  dealt card to first
-                        (m_machedList[j][0].virtual_num == line.mGameCardList[line.mGameCardList.Count - 1].virtual_num + 1)
-                      && m_machedList[j][0].color == line.mGameCardList[0].color && line.mGameCardList[0].virtual_num != line.mGameCardList[1].virtual_num) ||    // can attach  dealt card to end
-                    (line.mGameCardList[0].virtual_num == line.mGameCardList[1].virtual_num && m_machedList[j][0].virtual_num == line.mGameCardList[1].virtual_num))    // can attach in set list
+                if (((m_machedList[j][m_machedList[j].Count - 1].virtual_num == line[0].virtual_num - 1) || // can attach  dealt card to first
+                        (m_machedList[j][0].virtual_num == line[line.Count - 1].virtual_num + 1)
+                      && m_machedList[j][0].color == line[0].color && line[0].virtual_num != line[line.Count-1].virtual_num) ||    // can attach  dealt card to end
+                    (line[0].virtual_num == line[line.Count-1].virtual_num && m_machedList[j][0].virtual_num == line[1].virtual_num && m_machedList[j].Count==1) ||
+                    (m_machedList[j].Count>1 && line[0].virtual_num == line[line.Count-1].virtual_num && m_machedList[j][0].virtual_num == line[1].virtual_num && m_machedList[j][1].virtual_num == line[line.Count-1].virtual_num))    // can attach in set list
                 {
                     canAttach = true;
                     ShowCursorpoint(i);

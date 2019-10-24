@@ -126,16 +126,16 @@ public class LamiGameUIManager : MonoBehaviour
         }
         else
         {
-            List<Card> list = cardList.ToList();
+            List<Card> list = new List<Card>();
+            list.AddRange(cardList.ToList());
 
-            if(mGameCardPanelList[lineNum].mGameCardList[0].virtual_num == mGameCardPanelList[lineNum].mGameCardList[1].virtual_num)
-                mGameCardPanelList[lineNum].AddEndCards(list);
-            else if(list[list.Count-1].virtual_num == -1)
-                mGameCardPanelList[lineNum].AddEndCards(list);
-            else if(list[list.Count-1].virtual_num+1 == mGameCardPanelList[lineNum].mGameCardList[0].virtual_num)
+            if(list[list.Count-1].virtual_num+1 == mGameCardPanelList[lineNum].mGameCardList[0].virtual_num)
+            {
                 mGameCardPanelList[lineNum].AddStartCards(list);
-            else
+            }else{
                 mGameCardPanelList[lineNum].AddEndCards(list);
+            }
+
         }
         //it should be edited 
         LamiEffectDialog.Inst.ShowMessage(MessageStatus.Flush);
