@@ -163,7 +163,7 @@ public class LamiPlayerMgr : MonoBehaviour
         int player_id = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         int status = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_STATUS];
         LogMgr.Inst.Log("Current Request String:=" + player_id + ", " + status);
-        
+
         for (int i = 0; i < m_playerList.Length; i++)
         {
             if (m_playerList[i].id == player_id)
@@ -185,7 +185,6 @@ public class LamiPlayerMgr : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
         TurnChange();
     }
-
     internal void OnDealCard()
     {
         //         Hashtable gameCards = new Hashtable
@@ -208,6 +207,10 @@ public class LamiPlayerMgr : MonoBehaviour
             if (m_playerList[i].id == actor)
             {
                 m_playerList[i].mCardNum.text = remained + "";
+
+                string cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD];
+                string[] str = cardString.Split(':');
+                m_playerList[i].OnUserDealt(str[1]);
                 nowTurn = i;
             }
         }
@@ -228,7 +231,7 @@ public class LamiPlayerMgr : MonoBehaviour
             nowTurn = (nowTurn + 1) % 4;
         }
         if (first == nowTurn &&
-            (m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.GiveUp ||m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.Burnt) )
+            (m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.GiveUp || m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.Burnt))
         {
             LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
         }
@@ -270,10 +273,10 @@ public class LamiPlayerMgr : MonoBehaviour
 
         if (actor < 0 && turn >= 0)
         {
-            for(int i = 0; i < m_botList.Count; i++)
-                if(m_botList[i].id == actor)
+            for (int i = 0; i < m_botList.Count; i++)
+                if (m_botList[i].id == actor)
                     m_botList[i].SetMyTurn();
-            
+
             // turn = (turn + 1) % 4;
             // Hashtable props = new Hashtable{
             //     {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},

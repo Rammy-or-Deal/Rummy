@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
@@ -28,7 +29,6 @@ public class LamiUserSeat : MonoBehaviour
     public Image playerReadyImage;
     public GameObject playerBurntImage;
     public GameObject playerGiveupImage;
-
 
     public int id;
     private bool isPlayerReady;
@@ -67,6 +67,15 @@ public class LamiUserSeat : MonoBehaviour
 
     #region Property
 
+    public void OnUserDealt(string dealString)
+    {
+        var cards = dealString.Split(',').Select(Int32.Parse).ToArray();
+        int aCount = cards.Count(x=> x == 1);
+        int jokerCount = cards.Count(x=> x == 15);
+
+        mAceValue.text = (int.Parse(mAceValue.text) + aCount) + "";
+        mJokerValue.text = (int.Parse(mJokerValue.text) + jokerCount) + "";
+    }
 
     internal void SetProperty(int tmpActor)
     {
@@ -136,9 +145,12 @@ public class LamiUserSeat : MonoBehaviour
         {
             gameObject.SetActive(true);
             switch (status)
-            {
+            {                
                 case (int)LamiPlayerStatus.Ready:
                     playerReadyImage.gameObject.SetActive(true);
+                    mAceJokerPanel.gameObject.SetActive(true);
+                    mJokerValue.text = "0";
+                    mAceValue.text = "0";
                     break;
                 case (int)LamiPlayerStatus.GiveUp:
                     playerGiveupImage.gameObject.SetActive(true);
