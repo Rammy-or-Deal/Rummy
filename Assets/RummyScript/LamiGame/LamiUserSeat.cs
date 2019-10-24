@@ -136,16 +136,7 @@ public class LamiUserSeat : MonoBehaviour
         if (canShow)
         {
             gameObject.SetActive(true);
-<<<<<<< HEAD
-
             switch (status)
-=======
-            if (status == (int)LamiPlayerStatus.Ready)
-            {
-                playerReadyImage.gameObject.SetActive(true);
-            }
-            else
->>>>>>> 0eab66ebc2a9358fddfb97d44a4e55f56a09b14e
             {
                 case (int)LamiPlayerStatus.Ready:
                     playerReadyImage.gameObject.SetActive(true);
