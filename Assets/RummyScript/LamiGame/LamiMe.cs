@@ -185,11 +185,31 @@ public class LamiMe : MonoBehaviour
         list.AddRange(allFlushList_Joker);
         list.AddRange(allSetList_Joker);
         list = list.Where(x=>x.Count>0).ToList();
+
+
         availList = FilterByCurrentTurn(list, isFirstTurn);
+        if(availList.Count == 0)
+        {
+            
+            if(isFirstTurn)
+            {
+                status = (int)LamiPlayerStatus.Burnt;
+            }
+            else
+            {
+                status = (int)LamiPlayerStatus.GiveUp;
+            }
+            
+            Hashtable props = new Hashtable{
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnPlayerStatusChanged},
+                {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
+                {Common.PLAYER_STATUS, status},
+            };
+        }
     }
 
     public static List<List<Card>> FilterByCurrentTurn(List<List<Card>> AllList, bool isFirst = false)
-    {
+    {        
         List<List<Card>> resList = new List<List<Card>>();
 
         List<List<Card>> attachList = new List<List<Card>>();
@@ -222,8 +242,9 @@ public class LamiMe : MonoBehaviour
             }
         }
 
-        if (!isFirst)
+        if (!isFirst && attachList.Count>0)
             resList.AddRange(attachList);
+        if(addList.Count>0)
         resList.AddRange(addList);
 
         return resList;

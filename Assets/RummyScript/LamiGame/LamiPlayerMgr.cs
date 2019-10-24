@@ -8,7 +8,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class LamiPlayerMgr : MonoBehaviour
 {
 
-
+    public int nowTurn = -1;
     public LamiUserSeat[] m_playerList;
 
     public List<LamiGameBot> m_botList = new List<LamiGameBot>();
@@ -125,7 +125,7 @@ public class LamiPlayerMgr : MonoBehaviour
         LogMgr.Inst.Log("Card Distributed: " + cardListString, (int)LogLevels.PlayerLog2);
 
         var tmp = cardListString.Split('/');
-        
+
         for (int i = 0; i < tmp.Length; i++)
         {
             int tmpActor = int.Parse(tmp[i].Split(':')[0]);
@@ -147,6 +147,31 @@ public class LamiPlayerMgr : MonoBehaviour
         }
     }
 
+    internal void OnPlayerStatusChanged()
+    {
+        int player_id = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        int status = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_STATUS];
+        for (int i = 0; i < m_playerList.Length; i++)
+        {
+            if (m_playerList[i].id == player_id)
+            {
+                m_playerList[i].SetStatus(status);
+            }
+        }
+
+        for (int i = 0; i < m_botList.Count; i++)
+        {
+            if (m_playerList[i].id == player_id && m_playerList[i].isBot)
+            {
+                m_botList[i].status = status;
+                //m_botList[i].PublishMe();
+            }
+        }
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        TurnChange();
+    }
+
     internal void OnDealCard()
     {
         //         Hashtable gameCards = new Hashtable
@@ -161,7 +186,7 @@ public class LamiPlayerMgr : MonoBehaviour
         // Change players list
         int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         int remained = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.REMAIN_CARD_COUNT];
-        int nowTurn = -1;
+
 
         LogMgr.Inst.Log("User Dealt card -  actor=" + actor + ", remained=" + remained + ", nowTurn=" + nowTurn, (int)LogLevels.RoomLog2);
 
@@ -176,15 +201,25 @@ public class LamiPlayerMgr : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient && nowTurn >= 0)
         {
+            TurnChange();
+        }
+    }
+    public void TurnChange()
+    {
+        nowTurn = (nowTurn + 1) % 4;
+        while (m_playerList[GetUserSeat(nowTurn)].status != (int)LamiPlayerStatus.GiveUp ||
+            m_playerList[GetUserSeat(nowTurn)].status != (int)LamiPlayerStatus.Burnt)
+        {
             nowTurn = (nowTurn + 1) % 4;
-            Hashtable props = new Hashtable{
+        }
+
+
+        Hashtable props = new Hashtable{
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserTurnChanged},
                 {Common.NOW_TURN, nowTurn}
             };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        }
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
-
     internal void OnUserTurnChanged()
     {
         int turn = -1;
@@ -194,11 +229,12 @@ public class LamiPlayerMgr : MonoBehaviour
         }
         catch { }
         LogMgr.Inst.Log("UserTurnChanged: turn = " + turn, (int)LogLevels.RoomLog2);
+        nowTurn = turn;
         if (turn < 0) return;
         turn = GetUserSeat(turn);
 
         int actor = m_playerList[turn].id;
-        LogMgr.Inst.Log("UserTurnChanged: Changed turn="+ turn + "  , Actor = " + actor + "   /myID=" + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.RoomLog2);
+        LogMgr.Inst.Log("UserTurnChanged: Changed turn=" + turn + "  , Actor = " + actor + "   /myID=" + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.RoomLog2);
 
         if (actor == PhotonNetwork.LocalPlayer.ActorNumber)
         {
@@ -296,7 +332,7 @@ public class LamiPlayerMgr : MonoBehaviour
             seatNumList.Add(int.Parse(tmp[i].Split(':')[0]), int.Parse(tmp[i].Split(':')[1]));
         }
         LogMgr.Inst.Log("seatNumList: " + seatNumList.ToStringFull(), (int)LogLevels.PlayerLog1);
-        
+
         // Get seat no from seat string
         for (int i = 0; i < m_playerList.Length; i++)
             m_playerList[i].canShow = false;
@@ -377,7 +413,7 @@ public class LamiPlayerMgr : MonoBehaviour
         LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
         var tmp = botListString.Split(',');
         m_botList.Clear();
-
+        if (botListString == "") return;
         for (int i = 0; i < tmp.Length; i++)
         {
             LamiGameBot bot = new LamiGameBot(this);
