@@ -33,6 +33,7 @@ enum LamiMessages
     OnStartGame,           // When this game can start
     OnCardDistributed,     // When the card is distributed
     OnUserReadyToStart_M,     // When the user received all cards and showed
+    OnPlayerStatusChanged,
 }
 public class LamiMgr : MonoBehaviour
 {

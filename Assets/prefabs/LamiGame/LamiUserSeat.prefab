@@ -1161,6 +1161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6d6d6004cc6574e913454ec68ea3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canShow: 0
+  status: 0
   mCardNum: {fileID: 6212411728641536845}
   mClockTime: {fileID: 4832672319494746855}
   mUserFrame: {fileID: 3972332849825213488}
@@ -1173,10 +1175,11 @@ MonoBehaviour:
   mJokerValue: {fileID: 433733039731797133}
   mClock: {fileID: 472350086051171330}
   mAceJokerPanel: {fileID: 6360106235260636250}
-  actorNumber: 0
   playerReadyImage: {fileID: 1317231143652641818}
   id: 0
   isSeat: 0
+  isBot: 0
+  frameId: 0
 --- !u!114 &-7838029468661820750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,9 +1193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Text: {fileID: 0}
-  turnTime: {fileID: 4832672319494746855}
-  countdownValue: 20
-  turnTimeValue: 30
 --- !u!1 &5823254543659624637
 GameObject:
   m_ObjectHideFlags: 0

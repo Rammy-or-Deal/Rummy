@@ -30,6 +30,7 @@ public class LamiUserSeat : MonoBehaviour
 
     public int id;
     private bool isPlayerReady;
+
     public bool isSeat;
 
     public bool isBot = false;
@@ -63,6 +64,13 @@ public class LamiUserSeat : MonoBehaviour
 
 
     #region Property
+
+    public void SetStatus(int s)
+    {
+        this.status = s;
+        
+    }
+
     internal void SetProperty(int tmpActor)
     {
         canShow = true;
@@ -74,6 +82,7 @@ public class LamiUserSeat : MonoBehaviour
             {
                 string user_info = (string)p.CustomProperties[Common.PLAYER_INFO];
                 status = (int)p.CustomProperties[Common.PLAYER_STATUS];
+                
                 infoString = user_info;
                 isBot = false;
                 break;
@@ -103,6 +112,8 @@ public class LamiUserSeat : MonoBehaviour
             mUserSkillName.text = tmp[4];
             frameId = int.Parse(tmp[5]);
         }
+
+
     }
 
     public void SetAdditionalCardInfo(string data)
@@ -139,9 +150,7 @@ public class LamiUserSeat : MonoBehaviour
     }
     private void OnPlayerNumberingChanged()
     {
-        foreach (Player p in PhotonNetwork.PlayerList)
-        {
-        }
+       
     }
 
     public void SetPlayerIsReady(bool playerReady)

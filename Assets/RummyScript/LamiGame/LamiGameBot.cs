@@ -79,8 +79,10 @@ public class LamiGameBot
     internal void SetBotInfo(string v)
     {
         LogMgr.Inst.Log("Bot String: " + v, (int)LogLevels.BotLog);
-
+    
         var tmp = v.Split(':');
+        if(tmp.Length > 5)
+        {
         id = int.Parse(tmp[0]);
         name = tmp[1];
         pic = tmp[2];
@@ -88,6 +90,7 @@ public class LamiGameBot
         skillLevel = tmp[4];
         frameId = int.Parse(tmp[5]);
         status = int.Parse(tmp[6]);
+        }
     }
     public void PublishMe()
     {

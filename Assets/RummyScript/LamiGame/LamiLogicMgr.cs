@@ -147,6 +147,9 @@ public class LamiLogicMgr : MonoBehaviour
             case (int)LamiMessages.OnUserTurnChanged:
                 LamiPlayerMgr.Inst.OnUserTurnChanged();
                 break;
+            case (int)LamiMessages.OnPlayerStatusChanged:
+                LamiPlayerMgr.Inst.OnPlayerStatusChanged();
+                break;
         }
     }
 }
