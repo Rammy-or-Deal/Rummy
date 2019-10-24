@@ -93,7 +93,7 @@ public class LamiGameUIManager : MonoBehaviour
         //SetPlayButtonState
 
         myCardPanel.OnClickLine();
-        myCardPanel.InitPanList();
+        
 
         //InitPanList
         //
@@ -127,7 +127,12 @@ public class LamiGameUIManager : MonoBehaviour
         else
         {
             List<Card> list = cardList.ToList();
-            if(list[list.Count-1].virtual_num+1 == mGameCardPanelList[lineNum].mGameCardList[0].virtual_num)
+
+            if(mGameCardPanelList[lineNum].mGameCardList[0].virtual_num == mGameCardPanelList[lineNum].mGameCardList[1].virtual_num)
+                mGameCardPanelList[lineNum].AddEndCards(list);
+            else if(list[list.Count-1].virtual_num == -1)
+                mGameCardPanelList[lineNum].AddEndCards(list);
+            else if(list[list.Count-1].virtual_num+1 == mGameCardPanelList[lineNum].mGameCardList[0].virtual_num)
                 mGameCardPanelList[lineNum].AddStartCards(list);
             else
                 mGameCardPanelList[lineNum].AddEndCards(list);
