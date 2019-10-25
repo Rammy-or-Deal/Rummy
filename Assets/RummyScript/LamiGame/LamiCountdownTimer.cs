@@ -46,7 +46,7 @@ public class LamiCountdownTimer : MonoBehaviour
         Debug.Log("Time out");
     }
 
-    public IEnumerator StartTurnTime(float turnTimeValue = 30)
+    public IEnumerator StartTurnTime(float turnTimeValue = 500)
     {
         Debug.Log("Time StartTurnTime");
         currCountdownValue = turnTimeValue;

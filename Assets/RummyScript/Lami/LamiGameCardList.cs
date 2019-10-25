@@ -77,7 +77,7 @@ public class LamiGameCardList : MonoBehaviour
     public void OnClickLine()
     {
         LogMgr.Inst.Log("Clicked: " + lineNum, (int)LogLevels.PlayerLog2);
-        if (lineNum > 0)
+        if (lineNum > -1)
         {
             LamiMe.Inst.OnClickLine(lineNum);    
         }

@@ -129,6 +129,7 @@ public class LamiMe : MonoBehaviour
             log += availList[nowFlush][i].num;
             if (availList[nowFlush][i].num == 15)
                 log += "(" + availList[nowFlush][i].virtual_num + ")";
+            log += "-" + availList[nowFlush][i].MyCardId;
             log += ",";
             LamiGameUIManager.Inst.myCardPanel.myCards[availList[nowFlush][i].MyCardId].isSelected = true;
         }
@@ -219,8 +220,8 @@ public class LamiMe : MonoBehaviour
         List<List<Card>> attachList = new List<List<Card>>();
         List<List<Card>> addList = new List<List<Card>>();
 
-        /* 
-                LogMgr.Inst.Log("--------------------- lines -----------------------");
+        
+                LogMgr.Inst.Log("------------------------------------ lines -------------------------------------------");
                 for (int i = 0; i < AllList.Count; i++)
                 {
                     string tmp = i + " : ";
@@ -231,7 +232,7 @@ public class LamiMe : MonoBehaviour
                     LogMgr.Inst.Log(tmp);
                 }
                 LogMgr.Inst.Log("--------------------- end -------------------");
-        */
+        
 
 
         bool canAttach = false;
@@ -240,16 +241,57 @@ public class LamiMe : MonoBehaviour
         for (int i = 0; i < AllList.Count; i++)
         {
             canAttach = false;
+            bool isFlush_created = true;
+            int firstNum = AllList[i][0].virtual_num;
+
+            foreach (var card in AllList[i])
+            {
+                if (card.virtual_num != firstNum)
+                {
+                    isFlush_created = false;
+                    break;
+                }
+            }
+
             //Check if the card can attach to the existing lines.
             for (int j = 0; j < LamiGameUIManager.Inst.mGameCardPanelList.Count && canAttach == false; j++)
             {
                 var line = LamiGameUIManager.Inst.mGameCardPanelList[j].mGameCardList;
 
+                bool isFlush = true;
+                int firstColor = line[0].color;
+                foreach (var card in line)
+                {
+                    if (card.color != firstColor)
+                    {
+                        isFlush = false;
+                        break;
+                    }
+                }
+
+
+                // Debug.Log("Check - isFlush " + (isFlush));
+                // Debug.Log("Check1-1 or: " + (AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1));
+                // Debug.Log("Check1-2 or: " + (AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1));
+                // Debug.Log("Check1-3 and: " + (isFlush && AllList[i][0].color == line[0].color));
+
+                // Debug.Log("Check2-1 : " + (AllList[i][0].virtual_num == line[0].virtual_num));
+                // Debug.Log("Check2-2 : " + (AllList[i][0].virtual_num == line[1].virtual_num));
+
+                // Debug.Log("Check3-1 : " + (AllList[i][0].virtual_num == line[line.Count - 1].virtual_num));
+                // Debug.Log("Check3-2 : " + (AllList[i][0].virtual_num == line[1].virtual_num));
+                // Debug.Log("Check3-3 : " + (AllList[i].Count > 1 && AllList[i][1].virtual_num == line[line.Count - 1].virtual_num));
+
                 if (((AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1 || // can attach  dealt card to first
-                        AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1) &&
-                        AllList[i][0].color == line[0].color && line[0].virtual_num != line[line.Count - 1].virtual_num)    // can attach  dealt card to end)
-                    || (line[0].virtual_num == line[line.Count - 1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i].Count == 1) ||
-                    (AllList[i].Count > 1 && line[0].virtual_num == line[line.Count - 1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i][1].virtual_num == line[line.Count - 1].virtual_num))    // can attach in set list
+                        AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1) &&   // can attach  dealt card to end
+                        isFlush && AllList[i][0].color == line[0].color && isFlush_created) ||       // can attach to flush line
+
+                    (AllList[i].Count == 1 && AllList[i][0].virtual_num == line[0].virtual_num
+                                           && AllList[i][0].virtual_num == line[1].virtual_num) ||
+
+                    (AllList[i].Count > 1 && AllList[i][0].virtual_num == line[line.Count - 1].virtual_num
+                                          && AllList[i][0].virtual_num == line[1].virtual_num
+                                          && AllList[i][1].virtual_num == line[line.Count - 1].virtual_num && !isFlush && !isFlush_created))    // can attach in set list
                 {
                     canAttach = true;
                     attachList.Add(AllList[i].ToList());
@@ -293,13 +335,12 @@ public class LamiMe : MonoBehaviour
     }
     internal void SetMyTurn(bool isMyTurn)
     {
-        
+
         if (isMyTurn)
         {
             LogMgr.Inst.Log("This is my turn: " + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.PlayerLog2);
 
             LamiGameUIManager.Inst.playButton.gameObject.SetActive(true);
-            //LamiGameUIManager.Inst.playButton.interactable = false;
             LamiGameUIManager.Inst.tipButton.gameObject.SetActive(true);
             m_timer_description.gameObject.SetActive(true);
             //LamiPlayerMgr.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
@@ -312,7 +353,6 @@ public class LamiMe : MonoBehaviour
         else
         {
             LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
-            //LamiGameUIManager.Inst.playButton.interactable = false;
             LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
             m_timer_description.gameObject.SetActive(false);
             //LamiCountdownTimer.Inst.StopTurnTimer();
@@ -439,32 +479,51 @@ public class LamiMe : MonoBehaviour
         }
 
         // Add Same cards
-        for (int i = 0; i < same_List.Count; i++)
+        int count = same_List.Count;
+        for (int i = 0; i < count; i++)
         {
-            same_List[i].AddRange(m_tmpCardList.Where(x => x.MyCardId != same_List[i][0].MyCardId &&
-                                                    (x.num == same_List[i][0].num && x.num != 15)).ToList());
-            for (int j = 0; j < same_List[i].Count; j++)
+            var list = m_tmpCardList.Where(x => x.MyCardId != same_List[i][0].MyCardId && x.num == same_List[i][0].num && x.num != 15).ToList();
+            List<Card> tmpList = new List<Card>();
+            foreach (var card in list)
             {
-                same_List[i][j].virtual_num = same_List[i][0].virtual_num;
+                Card new_card = new Card(card.num, card.color);
+                new_card.MyCardId = card.MyCardId;
+
+                tmpList.Add(new_card);
+
+                List<Card> newList = new List<Card>();
+                newList.Add(same_List[i][0]);
+                newList.AddRange(tmpList.ToList());
+
+                same_List.Add(newList);
             }
         }
+
+        // Add joker
         var joker_list = m_tmpCardList.Where(x => x.num == 15).ToList();
 
         if (m_tmpCardList.Count(x => x.num == 15) > 0)
         {
-            foreach (var list in same_List.Where(x => (3 - x.Count <= joker_list.Count) && (x.Count < 3)).ToList())
+            count = same_List.Count;
+            for (int i = 0; i < count; i++)
             {
-                List<Card> new_list = new List<Card>();
-                new_list.AddRange(list);
-                int max_joker = 3 - new_list.Count;
-                for (int j = 0; j < max_joker; j++)
+                var list = m_tmpCardList.Where(x => x.num == 15).ToList();
+                List<Card> tmpList = new List<Card>();
+
+                foreach (var card in list)
                 {
-                    Card card = new Card(joker_list[j].num, joker_list[j].color);
-                    card.MyCardId = joker_list[j].MyCardId;
-                    card.virtual_num = new_list[0].virtual_num;
-                    new_list.Add(card);
+                    Card new_card = new Card(15, same_List[i][0].color);
+                    new_card.MyCardId = card.MyCardId;
+                    new_card.virtual_num = same_List[i][0].num;
+
+                    tmpList.Add(new_card);
+
+                    List<Card> newList = new List<Card>();
+                    newList.AddRange(same_List[i]);
+
+                    newList.AddRange(tmpList.ToList());
+                    same_List.Add(newList);
                 }
-                same_List.Add(new_list);
             }
         }
 
@@ -472,8 +531,21 @@ public class LamiMe : MonoBehaviour
         same_List = same_List.Where(x => x.Count > 1).ToList();
 
         // Sort by joker
-        same_List.Sort((a, b) => a.Count(ai => ai.num == 15) - b.Count(bi => bi.num == 15));
+        //same_List.Sort((a, b) => a.Count(ai => ai.num == 15) - b.Count(bi => bi.num == 15));
+
+        // Debug.Log("------------ SET ----------------");
+        // foreach(var line in same_List)
+        // {
+        //     string str = "";
+        //     foreach(var card in line)
+        //     {
+        //         str += card.num+"("+card.virtual_num+")"+card.color+",";
+        //     }
+        //     Debug.Log(str);
+        // }
+        // Debug.Log("------------ SET End----------------");
         return same_List;
+
     }
 
     public List<List<Card>> GetAvailableCards_Flush(List<LamiMyCard> myCurrent)
@@ -543,9 +615,8 @@ public class LamiMe : MonoBehaviour
                             j_card.MyCardId = m_tmpCardList.Where(x => x.num == 15).ToList()[k].MyCardId;
                             j_card.num = 15;
                             j_card.color = firstColor;
-
                             j_card.virtual_num = firstValue + k;
-                            j_card.color = firstColor;
+
                             insert_List.Add(j_card);
                         }
                         insert_List.AddRange(tt11);
@@ -599,9 +670,15 @@ public class LamiMe : MonoBehaviour
             {
                 // Add continuous card(except joker)
                 if (continue_List[level - 1][i][continue_List[level - 1][i].Count - 1].virtual_num == -1) continue; // if Joker is used as Q, K, A(joker), continue;
+                List<int> myIdList = new List<int>();
+                foreach (var ttt in continue_List[level - 1][i])
+                {
+                    myIdList.Add(ttt.MyCardId);
+                }
 
                 for (int j = 0; j < m_tmpCardList.Count; j++)
                 {
+                    if (myIdList.Contains(m_tmpCardList[j].MyCardId)) continue;
                     if (m_tmpCardList[j].num == 15) continue;
 
                     if ((continue_List[level - 1][i][continue_List[level - 1][i].Count - 1].virtual_num + 1 == m_tmpCardList[j].num ||  // if continuous
@@ -630,6 +707,7 @@ public class LamiMe : MonoBehaviour
                     }
                 }
 
+
                 // Add joker
                 if (continue_List[level - 1][i].Count(x => x.num == 15) < m_tmpCardList.Count(x => x.num == 15))
                 {
@@ -641,6 +719,7 @@ public class LamiMe : MonoBehaviour
                     bool isSelectJoker = false;
                     for (int tt = 0; tt < m_tmpCardList.Count && !isSelectJoker; tt++)
                     {
+                        if (myIdList.Contains(m_tmpCardList[tt].MyCardId)) continue;
                         if (m_tmpCardList[tt].num != 15) continue;
                         for (int kk = 0; kk < tmp2.Count && !isSelectJoker; kk++)
                         {
@@ -707,60 +786,6 @@ public class LamiMe : MonoBehaviour
         // }
     }
 
-    public bool GetAvilableLineNum(List<LamiMyCard> sel_cards, LamiCardLine cardLine)
-    {
-
-        // selected card count is only "1"
-        if (sel_cards.Count == 1)
-        {
-            if (sel_cards[0].color == 0) return true; // If selected card is Joker, return True
-
-            if (cardLine.isSet) // card line is SET
-            {
-                //If Any one Number is Same, return True
-                if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].num)) return true;
-            }
-            else // card Line is FLUSH
-            {
-                // Color is Same Or Joker
-                if (cardLine.m_cardList[0].color == sel_cards[0].color || sel_cards[0].color == 0)
-                {
-                    // If the last Number of CardLine is "-1" than Selected card Or the first Number of CardLine is "+1"  , return True 
-                    if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].num) + 1 ||
-                        cardLine.m_cardList[cardLine.m_cardList.Count - 1].number ==
-                        Math.Abs(sel_cards[0].num) - 1)
-                        return true;
-                    // If the last number of CardLine is "K" and Selected card is "A", return True;
-                    if (cardLine.m_cardList[cardLine.m_cardList.Count - 1].number == 13 &&
-                        Math.Abs(sel_cards[0].num) == 1) return true;
-                }
-                else
-                    return false;
-            }
-        }
-        else // selected card count is more than "2"
-        {
-            // If Colors are same
-
-            // If CardLine and SelectedCards are SET
-            if (cardLine.isSet && IsSelSet() && cardLine.m_cardList[0].color == sel_cards[0].color &&
-                cardLine.m_cardList[0].number == Math.Abs(sel_cards[0].num)) return true;
-
-            //If CardLine and SelectedCards are FLUSH and Colors are same
-            if (!cardLine.isSet && IsSelFlush() && cardLine.m_cardList[0].color == sel_cards[0].color)
-            {
-                if (cardLine.m_cardList[0].number == Math.Abs(sel_cards[sel_cards.Count - 1].num) + 1 ||
-                    cardLine.m_cardList[cardLine.m_cardList.Count - 1].number ==
-                    Math.Abs(sel_cards[0].num) - 1)
-                    return true;
-            }
-        }
-
-        return false;
-    }
-
-
-
     public void OnPlayButtonClick()
     {
         if (avail_lineList.Count > 0)
@@ -784,96 +809,6 @@ public class LamiMe : MonoBehaviour
 
     }
 
-    public void GetAvaiableCards()  // Get the cards we can deal.
-    {
-
-        /*
-                // Get Continuous Cards (without JOKER)
-                List<List<tmpCard>> continue_List = new List<List<tmpCard>>();
-                for (int c = 0; c < 4; c++)
-                {
-                    for (int i = 1; i <= 13; i++)
-                    {
-                        if (m_cardList[i].color != c)
-                            continue;
-                        List<tmpCard> list = GetContinueCard(i, c);
-
-                        if (list.Count > 0)
-                            continue_List.Add(list);
-                        if (list.Count > 1)
-                            i += list.Count;
-                    }
-                }
-
-                // Get Same Cards
-                List<List<tmpCard>> same_List = new List<List<tmpCard>>();
-
-                for (int j = 0; j < m_cardList.Count - 1; j++)
-                {
-                    List<tmpCard> list = new List<tmpCard>();
-                    tmpCard card = new tmpCard();
-                    card.MyCardId = j;
-                    card.color = m_cardList[j].color;
-                    card.number = m_cardList[j].num;
-                    list.Add(card);
-
-
-                    for (int i = j + 1; i < m_cardList.Count; i++)
-                    {
-                        if (m_cardList[i].num == m_cardList[j].num)
-                        {
-                            tmpCard card1 = new tmpCard();
-                            card1.MyCardId = i;
-                            card1.color = m_cardList[i].color;
-                            card1.number = m_cardList[i].num;
-                            list.Add(card1);
-                        }
-                    }
-
-                    bool alreadyIn = true;
-                    for (int k = 0; k < same_List.Count; k++)
-                    {
-                        if (same_List[k][0].number == list[0].number)
-                        {
-                            alreadyIn = false;
-                        }
-                    }
-                    if (alreadyIn)
-                        same_List.Add(list);
-                }
-        */
-        // 
-    }
-
-
-
-    private List<Card> GetContinueCard(int first, int c)
-    {
-
-        List<Card> res = new List<Card>();
-        // for (int i = first; i <= 13; i++)
-        // {
-        //     bool isFound = false;
-        //     for (int j = 0; j < m_cardList.Count; j++)
-        //     {
-        //         if (m_cardList[j].color == c && m_cardList[j].num == i)
-        //         {
-        //             Card card = new Card();
-        //             card.MyCardId = j;
-        //             card.number = i;
-        //             card.color = c;
-        //             res.Add(card);
-        //             isFound = true;
-        //             break;
-        //         }
-        //     }
-        //     if (isFound != true)
-        //     {
-        //         break;
-        //     }
-        // }
-        return res;
-    }
 
     private List<Card> ArrangeWithColor() // Get Arranged CardList
     {
@@ -1016,6 +951,6 @@ public class LamiMe : MonoBehaviour
                 break;
         }
     }
-    
+
 
 }
