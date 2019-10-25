@@ -158,12 +158,16 @@ public class LamiGameBot
     private async void SendMyStatus()
     {
         await Task.Delay(1000);
-            Hashtable props = new Hashtable{
+        Hashtable props = new Hashtable{
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnPlayerStatusChanged},
                 {Common.PLAYER_ID, id},
                 {Common.PLAYER_STATUS, status},
             };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        try
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+        catch { }
     }
     /*************************************************** */
 }

@@ -147,6 +147,11 @@ public class LamiPlayerMgr : MonoBehaviour
         }
     }
 
+    internal void OnGameFinished()
+    {
+        LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
+    }
+
     internal void OnPlayerStatusChanged()
     {
         string seat_string = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
@@ -233,7 +238,11 @@ public class LamiPlayerMgr : MonoBehaviour
         if (first == nowTurn &&
             (m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.GiveUp || m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.Burnt))
         {
-            LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
+            Hashtable props = new Hashtable{
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnGameFinished},
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            //LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
         }
         else
         {
@@ -269,6 +278,25 @@ public class LamiPlayerMgr : MonoBehaviour
             LamiMe.Inst.SetMyTurn(false);
         }
         // if this player is bot
+
+        
+        #region showing timer
+        LamiCountdownTimer.Inst.StopTurnTimer();
+        for (int i = 0; i < m_playerList.Length; i++)
+        {
+            if (m_playerList[i].id == actor)
+            {
+                m_playerList[i].mClock.SetActive(true);
+                LamiCountdownTimer.Inst.turnTime = m_playerList[i].mClockTime;
+            }
+            else
+            {
+                m_playerList[i].mClock.SetActive(false);
+            }
+        }
+        LamiCountdownTimer.Inst.StartTurnTimer();
+        #endregion
+
         if (!PhotonNetwork.IsMasterClient) return;   // If this isn't master, return.
 
         if (actor < 0 && turn >= 0)
@@ -543,5 +571,29 @@ public class LamiPlayerMgr : MonoBehaviour
         }
 
         return seatPos;
+    }
+
+    public LamiUserSeat GetUserSeat(Player p)
+    {
+        LamiUserSeat userSeat;
+
+        Debug.Log("GetUserSeat; seat_id:" + PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_ID]);
+        Debug.Log("GetUserSeat; seatNumList:" + seatNumList.ToStringFull());
+
+        if (seatNumList[p.ActorNumber] == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+        {
+            Debug.Log(p.NickName + "///" + p.ActorNumber);
+            userSeat = m_playerList[0];
+        }
+        else if (seatNumList[p.ActorNumber] > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+        {
+            userSeat = m_playerList[seatNumList[p.ActorNumber] - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber]];
+        }
+        else
+        {
+            userSeat = m_playerList[4 - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + seatNumList[p.ActorNumber]];
+        }
+
+        return userSeat;
     }
 }

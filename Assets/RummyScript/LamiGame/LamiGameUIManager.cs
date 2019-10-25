@@ -112,6 +112,7 @@ public class LamiGameUIManager : MonoBehaviour
 
         var cardList = LamiCardMgr.ConvertCardStrToCardList(cardStr);
         LogMgr.Inst.Log("User dealt card, line number:= " + lineNum, (int)LogLevels.RoomLog3);
+        MessageStatus lineType = MessageStatus.Flush;
         if (lineNum == -1)
         {
             curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
@@ -123,6 +124,8 @@ public class LamiGameUIManager : MonoBehaviour
                 curGameCardList.AddGameCard(card);
             }
             curGameCardList.ShowCards();
+            if(curGameCardList.mGameCardList[0].virtual_num == curGameCardList.mGameCardList[1].virtual_num)
+                lineType = MessageStatus.Set;
         }
         else
         {
@@ -135,10 +138,13 @@ public class LamiGameUIManager : MonoBehaviour
             }else{
                 mGameCardPanelList[lineNum].AddEndCards(list);
             }
-
+            if(mGameCardPanelList[lineNum].mGameCardList[0].virtual_num == mGameCardPanelList[lineNum].mGameCardList[1].virtual_num )
+            {
+                lineType = MessageStatus.Set;
+            }
         }
-        //it should be edited 
-        LamiEffectDialog.Inst.ShowMessage(MessageStatus.Flush);
+
+        LamiEffectDialog.Inst.ShowMessage(lineType);
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {

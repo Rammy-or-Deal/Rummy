@@ -150,6 +150,7 @@ public class LamiLogicMgr : MonoBehaviour
                 LamiPlayerMgr.Inst.OnPlayerStatusChanged();
                 break;
             case (int)LamiMessages.OnGameFinished:
+                LamiPlayerMgr.Inst.OnGameFinished();
                 break;
         }
     }

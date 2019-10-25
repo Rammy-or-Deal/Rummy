@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class LamiMe : MonoBehaviour
 {
+    public Text m_timer_description;
     public bool isFirstTurn = true;
     public List<List<Card>> availList;
     int nowFlush = 0;
@@ -188,6 +189,7 @@ public class LamiMe : MonoBehaviour
 
 
         availList = FilterByCurrentTurn(list, isFirstTurn);
+
         if (availList.Count == 0)
         {
 
@@ -211,24 +213,25 @@ public class LamiMe : MonoBehaviour
 
     public static List<List<Card>> FilterByCurrentTurn(List<List<Card>> AllList, bool isFirst = false)
     {
+        Debug.Log("Is First: = " + isFirst);
         List<List<Card>> resList = new List<List<Card>>();
 
         List<List<Card>> attachList = new List<List<Card>>();
         List<List<Card>> addList = new List<List<Card>>();
 
-/* 
-        LogMgr.Inst.Log("--------------------- lines -----------------------");
-        for (int i = 0; i < AllList.Count; i++)
-        {
-            string tmp = i + " : ";
-            foreach (var card in AllList[i])
-            {
-                tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
-            }
-            LogMgr.Inst.Log(tmp);
-        }
-        LogMgr.Inst.Log("--------------------- end -------------------");
-*/
+        /* 
+                LogMgr.Inst.Log("--------------------- lines -----------------------");
+                for (int i = 0; i < AllList.Count; i++)
+                {
+                    string tmp = i + " : ";
+                    foreach (var card in AllList[i])
+                    {
+                        tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
+                    }
+                    LogMgr.Inst.Log(tmp);
+                }
+                LogMgr.Inst.Log("--------------------- end -------------------");
+        */
 
 
         bool canAttach = false;
@@ -244,9 +247,9 @@ public class LamiMe : MonoBehaviour
 
                 if (((AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1 || // can attach  dealt card to first
                         AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1) &&
-                        AllList[i][0].color == line[0].color && line[0].virtual_num != line[line.Count-1].virtual_num)    // can attach  dealt card to end)
-                    || (line[0].virtual_num == line[line.Count-1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i].Count==1) ||
-                    (AllList[i].Count>1 && line[0].virtual_num == line[line.Count-1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i][1].virtual_num == line[line.Count-1].virtual_num ))    // can attach in set list
+                        AllList[i][0].color == line[0].color && line[0].virtual_num != line[line.Count - 1].virtual_num)    // can attach  dealt card to end)
+                    || (line[0].virtual_num == line[line.Count - 1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i].Count == 1) ||
+                    (AllList[i].Count > 1 && line[0].virtual_num == line[line.Count - 1].virtual_num && AllList[i][0].virtual_num == line[1].virtual_num && AllList[i][1].virtual_num == line[line.Count - 1].virtual_num))    // can attach in set list
                 {
                     canAttach = true;
                     attachList.Add(AllList[i].ToList());
@@ -261,8 +264,25 @@ public class LamiMe : MonoBehaviour
 
         if (!isFirst && attachList.Count > 0)
             resList.AddRange(attachList);
+
+
         if (addList.Count > 0)
-            resList.AddRange(addList);
+        {
+            if (isFirst)
+            {
+                foreach (var line in addList)
+                {
+                    if (line[0].virtual_num != line[1].virtual_num)
+                    {
+                        resList.Add(line);
+                    }
+                }
+            }
+            else
+            {
+                resList.AddRange(addList);
+            }
+        }
 
         return resList;
     }
@@ -273,6 +293,7 @@ public class LamiMe : MonoBehaviour
     }
     internal void SetMyTurn(bool isMyTurn)
     {
+        
         if (isMyTurn)
         {
             LogMgr.Inst.Log("This is my turn: " + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.PlayerLog2);
@@ -280,21 +301,21 @@ public class LamiMe : MonoBehaviour
             LamiGameUIManager.Inst.playButton.gameObject.SetActive(true);
             //LamiGameUIManager.Inst.playButton.interactable = false;
             LamiGameUIManager.Inst.tipButton.gameObject.SetActive(true);
-            //GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
+            m_timer_description.gameObject.SetActive(true);
+            //LamiPlayerMgr.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
+            //LamiCountdownTimer.Inst.turnTime = LamiPlayerMgr.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClockTime;
             //LamiCountdownTimer.Inst.StartTurnTimer();
 
             // Get all available cards
-            // Get available Flush List
             Init_FlashList();
-
         }
         else
         {
             LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
             //LamiGameUIManager.Inst.playButton.interactable = false;
             LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
-            //GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
-            //            LamiCountdownTimer.Inst.StartTurnTimer();
+            m_timer_description.gameObject.SetActive(false);
+            //LamiCountdownTimer.Inst.StopTurnTimer();
         }
     }
     /************************* */
@@ -995,6 +1016,6 @@ public class LamiMe : MonoBehaviour
                 break;
         }
     }
-
+    
 
 }
