@@ -185,18 +185,7 @@ public class UIMyCardPanel : MonoBehaviour
     {
         int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);    // Get Selected Card
 
-        LogMgr.Inst.Log("------------------------------------ Line List---------------------------------- ---");
-        //foreach (var line in LamiMe.Inst.availList.Where(x => x.Count == count).ToList())
-        foreach (var line in LamiMe.Inst.availList)
-        {
-            string tmp = "";
-            foreach (var card in line)
-            {
-                tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
-            }
-            LogMgr.Inst.Log(tmp);
-        }
-        LogMgr.Inst.Log("---- LineEnd ---");
+
 
 
         attachList.Clear();
@@ -208,9 +197,25 @@ public class UIMyCardPanel : MonoBehaviour
             LamiGameUIManager.Inst.playButton.interactable = false;
         }
 
+
+        LogMgr.Inst.Log("------------------------------------ Line List---------------------------------- ---", (int)LogLevels.SpecialLog);
+        //foreach (var line in LamiMe.Inst.availList.Where(x => x.Count == count).ToList())
+        foreach (var line in LamiMe.Inst.availList)
+        {
+            string tmp = "";
+            foreach (var card in line)
+            {
+                tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
+            }
+            LogMgr.Inst.Log(tmp, (int)LogLevels.SpecialLog);
+        }
+        LogMgr.Inst.Log("---- LineEnd ---", (int)LogLevels.SpecialLog);
+
+
+
         var selectedList = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList();
 
-        LogMgr.Inst.Log("------------------------------------ Selected Line List ------------------------------");
+        LogMgr.Inst.Log("------------------------------------ Selected Line List ------------------------------", (int)LogLevels.SpecialLog);
         //foreach (var line in LamiMe.Inst.availList.Where(x => x.Count == count).ToList())
         foreach (var line in LamiMe.Inst.availList.Where(x => x.Count == count).ToList())
         {
@@ -221,7 +226,7 @@ public class UIMyCardPanel : MonoBehaviour
             }
             LogMgr.Inst.Log(tmp);
         }
-        LogMgr.Inst.Log("---- LineEnd ---");
+        LogMgr.Inst.Log("---- LineEnd ---", (int)LogLevels.SpecialLog);
 
         string log = "";
         foreach (var card in selectedList)
@@ -229,7 +234,7 @@ public class UIMyCardPanel : MonoBehaviour
             log += card.MyCardId + "/ num=" + card.num + ", color=" + card.color + ", virtual=" + card.virtual_num + "  :  ";
         }
 
-        LogMgr.Inst.Log("selectedCard: " + log, (int)LogLevels.PlayerLog2);
+        LogMgr.Inst.Log("selectedCard: " + log, (int)LogLevels.SpecialLog);
 
 
         List<List<Card>> m_machedList = new List<List<Card>>();
@@ -278,7 +283,7 @@ public class UIMyCardPanel : MonoBehaviour
         // Check if it's matched pan game cards.
 
         bool canAttach = false;
-        LogMgr.Inst.Log("--------------  PAN LINES   -------------------");
+        LogMgr.Inst.Log("--------------  PAN LINES   -------------------", (int)LogLevels.SpecialLog);
         List<int> cursorList = new List<int>();
 
         for (int i = 0; i < LamiGameUIManager.Inst.mGameCardPanelList.Count; i++)
@@ -288,7 +293,7 @@ public class UIMyCardPanel : MonoBehaviour
             {
                 tmpStr += aLine.num + "(" + aLine.virtual_num + "):" + aLine.color + ",";
             }
-            LogMgr.Inst.Log(tmpStr);
+            LogMgr.Inst.Log(tmpStr, (int)LogLevels.SpecialLog);
 
             var line = LamiGameUIManager.Inst.mGameCardPanelList[i].mGameCardList;
 
@@ -330,7 +335,7 @@ public class UIMyCardPanel : MonoBehaviour
                 {
                     tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
                 }
-                LogMgr.Inst.Log(j + " st matched line=" + tmp);
+                LogMgr.Inst.Log(j + " st matched line=" + tmp, (int)LogLevels.SpecialLog);
 
 
                 Debug.Log("Check - isFlush: " + (isFlush) + ",  isFlush_Created:" + isFlush_created);
@@ -370,7 +375,7 @@ public class UIMyCardPanel : MonoBehaviour
                 }
             }
         }
-        LogMgr.Inst.Log("--------------  PAN LINES END  -------------------");
+        LogMgr.Inst.Log("--------------  PAN LINES END  -------------------", (int)LogLevels.SpecialLog);
 
         foreach (var cursorPos in cursorList)
         {
@@ -378,7 +383,7 @@ public class UIMyCardPanel : MonoBehaviour
         }
 
 
-        LogMgr.Inst.Log("---- m_machedList ---");
+        LogMgr.Inst.Log("---- m_machedList ---", (int)LogLevels.SpecialLog);
         for (int i = 0; i < m_machedList.Count; i++)
         {
             var list = m_machedList[i];
@@ -387,9 +392,9 @@ public class UIMyCardPanel : MonoBehaviour
             {
                 tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
             }
-            LogMgr.Inst.Log(tmp);
+            LogMgr.Inst.Log(tmp, (int)LogLevels.SpecialLog);
         }
-        LogMgr.Inst.Log("---- end ---");
+        LogMgr.Inst.Log("---- end ---", (int)LogLevels.SpecialLog);
 
         if (canAttach == false)
         {
@@ -402,7 +407,7 @@ public class UIMyCardPanel : MonoBehaviour
             //SendDealtCard(-1, m_machedList.Where(x=>x.Count>=3).First());
         }
 
-        LogMgr.Inst.Log("---- attachList ---");
+        LogMgr.Inst.Log("---- attachList ---", (int)LogLevels.SpecialLog);
         for (int i = 0; i < attachList.Count; i++)
         {
             var list = attachList.ElementAt(i).Value;
@@ -411,9 +416,9 @@ public class UIMyCardPanel : MonoBehaviour
             {
                 tmp += card.num + "(" + card.virtual_num + ")" + ",";
             }
-            LogMgr.Inst.Log(tmp);
+            LogMgr.Inst.Log(tmp, (int)LogLevels.SpecialLog);
         }
-        LogMgr.Inst.Log("---- end ---");
+        LogMgr.Inst.Log("---- end ---", (int)LogLevels.SpecialLog);
 
 
         LamiGameUIManager.Inst.playButton.interactable = (attachList.Count > 0);

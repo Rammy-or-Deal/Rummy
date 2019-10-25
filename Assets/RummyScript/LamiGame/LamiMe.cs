@@ -221,7 +221,7 @@ public class LamiMe : MonoBehaviour
         List<List<Card>> addList = new List<List<Card>>();
 
         
-                LogMgr.Inst.Log("------------------------------------ lines -------------------------------------------");
+                LogMgr.Inst.Log("------------------------------------ All lines -------------------------------------------", (int)LogLevels.SpecialLog);
                 for (int i = 0; i < AllList.Count; i++)
                 {
                     string tmp = i + " : ";
@@ -229,9 +229,9 @@ public class LamiMe : MonoBehaviour
                     {
                         tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
                     }
-                    LogMgr.Inst.Log(tmp);
+                    LogMgr.Inst.Log(tmp + "-----", (int)LogLevels.SpecialLog);
                 }
-                LogMgr.Inst.Log("--------------------- end -------------------");
+                LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
         
 
 
