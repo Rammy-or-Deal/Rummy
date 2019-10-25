@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExitGames.Client.Photon;
+using Models;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
@@ -40,6 +41,8 @@ public class LamiGameUIManager : MonoBehaviour
     public LamiGameCardList gameCardListPrefab;
 
     public LamiGameCardList curGameCardList;
+
+    public UILamiSelectCardList uiSelectCardList;
 
     void Awake()
     {
@@ -92,6 +95,10 @@ public class LamiGameUIManager : MonoBehaviour
         //myCardPanel.DealCards();
         //SetPlayButtonState
 
+        List<List<Card>> temp = new List<List<Card>>();
+        temp.AddRange(UIMyCardPanel.GetMatchedList(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList(),LamiMe.Inst.availList));
+        uiSelectCardList.Show(temp);
+
         myCardPanel.OnClickLine();
         
 
@@ -101,10 +108,12 @@ public class LamiGameUIManager : MonoBehaviour
         //LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(false);
     }
 
-    public void AddGameCard(Card card)
+    public void OnSelectedCardList(int id)
     {
-        curGameCardList.AddGameCard(card);
+        List<Card> list=uiSelectCardList.mList[id];
+//        Todo
     }
+    
     public void OnDealCard(string cardStr)
     {
         Debug.Log(cardStr);
