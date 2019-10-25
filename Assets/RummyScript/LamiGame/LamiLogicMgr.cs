@@ -76,18 +76,19 @@ public class LamiLogicMgr : MonoBehaviour
         LamiCountdownTimer.Inst.StartTimer();
         isStart = false;
         StartCoroutine(CreateBot());
+        
     }
 
     public IEnumerator CreateBot()
     {
         //int botWaitTime = UnityEngine.Random.Range(7, 10);
         int botWaitTime = 2;
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        while (!isStart)
         {
-            while (!isStart)
+            yield return new WaitForSeconds(botWaitTime);
+            if (PhotonNetwork.LocalPlayer.IsMasterClient)
             {
-                yield return new WaitForSeconds(botWaitTime);
-                LogMgr.Inst.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
+                LogMgr.Inst.Log("Bot Create Command Sent : ", (int) LogLevels.BotLog);
                 LamiPlayerMgr.Inst.MakeOneBot();
             }
         }
