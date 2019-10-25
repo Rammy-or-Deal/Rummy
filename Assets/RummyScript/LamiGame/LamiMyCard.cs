@@ -46,7 +46,8 @@ public class LamiMyCard : LamiGameCard
             
         if (isSelected != isBeforeSelected)
         {
-            int move = 10 * (isSelected ? -1 : 1);
+            RectTransform rt = (RectTransform)gameObject.transform;
+            int move = (int)(rt.rect.width*0.4 * (isSelected ? -1 : 1));
             LeanTween.moveY(gameObject, transform.position.y - move, 0.1f);
         }
         isBeforeSelected=isSelected;
