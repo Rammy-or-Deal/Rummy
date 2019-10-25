@@ -211,7 +211,13 @@ public class LamiMe : MonoBehaviour
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
-
+    public static void CheckCondition(string header, List<Card> first, List<Card> second)
+    {
+        LogMgr.Inst.Log("--------------" + header + "-------------", (int)LogLevels.SpecialLog);
+        LogMgr.Inst.ShowLog(first, header);
+        LogMgr.Inst.ShowLog(second, header);
+        LogMgr.Inst.Log("------------------------------------------------", (int)LogLevels.SpecialLog);
+    }
     public static List<List<Card>> FilterByCurrentTurn(List<List<Card>> AllList, bool isFirst = false)
     {
         Debug.Log("Is First: = " + isFirst);
@@ -220,19 +226,19 @@ public class LamiMe : MonoBehaviour
         List<List<Card>> attachList = new List<List<Card>>();
         List<List<Card>> addList = new List<List<Card>>();
 
-        
-                LogMgr.Inst.Log("------------------------------------ All lines -------------------------------------------", (int)LogLevels.SpecialLog);
-                for (int i = 0; i < AllList.Count; i++)
-                {
-                    string tmp = i + " : ";
-                    foreach (var card in AllList[i])
-                    {
-                        tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
-                    }
-                    LogMgr.Inst.Log(tmp + "-----", (int)LogLevels.SpecialLog);
-                }
-                LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
-        
+
+        LogMgr.Inst.Log("------------------------------------ All lines -------------------------------------------", (int)LogLevels.SpecialLog);
+        LogMgr.Inst.ShowLog(AllList);
+        LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
+
+
+
+        LogMgr.Inst.Log("------------------------------------ Pane  lines -------------------------------------------", (int)LogLevels.SpecialLog);
+        for (int j = 0; j < LamiGameUIManager.Inst.mGameCardPanelList.Count; j++)
+        {
+            LogMgr.Inst.ShowLog(LamiGameUIManager.Inst.mGameCardPanelList[j].mGameCardList);
+        }
+        LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
 
 
         bool canAttach = false;
@@ -241,12 +247,13 @@ public class LamiMe : MonoBehaviour
         for (int i = 0; i < AllList.Count; i++)
         {
             canAttach = false;
+
             bool isFlush_created = true;
             int firstNum = AllList[i][0].virtual_num;
 
-            foreach (var card in AllList[i])
+            for (int kk = 1; kk < AllList[i].Count; kk++)
             {
-                if (card.virtual_num != firstNum)
+                if (AllList[i][kk].virtual_num == firstNum)
                 {
                     isFlush_created = false;
                     break;
@@ -282,20 +289,108 @@ public class LamiMe : MonoBehaviour
                 // Debug.Log("Check3-2 : " + (AllList[i][0].virtual_num == line[1].virtual_num));
                 // Debug.Log("Check3-3 : " + (AllList[i].Count > 1 && AllList[i][1].virtual_num == line[line.Count - 1].virtual_num));
 
-                if (((AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1 || // can attach  dealt card to first
-                        AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1) &&   // can attach  dealt card to end
-                        isFlush && AllList[i][0].color == line[0].color && isFlush_created) ||       // can attach to flush line
-
-                    (AllList[i].Count == 1 && AllList[i][0].virtual_num == line[0].virtual_num
-                                           && AllList[i][0].virtual_num == line[1].virtual_num) ||
-
-                    (AllList[i].Count > 1 && AllList[i][0].virtual_num == line[line.Count - 1].virtual_num
-                                          && AllList[i][0].virtual_num == line[1].virtual_num
-                                          && AllList[i][1].virtual_num == line[line.Count - 1].virtual_num && !isFlush && !isFlush_created))    // can attach in set list
+                if (AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1 || // can attach  dealt card to first
+                        AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1)
                 {
-                    canAttach = true;
-                    attachList.Add(AllList[i].ToList());
+                    if (isFlush)
+                    {
+                        if (AllList[i][0].color == line[0].color)
+                        {
+                            if (isFlush_created)
+                            {
+                                canAttach = true;
+                                attachList.Add(AllList[i].ToList());
+                                CheckCondition("Flush Success", AllList[i], line);
+                                continue;
+                            }
+                            else
+                            {
+                                CheckCondition("Flush Fourth Condition error", AllList[i], line);
+                            }
+                        }
+                        else
+                        {
+                            CheckCondition("Flush Third Condition error", AllList[i], line);
+                        }
+                    }
+                    else
+                    {
+                        CheckCondition("Flush Second Condition error", AllList[i], line);
+                    }
                 }
+                else
+                {
+                    CheckCondition("Flush First Condition error", AllList[i], line);
+                }
+
+
+                if (AllList[i].Count == 1)
+                {
+                    if (AllList[i][0].virtual_num == line[0].virtual_num)
+                    {
+                        if (AllList[i][0].virtual_num == line[1].virtual_num)
+                        {
+                            canAttach = true;
+                            attachList.Add(AllList[i].ToList());
+                            CheckCondition("SET 1 Success", AllList[i], line);
+                            continue;
+                        }
+                        else
+                        {
+                            CheckCondition("SET 1 Third Condition error", AllList[i], line);
+                        }
+                    }
+                    else
+                    {
+                        CheckCondition("SET 1 Second Condition error", AllList[i], line);
+                    }
+                }
+                else
+                {
+                    CheckCondition("SET 1 First Condition error", AllList[i], line);
+                }
+
+
+                if (AllList[i].Count > 1)
+                {
+                    if (AllList[i][0].virtual_num == line[0].virtual_num)
+                    {
+                        if (AllList[i][0].virtual_num == line[1].virtual_num)
+                        {
+                            canAttach = true;
+                            attachList.Add(AllList[i].ToList());
+                            CheckCondition("SET 22 Success", AllList[i], line);
+                            continue;
+                        }
+                        else
+                        {
+                            CheckCondition("SET 22 Third Condition error", AllList[i], line);
+                        }
+                    }
+                    else
+                    {
+                        CheckCondition("SET 22 Second Condition error", AllList[i], line);
+                    }
+                }
+                else
+                {
+                    CheckCondition("SET 22 First Condition error", AllList[i], line);
+                }
+
+                // if (((AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1 || // can attach  dealt card to first
+                //         AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1) &&   // can attach  dealt card to end
+                //         isFlush && AllList[i][0].color == line[0].color && isFlush_created) ||       // can attach to flush line
+
+                //     (AllList[i].Count == 1 && AllList[i][0].virtual_num == line[0].virtual_num
+                //                            && AllList[i][0].virtual_num == line[1].virtual_num) ||
+
+                //     (AllList[i].Count > 1 && AllList[i][0].virtual_num == line[line.Count - 1].virtual_num
+                //                           && AllList[i][0].virtual_num == line[1].virtual_num
+                //                           && AllList[i][1].virtual_num == line[line.Count - 1].virtual_num && !isFlush && !isFlush_created))    // can attach in set list
+                // {
+                //     canAttach = true;
+                //     attachList.Add(AllList[i].ToList());
+                // }
             }
             //Check if the card can add to new Line
             if (canAttach == false && AllList[i].Count >= 3)
@@ -305,7 +400,14 @@ public class LamiMe : MonoBehaviour
         }
 
         if (!isFirst && attachList.Count > 0)
+        {
             resList.AddRange(attachList);
+            LogMgr.Inst.Log("attach List is added", (int)LogLevels.SpecialLog);
+        }
+        else
+        {
+            LogMgr.Inst.Log("attach List isn't added, Reason. !isFirst=" + (!isFirst) + ", attachList.Count=" + attachList.Count, (int)LogLevels.SpecialLog);
+        }
 
 
         if (addList.Count > 0)

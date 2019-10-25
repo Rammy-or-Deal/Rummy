@@ -179,14 +179,49 @@ public class UIMyCardPanel : MonoBehaviour
         sortedByColor = !sortedByColor;
     }
 
+    public static List<List<Card>> GetMatchedList(List<LamiMyCard> selList, List<List<Card>> sourceList)
+    {
+        List<List<Card>> resList = new List<List<Card>>();
+        sourceList = sourceList.Where(x => x.Count == selList.Count).ToList();
 
+        foreach (var list in sourceList)
+        {
+            bool isSame = true;
+            LogMgr.Inst.ShowLog(list, "Match list:=");
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (selList.Count(x => x.num == list[i].num) == list.Count(y => y.num == list[i].num))
+                {
+                    if(selList.Count(x => x.color == list[i].color && x.num == list[i].num) == list.Count(y => y.color == list[i].color &&  y.num == list[i].num) 
+                                    || list[i].num==15)
+                    {                        
+                        continue;
+                    }else{
+                        isSame = false;
+                        LogMgr.Inst.Log("Match color error",(int)LogLevels.SpecialLog);
+                        break;
+                    }
+                }else{
+                    isSame = false;
+                    LogMgr.Inst.Log("Match number error",(int)LogLevels.SpecialLog);
+                    break;
+                }
+            }
+            
+            if(isSame){
+                LogMgr.Inst.Log("Match added", (int)LogLevels.SpecialLog);
+                List<Card> card = new List<Card>();
+                card.AddRange(list);
+                resList.Add(card);
+            }
+        }
+
+        return resList;
+    }
 
     public void SetPlayButtonState()
     {
         int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);    // Get Selected Card
-
-
-
 
         attachList.Clear();
 
@@ -241,42 +276,7 @@ public class UIMyCardPanel : MonoBehaviour
 
         // Get all mached lists
 
-
-
-        foreach (var org in LamiMe.Inst.availList.Where(x => x.Count == count).ToList())
-        {
-            bool wrong = true;
-
-            foreach (var card in selectedList)
-            {
-                wrong = false;
-                if (org.Count(x => (x.virtual_num == card.num && x.color == card.color) || (card.num == 15) || (card.num == 1 && x.virtual_num == -1 && x.color == card.color)) == 0)
-                {
-                    wrong = true;
-                    break;
-                }
-            }
-            if (wrong == false)
-            {
-                foreach (var card in org)
-                {
-                    wrong = false;
-                    if (selectedList.Count(x => (x.num == card.virtual_num && x.color == card.color) || (x.num == 15) || (x.num == 1 && card.virtual_num == -1 && x.color == card.color)) == 0)
-                    {
-                        wrong = true;
-                        break;
-                    }
-                }
-            }
-
-            if (wrong == false)
-            {
-                List<Card> new_list = new List<Card>();
-                new_list.AddRange(org);
-                m_machedList.Add(new_list);
-            }
-        }
-
+        m_machedList.AddRange(GetMatchedList(selectedList, LamiMe.Inst.availList));
 
         InitPanList();  // Remove all cursors
 
@@ -312,16 +312,17 @@ public class UIMyCardPanel : MonoBehaviour
             {
 
                 bool isFlush_created = true;
-                int firstNum = m_machedList[j][0].num;
+                int firstNum = m_machedList[j][0].virtual_num;
 
-                foreach (var card in m_machedList[j])
+                for (int kk = 1; kk < m_machedList[j].Count; kk++)
                 {
-                    if (card.num != firstNum)
+                    if (m_machedList[j][kk].virtual_num == firstNum)
                     {
                         isFlush_created = false;
                         break;
                     }
                 }
+
 
                 if (line.Count == 0)
                 {

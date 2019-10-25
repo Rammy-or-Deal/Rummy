@@ -32,12 +32,35 @@ public class LogMgr : MonoBehaviour
         // avail_logs.Add((int)LogLevels.BotLog);
         // avail_logs.Add((int)LogLevels.MasterLog);
         // avail_logs.Add((int)LogLevels.MeLog);
-        avail_logs.Add((int)LogLevels.SpecialLog);
+        //avail_logs.Add((int)LogLevels.SpecialLog);
     }
     // Start is called before the first frame update
     public void Log(string log, int level = 0)
     {
         if (avail_logs.Contains(level))
             Debug.Log(log);
+    }
+    public void ShowLog(List<List<Card>> allList, string header = "")
+    {
+        foreach (var line in allList)
+        {
+            string tmp = "";
+            foreach (var card in line)
+            {
+                tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
+            }
+            tmp += "/";
+            LogMgr.Inst.Log(header + "   " + tmp + "-----", (int)LogLevels.SpecialLog);
+        }
+    }
+    public void ShowLog(List<Card> list, string header = "")
+    {
+        string tmp = "";
+        foreach (var card in list)
+        {
+            tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
+        }
+        tmp += "/";
+        LogMgr.Inst.Log(header + "   " + tmp + "-----", (int)LogLevels.SpecialLog);
     }
 }
