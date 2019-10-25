@@ -68,7 +68,9 @@ public class LamiGameCardList : MonoBehaviour
                 else
                 {
                     centerCards[i-2].UpdateCard(mGameCardList[i]);
-                    centerCards[i-2].gameObject.SetActive(true);    
+                    centerCards[i-2].gameObject.SetActive(true);
+                    if (i<4)
+                        showCards[i].gameObject.SetActive(false);
                 }
             }
         }
