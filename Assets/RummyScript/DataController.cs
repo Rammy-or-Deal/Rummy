@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using RummyScript.Model;
 using UnityEngine;
 
+
+enum {
+    Product,
+    Develop_Message,
+    Develop_No_Message
+}
+
+public static class Constants{
+    public static int LamiBuildMethod = 0;
+}
+
 public class DataController : MonoBehaviour
 {
     public static DataController Inst;

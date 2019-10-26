@@ -5,11 +5,15 @@ using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-
+public class ATTACH_CLASS
+{
+    public int lineNo = -1;
+    public List<Card> list = new List<Card>();
+}
 public class UIMyCardPanel : MonoBehaviour
 {
     //MyCard
-    public Dictionary<int, List<Card>> attachList = new Dictionary<int, List<Card>>();
+    public List<ATTACH_CLASS> attachList = new List<ATTACH_CLASS>();
     public List<LamiMyCard> myCards;
     public GameObject[] cursorPoints;
     private int curCursorNum = 0;
@@ -374,7 +378,10 @@ public class UIMyCardPanel : MonoBehaviour
 
                     try
                     {
-                        attachList.Add(i, m_machedList[j].ToList());
+                        ATTACH_CLASS new_list = new ATTACH_CLASS();
+                        new_list.lineNo = i;
+                        new_list.list.AddRange(m_machedList[j].ToList());
+                        attachList.Add(new_list);
                     }
                     catch { }
                     LogMgr.Inst.Log("Show Cursor: " + i, (int)LogLevels.PlayerLog2);
@@ -404,19 +411,21 @@ public class UIMyCardPanel : MonoBehaviour
 
         if (canAttach == false)
         {
-            // Send new line.
-            if (m_machedList.Count(x => x.Count >= 3) > 0)
+            foreach (var match in m_machedList.Where(x => x.Count >= 3).ToList())
             {
-                attachList.Add(-1, m_machedList.Where(x => x.Count >= 3).First());
+                ATTACH_CLASS new_list = new ATTACH_CLASS();
+                new_list.lineNo = -1;
+                new_list.list.AddRange(match);
                 canAttach = true;
+                attachList.Add(new_list);
             }
-            //SendDealtCard(-1, m_machedList.Where(x=>x.Count>=3).First());
         }
+
 
         LogMgr.Inst.Log("---- attachList ---", (int)LogLevels.SpecialLog);
         for (int i = 0; i < attachList.Count; i++)
         {
-            var list = attachList.ElementAt(i).Value;
+            var list = attachList[i].list;
             string tmp = "";
             foreach (var card in list)
             {
@@ -432,10 +441,17 @@ public class UIMyCardPanel : MonoBehaviour
     public void OnClickLine(int lineNum = -1)
     {
         InitPanList();
-        if (attachList.Count > 1 && lineNum == -1) return;
+        //if (attachList.Count > 1 && lineNum == -1) return;
 
+        foreach (var attach in attachList)
+        {
+            if (attach.lineNo == lineNum)
+            {
+                SendDealtCard(attach.lineNo, attach.list);
+                break;
+            }
+        }
 
-        SendDealtCard(attachList.First().Key, attachList[attachList.First().Key]);
 
         for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
         {
@@ -449,9 +465,9 @@ public class UIMyCardPanel : MonoBehaviour
     public void OnClickCardList(int listNum = -1)
     {
         InitPanList();
-        if (attachList.Count > 1 && listNum == -1) return;
+        if (listNum == -1) return;
 
-        SendDealtCard(attachList.ElementAt(listNum).Key, attachList.ElementAt(listNum).Value);
+        SendDealtCard(attachList[listNum].lineNo, attachList[listNum].list);
 
         for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
         {
