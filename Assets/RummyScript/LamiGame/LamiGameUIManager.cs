@@ -17,6 +17,7 @@ public class LamiGameUIManager : MonoBehaviour
     //Button
     public GameObject chatButton;
     public GameObject readyButton;
+    public GameObject autoOffBtn;
     public Button tipButton;
     public Button playButton;
     public Button arrangeButton;
@@ -279,5 +280,10 @@ public class LamiGameUIManager : MonoBehaviour
     public void OnSettingClick()
     {
         settingDlg.SetActive(true);
+    }
+
+    public void OnClickAutoOffBtn()
+    {
+        autoOffBtn.SetActive(false);
     }
 }
