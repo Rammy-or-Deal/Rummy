@@ -7,7 +7,7 @@ public class UICollectionFrameItem : MonoBehaviour
 {
     public int id;
     public Image pic;
-    public Text name;
+    public new Text name;
     public Image frame;
     public string stats;
     // Start is called before the first frame update

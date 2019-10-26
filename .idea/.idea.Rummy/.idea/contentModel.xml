@@ -10,7 +10,6 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Editor" t="Include">
-          <e p="AnchorToolEditor.cs" t="Include" />
           <e p="PostBuildActions.cs" t="Include" />
         </e>
         <e p="GaussianBlur" t="Include">
@@ -687,6 +686,7 @@
           <e p="UIController.cs" t="Include" />
           <e p="UIManager.cs" t="Include" />
           <e p="Utils" t="Include">
+            <e p="Constants.cs" t="Include" />
             <e p="LogMgr.cs" t="Include" />
             <e p="UIMoveTween.cs" t="Include" />
           </e>
