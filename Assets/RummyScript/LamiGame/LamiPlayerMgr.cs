@@ -7,7 +7,9 @@ using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class LamiPlayerMgr : MonoBehaviour
 {
-
+    public string totalCardString = "";
+    public string totalRemainString = "";
+    public string totalPayString = "";
     public int nowTurn = -1;
     public LamiUserSeat[] m_playerList;
 
@@ -121,6 +123,9 @@ public class LamiPlayerMgr : MonoBehaviour
     internal void OnCardDistributed()
     {
         var cardListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
+        totalCardString = cardListString;
+        totalRemainString = cardListString;
+        totalPayString = "";
 
         LogMgr.Inst.Log("Card Distributed: " + cardListString, (int)LogLevels.PlayerLog2);
 
@@ -149,6 +154,15 @@ public class LamiPlayerMgr : MonoBehaviour
 
     internal void OnGameFinished()
     {
+        foreach (var seat in m_playerList)
+        {
+            try
+            {
+                seat.cardList.Clear();
+            }
+            catch { }
+            seat.cardListUpdate(totalCardString, totalPayString);
+        }
         LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
     }
 
@@ -205,6 +219,9 @@ public class LamiPlayerMgr : MonoBehaviour
         int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         int remained = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.REMAIN_CARD_COUNT];
 
+        string cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD];
+        UpdateRemainCards(cardString);
+
         LogMgr.Inst.Log("User Dealt card -  actor=" + actor + ", remained=" + remained + ", nowTurn=" + nowTurn, (int)LogLevels.RoomLog2);
 
         for (int i = 0; i < m_playerList.Length; i++)
@@ -213,7 +230,6 @@ public class LamiPlayerMgr : MonoBehaviour
             {
                 m_playerList[i].mCardNum.text = remained + "";
 
-                string cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD];
                 string[] str = cardString.Split(':');
                 m_playerList[i].OnUserDealt(str[1]);
                 nowTurn = i;
@@ -225,6 +241,23 @@ public class LamiPlayerMgr : MonoBehaviour
             TurnChange();
         }
     }
+
+    private void UpdateRemainCards(string cardString)
+    {
+        int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        var numList = cardString.Split(':')[1].Split(',').Select(Int32.Parse).ToArray();
+        var colList = cardString.Split(':')[2].Split(',').Select(Int32.Parse).ToArray();
+        for(int i = 0; i < numList.Length; i++)
+        {
+            totalPayString += actor + ":" + numList[i] + ":" + colList[i] + "/";
+        }
+
+
+        //totalPayString = totalPayString.Trim('/');
+        
+        //Debug.Log(totalRemainString);
+    }
+
     public void TurnChange()
     {
         int first = nowTurn;
@@ -279,7 +312,7 @@ public class LamiPlayerMgr : MonoBehaviour
         }
         // if this player is bot
 
-        
+
         #region showing timer
         LamiCountdownTimer.Inst.StopTurnTimer();
         for (int i = 0; i < m_playerList.Length; i++)
@@ -521,9 +554,12 @@ public class LamiPlayerMgr : MonoBehaviour
 
         LogMgr.Inst.Log("Check Users before making bot. " + seatString, (int)LogLevels.BotLog);
 
-        var tmp = seatString.Split(',');
+        List<string> tmp = new List<string>();
+        try{
+        tmp.AddRange(seatString.Trim(',').Split(',').ToList());
+        }catch{}
         // if all seats are not empty, return.
-        if (tmp.Length >= 4) return;
+        if (tmp.Count >= 4 || tmp.Count == 0) return;
 
         // Create a bot
         LamiGameBot mBot = new LamiGameBot(this);

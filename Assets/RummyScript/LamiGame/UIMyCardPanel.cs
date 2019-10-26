@@ -192,23 +192,28 @@ public class UIMyCardPanel : MonoBehaviour
             {
                 if (selList.Count(x => x.num == list[i].num) == list.Count(y => y.num == list[i].num))
                 {
-                    if(selList.Count(x => x.color == list[i].color && x.num == list[i].num) == list.Count(y => y.color == list[i].color &&  y.num == list[i].num) 
-                                    || list[i].num==15)
-                    {                        
+                    if (selList.Count(x => x.color == list[i].color && x.num == list[i].num) == list.Count(y => y.color == list[i].color && y.num == list[i].num)
+                                    || list[i].num == 15)
+                    {
                         continue;
-                    }else{
+                    }
+                    else
+                    {
                         isSame = false;
-                        LogMgr.Inst.Log("Match color error",(int)LogLevels.SpecialLog);
+                        LogMgr.Inst.Log("Match color error", (int)LogLevels.SpecialLog);
                         break;
                     }
-                }else{
+                }
+                else
+                {
                     isSame = false;
-                    LogMgr.Inst.Log("Match number error",(int)LogLevels.SpecialLog);
+                    LogMgr.Inst.Log("Match number error", (int)LogLevels.SpecialLog);
                     break;
                 }
             }
-            
-            if(isSame){
+
+            if (isSame)
+            {
                 LogMgr.Inst.Log("Match added", (int)LogLevels.SpecialLog);
                 List<Card> card = new List<Card>();
                 card.AddRange(list);
@@ -441,6 +446,23 @@ public class UIMyCardPanel : MonoBehaviour
         LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
         LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
     }
+    public void OnClickCardList(int listNum = -1)
+    {
+        InitPanList();
+        if (attachList.Count > 1 && listNum == -1) return;
+
+        SendDealtCard(attachList.ElementAt(listNum).Key, attachList.ElementAt(listNum).Value);
+
+        for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
+        {
+            myCards[i].isSelected = false;
+            myCards[i].SetUpdate();
+        }
+
+        LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
+        LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
+    }
+
     public void SendDealtCard(int v, List<Card> list)
     {
         //RemoveCards();
