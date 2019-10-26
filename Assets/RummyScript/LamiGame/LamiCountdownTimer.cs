@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ExitGames.Client.Photon;
 using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LamiCountdownTimer : MonoBehaviour
 {
@@ -15,8 +16,7 @@ public class LamiCountdownTimer : MonoBehaviour
     private Coroutine myCoroutine;
     private Coroutine userCoroutine;
 
-    private float countdownValue = 100;
-    private float turnTimeValue = 30;
+    private float countdownValue = Constants.waitTime_Develop;
     public void Awake()
     {
         if (!Inst)
@@ -36,8 +36,8 @@ public class LamiCountdownTimer : MonoBehaviour
     public IEnumerator StartCountdown()
     {
         if(Constants.LamiBuildMethod == BuildMethod.Product)
-            countdownValue = 30;
-            
+            countdownValue = Constants.waitTime_Product;
+
         currCountdownValue = countdownValue;
 
         while (currCountdownValue > 0)
@@ -50,13 +50,18 @@ public class LamiCountdownTimer : MonoBehaviour
         Debug.Log("Time out");
     }
 
-    public IEnumerator StartTurnTime(float turnTimeValue = 1000)
+    public IEnumerator StartTurnTime()
     {
+        float turnTimeValue = Constants.waitTime_Develop;
+
         if(Constants.LamiBuildMethod == BuildMethod.Product)
-            turnTimeValue = 30;
+            turnTimeValue = Constants.waitTime_Product;
 
         Debug.Log("Time StartTurnTime");
         currCountdownValue = turnTimeValue;
+        if(LamiMe.Inst.isAuto)
+            currCountdownValue = Constants.turnTime_AutoPlay;
+
         while (currCountdownValue > 0)
         {
             turnTime.text = string.Format("{0}", currCountdownValue.ToString());
@@ -74,8 +79,19 @@ public class LamiCountdownTimer : MonoBehaviour
         }
 
         LamiGameUIManager.Inst.OnClickTips();
-        LamiGameUIManager.Inst.OnClickPlay();
+        LamiGameUIManager.Inst.myCardPanel.InitPanList();
+        if(LamiGameUIManager.Inst.myCardPanel.attachList.Count>0)
+        {
+           LamiGameUIManager.Inst.myCardPanel.SendDealtCard(LamiGameUIManager.Inst.myCardPanel.attachList[0].lineNo, LamiGameUIManager.Inst.myCardPanel.attachList[0].list); 
+           LamiMe.Inst.isAuto = true;
+           Hashtable table = new Hashtable{
+               {Common.LAMI_MESSAGE, (int)LamiMessages.OnAutoPlayer},
+               {Common.PLAYER_ID, (int)PhotonNetwork.LocalPlayer.ActorNumber}
+           };
+           PhotonNetwork.CurrentRoom.SetCustomProperties(table);
 
+           LamiGameUIManager.Inst.autoOffBtn.SetActive(true);
+        }
     }
 
     public void StartTimer()

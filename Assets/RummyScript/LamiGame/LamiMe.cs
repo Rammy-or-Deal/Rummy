@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class LamiMe : MonoBehaviour
 {
+    public bool isAuto = false;
     public Text m_timer_description;
     public bool isFirstTurn = true;
     public List<List<Card>> availList;

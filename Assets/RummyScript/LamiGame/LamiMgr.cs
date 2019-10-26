@@ -34,6 +34,7 @@ enum LamiMessages
     OnCardDistributed,     // When the card is distributed
     OnUserReadyToStart_M,     // When the user received all cards and showed
     OnPlayerStatusChanged,
+    OnAutoPlayer,
 }
 public class LamiMgr : MonoBehaviour
 {

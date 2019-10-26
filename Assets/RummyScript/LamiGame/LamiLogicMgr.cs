@@ -76,22 +76,22 @@ public class LamiLogicMgr : MonoBehaviour
         LamiCountdownTimer.Inst.StartTimer();
         isStart = false;
         StartCoroutine(CreateBot());
-        
+
     }
 
     public IEnumerator CreateBot()
     {
         //int botWaitTime = UnityEngine.Random.Range(7, 10);
-        int botWaitTime = 2;
-        if(Constants.LamiBuildMethod == BuildMethod.Product)
-            botWaitTime = UnityEngine.Random.Range(7, 10);
-            
+        int botWaitTime = Constants.botWaitTime;
+        if (Constants.LamiBuildMethod == BuildMethod.Product)
+            botWaitTime = UnityEngine.Random.Range(5, 10);
+
         while (!isStart)
         {
             yield return new WaitForSeconds(botWaitTime);
             if (PhotonNetwork.LocalPlayer.IsMasterClient)
             {
-                LogMgr.Inst.Log("Bot Create Command Sent : ", (int) LogLevels.BotLog);
+                LogMgr.Inst.Log("Bot Create Command Sent : ", (int)LogLevels.BotLog);
                 LamiPlayerMgr.Inst.MakeOneBot();
             }
         }
@@ -129,7 +129,7 @@ public class LamiLogicMgr : MonoBehaviour
                 break;
             case (int)LamiMessages.OnUserLeave_M:
                 if (PhotonNetwork.IsMasterClient)
-                    LamiPlayerMgr.Inst.OnUserLeave_M(p.ActorNumber);                    
+                    LamiPlayerMgr.Inst.OnUserLeave_M(p.ActorNumber);
                 break;
             case (int)LamiMessages.OnStartGame:
                 StopCoroutine(CreateBot());
@@ -155,6 +155,9 @@ public class LamiLogicMgr : MonoBehaviour
                 break;
             case (int)LamiMessages.OnGameFinished:
                 LamiPlayerMgr.Inst.OnGameFinished();
+                break;
+            case (int)LamiMessages.OnAutoPlayer:
+                LamiPlayerMgr.Inst.OnAutoPlayer();
                 break;
         }
     }

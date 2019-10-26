@@ -43,6 +43,7 @@ public class LamiUserSeat : MonoBehaviour
     public List<Card> cardList = new List<Card>();
 
     public int score = 0;
+    internal bool isAuto;
 
     #region UNITY
 
@@ -142,7 +143,7 @@ public class LamiUserSeat : MonoBehaviour
         playerReadyImage.gameObject.SetActive(false);
         playerGiveupImage.gameObject.SetActive(false);
         playerBurntImage.gameObject.SetActive(false);
-
+        autoOnImage.gameObject.SetActive(false);
     }
     public void Show()
     {
@@ -166,6 +167,8 @@ public class LamiUserSeat : MonoBehaviour
                     break;
             }
 
+            if(isAuto)
+                autoOnImage.gameObject.SetActive(true);
         }
         else
             gameObject.SetActive(false);
