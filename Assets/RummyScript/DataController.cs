@@ -4,14 +4,14 @@ using RummyScript.Model;
 using UnityEngine;
 
 
-enum {
+public enum BuildMethod {
     Product,
     Develop_Message,
     Develop_No_Message
 }
 
 public static class Constants{
-    public static int LamiBuildMethod = 0;
+    public static BuildMethod LamiBuildMethod = BuildMethod.Product;
 }
 
 public class DataController : MonoBehaviour

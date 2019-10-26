@@ -83,6 +83,9 @@ public class LamiLogicMgr : MonoBehaviour
     {
         //int botWaitTime = UnityEngine.Random.Range(7, 10);
         int botWaitTime = 2;
+        if(Constants.LamiBuildMethod == BuildMethod.Product)
+            botWaitTime = UnityEngine.Random.Range(7, 10);
+            
         while (!isStart)
         {
             yield return new WaitForSeconds(botWaitTime);
