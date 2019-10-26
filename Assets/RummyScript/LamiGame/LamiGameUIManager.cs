@@ -97,11 +97,26 @@ public class LamiGameUIManager : MonoBehaviour
         //SetPlayButtonState
 
         List<List<Card>> temp = new List<List<Card>>();
-        temp.AddRange(UIMyCardPanel.GetMatchedList(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList(),LamiMe.Inst.availList));
-        uiSelectCardList.Show(temp);
+        var machingList = UIMyCardPanel.GetMatchedList(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList(), LamiMe.Inst.availList);
+        if (machingList.Count == 1)
+        {
+            myCardPanel.OnClickLine();
+        }
+        else if (machingList.Count > 1)
+        {
+            if (machingList[0][0].virtual_num == machingList[0][1].virtual_num)
+            {
+                myCardPanel.OnClickLine();
+            }
+            else
+            {
+                temp.AddRange(machingList);
+                uiSelectCardList.Show(temp);
+            }
+        }
 
-        myCardPanel.OnClickLine();
-        
+
+
 
         //InitPanList
         //
@@ -111,10 +126,10 @@ public class LamiGameUIManager : MonoBehaviour
 
     public void OnSelectedCardList(int id)
     {
-        List<Card> list=uiSelectCardList.mList[id];
-//        Todo
+        myCardPanel.OnClickCardList(id);
+        //        Todo
     }
-    
+
     public void OnDealCard(string cardStr)
     {
         Debug.Log(cardStr);
@@ -134,7 +149,7 @@ public class LamiGameUIManager : MonoBehaviour
                 curGameCardList.AddGameCard(card);
             }
             curGameCardList.ShowCards();
-            if(curGameCardList.mGameCardList[0].virtual_num == curGameCardList.mGameCardList[1].virtual_num)
+            if (curGameCardList.mGameCardList[0].virtual_num == curGameCardList.mGameCardList[1].virtual_num)
                 lineType = MessageStatus.Set;
         }
         else
@@ -142,13 +157,15 @@ public class LamiGameUIManager : MonoBehaviour
             List<Card> list = new List<Card>();
             list.AddRange(cardList.ToList());
 
-            if(list[list.Count-1].virtual_num+1 == mGameCardPanelList[lineNum].mGameCardList[0].virtual_num)
+            if (list[list.Count - 1].virtual_num + 1 == mGameCardPanelList[lineNum].mGameCardList[0].virtual_num)
             {
                 mGameCardPanelList[lineNum].AddStartCards(list);
-            }else{
+            }
+            else
+            {
                 mGameCardPanelList[lineNum].AddEndCards(list);
             }
-            if(mGameCardPanelList[lineNum].mGameCardList[0].virtual_num == mGameCardPanelList[lineNum].mGameCardList[1].virtual_num )
+            if (mGameCardPanelList[lineNum].mGameCardList[0].virtual_num == mGameCardPanelList[lineNum].mGameCardList[1].virtual_num)
             {
                 lineType = MessageStatus.Set;
             }
@@ -268,7 +285,7 @@ public class LamiGameUIManager : MonoBehaviour
     public void OnExitClick()
     {
         Debug.Log("Exit clicked");
-//        PunController.Inst.LeaveGame();
+        //        PunController.Inst.LeaveGame();
         finishDlg.gameObject.SetActive(true);
     }
 

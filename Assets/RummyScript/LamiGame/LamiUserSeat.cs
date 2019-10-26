@@ -11,6 +11,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LamiUserSeat : MonoBehaviour
 {
+
+    public int cardPoint;
     static public LamiUserSeat Inst;
     public bool canShow;
     public int status;
@@ -37,6 +39,9 @@ public class LamiUserSeat : MonoBehaviour
 
     public bool isBot = false;
     public int frameId;
+    public List<Card> cardList = new List<Card>();
+
+    public int score = 0;
 
     #region UNITY
 
@@ -70,8 +75,8 @@ public class LamiUserSeat : MonoBehaviour
     public void OnUserDealt(string dealString)
     {
         var cards = dealString.Split(',').Select(Int32.Parse).ToArray();
-        int aCount = cards.Count(x=> x == 1);
-        int jokerCount = cards.Count(x=> x == 15);
+        int aCount = cards.Count(x => x == 1);
+        int jokerCount = cards.Count(x => x == 15);
 
         mAceValue.text = (int.Parse(mAceValue.text) + aCount) + "";
         mJokerValue.text = (int.Parse(mJokerValue.text) + jokerCount) + "";
@@ -145,7 +150,7 @@ public class LamiUserSeat : MonoBehaviour
         {
             gameObject.SetActive(true);
             switch (status)
-            {                
+            {
                 case (int)LamiPlayerStatus.Ready:
                     playerReadyImage.gameObject.SetActive(true);
                     mAceJokerPanel.gameObject.SetActive(true);
@@ -186,5 +191,43 @@ public class LamiUserSeat : MonoBehaviour
     internal void LeftRoom()
     {
         throw new NotImplementedException();
+    }
+
+    internal void cardListUpdate(string totalCardString, string totalPayString)
+    {
+        cardList.Clear();
+        var players = totalCardString.Trim('/').Split('/');
+        foreach (var player in players)
+        {
+            int playerActor = int.Parse(player.Split(':')[0]);
+            if (playerActor == id)
+            {
+                var numList = player.Split(':')[1].Split(',').Select(Int32.Parse).ToArray();
+                var colList = player.Split(':')[2].Split(',').Select(Int32.Parse).ToArray();
+                for(int i = 0; i < numList.Length; i++)
+                {
+                    Card card = new Card(numList[i], colList[i]);
+                    cardList.Add(card);
+                }
+                
+            }
+        }
+
+        var payItems = totalPayString.Trim('/').Split('/');
+        foreach(var item in payItems)
+        {
+            var tmp = item.Split(':').Select(Int32.Parse).ToArray();
+            if(tmp[0] == id)
+            {
+                for(int i = 0; i < cardList.Count; i++)
+                {
+                    if((cardList[i].num == tmp[1] && cardList[i].color == tmp[2] && cardList[i].MyCardId != -1) ||
+                        (cardList[i].num == 15 && tmp[2] == 15 && cardList[i].MyCardId != -1))
+                        {
+                            cardList[i].MyCardId = 1;
+                        }
+                }
+            }
+        }
     }
 }
