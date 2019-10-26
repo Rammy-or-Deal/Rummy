@@ -11,7 +11,7 @@ public enum BuildMethod {
 }
 
 public static class Constants{
-    public static BuildMethod LamiBuildMethod = BuildMethod.Product;
+    public static BuildMethod LamiBuildMethod = BuildMethod.Develop_No_Message;
 }
 
 public class DataController : MonoBehaviour

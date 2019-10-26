@@ -409,9 +409,32 @@ public class UIMyCardPanel : MonoBehaviour
         }
         LogMgr.Inst.Log("---- end ---", (int)LogLevels.SpecialLog);
 
-        if (canAttach == false)
+        foreach (var match in m_machedList.Where(x => x.Count >= 3).ToList())
         {
-            foreach (var match in m_machedList.Where(x => x.Count >= 3).ToList())
+            canAttach = true;
+            foreach (var list in attachList)
+            {
+                canAttach = false;
+                for (int i = 0; i < match.Count; i++)
+                {
+                    try
+                    {
+                        if (match[i].virtual_num != list.list[i].virtual_num)
+                        {
+                            canAttach = true;
+                            break;
+                        }
+                    }
+                    catch
+                    {
+                        canAttach = true;
+                        break;
+                    }
+                }
+                if (canAttach == true)
+                    break;
+            }
+            if (canAttach)
             {
                 ATTACH_CLASS new_list = new ATTACH_CLASS();
                 new_list.lineNo = -1;
@@ -420,6 +443,7 @@ public class UIMyCardPanel : MonoBehaviour
                 attachList.Add(new_list);
             }
         }
+
 
 
         LogMgr.Inst.Log("---- attachList ---", (int)LogLevels.SpecialLog);

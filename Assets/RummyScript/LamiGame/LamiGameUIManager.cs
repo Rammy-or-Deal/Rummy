@@ -97,20 +97,22 @@ public class LamiGameUIManager : MonoBehaviour
         //SetPlayButtonState
 
         List<List<Card>> temp = new List<List<Card>>();
-        var machingList = UIMyCardPanel.GetMatchedList(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList(), LamiMe.Inst.availList);
+        //var machingList = UIMyCardPanel.GetMatchedList(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList(), LamiMe.Inst.availList);
+        var machingList = myCardPanel.attachList;
         if (machingList.Count == 1)
         {
             myCardPanel.OnClickLine();
         }
         else if (machingList.Count > 1)
         {
-            if (machingList[0][0].virtual_num == machingList[0][1].virtual_num)
+            if (machingList[0].list[0].virtual_num == machingList[0].list[1].virtual_num)
             {
                 myCardPanel.OnClickLine();
             }
             else
             {
-                temp.AddRange(machingList);
+                foreach(var list in machingList)
+                    temp.Add(list.list);
                 uiSelectCardList.Show(temp);
             }
         }
