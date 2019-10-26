@@ -31,6 +31,7 @@ public class LamiUserSeat : MonoBehaviour
     public Image playerReadyImage;
     public GameObject playerBurntImage;
     public GameObject playerGiveupImage;
+    public GameObject autoOnImage;
 
     public int id;
     private bool isPlayerReady;
