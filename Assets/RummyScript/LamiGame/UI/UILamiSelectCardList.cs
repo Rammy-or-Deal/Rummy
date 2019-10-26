@@ -7,6 +7,9 @@ public class UILamiSelectCardList : MonoBehaviour
     public UILamiCardSelect listObj;
     public LamiGameCard gameCard;
     public List<List<Card>> mList;
+
+    private const int cardWidth = 26;
+    private const int padding = 10; 
     public void Show(List<List<Card>> list)
     {
         transform.parent.gameObject.SetActive(true);
