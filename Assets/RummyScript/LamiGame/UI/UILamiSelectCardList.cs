@@ -23,6 +23,8 @@ public class UILamiSelectCardList : MonoBehaviour
                 LamiGameCard mCard = Instantiate(gameCard,cardSelect.transform);
                 mCard.UpdateCard(card);
             }
+            RectTransform rt = cardSelect.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(padding+cardWidth*list[i].Count,rt.sizeDelta.y);
         }
     }
 
