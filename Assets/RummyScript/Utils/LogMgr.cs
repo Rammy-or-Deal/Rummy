@@ -24,14 +24,18 @@ public class LogMgr : MonoBehaviour
     {
         if (!Inst)
             Inst = this;
-        // avail_logs.Add((int)LogLevels.RoomLog1);
-        // avail_logs.Add((int)LogLevels.RoomLog2);
-        // avail_logs.Add((int)LogLevels.RoomLog3);
-        // avail_logs.Add((int)LogLevels.PlayerLog1);
-        // avail_logs.Add((int)LogLevels.PlayerLog2);
-        // avail_logs.Add((int)LogLevels.BotLog);
-        // avail_logs.Add((int)LogLevels.MasterLog);
-        // avail_logs.Add((int)LogLevels.MeLog);
+
+        if (Constants.LamiBuildMethod == BuildMethod.Develop_Message)
+        {
+            avail_logs.Add((int)LogLevels.RoomLog1);
+            avail_logs.Add((int)LogLevels.RoomLog2);
+            avail_logs.Add((int)LogLevels.RoomLog3);
+            avail_logs.Add((int)LogLevels.PlayerLog1);
+            avail_logs.Add((int)LogLevels.PlayerLog2);
+            avail_logs.Add((int)LogLevels.BotLog);
+            avail_logs.Add((int)LogLevels.MasterLog);
+            avail_logs.Add((int)LogLevels.MeLog);
+        }
         //avail_logs.Add((int)LogLevels.SpecialLog);
     }
     // Start is called before the first frame update

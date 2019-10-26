@@ -35,7 +35,11 @@ public class LamiCountdownTimer : MonoBehaviour
 
     public IEnumerator StartCountdown()
     {
+        if(Constants.LamiBuildMethod == BuildMethod.Product)
+            countdownValue = 30;
+            
         currCountdownValue = countdownValue;
+
         while (currCountdownValue > 0)
         {
             m_timer_description.text = string.Format("Game starts in {0} seconds", currCountdownValue.ToString());
@@ -48,6 +52,9 @@ public class LamiCountdownTimer : MonoBehaviour
 
     public IEnumerator StartTurnTime(float turnTimeValue = 1000)
     {
+        if(Constants.LamiBuildMethod == BuildMethod.Product)
+            turnTimeValue = 30;
+
         Debug.Log("Time StartTurnTime");
         currCountdownValue = turnTimeValue;
         while (currCountdownValue > 0)
