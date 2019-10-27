@@ -29,7 +29,8 @@ public class UILamiFinishScorePan : MonoBehaviour
     {
         avatar.sprite=picSprite;
         frame.sprite=Resources.Load<Sprite>("new_frame/frame_"+frameName);
-        skill.sprite=Resources.Load<Sprite>("new_skill/"+skillName);
+        Debug.Log("skill name:"+skillName);
+        skill.sprite=Resources.Load<Sprite>("new_skill/skill_"+skillName);
         username.text =userName;
         rankTxt.text = rankText;
 

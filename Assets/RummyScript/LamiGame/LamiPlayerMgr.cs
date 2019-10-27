@@ -654,7 +654,7 @@ public class LamiPlayerMgr : MonoBehaviour
 
     IEnumerator WaitSecondds()
     {
-        yield return  new WaitForSeconds(4);
+        yield return  new WaitForSeconds(3);
         LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
     } 
 

@@ -49,7 +49,7 @@ public class UILamiFinish : MonoBehaviour
 
             //LamiUserSeat seat = LamiPlayerMgr.Inst.m_playerList[i];
             scorePan[i].UpdateInfo(seat.mUserPic.sprite, seat.mUserSkillName.text,
-                            seat.mUserSkillName.text,
+                (i+1).ToString	(),
                             seat.mUserName.text, (i+1) + "", seat.cardPoint,
                             seat.mAceValue.text, seat.mJokerValue.text, 
                             50*(int.Parse(seat.mAceValue.text) + int.Parse(seat.mJokerValue.text)) - seat.cardPoint*10 - (i*2*100),
