@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
@@ -176,7 +177,7 @@ public class LamiPlayerMgr : MonoBehaviour
             catch { }
             seat.cardListUpdate(totalCardString, totalPayString);
         }
-        LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
+        ShowFinishDlg();
     }
 
     internal void OnPlayerStatusChanged()
@@ -645,4 +646,16 @@ public class LamiPlayerMgr : MonoBehaviour
 
         return userSeat;
     }
+    
+    public void ShowFinishDlg()
+    {
+        StartCoroutine(WaitSecondds());
+    }
+
+    IEnumerator WaitSecondds()
+    {
+        yield return  new WaitForSeconds(4);
+        LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
+    } 
+
 }

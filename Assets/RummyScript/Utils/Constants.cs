@@ -12,5 +12,7 @@ public static class Constants{
     public static float turnTime_Product = 10;
     public static float waitTime_Develop = 100;
     public static float waitTime_Product = 30;
+    
     public static int botWaitTime = 2;
+    public static int botWaitTimeforBuild = 2;
 }

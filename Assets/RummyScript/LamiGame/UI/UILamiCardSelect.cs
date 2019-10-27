@@ -12,5 +12,4 @@ public class UILamiCardSelect : MonoBehaviour
         LamiGameUIManager.Inst.OnSelectedCardList(id);
         LamiGameUIManager.Inst.uiSelectCardList.Hide();
     }
-
 }
