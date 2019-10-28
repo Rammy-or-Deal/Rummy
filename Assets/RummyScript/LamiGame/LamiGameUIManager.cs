@@ -101,19 +101,21 @@ public class LamiGameUIManager : MonoBehaviour
         var machingList = myCardPanel.m_machedList;
         if (machingList.Count == 1)
         {
-            myCardPanel.OnClickLine();
+            //myCardPanel.OnClickLine();
+            myCardPanel.OnClickCardList(0);
         }
         else if (machingList.Count > 1)
         {
             if (machingList[0].list[0].virtual_num == machingList[0].list[1].virtual_num)
             {
-                myCardPanel.OnClickLine();
+                //myCardPanel.OnClickLine();
+                myCardPanel.OnClickCardList(0);
             }
             else
             {
                 foreach(var list in machingList)
                     temp.Add(list.list);
-                uiSelectCardList.Show(temp);                
+                uiSelectCardList.Show(temp);
             }
         }
 
