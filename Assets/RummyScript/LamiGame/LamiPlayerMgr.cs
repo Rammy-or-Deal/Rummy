@@ -250,6 +250,15 @@ public class LamiPlayerMgr : MonoBehaviour
             }
         }
 
+
+        for(int i = 0; i < m_botList.Count; i++)
+        {
+            if(actor == m_botList[i].id)
+            {
+                m_botList[i].OnUserDealt(cardString);
+            }
+        }
+
         if (PhotonNetwork.IsMasterClient && nowTurn >= 0)
         {
             TurnChange();
@@ -341,7 +350,7 @@ public class LamiPlayerMgr : MonoBehaviour
                 m_playerList[i].mClock.SetActive(false);
             }
         }
-        LamiCountdownTimer.Inst.StartTurnTimer();
+        LamiCountdownTimer.Inst.StartTurnTimer(actor == PhotonNetwork.LocalPlayer.ActorNumber);
         #endregion
 
         if (!PhotonNetwork.IsMasterClient) return;   // If this isn't master, return.

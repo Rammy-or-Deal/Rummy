@@ -17,6 +17,8 @@ public class LamiCountdownTimer : MonoBehaviour
     private Coroutine myCoroutine;
     private Coroutine userCoroutine;
 
+    public bool isMe;
+
     private float countdownValue = Constants.waitTime_Develop;
     public void Awake()
     {
@@ -60,7 +62,7 @@ public class LamiCountdownTimer : MonoBehaviour
 
         Debug.Log("Time StartTurnTime");
         currCountdownValue = turnTimeValue;
-        if (LamiMe.Inst.isAuto)
+        if (LamiMe.Inst.isAuto && isMe)
             currCountdownValue = Constants.turnTime_AutoPlay;
 
         while (currCountdownValue > 0)
@@ -79,20 +81,23 @@ public class LamiCountdownTimer : MonoBehaviour
             currCountdownValue--;
         }
 
-        LamiMe.Inst.SelectTipFirstCard();
-        LamiGameUIManager.Inst.myCardPanel.InitPanList();
-        if (LamiGameUIManager.Inst.myCardPanel.m_machedList.Count > 0)
+        if (isMe)
         {
-            LamiGameUIManager.Inst.myCardPanel.m_machedList.Sort((a, b) => b.list.Count(x => x.num == 15) - b.list.Count(x => x.num == 15));
-            LamiGameUIManager.Inst.myCardPanel.SendDealtCard(LamiGameUIManager.Inst.myCardPanel.m_machedList[0].lineNo, LamiGameUIManager.Inst.myCardPanel.m_machedList[0].list);
-            LamiMe.Inst.isAuto = true;
-            Hashtable table = new Hashtable{
+            LamiMe.Inst.SelectTipFirstCard();
+            LamiGameUIManager.Inst.myCardPanel.InitPanList();
+            if (LamiGameUIManager.Inst.myCardPanel.m_machedList.Count > 0)
+            {
+                //            LamiGameUIManager.Inst.myCardPanel.m_machedList.Sort((a, b) => b.list.Count(x => x.num == 15) - b.list.Count(x => x.num == 15));
+                LamiGameUIManager.Inst.myCardPanel.SendDealtCard(LamiGameUIManager.Inst.myCardPanel.m_machedList[0].lineNo, LamiGameUIManager.Inst.myCardPanel.m_machedList[0].list);
+                LamiMe.Inst.isAuto = true;
+                Hashtable table = new Hashtable{
                {Common.LAMI_MESSAGE, (int)LamiMessages.OnAutoPlayer},
                {Common.PLAYER_ID, (int)PhotonNetwork.LocalPlayer.ActorNumber}
            };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(table);
-            LamiGameUIManager.Inst.uiSelectCardList.Hide();
-            LamiGameUIManager.Inst.autoOffBtn.SetActive(true);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+                LamiGameUIManager.Inst.uiSelectCardList.Hide();
+                LamiGameUIManager.Inst.autoOffBtn.SetActive(true);
+            }
         }
     }
 
@@ -106,8 +111,9 @@ public class LamiCountdownTimer : MonoBehaviour
         myCoroutine = StartCoroutine(StartCountdown());
     }
 
-    public void StartTurnTimer()
+    public void StartTurnTimer(bool _isMe)
     {
+        isMe = _isMe;
         try
         {
             StopCoroutine(userCoroutine);

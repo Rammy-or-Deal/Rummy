@@ -38,9 +38,11 @@ public class LogMgr : MonoBehaviour
             avail_logs.Add((int)LogLevels.MeLog);
             avail_logs.Add((int)LogLevels.SpecialLog);
             avail_logs.Add((int)LogLevels.ShowLamiAllList);
+            avail_logs.Add((int)LogLevels.SpecialLog);
         }
 
-        avail_logs.Add((int)LogLevels.SpecialLog);
+        
+        avail_logs.Add((int)LogLevels.BotLog);
     }
     // Start is called before the first frame update
     public void Log(string log, int level = 0)
@@ -61,7 +63,7 @@ public class LogMgr : MonoBehaviour
             LogMgr.Inst.Log(header + "   " + tmp + "-----", loglevel);
         }
     }
-    public void ShowLog(List<Card> list, string header = "")
+    public void ShowLog(List<Card> list, string header = "", int loglevel = (int)LogLevels.SpecialLog)
     {
         string tmp = "";
         foreach (var card in list)
@@ -69,6 +71,6 @@ public class LogMgr : MonoBehaviour
             tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
         }
         tmp += "/";
-        LogMgr.Inst.Log(header + "   " + tmp + "-----", (int)LogLevels.SpecialLog);
+        LogMgr.Inst.Log(header + "   " + tmp + "-----", loglevel);
     }
 }

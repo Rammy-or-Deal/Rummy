@@ -174,20 +174,27 @@ public class LamiMe : MonoBehaviour
         catch { }
         nowFlush = 0;
 
-        var allFlushList = FilterByCurrentTurn(GetAvailableCards_Flush(LamiGameUIManager.Inst.myCardPanel.myCards), isFirstTurn);
-        var allSetList = FilterByCurrentTurn(GetAvailableCards_Set(LamiGameUIManager.Inst.myCardPanel.myCards), isFirstTurn);
+        List<List<Card>> panList = new List<List<Card>>();
+        foreach(var list in LamiGameUIManager.Inst.mGameCardPanelList)
+        {
+            panList.Add(list.mGameCardList);
+        }
+
+
+        var allFlushList = FilterByCurrentTurn(GetAvailableCards_Flush(LamiGameUIManager.Inst.myCardPanel.myCards), panList, isFirstTurn);
+        var allSetList = FilterByCurrentTurn(GetAvailableCards_Set(LamiGameUIManager.Inst.myCardPanel.myCards), panList, isFirstTurn);
 
         var allFlushList_nonJoker = allFlushList.Where(x => x.list.Count(y => y.num == 15) == 0).ToList();
-        allFlushList_nonJoker.Sort((a,b)=>b.list.Sum(x=>x.virtual_num) - a.list.Sum(x=>x.virtual_num));
+        allFlushList_nonJoker.Sort((a, b) => b.list.Sum(x => x.virtual_num) - a.list.Sum(x => x.virtual_num));
 
         var allFlushList_Joker = allFlushList.Where(x => x.list.Count(y => y.num == 15) > 0).ToList();
-        allFlushList_Joker.Sort((a,b)=>a.list.Count(x=>x.num == 15) - b.list.Count(x=>x.num == 15));
+        allFlushList_Joker.Sort((a, b) => a.list.Count(x => x.num == 15) - b.list.Count(x => x.num == 15));
 
         var allSetList_nonJoker = allSetList.Where(x => x.list.Count(y => y.num == 15) == 0).ToList();
-        allSetList_nonJoker.Sort((a,b)=>b.list.Sum(x=>x.virtual_num) - a.list.Sum(x=>x.virtual_num));
+        allSetList_nonJoker.Sort((a, b) => b.list.Sum(x => x.virtual_num) - a.list.Sum(x => x.virtual_num));
 
         var allSetList_Joker = allSetList.Where(x => x.list.Count(y => y.num == 15) > 0).ToList();
-        allSetList_Joker.Sort((a,b)=>a.list.Count(x=>x.num == 15) - b.list.Count(x=>x.num == 15));
+        allSetList_Joker.Sort((a, b) => a.list.Count(x => x.num == 15) - b.list.Count(x => x.num == 15));
 
         availList.AddRange(allFlushList_nonJoker);
         availList.AddRange(allSetList_nonJoker);
@@ -231,14 +238,13 @@ public class LamiMe : MonoBehaviour
         //LogMgr.Inst.ShowLog(second, header);
         LogMgr.Inst.Log("------------------------------------------------", (int)LogLevels.SpecialLog);
     }
-    public static List<ATTACH_CLASS> FilterByCurrentTurn(List<List<Card>> AllList, bool isFirst = false)
+    public static List<ATTACH_CLASS> FilterByCurrentTurn(List<List<Card>> AllList, List<List<Card>> panList, bool isFirst = false)
     {
         Debug.Log("Is First: = " + isFirst);
         List<ATTACH_CLASS> resList = new List<ATTACH_CLASS>();
 
         List<ATTACH_CLASS> attachList = new List<ATTACH_CLASS>();
         List<ATTACH_CLASS> addList = new List<ATTACH_CLASS>();
-
 
         LogMgr.Inst.Log("------------------------------------ All lines -------------------------------------------", (int)LogLevels.SpecialLog);
         LogMgr.Inst.ShowLog(AllList);
@@ -247,9 +253,9 @@ public class LamiMe : MonoBehaviour
 
 
         LogMgr.Inst.Log("------------------------------------ Pane  lines -------------------------------------------", (int)LogLevels.SpecialLog);
-        for (int j = 0; j < LamiGameUIManager.Inst.mGameCardPanelList.Count; j++)
+        for (int j = 0; j < panList.Count; j++)
         {
-            LogMgr.Inst.ShowLog(LamiGameUIManager.Inst.mGameCardPanelList[j].mGameCardList);
+            LogMgr.Inst.ShowLog(panList[j]);
         }
         LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
 
@@ -275,9 +281,9 @@ public class LamiMe : MonoBehaviour
             }
 
             //Check if the card can attach to the existing lines.
-            for (int j = 0; j < LamiGameUIManager.Inst.mGameCardPanelList.Count && canAttach == false; j++)
+            for (int j = 0; j < panList.Count && canAttach == false; j++)
             {
-                var line = LamiGameUIManager.Inst.mGameCardPanelList[j].mGameCardList;
+                var line = panList[j];
 
                 bool isFlush = true;
                 firstNum = line[0].virtual_num;
@@ -540,21 +546,8 @@ public class LamiMe : MonoBehaviour
             sel_cards.Add(array[i]);
         }
     }
-    public static List<List<Card>> GetAvailableCards_Set(List<LamiMyCard> myCurrent)
+    public static List<List<Card>> GetAvailableCards_Set_With_Card(List<Card> m_tmpCardList)
     {
-        List<Card> m_tmpCardList = new List<Card>();
-        m_tmpCardList.Clear();
-
-        for (int i = 0; i < myCurrent.Count; i++)
-        {
-            Card card = new Card();
-            card.color = myCurrent[i].color;
-            card.num = myCurrent[i].num;
-            card.MyCardId = i;
-            card.virtual_num = card.num;
-            m_tmpCardList.Add(card);
-        }
-
         List<List<Card>> same_List = new List<List<Card>>();
 
         bool con = false;
@@ -649,13 +642,10 @@ public class LamiMe : MonoBehaviour
         // }
         // Debug.Log("------------ SET End----------------");
         return same_List;
-
     }
-
-    public static List<List<Card>> GetAvailableCards_Flush(List<LamiMyCard> myCurrent)
+    public static List<List<Card>> GetAvailableCards_Set(List<LamiMyCard> myCurrent)
     {
         List<Card> m_tmpCardList = new List<Card>();
-
         m_tmpCardList.Clear();
 
         for (int i = 0; i < myCurrent.Count; i++)
@@ -668,6 +658,12 @@ public class LamiMe : MonoBehaviour
             m_tmpCardList.Add(card);
         }
 
+        return GetAvailableCards_Set_With_Card(m_tmpCardList);
+
+    }
+
+    public static List<List<Card>> GetAvailableCards_Flush_With_Card(List<Card> m_tmpCardList)
+    {
         List<List<List<Card>>> continue_List = new List<List<List<Card>>>();
 
         List<List<Card>> t00 = new List<List<Card>>();
@@ -864,6 +860,25 @@ public class LamiMe : MonoBehaviour
             }
         }
         return resList;
+    }
+
+    public static List<List<Card>> GetAvailableCards_Flush(List<LamiMyCard> myCurrent)
+    {
+        List<Card> m_tmpCardList = new List<Card>();
+
+        m_tmpCardList.Clear();
+
+        for (int i = 0; i < myCurrent.Count; i++)
+        {
+            Card card = new Card();
+            card.color = myCurrent[i].color;
+            card.num = myCurrent[i].num;
+            card.MyCardId = i;
+            card.virtual_num = card.num;
+            m_tmpCardList.Add(card);
+        }
+
+        return GetAvailableCards_Flush_With_Card(m_tmpCardList);
     }
 
     public void OnSelectedCard() //If one card is selected, this function should be called.

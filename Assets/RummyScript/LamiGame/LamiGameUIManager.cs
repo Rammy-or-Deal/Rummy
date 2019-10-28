@@ -229,7 +229,7 @@ public class LamiGameUIManager : MonoBehaviour
     public void OnClickAutoOffBtn()
     {
         LamiMe.Inst.isAuto = false;
-        LamiCountdownTimer.Inst.StartTurnTimer();
+        LamiCountdownTimer.Inst.StartTurnTimer(true);
         autoOffBtn.SetActive(false);
     }
 }
