@@ -177,8 +177,9 @@ public class LamiGameBot
             {Common.GAME_CARD, cardStr},
             {Common.GAME_CARD_PAN, availList[0].lineNo},
         };
-
+        try{
         PhotonNetwork.CurrentRoom.SetCustomProperties(gameCards);
+        }catch{}
         LogMgr.Inst.Log("Bot dealt card: " + id + " ------" + cardStr, (int)LogLevels.BotLog);
         isFirstTurn = false;
     }

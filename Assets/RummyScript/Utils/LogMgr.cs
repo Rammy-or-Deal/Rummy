@@ -38,11 +38,9 @@ public class LogMgr : MonoBehaviour
             avail_logs.Add((int)LogLevels.MeLog);
             avail_logs.Add((int)LogLevels.SpecialLog);
             avail_logs.Add((int)LogLevels.ShowLamiAllList);
-            avail_logs.Add((int)LogLevels.SpecialLog);
-        }
 
-        
-        avail_logs.Add((int)LogLevels.BotLog);
+            avail_logs.Add((int)LogLevels.BotLog);
+        }      
     }
     // Start is called before the first frame update
     public void Log(string log, int level = 0)

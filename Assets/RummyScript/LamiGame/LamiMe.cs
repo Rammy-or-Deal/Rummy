@@ -287,9 +287,9 @@ public class LamiMe : MonoBehaviour
 
                 bool isFlush = true;
                 firstNum = line[0].virtual_num;
-                foreach (var card in line)
+                for(int tttt = 1; tttt < line.Count; tttt++)
                 {
-                    if (card.virtual_num == firstNum)
+                    if (line[tttt].virtual_num == firstNum)
                     {
                         isFlush = false;
                         break;
@@ -336,7 +336,7 @@ public class LamiMe : MonoBehaviour
                 }
 
 
-                if (AllList[i].Count == 1 && !isFlush && !isFlush_created)
+                if (AllList[i].Count == 1 && !isFlush)
                 {
                     if (AllList[i][0].virtual_num == line[0].virtual_num)
                     {
@@ -346,7 +346,6 @@ public class LamiMe : MonoBehaviour
                         new_item.lineNo = j;
                         new_item.list = new List<Card>();
                         new_item.list.AddRange(AllList[i].ToList());
-
 
                         attachList.Add(new_item);
 
