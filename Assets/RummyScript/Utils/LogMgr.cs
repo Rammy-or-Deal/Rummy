@@ -13,6 +13,7 @@ enum LogLevels
     MasterLog,
     MeLog,
     SpecialLog,
+    ShowLamiAllList,
 }
 
 public class LogMgr : MonoBehaviour
@@ -35,8 +36,11 @@ public class LogMgr : MonoBehaviour
             avail_logs.Add((int)LogLevels.BotLog);
             avail_logs.Add((int)LogLevels.MasterLog);
             avail_logs.Add((int)LogLevels.MeLog);
+            avail_logs.Add((int)LogLevels.SpecialLog);
+            avail_logs.Add((int)LogLevels.ShowLamiAllList);
         }
-        //avail_logs.Add((int)LogLevels.SpecialLog);
+
+        avail_logs.Add((int)LogLevels.SpecialLog);
     }
     // Start is called before the first frame update
     public void Log(string log, int level = 0)
@@ -44,7 +48,7 @@ public class LogMgr : MonoBehaviour
         if (avail_logs.Contains(level))
             Debug.Log(log);
     }
-    public void ShowLog(List<List<Card>> allList, string header = "")
+    public void ShowLog(List<List<Card>> allList, string header = "", int loglevel = (int)LogLevels.SpecialLog)
     {
         foreach (var line in allList)
         {
@@ -54,7 +58,7 @@ public class LogMgr : MonoBehaviour
                 tmp += card.num + "(" + card.virtual_num + "):" + card.color + ",";
             }
             tmp += "/";
-            LogMgr.Inst.Log(header + "   " + tmp + "-----", (int)LogLevels.SpecialLog);
+            LogMgr.Inst.Log(header + "   " + tmp + "-----", loglevel);
         }
     }
     public void ShowLog(List<Card> list, string header = "")

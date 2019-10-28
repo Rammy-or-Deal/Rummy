@@ -98,7 +98,7 @@ public class LamiGameUIManager : MonoBehaviour
 
         List<List<Card>> temp = new List<List<Card>>();
         //var machingList = UIMyCardPanel.GetMatchedList(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList(), LamiMe.Inst.availList);
-        var machingList = myCardPanel.attachList;
+        var machingList = myCardPanel.m_machedList;
         if (machingList.Count == 1)
         {
             myCardPanel.OnClickLine();
@@ -113,7 +113,7 @@ public class LamiGameUIManager : MonoBehaviour
             {
                 foreach(var list in machingList)
                     temp.Add(list.list);
-                uiSelectCardList.Show(temp);
+                uiSelectCardList.Show(temp);                
             }
         }
 
@@ -177,82 +177,7 @@ public class LamiGameUIManager : MonoBehaviour
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
-        /*
-        object cardList;
-        object cardList_pan;
-        object cardList_pan_pos;
-        object reaminCard;
-        object isTurn;
-        Card[] cards;
-        int card_pan_id;
-        int card_pan_pos;
-        int id = 0;
-        if (dealCard.TryGetValue(Common.GAME_CARD, out cardList))
-        {
-            id = LamiGameController.Inst.seatNumList[otherPlayer.ActorNumber];
-            string cardStr = (string)cardList;
-            Debug.Log(cardStr);
-            curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
-            curGameCardList.gameObject.transform.localScale = Vector3.one;
-            mGameCardPanelList.Add(curGameCardList);
-
-            foreach (Card card in LamiCardMgr.ConvertCardStrToCardList(cardStr))
-            {
-                LamiGameCard entry = Instantiate(gameCardPrefab, curGameCardList.transform);
-                entry.gameObject.transform.localScale = Vector3.one;
-                entry.num = card.num;
-                entry.color = card.color;
-                curGameCardList.mGameCardList.Add(entry);
-            }
-
-            if (id == PhotonNetwork.CurrentRoom.PlayerCount - 1)
-            {
-                id = -1;
-            }
-
-
-            if (LamiGameController.Inst.seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] == id + 1)
-            {
-                Debug.Log("LamiGameController.Inst.seatNumList[PhotonNetwork.LocalPlayer.ActorNumber]" + (id + 1));
-
-                Hashtable turnChange = new Hashtable
-                {
-                    {Common.PLAYER_TURN, id + 1},
-                };
-                PhotonNetwork.LocalPlayer.SetCustomProperties(turnChange);
-                playButton.gameObject.SetActive(true);
-                playButton.interactable = false;
-                tipButton.gameObject.SetActive(true);
-                LamiGameController.Inst.GetUserSeat(PhotonNetwork.LocalPlayer).mClock.SetActive(true);
-                LamiCountdownTimer.Inst.StartTurnTimer();
-                Debug.Log((id + 1).ToString() + ": isTurn");
-            }
-        }
-
-        if (dealCard.TryGetValue(Common.PLAYER_TURN, out isTurn))
-        {
-            int seatPos = LamiGameController.Inst.GetUserSeat((int)isTurn);
-
-        }
-
-        if (dealCard.TryGetValue(Common.GAME_CARD_PAN, out cardList_pan))
-        {
-            //            Debug.Log("cardListPan ID:" + (int)cardList_pan);
-            card_pan_id = (int)cardList_pan;
-        }
-
-        if (dealCard.TryGetValue(Common.GAME_CARD_PAN, out cardList_pan_pos))
-        {
-            //            Debug.Log("cardListPanPos:" + (int)cardList_pan_pos);
-            card_pan_pos = (int)cardList_pan_pos;
-        }
-
-        if (dealCard.TryGetValue(Common.REMAIN_CARD_COUNT, out reaminCard))
-        {
-            Debug.Log("REMAIN_CARD_COUNT:" + (int)reaminCard);
-            LamiGameController.Inst.GetUserSeat(otherPlayer).mCardNum.text = reaminCard.ToString();
-        }
-        */
+        
     }
 
     public void OnClickTips()

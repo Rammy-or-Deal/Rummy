@@ -203,6 +203,7 @@ public class LamiUserSeat : MonoBehaviour
         var players = totalCardString.Trim('/').Split('/');
         foreach (var player in players)
         {
+            if(player == "") continue;
             int playerActor = int.Parse(player.Split(':')[0]);
             if (playerActor == id)
             {
@@ -221,6 +222,7 @@ public class LamiUserSeat : MonoBehaviour
         foreach(var item in payItems)
         {
             var tmp = item.Split(':').Select(Int32.Parse).ToArray();
+            if(tmp.Length == 0) continue;
             if(tmp[0] == id)
             {
                 for(int i = 0; i < cardList.Count; i++)

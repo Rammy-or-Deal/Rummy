@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System.Linq;
 
 public class LamiCountdownTimer : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class LamiCountdownTimer : MonoBehaviour
 
     public IEnumerator StartCountdown()
     {
-        if(Constants.LamiBuildMethod == BuildMethod.Product)
+        if (Constants.LamiBuildMethod == BuildMethod.Product)
             countdownValue = Constants.waitTime_Product;
 
         currCountdownValue = countdownValue;
@@ -52,14 +53,14 @@ public class LamiCountdownTimer : MonoBehaviour
 
     public IEnumerator StartTurnTime()
     {
-        float turnTimeValue = Constants.waitTime_Develop;
+        float turnTimeValue = Constants.turnTime_Develop;
 
-        if(Constants.LamiBuildMethod == BuildMethod.Product)
-            turnTimeValue = Constants.waitTime_Product;
+        if (Constants.LamiBuildMethod == BuildMethod.Product)
+            turnTimeValue = Constants.turnTime_Product;
 
         Debug.Log("Time StartTurnTime");
         currCountdownValue = turnTimeValue;
-        if(LamiMe.Inst.isAuto)
+        if (LamiMe.Inst.isAuto)
             currCountdownValue = Constants.turnTime_AutoPlay;
 
         while (currCountdownValue > 0)
@@ -78,19 +79,20 @@ public class LamiCountdownTimer : MonoBehaviour
             currCountdownValue--;
         }
 
-        LamiGameUIManager.Inst.OnClickTips();
+        LamiMe.Inst.SelectTipFirstCard();
         LamiGameUIManager.Inst.myCardPanel.InitPanList();
-        if(LamiGameUIManager.Inst.myCardPanel.attachList.Count>0)
+        if (LamiGameUIManager.Inst.myCardPanel.m_machedList.Count > 0)
         {
-           LamiGameUIManager.Inst.myCardPanel.SendDealtCard(LamiGameUIManager.Inst.myCardPanel.attachList[0].lineNo, LamiGameUIManager.Inst.myCardPanel.attachList[0].list); 
-           LamiMe.Inst.isAuto = true;
-           Hashtable table = new Hashtable{
+            LamiGameUIManager.Inst.myCardPanel.m_machedList.Sort((a, b) => b.list.Count(x => x.num == 15) - b.list.Count(x => x.num == 15));
+            LamiGameUIManager.Inst.myCardPanel.SendDealtCard(LamiGameUIManager.Inst.myCardPanel.m_machedList[0].lineNo, LamiGameUIManager.Inst.myCardPanel.m_machedList[0].list);
+            LamiMe.Inst.isAuto = true;
+            Hashtable table = new Hashtable{
                {Common.LAMI_MESSAGE, (int)LamiMessages.OnAutoPlayer},
                {Common.PLAYER_ID, (int)PhotonNetwork.LocalPlayer.ActorNumber}
            };
-           PhotonNetwork.CurrentRoom.SetCustomProperties(table);
-
-           LamiGameUIManager.Inst.autoOffBtn.SetActive(true);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+            LamiGameUIManager.Inst.uiSelectCardList.Hide();
+            LamiGameUIManager.Inst.autoOffBtn.SetActive(true);
         }
     }
 
@@ -112,7 +114,6 @@ public class LamiCountdownTimer : MonoBehaviour
         }
         catch { }
         userCoroutine = StartCoroutine(StartTurnTime());
-
     }
     public void StopTurnTimer()
     {
