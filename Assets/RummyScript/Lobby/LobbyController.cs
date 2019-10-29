@@ -28,8 +28,8 @@ public class LobbyController : MonoBehaviour
 
     public void OnClickBaccarat()
     {
-        LoadGameScene("2_Baccarat");
-//        PunController.Inst.CreateOrJoinBaccaratRoom();
+//        LoadGameScene("2_Baccarat");
+        PunController.Inst.CreateOrJoinBaccaratRoom();
     }
 
     public void OnClickFortune()

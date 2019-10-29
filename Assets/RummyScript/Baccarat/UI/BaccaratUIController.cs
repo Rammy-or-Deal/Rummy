@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class BaccaratUIController : MonoBehaviour
 {
-    
     //Menu
     public GameObject mMenuPanel;
     public GameObject settingDlg;
     
     // Start is called before the first frame update
     void Start()
+    {
+        
+    }
+
+    public void OnClickBetBtn(int betId) // betId=0,1,2,3
     {
         
     }
