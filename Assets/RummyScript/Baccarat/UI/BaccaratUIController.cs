@@ -20,6 +20,11 @@ public class BaccaratUIController : MonoBehaviour
         
     }
 
+    public void OnClickBettingArea(int id) // Id=0,1,2,3,4
+    {
+        
+    }
+
     public void OnClickMenu()
     {
         bool active = mMenuPanel.activeSelf == true ? false : true;
