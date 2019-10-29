@@ -23,26 +23,24 @@ public class LobbyController : MonoBehaviour
 
     public void OnClickLami()
     {
-        Debug.Log("Lami Clicked");
-//               SceneManager.LoadScene("2_Lami");
-        //         PunController.Inst.StartLamiTier();   
-        UIController.Inst.loadingDlg.gameObject.SetActive(true);
-        PhotonNetwork.LoadLevel("2_Lami");
+        LoadGameScene("2_Lami");
     }
 
     public void OnClickBaccarat()
     {
-        Debug.Log("Baccarat Clicked");
-
-        PunController.Inst.CreateOrJoinBaccaratRoom();
+        LoadGameScene("2_Baccarat");
+//        PunController.Inst.CreateOrJoinBaccaratRoom();
     }
 
     public void OnClickFortune()
     {
-        Debug.Log("Fortune 13 Clicked");
-        UIController.Inst.loadingDlg.gameObject.SetActive(true);
-        PhotonNetwork.LoadLevel("2_Fortune13");
+        LoadGameScene("2_Fortune13");
+    }
 
+    void LoadGameScene(string scene)
+    {
+        UIController.Inst.loadingDlg.gameObject.SetActive(true);
+        PhotonNetwork.LoadLevel(scene);
     }
 
     public void OnClikBack()
