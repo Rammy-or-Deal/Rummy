@@ -30,20 +30,16 @@ public class BaccaratUserSeat : MonoBehaviour
     UserInfoModel userInfo = new UserInfoModel();
 
     #region UNITY   
-<<<<<<< HEAD
+
 
     private void Awake()
     {
-        if (!Inst)
-            Inst = this;
+        // if (!Inst)
+        //     Inst = this;
     }
     #endregion
 
     internal void SetMe(string infoString)
-=======
-    
-    public void Start()
->>>>>>> 21d59306e3023cbb9f3ae6744eb843f31563ddeb
     {
         var list = infoString.Split(':');
         id = int.Parse(list[0]);
