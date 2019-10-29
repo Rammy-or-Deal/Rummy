@@ -566,7 +566,12 @@
         </e>
         <e p="RummyScript" t="Include">
           <e p="Baccarat" t="Include">
+            <e p="BaccaratBankerMgr.cs" t="Include" />
             <e p="BaccaratGameController.cs" t="Include" />
+            <e p="BaccaratMe.cs" t="Include" />
+            <e p="BaccaratMessageMgr.cs" t="Include" />
+            <e p="BaccaratPanMgr.cs" t="Include" />
+            <e p="BaccaratPlayerMgr.cs" t="Include" />
             <e p="Game" t="Include">
               <e p="IPunTurnManagerCallbacks.cs" t="Include" />
               <e p="PunTurnManager.cs" t="Include" />
@@ -575,6 +580,8 @@
             <e p="UI" t="Include">
               <e p="BaccaratUIController.cs" t="Include" />
               <e p="BaccaratUserSeat.cs" t="Include" />
+              <e p="UIBBetBtn.cs" t="Include" />
+              <e p="UIBBetBtnList.cs" t="Include" />
               <e p="UIBRoomManager.cs" t="Include" />
             </e>
           </e>

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -556,7 +556,7 @@ MonoBehaviour:
   userBack: {fileID: 820154600}
   id: 2
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &76226934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,7 +2800,7 @@ MonoBehaviour:
   userBack: {fileID: 1468598907}
   id: 8
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &331428781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3300,142 +3300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893d19c76fb444941ad3d8a7ec447497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 789f230e1cd600b4280a3a3514b66054, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &388070159
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388070155}
-  m_CullTransparentMesh: 0
---- !u!1 &388305080
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 388305081}
-  - component: {fileID: 388305083}
-  - component: {fileID: 388305082}
-  m_Layer: 5
-  m_Name: UserSeat 4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &388305081
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388305080}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 421771349}
-  - {fileID: 1388456080}
-  m_Father: {fileID: 138530238}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 121.9, y: 155.6}
-  m_SizeDelta: {x: 140.56, y: 91.98}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &388305082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388305080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 388305083}
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &388305083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388305080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 893d19c76fb444941ad3d8a7ec447497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-=======
->>>>>>> 21d59306e3023cbb9f3ae6744eb843f31563ddeb
   mUserFrame: {fileID: 146272209}
   mUserPic: {fileID: 565334951}
   mUserSkillPic: {fileID: 881715533}
@@ -3446,11 +3310,7 @@ MonoBehaviour:
   userBack: {fileID: 1388456079}
   id: 3
   isSeat: 0
-<<<<<<< HEAD
-  type: 0
-=======
   actorNumber: 0
->>>>>>> 21d59306e3023cbb9f3ae6744eb843f31563ddeb
 --- !u!1 &406714854
 GameObject:
   m_ObjectHideFlags: 0
@@ -4059,7 +3919,7 @@ MonoBehaviour:
   userBack: {fileID: 220195671}
   id: 0
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &483747322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8167,11 +8027,6 @@ GameObject:
   - component: {fileID: 1253410376}
   - component: {fileID: 1253410375}
   - component: {fileID: 1253410377}
-  - component: {fileID: 1253410382}
-  - component: {fileID: 1253410381}
-  - component: {fileID: 1253410380}
-  - component: {fileID: 1253410379}
-  - component: {fileID: 1253410378}
   m_Layer: 0
   m_Name: BaccaratController
   m_TagString: Untagged
@@ -8191,6 +8046,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0183657943bbc4097e2d42ff99d6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userSeats:
+  - {fileID: 1339741266}
+  - {fileID: 1796856040}
+  - {fileID: 59619882}
+  - {fileID: 388305083}
+  - {fileID: 1414805474}
+  - {fileID: 1988756798}
+  - {fileID: 1265367276}
+  - {fileID: 1492788301}
+  - {fileID: 321044079}
+  - {fileID: 321044079}
+  dealerSeat: {fileID: 480356578}
 --- !u!4 &1253410376
 Transform:
   m_ObjectHideFlags: 0
@@ -8219,77 +8086,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMenuPanel: {fileID: 1032242594}
   settingDlg: {fileID: 800958249}
---- !u!114 &1253410378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253410374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdae392fd8ebc614a897d5ed0416d6ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_playerList:
-  - {fileID: 321044079}
-  - {fileID: 1339741266}
-  - {fileID: 1796856040}
-  - {fileID: 59619882}
-  - {fileID: 388305083}
-  - {fileID: 1414805474}
-  - {fileID: 1988756798}
-  - {fileID: 1265367276}
-  - {fileID: 1492788301}
---- !u!114 &1253410379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253410374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 850e5af18c5109847a13aef30167017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1253410380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253410374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41eb55dc35113341bac4152096ac944, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1253410381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253410374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef56a4e36e386624e8665240f244b586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
---- !u!114 &1253410382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253410374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bdac35727347b74ca36f1f5d35c6923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1255880400
 GameObject:
   m_ObjectHideFlags: 0
@@ -8482,7 +8278,7 @@ MonoBehaviour:
   userBack: {fileID: 479387393}
   id: 6
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &1269138500
 GameObject:
   m_ObjectHideFlags: 0
@@ -9134,20 +8930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893d19c76fb444941ad3d8a7ec447497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  mUserFrame: {fileID: 2111678729}
-  mUserPic: {fileID: 823781428}
-  mUserSkillPic: {fileID: 1200168649}
-  mUserName: {fileID: 1051425178}
-  mUserSkillName: {fileID: 1409584753}
-  mCoinValue: {fileID: 1572069203}
-  firstImage: {fileID: 7840376}
-  userBack: {fileID: 952295232}
-  id: 0
-  isSeat: 0
-  type: 0
-=======
->>>>>>> 21d59306e3023cbb9f3ae6744eb843f31563ddeb
 --- !u!1 &1341501662
 GameObject:
   m_ObjectHideFlags: 0
@@ -9578,7 +9360,7 @@ MonoBehaviour:
   userBack: {fileID: 337640603}
   id: 4
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &1457868095
 GameObject:
   m_ObjectHideFlags: 0
@@ -10123,7 +9905,7 @@ MonoBehaviour:
   userBack: {fileID: 630416476}
   id: 7
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &1512483442
 GameObject:
   m_ObjectHideFlags: 0
@@ -11887,7 +11669,7 @@ MonoBehaviour:
   userBack: {fileID: 1995663840}
   id: 1
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &1798167952
 GameObject:
   m_ObjectHideFlags: 0
@@ -13602,7 +13384,7 @@ MonoBehaviour:
   userBack: {fileID: 1603049714}
   id: 5
   isSeat: 0
-  type: 0
+  actorNumber: 0
 --- !u!1 &1989714594
 GameObject:
   m_ObjectHideFlags: 0
