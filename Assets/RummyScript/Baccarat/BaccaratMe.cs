@@ -54,7 +54,7 @@ public class BaccaratMe : MonoBehaviour
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
-        BaccaratPlayerMgr.Inst.m_playerList[8].SetMe(infoString);
+        BaccaratPlayerMgr.Inst.m_playerList[0].SetMe(infoString);
         
         LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
     }

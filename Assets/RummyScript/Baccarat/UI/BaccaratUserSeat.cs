@@ -24,7 +24,7 @@ public class BaccaratUserSeat : MonoBehaviour
     public GameObject userBack;
     //
     public int id = -1;
-    public bool isSeat;
+    public bool isSeat = false;
     public int type;
 
     UserInfoModel userInfo = new UserInfoModel();

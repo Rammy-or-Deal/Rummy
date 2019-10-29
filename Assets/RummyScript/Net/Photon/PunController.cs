@@ -7,6 +7,7 @@ using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -281,15 +282,36 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
-            PhotonNetwork.LoadLevel("3_PlayBaccarat");
+            SceneManager.LoadScene("3_PlayBaccarat");
+
+            string infoString = "";
+            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
+                    DataController.Inst.userInfo.name,
+                    DataController.Inst.userInfo.pic,
+                    DataController.Inst.userInfo.coinValue,
+                    DataController.Inst.userInfo.skillLevel,
+                    DataController.Inst.userInfo.frameId,
+                    (int)BaccaratPlayerType.Player
+                );
+
+            // Save my info to photon
             Hashtable props = new Hashtable
             {
-                {Common.PLAYER_LEVEL, DataController.Inst.userInfo.skillLevel},
-                {Common.PLAYER_PIC, DataController.Inst.userInfo.pic},
-                {Common.PLAYER_COIN, DataController.Inst.userInfo.coinValue},
+                {Common.PLAYER_INFO, infoString},
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+            // Send Add New player Message. - OnUserEnteredRoom
+            props = new Hashtable
+            {
+                {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnUserEnteredRoom},
+                {Common.NEW_PLAYER_INFO, infoString},
             };
 
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+
+            
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("lucky"))
         {

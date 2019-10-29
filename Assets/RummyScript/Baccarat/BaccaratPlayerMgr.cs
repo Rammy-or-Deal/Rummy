@@ -46,8 +46,27 @@ public class BaccaratPlayerMgr : MonoBehaviour
     {
         var infostring = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NEW_PLAYER_INFO];
 
-        if (m_playerList.Count(x => x.isSeat == false) > 0)
-            m_playerList.Where(x => x.isSeat == false).First().SetMe(infostring);
+        if (int.Parse(infostring.Split(':')[0]) == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            BaccaratPlayerMgr.Inst.m_playerList[0].SetMe(infostring);
+
+            foreach (var player in PhotonNetwork.PlayerList)
+            {
+                if (player.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber) continue;
+
+                if (m_playerList.Count(x => x.isSeat == false) > 0)
+                    m_playerList.Where(x => x.isSeat == false).First().SetMe((string)player.CustomProperties[Common.PLAYER_INFO]);
+            }
+        }
+        else
+        {
+            if (m_playerList.Count(x => x.isSeat == false) > 0)
+                m_playerList.Where(x => x.isSeat == false).First().SetMe(infostring);
+        }
+
+        //BaccaratMe.Inst.PublishMe();
+
+
     }
 
     internal void OnUserLeave(Player player)
