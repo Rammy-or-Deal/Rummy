@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class BaccaratUserSeat : MonoBehaviour
 {
-    static public BaccaratUserSeat Inst;
     //user info
     public Image mUserFrame;
     public Image mUserPic;
@@ -26,13 +25,7 @@ public class BaccaratUserSeat : MonoBehaviour
     public bool isSeat;
     public int actorNumber;
     #region UNITY   
-
-    private void Awake()
-    {
-        if (!Inst)
-            Inst = this;
-    }
-
+    
     public void Start()
     {
 //        mUserPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.pic);

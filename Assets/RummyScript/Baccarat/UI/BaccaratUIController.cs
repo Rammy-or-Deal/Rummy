@@ -15,11 +15,6 @@ public class BaccaratUIController : MonoBehaviour
         
     }
 
-    public void OnClickBetBtn(int betId) // betId=0,1,2,3
-    {
-        
-    }
-
     public void OnClickBettingArea(int id) // Id=0,1,2,3,4
     {
         
