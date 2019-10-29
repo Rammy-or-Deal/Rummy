@@ -246,8 +246,8 @@ public class PunController : MonoBehaviourPunCallbacks
         {
             Debug.Log("Join Success");
             //UnityEngine.SceneManagement.SceneManager.LoadScene("3_PlayLami");
-            PhotonNetwork.LoadLevel("3_PlayLami");            
-            
+            PhotonNetwork.LoadLevel("3_PlayLami");
+
             string infoString = "";
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
                     (int)PhotonNetwork.LocalPlayer.ActorNumber,
@@ -343,7 +343,7 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
-            BaccaratGameController.Inst.NewPlayerEnteredRoom(newPlayer);
+            //BaccaratGameController.Inst.NewPlayerEnteredRoom(newPlayer);
         }
 
     }
@@ -359,7 +359,7 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
-            BaccaratGameController.Inst.OtherPlayerLeftRoom(otherPlayer);
+            BaccaratGameController.Inst.SendMessage((int)BaccaratMessages.OnUserLeave, otherPlayer);
         }
     }
 
@@ -382,7 +382,10 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
-            BaccaratGameController.Inst.PlayerPropertiesUpdate(otherPlayer, hashtable);
+            if (hashtable.ContainsKey(Common.BACCARAT_MESSAGE))
+            {
+                BaccaratGameController.Inst.SendMessage((int)hashtable[Common.BACCARAT_MESSAGE], otherPlayer);
+            }
         }
 
     }
@@ -395,6 +398,13 @@ public class PunController : MonoBehaviourPunCallbacks
             if (propertiesThatChanged.ContainsKey(Common.LAMI_MESSAGE))
             {
                 LamiMgr.Inst.SendMessage((int)propertiesThatChanged[Common.LAMI_MESSAGE]);
+            }
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+        {
+            if (propertiesThatChanged.ContainsKey(Common.BACCARAT_MESSAGE))
+            {
+                BaccaratGameController.Inst.SendMessage((int)propertiesThatChanged[Common.BACCARAT_MESSAGE]);
             }
         }
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -631,7 +631,7 @@ MonoBehaviour:
   userBack: {fileID: 820154600}
   id: 2
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &76226934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   userBack: {fileID: 1468598907}
   id: 8
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &331428781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3472,7 +3472,7 @@ MonoBehaviour:
   userBack: {fileID: 1388456079}
   id: 3
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &406714854
 GameObject:
   m_ObjectHideFlags: 0
@@ -4081,7 +4081,7 @@ MonoBehaviour:
   userBack: {fileID: 220195671}
   id: 0
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &483747322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8789,6 +8789,11 @@ GameObject:
   - component: {fileID: 1253410376}
   - component: {fileID: 1253410375}
   - component: {fileID: 1253410377}
+  - component: {fileID: 1253410382}
+  - component: {fileID: 1253410381}
+  - component: {fileID: 1253410380}
+  - component: {fileID: 1253410379}
+  - component: {fileID: 1253410378}
   m_Layer: 0
   m_Name: BaccaratController
   m_TagString: Untagged
@@ -8808,18 +8813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0183657943bbc4097e2d42ff99d6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userSeats:
-  - {fileID: 1339741266}
-  - {fileID: 1796856040}
-  - {fileID: 59619882}
-  - {fileID: 388305083}
-  - {fileID: 1414805474}
-  - {fileID: 1988756798}
-  - {fileID: 1265367276}
-  - {fileID: 1492788301}
-  - {fileID: 321044079}
-  - {fileID: 321044079}
-  dealerSeat: {fileID: 480356578}
 --- !u!4 &1253410376
 Transform:
   m_ObjectHideFlags: 0
@@ -8848,6 +8841,77 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMenuPanel: {fileID: 1032242594}
   settingDlg: {fileID: 800958249}
+--- !u!114 &1253410378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253410374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdae392fd8ebc614a897d5ed0416d6ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerList:
+  - {fileID: 321044079}
+  - {fileID: 1339741266}
+  - {fileID: 1796856040}
+  - {fileID: 59619882}
+  - {fileID: 388305083}
+  - {fileID: 1414805474}
+  - {fileID: 1988756798}
+  - {fileID: 1265367276}
+  - {fileID: 1492788301}
+--- !u!114 &1253410379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253410374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850e5af18c5109847a13aef30167017b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1253410380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253410374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41eb55dc35113341bac4152096ac944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1253410381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253410374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef56a4e36e386624e8665240f244b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+--- !u!114 &1253410382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253410374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bdac35727347b74ca36f1f5d35c6923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1255880400
 GameObject:
   m_ObjectHideFlags: 0
@@ -9040,7 +9104,7 @@ MonoBehaviour:
   userBack: {fileID: 479387393}
   id: 6
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &1269138500
 GameObject:
   m_ObjectHideFlags: 0
@@ -9791,7 +9855,7 @@ MonoBehaviour:
   userBack: {fileID: 952295232}
   id: 0
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &1341501662
 GameObject:
   m_ObjectHideFlags: 0
@@ -10301,7 +10365,7 @@ MonoBehaviour:
   userBack: {fileID: 337640603}
   id: 4
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &1457868095
 GameObject:
   m_ObjectHideFlags: 0
@@ -10846,7 +10910,7 @@ MonoBehaviour:
   userBack: {fileID: 630416476}
   id: 7
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &1512483442
 GameObject:
   m_ObjectHideFlags: 0
@@ -12890,7 +12954,7 @@ MonoBehaviour:
   userBack: {fileID: 1995663840}
   id: 1
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &1798167952
 GameObject:
   m_ObjectHideFlags: 0
@@ -14484,7 +14548,7 @@ MonoBehaviour:
   userBack: {fileID: 1603049714}
   id: 5
   isSeat: 0
-  actorNumber: 0
+  type: 0
 --- !u!1 &1989714594
 GameObject:
   m_ObjectHideFlags: 0

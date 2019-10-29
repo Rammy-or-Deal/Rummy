@@ -14,6 +14,7 @@ enum LogLevels
     MeLog,
     SpecialLog,
     ShowLamiAllList,
+    MeLog_Baccarat,
 }
 
 public class LogMgr : MonoBehaviour

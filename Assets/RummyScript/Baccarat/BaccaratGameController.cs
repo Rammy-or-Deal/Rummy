@@ -9,10 +9,6 @@ public class BaccaratGameController : MonoBehaviour
 {
     public static BaccaratGameController Inst;
     
-
-    public BaccaratUserSeat[] userSeats;
-    public BaccaratUserSeat dealerSeat;
-    public Dictionary<int, int> seatNumList;
     void Awake()
     {
         if (!DataController.Inst)
@@ -23,62 +19,71 @@ public class BaccaratGameController : MonoBehaviour
     }
     void Start()
     {
-        UIController.Inst.userInfoPanel.gameObject.SetActive(false);
-        UIController.Inst.moneyPanel.gameObject.SetActive(false);
-        seatNumList = new Dictionary<int, int>();
-        ShowPlayers();
+        // UIController.Inst.userInfoPanel.gameObject.SetActive(false);
+        // UIController.Inst.moneyPanel.gameObject.SetActive(false);
+        // seatNumList = new Dictionary<int, int>();
+        // ShowPlayers();
     }
+
+
+    public void SendMessage(int messageId, Player p = null)
+    {
+        BaccaratMessageMgr.Inst.OnMessageArrived(messageId, p);
+    }
+
+
+
     public void ShowPlayers()
     {
-        int id = 0;
+        // int id = 0;
 
-        foreach (Player p in PhotonNetwork.PlayerList)
-        {
-            Debug.Log("ShowPlayers: " + p);
-            BaccaratUserSeat entry;
-            //int mySeatId = ;
-            Debug.Log("MyseatID: " + PhotonNetwork.LocalPlayer.ActorNumber);
-            if (p.NickName == DataController.Inst.userInfo.name)
-            {
-                entry = userSeats[0];
-            }
-            else
-            {
-                id++;
-                entry = userSeats[id];
-            }
+        // foreach (Player p in PhotonNetwork.PlayerList)
+        // {
+        //     Debug.Log("ShowPlayers: " + p);
+        //     BaccaratUserSeat entry;
+        //     //int mySeatId = ;
+        //     Debug.Log("MyseatID: " + PhotonNetwork.LocalPlayer.ActorNumber);
+        //     if (p.NickName == DataController.Inst.userInfo.name)
+        //     {
+        //         entry = userSeats[0];
+        //     }
+        //     else
+        //     {
+        //         id++;
+        //         entry = userSeats[id];
+        //     }
 
-            entry.Show(p);
-        }
+        //     entry.Show(p);
+        // }
     }
     public void NewPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log("NewPlayerEnteredRoom");
-        foreach (BaccaratUserSeat entry in userSeats)
-        {
-            if (!entry.isSeat)
-            {
-                entry.Show(newPlayer);
-                return;
-            }
-        }
+        // Debug.Log("NewPlayerEnteredRoom");
+        // foreach (BaccaratUserSeat entry in userSeats)
+        // {
+        //     if (!entry.isSeat)
+        //     {
+        //         entry.Show(newPlayer);
+        //         return;
+        //     }
+        // }
     }
 
     public void OtherPlayerLeftRoom(Player otherPlayer)
     {
-        BaccaratUserSeat entry = userSeats[seatNumList[otherPlayer.ActorNumber]];
-        seatNumList.Remove(otherPlayer.ActorNumber);
-        entry.LeftRoom();
+        // BaccaratUserSeat entry = userSeats[seatNumList[otherPlayer.ActorNumber]];
+        // seatNumList.Remove(otherPlayer.ActorNumber);
+        // entry.LeftRoom();
     }
 
     public void PlayerPropertiesUpdate(Player otherPlayer, Hashtable changedProps)
     {
-        object playerPic;
-        if (otherPlayer.CustomProperties.TryGetValue(Common.PLAYER_PIC, out playerPic))
-        {
-            BaccaratUserSeat entry = userSeats[seatNumList[otherPlayer.ActorNumber]];
-            entry.Show(otherPlayer);
-        }
+        // object playerPic;
+        // if (otherPlayer.CustomProperties.TryGetValue(Common.PLAYER_PIC, out playerPic))
+        // {
+        //     BaccaratUserSeat entry = userSeats[seatNumList[otherPlayer.ActorNumber]];
+        //     entry.Show(otherPlayer);
+        // }
     }
 
 }

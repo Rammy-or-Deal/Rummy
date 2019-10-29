@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,7 +35,8 @@ public class BaccaratUIController : MonoBehaviour
     public void OnExitClick()
     {
         Debug.Log("Exit clicked");
-        PunController.Inst.LeaveGame();
+        PhotonNetwork.LeaveRoom();
+        //PunController.Inst.LeaveGame();
     }
 
     public void OnHelpClick()

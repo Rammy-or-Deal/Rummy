@@ -1,3 +1,12 @@
+public enum BaccaratMessages{
+    OnJoinSuccess,
+    OnUserEnteredRoom,
+    OnUserLeave
+}
+public enum BaccaratPlayerType{
+    Player,
+    Banker,
+}
 public enum BuildMethod {
   Product,
   Develop_Message,
