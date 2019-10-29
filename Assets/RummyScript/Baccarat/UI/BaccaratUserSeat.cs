@@ -12,7 +12,6 @@ using UnityEngine.UI;
 
 public class BaccaratUserSeat : MonoBehaviour
 {
-    static public BaccaratUserSeat Inst;
     //user info
     public Image mUserFrame;
     public Image mUserPic;
@@ -31,6 +30,7 @@ public class BaccaratUserSeat : MonoBehaviour
     UserInfoModel userInfo = new UserInfoModel();
 
     #region UNITY   
+<<<<<<< HEAD
 
     private void Awake()
     {
@@ -40,6 +40,10 @@ public class BaccaratUserSeat : MonoBehaviour
     #endregion
 
     internal void SetMe(string infoString)
+=======
+    
+    public void Start()
+>>>>>>> 21d59306e3023cbb9f3ae6744eb843f31563ddeb
     {
         var list = infoString.Split(':');
         id = int.Parse(list[0]);
