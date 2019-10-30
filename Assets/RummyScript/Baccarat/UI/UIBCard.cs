@@ -38,5 +38,10 @@ public class UIBCard : MonoBehaviour
         }
         image.sprite = Resources.Load<Sprite>("Card/"+colorCharacter+num);
     }
+
+    public void OnClickCard()
+    {
+        
+    }
     
 }
