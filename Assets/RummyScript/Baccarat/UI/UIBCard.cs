@@ -9,6 +9,8 @@ public class UIBCard : MonoBehaviour
     [HideInInspector]
     public Image image;
 
+    public int id;
+    
     void Start()
     {
         image = GetComponent<Image>();
