@@ -12,10 +12,6 @@ public class UIBBetPanel : MonoBehaviour
     private const int diff = 40;
     void Start()
     {
-        OnPlayerBet	(0,0,1,1);
-        OnPlayerBet	(0,0,1,2);
-        OnPlayerBet	(0,0,0,0);
-        OnPlayerBet	(100,0,3,3);
     }
     
     public void OnPlayerBet(float x, float y, int moneyId, int areaId)
