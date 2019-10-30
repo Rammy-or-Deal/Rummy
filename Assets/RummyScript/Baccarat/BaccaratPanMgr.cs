@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Photon.Pun;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -18,6 +19,7 @@ public class BaccaratPanMgr : MonoBehaviour
     public GameObject m_panClock;
     public UIBBetPanel betPanel;
     public UIBCardPanel cardPanel;
+    public UIBMessage message;
 
     public TeamCard bankerCard = new TeamCard();
     public TeamCard playerCard = new TeamCard();
@@ -29,12 +31,16 @@ public class BaccaratPanMgr : MonoBehaviour
         {
             StartNewPan();
         }
+
+        StartCoroutine(TestMessage());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator TestMessage()
     {
-
+        yield return new WaitForSeconds	(1);
+        message	.Show	("Baccarat Betting Ends");
+        yield return new WaitForSeconds	(1);
+        message.Hide	();
     }
 
     internal async void StartNewPan()
