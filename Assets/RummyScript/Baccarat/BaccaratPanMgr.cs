@@ -14,6 +14,7 @@ public class BaccaratPanMgr : MonoBehaviour
     public Text m_panTime;
     public GameObject m_panClock;
     public UIBBetPanel betPanel;
+    public UIBCardPanel cardPanel;
     void Start()
     {
         if (!Inst)
