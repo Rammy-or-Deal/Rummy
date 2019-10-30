@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -42,6 +43,11 @@ public class BaccaratMessageMgr : MonoBehaviour
                 break;
             case (int)BaccaratMessages.OnEndPan:
                 BaccaratMe.Inst.OnEndPan();
+                if(PhotonNetwork.IsMasterClient)
+                    BaccaratBankerMgr.Inst.OnEndPan();
+                break;
+            case (int)BaccaratMessages.OnPlayerBet:
+                BaccaratPlayerMgr.Inst.OnPlayerBet(player.ActorNumber);
                 break;
             default:
                 break;

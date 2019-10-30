@@ -11,6 +11,7 @@ public class BaccaratMe : MonoBehaviour
     public int type;
 
     public bool canDeal = false;
+    public bool isPanStarted = false;
     void Start()
     {
         if (!Inst)
@@ -18,6 +19,28 @@ public class BaccaratMe : MonoBehaviour
             Inst = this;
             type = (int)BaccaratPlayerType.Player;
         }
+    }
+
+    internal void OnClickBettingArea(int moneyId, int areaId)
+    {
+        if(!canDeal) return;
+        if(!isPanStarted) return;
+
+        string log = "";
+        if(PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(Common.PLAYER_BETTING_LOG, out object _log))
+        {
+            log = (string)_log;
+        }
+        log += "/"+moneyId+":"+areaId;
+
+        Hashtable table = new Hashtable{
+            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnPlayerBet},
+            {Common.NOW_BET, moneyId + ":" + areaId},
+            {Common.PLAYER_BETTING_LOG, log}
+        };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(table);
+
+        canDeal = false;
     }
 
     // Update is called once per frame
@@ -61,13 +84,28 @@ public class BaccaratMe : MonoBehaviour
         LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
     }
 
+    internal void OnPlayerBet()
+    {
+        canDeal = true;
+
+        string betString = (string)PhotonNetwork.LocalPlayer.CustomProperties[Common.NOW_BET];
+        int moneyId = int.Parse(betString.Split(':')[0]);
+        int areaId = int.Parse(betString.Split(':')[1]);
+
+        var x = UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position.x;
+        var y = UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position.y;
+
+        BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);
+    }
+
     internal void OnEndPan()
     {
-        canDeal = false;
+        isPanStarted = false;
+        
     }
 
     internal void OnStartNewPan()
     {
-        canDeal = true;
+        isPanStarted = true;
     }
 }

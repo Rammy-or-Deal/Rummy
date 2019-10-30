@@ -69,6 +69,22 @@ public class BaccaratPlayerMgr : MonoBehaviour
 
     }
 
+    internal void OnPlayerBet(int actorNumber)
+    {
+        if (actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            BaccaratMe.Inst.OnPlayerBet();
+        }
+        else
+        {
+            try
+            {
+                m_playerList.Where(x => x.id == actorNumber).First().OnPlayerBet();
+            }
+            catch { }
+        }
+    }
+
     internal void OnUserLeave(Player player)
     {
         if (m_playerList.Count(x => x.id == player.ActorNumber) > 0)

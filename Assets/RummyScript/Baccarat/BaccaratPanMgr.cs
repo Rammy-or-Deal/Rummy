@@ -74,4 +74,9 @@ public class BaccaratPanMgr : MonoBehaviour
         m_panClock.gameObject.SetActive(true);
         StartCoroutine(WaitFor1Second());
     }
+
+    internal void OnPlayerBet(float x, float y, int moneyId, int areaId)
+    {
+        throw new NotImplementedException();
+    }
 }

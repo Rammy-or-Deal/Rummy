@@ -5,11 +5,13 @@ using UnityEngine;
 public class UIBBetBtnList : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int selectedId;
+    public int selectedId = -1;
     public UIBBetBtn[] btns;
+    public static UIBBetBtnList Inst;
     void Start()
     {
-        
+        if(!Inst)
+            Inst = this;
     }
 
     public void OnClickBetBtn(int id)

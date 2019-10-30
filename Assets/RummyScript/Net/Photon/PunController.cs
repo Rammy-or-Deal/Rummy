@@ -311,7 +311,6 @@ public class PunController : MonoBehaviourPunCallbacks
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
-            
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("lucky"))
         {

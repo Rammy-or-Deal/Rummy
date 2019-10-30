@@ -4,7 +4,8 @@ public enum BaccaratMessages{
     OnUserLeave,
     OnStartNewPan,
     OnPanTimeUpdate,
-    OnEndPan
+    OnEndPan,
+    OnPlayerBet
 }
 public enum BaccaratPlayerType{
     Player,

@@ -64,8 +64,12 @@ public class Common : MonoBehaviour
     public static string NOW_TURN = "NowTurn";
 #endregion
     #region  Keyword for Baccarat
-    public static string BACCARAT_MESSAGE = "Baccarat Message";
+    public static string BACCARAT_MESSAGE = "BaccaratMessage";
 
-    public static string BACCARAT_CURRENT_TIME  = "Baccarart Current Time";
+    public static string BACCARAT_CURRENT_TIME  = "BaccaratCurrentTime";
+
+    public static string NOW_BET = "BaccaratUserBettingNow";
+    public static string PLAYER_BETTING_LOG = "PlayerBettingLog";
+    
     #endregion
 }

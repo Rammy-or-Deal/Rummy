@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
@@ -75,6 +76,26 @@ public class BaccaratUserSeat : MonoBehaviour
         mCoinValue.text = userInfo.coinValue.ToString();
         mUserSkillName.text = userInfo.skillLevel;
         mCoinValue.text = userInfo.coinValue.ToString();
+    }
+
+    internal void OnPlayerBet()
+    {
+        try
+        {
+            Player player = PhotonNetwork.PlayerList.Where(p => p.ActorNumber == id).First();
+            string betString = (string)player.CustomProperties[Common.NOW_BET];
+
+            int moneyId = int.Parse(betString.Split(':')[0]);
+            int areaId = int.Parse(betString.Split(':')[1]);
+
+            var x = this.gameObject.transform.position.x;
+            var y = this.gameObject.transform.position.y;
+
+            BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);
+        }
+        catch { return; }
+
+
     }
 
     // public void LeftRoom() // the number of left user
