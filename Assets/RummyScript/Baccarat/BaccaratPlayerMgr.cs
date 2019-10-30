@@ -11,6 +11,7 @@ public class BaccaratPlayerMgr : MonoBehaviour
     public static BaccaratPlayerMgr Inst;
     public List<BaccaratUserSeat> m_playerList;
     // Start is called before the first frame update
+
     void Start()
     {
         if (!Inst)
@@ -65,8 +66,6 @@ public class BaccaratPlayerMgr : MonoBehaviour
         }
 
         //BaccaratMe.Inst.PublishMe();
-
-
     }
 
     internal void OnPlayerBet(int actorNumber)
