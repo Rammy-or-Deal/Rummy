@@ -86,9 +86,11 @@ public class BaccaratMe : MonoBehaviour
 
     internal void OnPlayerBet()
     {
-        canDeal = true;
-
+        
         string betString = (string)PhotonNetwork.LocalPlayer.CustomProperties[Common.NOW_BET];
+
+        LogMgr.Inst.Log("MyLog:="+(string)PhotonNetwork.LocalPlayer.CustomProperties[Common.PLAYER_BETTING_LOG], (int)LogLevels.PlayerLog1);
+
         int moneyId = int.Parse(betString.Split(':')[0]);
         int areaId = int.Parse(betString.Split(':')[1]);
 
@@ -96,6 +98,8 @@ public class BaccaratMe : MonoBehaviour
         var y = UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position.y;
 
         BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);
+
+        canDeal = true;
     }
 
     internal void OnEndPan()
@@ -107,5 +111,8 @@ public class BaccaratMe : MonoBehaviour
     internal void OnStartNewPan()
     {
         isPanStarted = true;
+        canDeal = true;
+        UIBBetBtnList.Inst.Init();
     }
+
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,8 +17,19 @@ public class UIBBetBtnList : MonoBehaviour
 
     public void OnClickBetBtn(int id)
     {
+        try{
         btns[selectedId].UpdateStatus(false);
+        }catch{}
         selectedId = id;
         btns[selectedId].UpdateStatus(true);
+    }
+
+    internal void Init()
+    {
+        selectedId = -1;
+        foreach(var btn in btns)
+        {
+            btn.UpdateStatus(false);
+        }
     }
 }

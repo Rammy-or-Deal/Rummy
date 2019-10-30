@@ -69,7 +69,8 @@ public class Common : MonoBehaviour
     public static string BACCARAT_CURRENT_TIME  = "BaccaratCurrentTime";
 
     public static string NOW_BET = "BaccaratUserBettingNow";
-    public static string PLAYER_BETTING_LOG = "PlayerBettingLog";
-    
+    public static string PLAYER_BETTING_LOG = "PlayerBettingLog";    
+    public static string BACCARAT_CATCHED_CARD_BANKER = "BACCARAT_CATCHED_CARD_BANKER";
+    public static string BACCARAT_CATCHED_CARD_PLAYER = "BACCARAT_CATCHED_CARD_PLAYER";
     #endregion
 }

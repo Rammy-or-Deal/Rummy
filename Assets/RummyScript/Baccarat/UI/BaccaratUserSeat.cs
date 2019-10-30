@@ -83,7 +83,10 @@ public class BaccaratUserSeat : MonoBehaviour
         try
         {
             Player player = PhotonNetwork.PlayerList.Where(p => p.ActorNumber == id).First();
+
             string betString = (string)player.CustomProperties[Common.NOW_BET];
+
+            LogMgr.Inst.Log(player.ActorNumber+"st PlayerLog:=" + (string)player.CustomProperties[Common.PLAYER_BETTING_LOG], (int)LogLevels.PlayerLog1);
 
             int moneyId = int.Parse(betString.Split(':')[0]);
             int areaId = int.Parse(betString.Split(':')[1]);
@@ -94,8 +97,6 @@ public class BaccaratUserSeat : MonoBehaviour
             BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);
         }
         catch { return; }
-
-
     }
 
     // public void LeftRoom() // the number of left user

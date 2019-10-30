@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,8 +29,18 @@ public class BaccaratPanMgr : MonoBehaviour
 
     }
 
-    internal void StartNewPan()
+    internal async void StartNewPan()
     {
+        await Task.Delay(1000);
+        foreach(var player in PhotonNetwork.PlayerList)
+        {
+            Hashtable prop = new Hashtable{
+                {Common.PLAYER_BETTING_LOG, ""},
+                {Common.NOW_BET, ""},
+            };
+            player.SetCustomProperties(prop);
+        }
+
         Hashtable table = new Hashtable{
             {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnStartNewPan},
             {Common.BACCARAT_CURRENT_TIME, Constants.BaccaratCurrentTime}
@@ -77,6 +88,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal void OnPlayerBet(float x, float y, int moneyId, int areaId)
     {
-        throw new NotImplementedException();
+        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", x, y, moneyId, areaId), (int)LogLevels.PanLog);
+//        throw new NotImplementedException();
     }
 }

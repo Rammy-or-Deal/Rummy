@@ -23,11 +23,6 @@ public class BaccaratGameController : MonoBehaviour
         
     }
 
-    private void StartNewPan()
-    {
-        BaccaratPanMgr.Inst.StartNewPan();
-    }
-
     public void SendMessage(int messageId, Player p = null)
     {
         BaccaratMessageMgr.Inst.OnMessageArrived(messageId, p);

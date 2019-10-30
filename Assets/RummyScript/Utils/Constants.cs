@@ -5,7 +5,8 @@ public enum BaccaratMessages{
     OnStartNewPan,
     OnPanTimeUpdate,
     OnEndPan,
-    OnPlayerBet
+    OnPlayerBet,
+    OnCatchedCardDistributed
 }
 public enum BaccaratPlayerType{
     Player,
@@ -30,4 +31,8 @@ public static class Constants{
     public static int botWaitTimeforBuild = 2;
 
     public static int BaccaratCurrentTime = 15;
+
+    public static int BaccaratCardUnitNumber = 4;
+    public static int BaccaratScoreLimit = 5;
+    public static int BaccaratHighScore = 8;
 }
