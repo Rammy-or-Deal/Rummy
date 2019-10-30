@@ -1,7 +1,10 @@
 public enum BaccaratMessages{
     OnJoinSuccess,
     OnUserEnteredRoom,
-    OnUserLeave
+    OnUserLeave,
+    OnStartNewPan,
+    OnPanTimeUpdate,
+    OnEndPan
 }
 public enum BaccaratPlayerType{
     Player,
@@ -24,4 +27,6 @@ public static class Constants{
     
     public static int botWaitTime = 2;
     public static int botWaitTimeforBuild = 2;
+
+    public static int BaccaratCurrentTime = 15;
 }

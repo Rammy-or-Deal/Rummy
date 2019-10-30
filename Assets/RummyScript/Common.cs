@@ -65,5 +65,7 @@ public class Common : MonoBehaviour
 #endregion
     #region  Keyword for Baccarat
     public static string BACCARAT_MESSAGE = "Baccarat Message";
+
+    public static string BACCARAT_CURRENT_TIME  = "Baccarart Current Time";
     #endregion
 }

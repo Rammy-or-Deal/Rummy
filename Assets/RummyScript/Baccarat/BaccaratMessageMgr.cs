@@ -21,7 +21,7 @@ public class BaccaratMessageMgr : MonoBehaviour
 
     public void OnMessageArrived(int message, Player player = null)
     {
-        
+
         switch (message)
         {
             case (int)BaccaratMessages.OnJoinSuccess:
@@ -32,6 +32,16 @@ public class BaccaratMessageMgr : MonoBehaviour
                 break;
             case (int)BaccaratMessages.OnUserLeave:
                 BaccaratPlayerMgr.Inst.OnUserLeave(player);
+                break;
+            case (int)BaccaratMessages.OnStartNewPan:
+                BaccaratPanMgr.Inst.OnStartNewPan();
+                BaccaratMe.Inst.OnStartNewPan();
+                break;
+            case (int)BaccaratMessages.OnPanTimeUpdate:
+                BaccaratPanMgr.Inst.OnPanTimeUpdate();
+                break;
+            case (int)BaccaratMessages.OnEndPan:
+                BaccaratMe.Inst.OnEndPan();
                 break;
             default:
                 break;

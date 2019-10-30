@@ -9,6 +9,8 @@ public class BaccaratMe : MonoBehaviour
     // Start is called before the first frame update
     public static BaccaratMe Inst;
     public int type;
+
+    public bool canDeal = false;
     void Start()
     {
         if (!Inst)
@@ -57,5 +59,15 @@ public class BaccaratMe : MonoBehaviour
         BaccaratPlayerMgr.Inst.m_playerList[0].SetMe(infoString);
         
         LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
+    }
+
+    internal void OnEndPan()
+    {
+        canDeal = false;
+    }
+
+    internal void OnStartNewPan()
+    {
+        canDeal = true;
     }
 }
