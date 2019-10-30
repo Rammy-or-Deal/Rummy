@@ -1,70 +1,12 @@
-﻿/*
-this script is attached to ammo, and stores data to be used by the PickUpItemScript
-*/
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Photon.Pun;
 using UnityEngine;
+using Photon.Pun;
 using Random = UnityEngine.Random;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-using System;
 
-public class BaccaratCard
-{
-    public int num;
-    public int color;
-    public int score;
-    public string cardString
-    {
-        get
-        {
-            return num + ":" + color;
-        }
-        set
-        {
-            var tmpList = value.Split(':');
-            num = int.Parse(tmpList[0]);
-            color = int.Parse(tmpList[1]);
-            score = num;
-            if (num > 10)
-                score = 0;
-        }
-    }
-}
-public class TeamCard
-{
-    public List<BaccaratCard> CardList = new List<BaccaratCard>();
-    public int score
-    {
-        get
-        {
-            return CardList.Sum(x => x.score) % 10;
-        }
-        set { }
-    }
 
-    public string cardString
-    {
-        get
-        {
-            return string.Join(",", CardList.Select(x => x.cardString).ToList());
-        }
-        set
-        {
-            CardList.Clear();
-            var tmpList = value.Split(',');
-            for (int i = 0; i < tmpList.Length; i++)
-            {
-                BaccaratCard card = new BaccaratCard();
-                card.cardString = tmpList[i];
-                CardList.Add(card);
-            }
-        }
-    }
 
-}
 public class BaccaratBankerMgr : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -203,9 +145,10 @@ public class BaccaratBankerMgr : MonoBehaviour
 
     internal void CalcResult()
     {
-        CalcVictoryArea();
+        var victoryArea = CalcVictoryArea();
+        CalcUserPrize(victoryArea);
     }
-    void CalcVictoryArea()
+    List<int> CalcVictoryArea()
     {
         List<int> victoryArea = new List<int>();
         if(playerCard.score > bankerCard.score)
@@ -226,5 +169,104 @@ public class BaccaratBankerMgr : MonoBehaviour
             {Common.BACCARAT_VICTORY_AREA, areaString}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+        return victoryArea;
     }
+
+    void CalcUserPrize(List<int> victoryArea)
+    {
+        foreach(var player in PhotonNetwork.PlayerList)
+        {
+            string betLog = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
+            int prize = 0;
+            betLog = betLog.Trim('/');
+            foreach(var area in victoryArea)
+            {
+                int prizeTime = 1;
+                switch(area)
+                {
+                    case Constants.BaccaratPlayerArea:
+                        prizeTime = Constants.BaccaratPlayerArea_prize;
+                        break;
+                    case Constants.BaccaratBankerArea:
+                        prizeTime = Constants.BaccaratBankerArea_prize;
+                        break;
+                    case Constants.BaccaratDrawArea:
+                        prizeTime = Constants.BaccaratDrawArea_prize;
+                        break;
+                    case Constants.BaccaratPPArea:
+                        prizeTime = Constants.BaccaratPPArea_prize;
+                        break;
+                    case Constants.BaccaratBPArea:
+                        prizeTime = Constants.BaccaratBPArea_prize;
+                        break;
+                }
+
+                var betList = betLog.Split('/');
+                int moneySum = 0;
+                moneySum = betList.Where(x=>int.Parse(x.Split(':')[1]) == area).Sum(x=>int.Parse(x.Split(':')[0]));
+                prize += moneySum * prizeTime;
+            }
+
+            Hashtable table = new Hashtable{
+                {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnPrizeAwarded},
+                {Common.BACCARAT_PRIZE, prize}
+            };
+            player.SetCustomProperties(table);
+        }
+    }
+}
+
+public class BaccaratCard
+{
+    public int num;
+    public int color;
+    public int score;
+    public string cardString
+    {
+        get
+        {
+            return num + ":" + color;
+        }
+        set
+        {
+            var tmpList = value.Split(':');
+            num = int.Parse(tmpList[0]);
+            color = int.Parse(tmpList[1]);
+            score = num;
+            if (num > 10)
+                score = 0;
+        }
+    }
+}
+public class TeamCard
+{
+    public List<BaccaratCard> CardList = new List<BaccaratCard>();
+    public int score
+    {
+        get
+        {
+            return CardList.Sum(x => x.score) % 10;
+        }
+        set { }
+    }
+
+    public string cardString
+    {
+        get
+        {
+            return string.Join(",", CardList.Select(x => x.cardString).ToList());
+        }
+        set
+        {
+            CardList.Clear();
+            var tmpList = value.Split(',');
+            for (int i = 0; i < tmpList.Length; i++)
+            {
+                BaccaratCard card = new BaccaratCard();
+                card.cardString = tmpList[i];
+                CardList.Add(card);
+            }
+        }
+    }
+
 }

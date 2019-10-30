@@ -77,6 +77,6 @@ public class Common : MonoBehaviour
     public static string BACCARAT_NOW_SHOWING_TURN = "BACCARAT_NOW_SHOWING_TURN";
     public static string BACCARAT_NOW_SHOWING_LIMIT = "BACCARAT_NOW_SHOWING_LIMIT";
     public static string BACCARAT_VICTORY_AREA = "BACCARAT_VICTORY_AREA";
-
+    public static string BACCARAT_PRIZE = "BACCARAT_PRIZE";
     #endregion
 }

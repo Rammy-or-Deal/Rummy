@@ -151,22 +151,37 @@ public class BaccaratPanMgr : MonoBehaviour
 
         int limit = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_NOW_SHOWING_LIMIT];
 
-        if (nowTurn < limit)
+        try
         {
-            try
-            {
-                StopCoroutine(ShowingCardRoutine);
-            }
-            catch { }
+            StopCoroutine(ShowingCardRoutine);
+        }
+        catch { }
 
-            nowTurn++;
-            LogMgr.Inst.Log("New Card command Created. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
-            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+        nowTurn++;
+        LogMgr.Inst.Log("New Card command Created. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
+
+        if (nowTurn > (int)BaccaratShowingCard_NowTurn.Banker2)
+        {
+            if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player3)
+                if (playerCard.CardList.Count > 2)
+                    ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+                else
+                    nowTurn++;
+
+            if (nowTurn == (int)BaccaratShowingCard_NowTurn.Banker3)
+                if (bankerCard.CardList.Count > 2)
+                    ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+                else
+                    BaccaratBankerMgr.Inst.CalcResult();
+                    
+            if (nowTurn > (int)BaccaratShowingCard_NowTurn.Banker3)
+                BaccaratBankerMgr.Inst.CalcResult();
         }
         else
         {
-            BaccaratBankerMgr.Inst.CalcResult();
+            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
         }
+        //if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player3 && playerCard.CardList.Count > 2)
     }
 
     private void ShowingCatchedCard(int nowTurn)

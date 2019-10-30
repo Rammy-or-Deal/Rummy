@@ -32,7 +32,7 @@ public class BaccaratMe : MonoBehaviour
             log = (string)_log;
         }
         log += "/"+moneyId+":"+areaId;
-
+            
         Hashtable table = new Hashtable{
             {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnPlayerBet},
             {Common.NOW_BET, moneyId + ":" + areaId},
