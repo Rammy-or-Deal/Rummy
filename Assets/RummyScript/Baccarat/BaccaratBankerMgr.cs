@@ -9,6 +9,8 @@ using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System;
+
 public class BaccaratCard
 {
     public int num;
@@ -26,7 +28,7 @@ public class BaccaratCard
             num = int.Parse(tmpList[0]);
             color = int.Parse(tmpList[1]);
             score = num;
-            if(num > 10)
+            if (num > 10)
                 score = 0;
         }
     }
@@ -110,7 +112,7 @@ public class BaccaratBankerMgr : MonoBehaviour
     {
         bankerCard.CardList.Clear();
         playerCard.CardList.Clear();
-        MakeRandomCard();
+        var limit = MakeRandomCard();
 
         int max_betting_banker = GetMaxBettingPlayer(true);
         int max_betting_player = GetMaxBettingPlayer(false);
@@ -121,6 +123,7 @@ public class BaccaratBankerMgr : MonoBehaviour
             {Common.BACCARAT_CATCHED_CARD_PLAYER, playerCard.cardString},
             {Common.BACCARAT_MAX_BETTING_PLAYER_BANKER, max_betting_banker},
             {Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER, max_betting_player},
+            {Common.BACCARAT_NOW_SHOWING_LIMIT, limit}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
@@ -160,8 +163,9 @@ public class BaccaratBankerMgr : MonoBehaviour
         cardList.RemoveAt(no);
         return card;
     }
-    private void MakeRandomCard()
+    private int MakeRandomCard()
     {
+        int res = (int)BaccaratShowingCard_NowTurn.Banker2;
         // Create Random 2 cards for each team
         for (int i = 0; i < 4; i++)
         {
@@ -172,24 +176,55 @@ public class BaccaratBankerMgr : MonoBehaviour
                 bankerCard.CardList.Add(card);
             else
                 playerCard.CardList.Add(card);
-
         }
 
         // Check if there's lower than 5
         if (bankerCard.score < Constants.BaccaratHighScore && playerCard.score < Constants.BaccaratHighScore)
         {
-            if (bankerCard.score <= Constants.BaccaratScoreLimit)
-            {
-                int no = (int)Random.Range(0, cardList.Count - 1);
-                BaccaratCard card = GetCard(no);
-                bankerCard.CardList.Add(card);
-            }
             if (playerCard.score <= Constants.BaccaratScoreLimit)
             {
                 int no = (int)Random.Range(0, cardList.Count - 1);
                 BaccaratCard card = GetCard(no);
                 playerCard.CardList.Add(card);
+                res++;
+            }
+
+            if (playerCard.score < Constants.BaccaratHighScore && bankerCard.score <= Constants.BaccaratScoreLimit)
+            {
+                int no = (int)Random.Range(0, cardList.Count - 1);
+                BaccaratCard card = GetCard(no);
+                bankerCard.CardList.Add(card);
+                res++;
             }
         }
+
+        return res;
+    }
+
+    internal void CalcResult()
+    {
+        CalcVictoryArea();
+    }
+    void CalcVictoryArea()
+    {
+        List<int> victoryArea = new List<int>();
+        if(playerCard.score > bankerCard.score)
+            victoryArea.Add(Constants.BaccaratPlayerArea);
+        if(bankerCard.score > playerCard.score)
+            victoryArea.Add(Constants.BaccaratBankerArea);
+        if(playerCard.score == bankerCard.score)
+            victoryArea.Add(Constants.BaccaratDrawArea);
+        if(playerCard.CardList[0].num == playerCard.CardList[1].num)
+            victoryArea.Add(Constants.BaccaratPPArea);
+        if(bankerCard.CardList[0].num == bankerCard.CardList[1].num)
+            victoryArea.Add(Constants.BaccaratBPArea);
+
+        string areaString = string.Join(",", victoryArea);
+
+        Hashtable table = new Hashtable{
+            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnShowingVictoryArea},
+            {Common.BACCARAT_VICTORY_AREA, areaString}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
 }

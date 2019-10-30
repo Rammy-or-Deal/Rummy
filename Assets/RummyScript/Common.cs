@@ -75,6 +75,8 @@ public class Common : MonoBehaviour
     public static string BACCARAT_MAX_BETTING_PLAYER_BANKER = "BACCARAT_MAX_BETTING_PLAYER_BANKER";
     public static string BACCARAT_MAX_BETTING_PLAYER_PLAYER = "BACCARAT_MAX_BETTING_PLAYER_PLAYER";
     public static string BACCARAT_NOW_SHOWING_TURN = "BACCARAT_NOW_SHOWING_TURN";
+    public static string BACCARAT_NOW_SHOWING_LIMIT = "BACCARAT_NOW_SHOWING_LIMIT";
+    public static string BACCARAT_VICTORY_AREA = "BACCARAT_VICTORY_AREA";
 
     #endregion
 }

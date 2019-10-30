@@ -1,6 +1,11 @@
 public enum BaccaratShowingCard_NowTurn
 {
-    Player1, Banker1, Player2, Banker2, Player3, Banker3
+    Player1 = 0, 
+    Banker1 = 1, 
+    Player2 = 2, 
+    Banker2 = 3, 
+    Player3 = 4, 
+    Banker3 = 5
 }
 
 public enum BaccaratMessages
@@ -13,7 +18,8 @@ public enum BaccaratMessages
     OnEndPan,
     OnPlayerBet,
     OnCatchedCardDistributed,
-    OnShowingCatchedCard
+    OnShowingCatchedCard,
+    OnShowingVictoryArea
 }
 public enum BaccaratPlayerType
 {

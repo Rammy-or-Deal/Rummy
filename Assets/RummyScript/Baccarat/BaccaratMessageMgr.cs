@@ -55,6 +55,9 @@ public class BaccaratMessageMgr : MonoBehaviour
             case (int)BaccaratMessages.OnShowingCatchedCard:
                 BaccaratPanMgr.Inst.OnShowingCatchedCard();
                 break;
+            case (int)BaccaratMessages.OnShowingVictoryArea:
+                BaccaratPanMgr.Inst.OnShowingVictoryArea();
+                break;
             default:
                 break;
         }

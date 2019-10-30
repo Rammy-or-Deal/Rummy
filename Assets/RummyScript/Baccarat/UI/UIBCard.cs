@@ -23,6 +23,7 @@ public class UIBCard : MonoBehaviour
     }
     public void ShowImage(int num, int col)
     {
+        
         this.gameObject.SetActive(true);
         string colorCharacter = "";
         switch (col)
@@ -38,6 +39,7 @@ public class UIBCard : MonoBehaviour
             default:
                 colorCharacter = "A"; break;
         }
+        LogMgr.Inst.Log(colorCharacter+num, (int)LogLevels.PlayerLog1);
         image.sprite = Resources.Load<Sprite>("Card/"+colorCharacter+num);
     }
 
