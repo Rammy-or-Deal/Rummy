@@ -7,11 +7,18 @@ using UnityEngine.UI;
 public class UIBBetPanel : MonoBehaviour
 {
     public Transform[] panels;
+    public UIBBetPan[] pans;
     public Image coinImg;
     private string[] coinSpriteNames=new string[] {"simbol_100","simbol_500","simbol_1000","simbol_10000"};
     private const int diff = 40;
     void Start()
     {
+        pans=new UIBBetPan	[panels.Length];
+        for (int i = 0; i < panels.Length; i++)
+        {
+            UIBBetPan pan = panels[i].parent.GetComponent<UIBBetPan>();
+            pans[i] = pan;
+        }
     }
     
     public void OnPlayerBet(float x, float y, int moneyId, int areaId)
