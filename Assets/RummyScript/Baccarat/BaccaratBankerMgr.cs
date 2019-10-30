@@ -20,7 +20,15 @@ public class BaccaratCard
         {
             return num + ":" + color;
         }
-        set { }
+        set
+        {
+            var tmpList = value.Split(':');
+            num = int.Parse(tmpList[0]);
+            color = int.Parse(tmpList[1]);
+            score = num;
+            if(num > 10)
+                score = 0;
+        }
     }
 }
 public class TeamCard
@@ -41,8 +49,19 @@ public class TeamCard
         {
             return string.Join(",", CardList.Select(x => x.cardString).ToList());
         }
-        set { }
+        set
+        {
+            CardList.Clear();
+            var tmpList = value.Split(',');
+            for (int i = 0; i < tmpList.Length; i++)
+            {
+                BaccaratCard card = new BaccaratCard();
+                card.cardString = tmpList[i];
+                CardList.Add(card);
+            }
+        }
     }
+
 }
 public class BaccaratBankerMgr : MonoBehaviour
 {
@@ -110,19 +129,19 @@ public class BaccaratBankerMgr : MonoBehaviour
         int res = -1;
         var moneySum = 0;
         int area = Constants.BaccaratBankerArea;
-        if(!isBanker)
+        if (!isBanker)
             area = Constants.BaccaratPlayerArea;
 
-        foreach(var player in PhotonNetwork.PlayerList)
+        foreach (var player in PhotonNetwork.PlayerList)
         {
             var tmp = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
             tmp = tmp.Trim('/');
-            if(tmp == "") continue;
-            
+            if (tmp == "") continue;
+
             var list = tmp.Split('/').ToList();
             var sum = 0;
-            sum = list.Where(x=>int.Parse(x.Split(':')[1]) == area).Sum(x=>int.Parse(x.Split(':')[1]));
-            if(moneySum < sum)
+            sum = list.Where(x => int.Parse(x.Split(':')[1]) == area).Sum(x => int.Parse(x.Split(':')[1]));
+            if (moneySum < sum)
             {
                 res = player.ActorNumber;
                 moneySum = sum;

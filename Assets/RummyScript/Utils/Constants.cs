@@ -1,3 +1,8 @@
+public enum BaccaratShowingCard_NowTurn
+{
+    Player1, Banker1, Player2, Banker2, Player3, Banker3
+}
+
 public enum BaccaratMessages
 {
     OnJoinSuccess,
@@ -7,7 +12,8 @@ public enum BaccaratMessages
     OnPanTimeUpdate,
     OnEndPan,
     OnPlayerBet,
-    OnCatchedCardDistributed
+    OnCatchedCardDistributed,
+    OnShowingCatchedCard
 }
 public enum BaccaratPlayerType
 {
@@ -45,5 +51,7 @@ public static class Constants
     public static int BaccaratDrawArea = 4;
     public static int BaccaratPPArea = 2;
     public static int BaccaratBPArea = 3;
+
+    public static float BaccaratShowingCard_waitTime = 5;
     #endregion
 }

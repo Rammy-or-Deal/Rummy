@@ -43,11 +43,17 @@ public class BaccaratMessageMgr : MonoBehaviour
                 break;
             case (int)BaccaratMessages.OnEndPan:
                 BaccaratMe.Inst.OnEndPan();
-                if(PhotonNetwork.IsMasterClient)
+                if (PhotonNetwork.IsMasterClient)
                     BaccaratBankerMgr.Inst.OnEndPan();
                 break;
             case (int)BaccaratMessages.OnPlayerBet:
                 BaccaratPlayerMgr.Inst.OnPlayerBet(player.ActorNumber);
+                break;
+            case (int)BaccaratMessages.OnCatchedCardDistributed:
+                BaccaratPanMgr.Inst.OnCatchedCardDistributed();
+                break;
+            case (int)BaccaratMessages.OnShowingCatchedCard:
+                BaccaratPanMgr.Inst.OnShowingCatchedCard();
                 break;
             default:
                 break;

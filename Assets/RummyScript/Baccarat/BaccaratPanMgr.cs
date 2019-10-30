@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
+
+
 public class BaccaratPanMgr : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -15,6 +17,9 @@ public class BaccaratPanMgr : MonoBehaviour
     public GameObject m_panClock;
     public UIBBetPanel betPanel;
     public UIBCardPanel cardPanel;
+
+    public TeamCard bankerCard = new TeamCard();
+    public TeamCard playerCard = new TeamCard();
     void Start()
     {
         if (!Inst)
@@ -82,6 +87,8 @@ public class BaccaratPanMgr : MonoBehaviour
         }
     }
 
+
+
     internal void OnPanTimeUpdate()
     {
         m_panClock.gameObject.SetActive(true);
@@ -90,7 +97,86 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal void OnPlayerBet(float x, float y, int moneyId, int areaId)
     {
-        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", x, y, moneyId, areaId), (int)LogLevels.PanLog); 
+        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", x, y, moneyId, areaId), (int)LogLevels.PanLog);
         betPanel.OnPlayerBet(x, y, moneyId, areaId);
+    }
+
+    internal void OnCatchedCardDistributed()
+    {
+        InitTeamCard();
+
+        bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
+        playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
+
+
+
+        // Here, we can add the code to make the users can open the card. player is depended on 
+        // {Common.BACCARAT_MAX_BETTING_PLAYER_BANKER, max_betting_banker},
+        // {Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER, max_betting_player},
+
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player1));
+    }
+    Coroutine ShowingCardRoutine;
+    IEnumerator ShowingCard(int nowTurn)
+    {
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        Hashtable table = new Hashtable{
+            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnShowingCatchedCard},
+            {Common.BACCARAT_NOW_SHOWING_TURN, nowTurn}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+    }
+
+    internal void OnShowingCatchedCard()
+    {
+        //BACCARAT_NOW_SHOWING_TURN
+        int nowTurn = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_NOW_SHOWING_TURN];
+
+        // Here, we can add the code to make the users can open the card. player is depended on 
+        // {Common.BACCARAT_MAX_BETTING_PLAYER_BANKER, max_betting_banker},
+        // {Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER, max_betting_player},        
+        ShowingCatchedCard(nowTurn);
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        try
+        {
+            StopCoroutine(ShowingCardRoutine);
+        }
+        catch { }
+        nowTurn++;
+        ShowingCard(nowTurn);
+    }
+
+    private void ShowingCatchedCard(int nowTurn)
+    {
+        switch (nowTurn)
+        {
+            case (int)BaccaratShowingCard_NowTurn.Player1:
+                cardPanel.leftCards[0].ShowImage(playerCard.CardList[0].num, playerCard.CardList[0].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Player2:
+                cardPanel.leftCards[1].ShowImage(playerCard.CardList[1].num, playerCard.CardList[1].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Player3:
+                cardPanel.leftCards[2].ShowImage(playerCard.CardList[2].num, playerCard.CardList[2].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Banker1:
+                cardPanel.rightCards[0].ShowImage(bankerCard.CardList[0].num, bankerCard.CardList[0].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Banker2:
+                cardPanel.rightCards[1].ShowImage(bankerCard.CardList[1].num, bankerCard.CardList[1].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Banker3:
+                cardPanel.rightCards[2].ShowImage(bankerCard.CardList[2].num, bankerCard.CardList[2].color);
+                break;
+        }
+    }
+
+    private void InitTeamCard()
+    {
+        bankerCard.CardList.Clear();
+        playerCard.CardList.Clear();
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 public class LamiGameBot
 {
@@ -162,7 +163,7 @@ public class LamiGameBot
 
     private async void DealCard()
     {
-        await Task.Delay(Constants.botWaitTime*1000);
+        await Task.Delay(Random.Range(1, 5)*1000);
         var list = availList[0].list;
         string cardStr = LamiCardMgr.ConvertSelectedListToString(availList[0].list);
         cardStr = id + ":" + cardStr;
