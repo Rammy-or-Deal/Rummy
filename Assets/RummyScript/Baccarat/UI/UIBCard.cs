@@ -13,4 +13,5 @@ public class UIBCard : MonoBehaviour
     {
         image = GetComponent<Image>();   
     }
+    
 }
