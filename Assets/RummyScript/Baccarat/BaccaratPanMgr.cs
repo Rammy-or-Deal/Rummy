@@ -33,7 +33,7 @@ public class BaccaratPanMgr : MonoBehaviour
     internal async void StartNewPan()
     {
         await Task.Delay(1000);
-        foreach(var player in PhotonNetwork.PlayerList)
+        foreach (var player in PhotonNetwork.PlayerList)
         {
             Hashtable prop = new Hashtable{
                 {Common.PLAYER_BETTING_LOG, ""},
@@ -89,6 +89,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal void OnPlayerBet(float x, float y, int moneyId, int areaId)
     {
-        
-		LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", x, y, moneyId, areaId), (int)LogLevels.PanLog);		betPanel.OnPlayerBet(x, y, moneyId, areaId);    }
+        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", x, y, moneyId, areaId), (int)LogLevels.PanLog); 
+        betPanel.OnPlayerBet(x, y, moneyId, areaId);
+    }
 }

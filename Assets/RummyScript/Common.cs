@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Common : MonoBehaviour
 {
-#region Keyword for Lami
+    #region Keyword for Lami
     public static string LAMI_MESSAGE = "LAMI_MESSAGE";
     public static string PLAYER_ID = "PLAYER_ID";
     public static string SEAT_STRING = "SEAT_STRING";
@@ -62,15 +62,17 @@ public class Common : MonoBehaviour
     public static string PLAYER_TURN = "IsTurn";
 
     public static string NOW_TURN = "NowTurn";
-#endregion
+    #endregion
     #region  Keyword for Baccarat
     public static string BACCARAT_MESSAGE = "BaccaratMessage";
 
-    public static string BACCARAT_CURRENT_TIME  = "BaccaratCurrentTime";
+    public static string BACCARAT_CURRENT_TIME = "BaccaratCurrentTime";
 
     public static string NOW_BET = "BaccaratUserBettingNow";
-    public static string PLAYER_BETTING_LOG = "PlayerBettingLog";    
+    public static string PLAYER_BETTING_LOG = "PlayerBettingLog";
     public static string BACCARAT_CATCHED_CARD_BANKER = "BACCARAT_CATCHED_CARD_BANKER";
     public static string BACCARAT_CATCHED_CARD_PLAYER = "BACCARAT_CATCHED_CARD_PLAYER";
+    public static string BACCARAT_MAX_BETTING_PLAYER_BANKER = "BACCARAT_MAX_BETTING_PLAYER_BANKER";
+    public static string BACCARAT_MAX_BETTING_PLAYER_PLAYER = "BACCARAT_MAX_BETTING_PLAYER_PLAYER";
     #endregion
 }

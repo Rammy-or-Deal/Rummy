@@ -1,4 +1,8 @@
-﻿
+﻿/*
+this script is attached to ammo, and stores data to be used by the PickUpItemScript
+*/
+
+
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
@@ -89,14 +93,44 @@ public class BaccaratBankerMgr : MonoBehaviour
         playerCard.CardList.Clear();
         MakeRandomCard();
 
+        int max_betting_banker = GetMaxBettingPlayer(true);
+        int max_betting_player = GetMaxBettingPlayer(false);
+
         Hashtable table = new Hashtable{
             {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnCatchedCardDistributed},
             {Common.BACCARAT_CATCHED_CARD_BANKER, bankerCard.cardString},
             {Common.BACCARAT_CATCHED_CARD_PLAYER, playerCard.cardString},
+            {Common.BACCARAT_MAX_BETTING_PLAYER_BANKER, max_betting_banker},
+            {Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER, max_betting_player},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
+    int GetMaxBettingPlayer(bool isBanker)
+    {
+        int res = -1;
+        var moneySum = 0;
+        int area = Constants.BaccaratBankerArea;
+        if(!isBanker)
+            area = Constants.BaccaratPlayerArea;
 
+        foreach(var player in PhotonNetwork.PlayerList)
+        {
+            var tmp = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
+            tmp = tmp.Trim('/');
+            if(tmp == "") continue;
+            
+            var list = tmp.Split('/').ToList();
+            var sum = 0;
+            sum = list.Where(x=>int.Parse(x.Split(':')[1]) == area).Sum(x=>int.Parse(x.Split(':')[1]));
+            if(moneySum < sum)
+            {
+                res = player.ActorNumber;
+                moneySum = sum;
+            }
+        }
+
+        return res;
+    }
 
     private BaccaratCard GetCard(int no)
     {
