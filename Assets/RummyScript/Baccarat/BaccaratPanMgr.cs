@@ -12,6 +12,7 @@ public class BaccaratPanMgr : MonoBehaviour
     public static BaccaratPanMgr Inst;
     public Text m_panTime;
     public GameObject m_panClock;
+    public UIBBetPanel betPanel;
     void Start()
     {
         if (!Inst)
@@ -77,6 +78,6 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal void OnPlayerBet(float x, float y, int moneyId, int areaId)
     {
-        throw new NotImplementedException();
+        betPanel.OnPlayerBet(x, y, moneyId, areaId);
     }
 }
