@@ -20,19 +20,12 @@ public class BaccaratGameController : MonoBehaviour
     }
     void Start()
     {
-        
+        UIController.Inst.userInfoPanel.gameObject.SetActive(false);
+        UIController.Inst.moneyPanel.gameObject.SetActive(false);
     }
 
     public void SendMessage(int messageId, Player p = null)
     {
         BaccaratMessageMgr.Inst.OnMessageArrived(messageId, p);
     }
-
-
-
-    public void ShowPlayers()
-    {
-
-    }
-
 }
