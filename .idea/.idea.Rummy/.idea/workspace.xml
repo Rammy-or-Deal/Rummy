@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratGameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratGameController.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,19 +50,19 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCard.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+            <state relative-caret-position="438">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
               <folding>
-                <marker date="1572461882302" expanded="false" signature="6:100" ph="..." />
-                <marker date="1572461882302" expanded="true" signature="138:1169" ph="{...}" />
-                <marker date="1572461882302" expanded="true" signature="281:332" ph="{...}" />
-                <marker date="1572461882302" expanded="true" signature="355:535" ph="{...}" />
-                <marker date="1572461882302" expanded="true" signature="579:1110" ph="{...}" />
-                <marker date="1572461882302" expanded="true" signature="683:1029" ph="{...}" />
-                <marker date="1572461882302" expanded="true" signature="1141:1162" ph="{...}" />
+                <marker date="1572471710055" expanded="false" signature="6:100" ph="..." />
+                <marker date="1572471710055" expanded="true" signature="138:1250" ph="{...}" />
+                <marker date="1572471710055" expanded="true" signature="281:332" ph="{...}" />
+                <marker date="1572471710055" expanded="true" signature="355:535" ph="{...}" />
+                <marker date="1572471710055" expanded="true" signature="579:1191" ph="{...}" />
+                <marker date="1572471710055" expanded="true" signature="692:1038" ph="{...}" />
+                <marker date="1572471710055" expanded="true" signature="1222:1243" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -111,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratGameController.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+            <state relative-caret-position="504">
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
               <folding>
                 <marker date="1572470556075" expanded="false" signature="6:221" ph="..." />
                 <marker date="1572470556075" expanded="true" signature="273:785" ph="{...}" />
@@ -1104,10 +1103,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="777">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="798">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
               <folding>
-                <marker date="1572461528675" expanded="true" signature="6:215" ph="..." />
+                <marker date="1572471710054" expanded="true" signature="6:87" ph="..." />
               </folding>
             </state>
           </provider>
@@ -1663,7 +1662,7 @@
       <workItem from="1571584616122" duration="4241000" />
       <workItem from="1571661460766" duration="63667000" />
       <workItem from="1571900791239" duration="9812000" />
-      <workItem from="1571943579641" duration="67527000" />
+      <workItem from="1571943579641" duration="68435000" />
     </task>
     <task id="LOCAL-00001" summary="added LamiMGR in scene , onJoinedLobby">
       <created>1571226511212</created>
@@ -1966,11 +1965,18 @@
       <option name="project" value="LOCAL" />
       <updated>1572470120115</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="remove user pan">
+      <created>1572470614818</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1572470614818</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="240365000" />
+    <option name="totallyTimeSpent" value="241273000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2075,7 +2081,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="added AutoOff Button Image" />
     <MESSAGE value="userseat issue" />
     <MESSAGE value="add autoOn image" />
     <MESSAGE value="add autoOn image0" />
@@ -2100,7 +2105,8 @@
     <MESSAGE value="change id" />
     <MESSAGE value="add winObj , text" />
     <MESSAGE value="add list" />
-    <option name="LAST_COMMIT_MESSAGE" value="add list" />
+    <MESSAGE value="remove user pan" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove user pan" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2377,8 +2383,8 @@
         <state relative-caret-position="336">
           <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
-            <marker date="1572461528680" expanded="true" signature="172:226" ph="{...}" />
-            <marker date="1572461528680" expanded="true" signature="989:992" ph="{...}" />
+            <marker date="1572471710058" expanded="true" signature="172:226" ph="{...}" />
+            <marker date="1572471710058" expanded="true" signature="989:992" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -4304,10 +4310,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="777">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="798">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
           <folding>
-            <marker date="1572461528675" expanded="true" signature="6:215" ph="..." />
+            <marker date="1572471710054" expanded="true" signature="6:87" ph="..." />
           </folding>
         </state>
       </provider>
@@ -4383,22 +4389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCard.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-          <folding>
-            <marker date="1572461882302" expanded="false" signature="6:100" ph="..." />
-            <marker date="1572461882302" expanded="true" signature="138:1169" ph="{...}" />
-            <marker date="1572461882302" expanded="true" signature="281:332" ph="{...}" />
-            <marker date="1572461882302" expanded="true" signature="355:535" ph="{...}" />
-            <marker date="1572461882302" expanded="true" signature="579:1110" ph="{...}" />
-            <marker date="1572461882302" expanded="true" signature="683:1029" ph="{...}" />
-            <marker date="1572461882302" expanded="true" signature="1141:1162" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCardPanel.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -4448,14 +4438,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratGameController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        <state relative-caret-position="504">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
           <folding>
             <marker date="1572470556075" expanded="false" signature="6:221" ph="..." />
             <marker date="1572470556075" expanded="true" signature="273:785" ph="{...}" />
             <marker date="1572470556075" expanded="true" signature="344:482" ph="{...}" />
             <marker date="1572470556075" expanded="true" signature="499:646" ph="{...}" />
             <marker date="1572470556075" expanded="true" signature="707:783" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCard.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <marker date="1572471710055" expanded="false" signature="6:100" ph="..." />
+            <marker date="1572471710055" expanded="true" signature="138:1250" ph="{...}" />
+            <marker date="1572471710055" expanded="true" signature="281:332" ph="{...}" />
+            <marker date="1572471710055" expanded="true" signature="355:535" ph="{...}" />
+            <marker date="1572471710055" expanded="true" signature="579:1191" ph="{...}" />
+            <marker date="1572471710055" expanded="true" signature="692:1038" ph="{...}" />
+            <marker date="1572471710055" expanded="true" signature="1222:1243" ph="{...}" />
           </folding>
         </state>
       </provider>
