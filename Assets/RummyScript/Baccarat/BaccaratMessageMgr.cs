@@ -43,6 +43,7 @@ public class BaccaratMessageMgr : MonoBehaviour
                 break;
             case (int)BaccaratMessages.OnEndPan:
                 BaccaratMe.Inst.OnEndPan();
+                BaccaratPanMgr.Inst.OnEndPan();
                 if (PhotonNetwork.IsMasterClient)
                     BaccaratBankerMgr.Inst.OnEndPan();
                 break;
@@ -57,6 +58,20 @@ public class BaccaratMessageMgr : MonoBehaviour
                 break;
             case (int)BaccaratMessages.OnShowingVictoryArea:
                 BaccaratPanMgr.Inst.OnShowingVictoryArea();
+                break;
+            case (int)BaccaratMessages.OnPrizeAwarded:
+                if (player == PhotonNetwork.LocalPlayer)
+                {
+                    BaccaratPanMgr.Inst.OnPrizeAwarded();
+                    BaccaratMe.Inst.OnPrizeAwarded();
+                }
+                break;
+            case (int)BaccaratMessages.OnUpdateMe:
+                BaccaratPlayerMgr.Inst.OnUpdateMe(player);
+                break;
+            case (int)BaccaratMessages.OnInitUI:
+                if (PhotonNetwork.IsMasterClient)
+                    BaccaratPanMgr.Inst.StartNewPan();
                 break;
             default:
                 break;

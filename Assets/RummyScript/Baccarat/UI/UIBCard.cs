@@ -15,9 +15,9 @@ public class UIBCard : MonoBehaviour
     {
         image = GetComponent<Image>();
     }
-    public void Init()
+    public void Init(bool canShow = true)
     {
-        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(canShow);
         //"new_avatar/avatar_" + Random.Range(1,26).ToString();
         image.sprite = Resources.Load<Sprite>("Card/_black");
     }

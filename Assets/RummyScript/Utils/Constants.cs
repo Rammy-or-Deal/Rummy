@@ -19,7 +19,10 @@ public enum BaccaratMessages
     OnPlayerBet,
     OnCatchedCardDistributed,
     OnShowingCatchedCard,
-    OnShowingVictoryArea
+    OnShowingVictoryArea,
+    OnPrizeAwarded,
+    OnUpdateMe,
+    OnInitUI
 }
 public enum BaccaratPlayerType
 {
@@ -52,12 +55,18 @@ public static class Constants
     public static int BaccaratCardUnitNumber = 4;
     public static int BaccaratScoreLimit = 5;
     public static int BaccaratHighScore = 8;
-    public static int BaccaratPlayerArea = 0;
-    public static int BaccaratBankerArea = 1;
-    public static int BaccaratDrawArea = 4;
-    public static int BaccaratPPArea = 2;
-    public static int BaccaratBPArea = 3;
+    public const int BaccaratPlayerArea = 0;
+    public const int BaccaratPlayerArea_prize = 2;
+    public const int BaccaratBankerArea = 1;
+    public const int BaccaratBankerArea_prize = 2;
+    public const int BaccaratDrawArea = 4;
+    public const int BaccaratDrawArea_prize = 8;
+    public const int BaccaratPPArea = 2;
+    public const int BaccaratPPArea_prize = 11;
+    public const int BaccaratBPArea = 3;
+    public const int BaccaratBPArea_prize = 11;
+    
 
-    public static float BaccaratShowingCard_waitTime = 5;
+    public static float BaccaratShowingCard_waitTime = 3;
     #endregion
 }

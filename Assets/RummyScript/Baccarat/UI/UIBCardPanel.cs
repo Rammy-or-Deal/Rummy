@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,4 +14,17 @@ public class UIBCardPanel : MonoBehaviour
         
     }
 
+    internal void Init()
+    {
+        foreach(var card in leftCards)
+        {
+            card.Init();
+        }
+        leftCards[leftCards.Length-1].Init(false);
+        foreach(var card in rightCards)
+        {
+            card.Init();
+        }
+        rightCards[rightCards.Length-1].Init(false);
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,5 +18,17 @@ public class UIBBetPan : MonoBehaviour
     void Update()
     {
         
+    }
+
+    internal void SetPrize(int prize)
+    {
+        val.gameObject.SetActive(true);
+        val.text = "+ " + prize;
+    }
+
+    internal void Init()
+    {
+        val.gameObject.SetActive(false);
+        winObj.SetActive(false);
     }
 }

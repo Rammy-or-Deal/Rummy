@@ -32,20 +32,20 @@ public class BaccaratPanMgr : MonoBehaviour
             StartNewPan();
         }
 
-        StartCoroutine(TestMessage());
+        //StartCoroutine(TestMessage());
     }
-
-    IEnumerator TestMessage()
+    /*
+        IEnumerator TestMessage()
+        {
+            yield return new WaitForSeconds	(1);
+            message	.Show	("Baccarat Betting Ends");
+            yield return new WaitForSeconds	(1);
+            message.Hide	();
+        }
+    */
+    internal void StartNewPan()
     {
-        yield return new WaitForSeconds	(1);
-        message	.Show("Baccarat Betting Ends");
-        yield return new WaitForSeconds	(1);
-        message.Hide();
-    }
 
-    internal async void StartNewPan()
-    {
-        await Task.Delay(1000);
         foreach (var player in PhotonNetwork.PlayerList)
         {
             Hashtable prop = new Hashtable{
@@ -62,9 +62,22 @@ public class BaccaratPanMgr : MonoBehaviour
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
 
-    internal void OnStartNewPan()
+    public async void OnEndPan()
     {
+        message.Show("Betting Finished.");
+        await Task.Delay(3000);
+        message.Hide();
+    }
+
+    internal async void OnStartNewPan()
+    {
+        message.Show("Baccarat Betting Started.");
+        await Task.Delay(3000);
+        message.Hide();
+
         m_panClock.gameObject.SetActive(true);
+        betPanel.Init();
+        cardPanel.Init();
         StartCoroutine(WaitFor1Second());
     }
 
@@ -91,6 +104,26 @@ public class BaccaratPanMgr : MonoBehaviour
                 };
                 PhotonNetwork.CurrentRoom.SetCustomProperties(table);
             }
+        }
+    }
+
+    internal void OnInitUI()
+    {
+
+    }
+
+    internal async void OnPrizeAwarded()
+    {
+        var prize_area = (string)PhotonNetwork.LocalPlayer.CustomProperties[Common.BACCARAT_PRIZE_AREA];
+
+        message.Show("Congratulations!");
+        await Task.Delay(3000);
+        message.Hide();
+        foreach (var area in prize_area.Split(','))
+        {
+            var areaId = int.Parse(area.Split(':')[0]);
+            var prize = int.Parse(area.Split(':')[1]);
+            betPanel.pans[areaId].SetPrize(prize);
         }
     }
 
@@ -157,22 +190,37 @@ public class BaccaratPanMgr : MonoBehaviour
 
         int limit = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_NOW_SHOWING_LIMIT];
 
-        if (nowTurn < limit)
+        try
         {
-            try
-            {
-                StopCoroutine(ShowingCardRoutine);
-            }
-            catch { }
+            StopCoroutine(ShowingCardRoutine);
+        }
+        catch { }
 
-            nowTurn++;
-            LogMgr.Inst.Log("New Card command Created. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
-            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+        nowTurn++;
+        LogMgr.Inst.Log("New Card command Created. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
+
+        if (nowTurn > (int)BaccaratShowingCard_NowTurn.Banker2)
+        {
+            if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player3)
+                if (playerCard.CardList.Count > 2)
+                    ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+                else
+                    nowTurn++;
+
+            if (nowTurn == (int)BaccaratShowingCard_NowTurn.Banker3)
+                if (bankerCard.CardList.Count > 2)
+                    ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+                else
+                    BaccaratBankerMgr.Inst.CalcResult();
+
+            if (nowTurn > (int)BaccaratShowingCard_NowTurn.Banker3)
+                BaccaratBankerMgr.Inst.CalcResult();
         }
         else
         {
-            BaccaratBankerMgr.Inst.CalcResult();
+            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
         }
+        //if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player3 && playerCard.CardList.Count > 2)
     }
 
     private void ShowingCatchedCard(int nowTurn)
