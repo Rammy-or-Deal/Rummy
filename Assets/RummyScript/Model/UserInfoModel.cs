@@ -65,7 +65,7 @@ namespace RummyScript.Model
             name = "Guest"+"["+Random.Range(1000,9999).ToString() + "]";
             pic = "new_avatar/avatar_" + Random.Range(1,26).ToString();
 
-            coinValue = Random.Range(1000,9999);
+            coinValue = Random.Range(50000,99999);
             leafValue = Random.Range(100,999);
             skillLevel = skillLevelList[Random.Range(0, 6)];
         }
