@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using System.Threading.Tasks;
 using Photon.Pun;
-using Random = UnityEngine.Random;
+using Unity.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
+
 
 
 
@@ -79,7 +85,12 @@ public class BaccaratBankerMgr : MonoBehaviour
 
         foreach (var player in PhotonNetwork.PlayerList)
         {
-            var tmp = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
+            var tmp = "";
+            try
+            {
+                tmp = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
+            }
+            catch { }
             tmp = tmp.Trim('/');
             if (tmp == "") continue;
 
@@ -147,19 +158,35 @@ public class BaccaratBankerMgr : MonoBehaviour
     {
         var victoryArea = CalcVictoryArea();
         CalcUserPrize(victoryArea);
+
+        StartCoroutine(StartGame());
+    }
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(10.0f);
+        Hashtable table = new Hashtable{
+            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnInitUI}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+
+        // yield return new WaitForSeconds(2.0f);
+        // table = new Hashtable{
+        //     {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnStartNewPan}
+        // };
+        // PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
     List<int> CalcVictoryArea()
     {
         List<int> victoryArea = new List<int>();
-        if(playerCard.score > bankerCard.score)
+        if (playerCard.score > bankerCard.score)
             victoryArea.Add(Constants.BaccaratPlayerArea);
-        if(bankerCard.score > playerCard.score)
+        if (bankerCard.score > playerCard.score)
             victoryArea.Add(Constants.BaccaratBankerArea);
-        if(playerCard.score == bankerCard.score)
+        if (playerCard.score == bankerCard.score)
             victoryArea.Add(Constants.BaccaratDrawArea);
-        if(playerCard.CardList[0].num == playerCard.CardList[1].num)
+        if (playerCard.CardList[0].num == playerCard.CardList[1].num)
             victoryArea.Add(Constants.BaccaratPPArea);
-        if(bankerCard.CardList[0].num == bankerCard.CardList[1].num)
+        if (bankerCard.CardList[0].num == bankerCard.CardList[1].num)
             victoryArea.Add(Constants.BaccaratBPArea);
 
         string areaString = string.Join(",", victoryArea);
@@ -171,18 +198,34 @@ public class BaccaratBankerMgr : MonoBehaviour
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
         return victoryArea;
     }
-
+    public int getCoinValue(int coinId)
+    {
+        int res = 0;
+        switch (coinId)
+        {
+            case 0:
+                res = 100; break;
+            case 1:
+                res = 500; break;
+            case 2:
+                res = 1000; break;
+            case 3:
+                res = 10000; break;
+        }
+        return res;
+    }
     void CalcUserPrize(List<int> victoryArea)
     {
-        foreach(var player in PhotonNetwork.PlayerList)
+        foreach (var player in PhotonNetwork.PlayerList)
         {
             string betLog = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
             int prize = 0;
             betLog = betLog.Trim('/');
-            foreach(var area in victoryArea)
+            string prize_area = "";
+            foreach (var area in victoryArea)
             {
                 int prizeTime = 1;
-                switch(area)
+                switch (area)
                 {
                     case Constants.BaccaratPlayerArea:
                         prizeTime = Constants.BaccaratPlayerArea_prize;
@@ -203,15 +246,28 @@ public class BaccaratBankerMgr : MonoBehaviour
 
                 var betList = betLog.Split('/');
                 int moneySum = 0;
-                moneySum = betList.Where(x=>int.Parse(x.Split(':')[1]) == area).Sum(x=>int.Parse(x.Split(':')[0]));
+                try
+                {
+                    moneySum = betList.Where(x => int.Parse(x.Split(':')[1]) == area).Sum(x => getCoinValue(int.Parse(x.Split(':')[0])));
+                }
+                catch { }
                 prize += moneySum * prizeTime;
+                if (moneySum > 0)
+                {
+                    prize_area += area + ":" + moneySum + ",";
+                }
             }
+            prize_area = prize_area.Trim(',');
 
-            Hashtable table = new Hashtable{
-                {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnPrizeAwarded},
-                {Common.BACCARAT_PRIZE, prize}
-            };
-            player.SetCustomProperties(table);
+            if (prize > 0)
+            {
+                Hashtable table = new Hashtable{
+                    {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnPrizeAwarded},
+                    {Common.BACCARAT_PRIZE, prize},
+                    {Common.BACCARAT_PRIZE_AREA, prize_area}
+                };
+                player.SetCustomProperties(table);
+            }
         }
     }
 }

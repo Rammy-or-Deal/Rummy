@@ -19,7 +19,10 @@ public enum BaccaratMessages
     OnPlayerBet,
     OnCatchedCardDistributed,
     OnShowingCatchedCard,
-    OnShowingVictoryArea
+    OnShowingVictoryArea,
+    OnPrizeAwarded,
+    OnUpdateMe,
+    OnInitUI
 }
 public enum BaccaratPlayerType
 {
@@ -64,6 +67,6 @@ public static class Constants
     public const int BaccaratBPArea_prize = 11;
     
 
-    public static float BaccaratShowingCard_waitTime = 5;
+    public static float BaccaratShowingCard_waitTime = 3;
     #endregion
 }

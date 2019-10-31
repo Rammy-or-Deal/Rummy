@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -43,7 +44,7 @@ public class BaccaratPlayerMgr : MonoBehaviour
         }
     }
 
-    internal void OnUserEnteredRoom()
+    internal async void OnUserEnteredRoom()
     {
         var infostring = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NEW_PLAYER_INFO];
 
@@ -51,6 +52,9 @@ public class BaccaratPlayerMgr : MonoBehaviour
         {
             BaccaratPlayerMgr.Inst.m_playerList[0].SetMe(infostring);
 
+            BaccaratPanMgr.Inst.message.Show("Please wait until this pan is completed.");
+            await Task.Delay(3000);
+            BaccaratPanMgr.Inst.message.Hide();
             foreach (var player in PhotonNetwork.PlayerList)
             {
                 if (player.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber) continue;
@@ -90,5 +94,11 @@ public class BaccaratPlayerMgr : MonoBehaviour
         {
             m_playerList.Where(x => x.id == player.ActorNumber).First().OnUserLeave();
         }
+    }
+
+    internal void OnUpdateMe(Player player)
+    {
+        var info = (string)player.CustomProperties[Common.PLAYER_INFO];
+        m_playerList.Where(x=>x.id == player.ActorNumber).First().SetMe(info);
     }
 }
