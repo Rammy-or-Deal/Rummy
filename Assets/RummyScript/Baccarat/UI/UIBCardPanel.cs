@@ -8,6 +8,8 @@ public class UIBCardPanel : MonoBehaviour
     public UIBCard[][] cards;
     public UIBCard[] leftCards;
     public UIBCard[] rightCards;
+
+    public Transform[] bigCards;
     // Start is called before the first frame update
     void Start()
     {
