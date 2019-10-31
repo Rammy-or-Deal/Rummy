@@ -28,6 +28,8 @@ public class BaccaratUserSeat : MonoBehaviour
     public bool isSeat = false;
     public int type;
 
+    public Transform[] cardPos;
+
     UserInfoModel userInfo = new UserInfoModel();
 
     #region UNITY   
@@ -113,11 +115,8 @@ public class BaccaratUserSeat : MonoBehaviour
     //     }
     // }
 
-
-
-
-    // public void OnClick()
-    // {
-    //     UIController.Inst.userInfoMenu.gameObject.SetActive(true);
-    // }
+    public void OnClick()
+    {
+//        UIController.Inst.userInfoMenu.gameObject.SetActive(true);
+    }
 }

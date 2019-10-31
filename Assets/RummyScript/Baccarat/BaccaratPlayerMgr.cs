@@ -18,13 +18,7 @@ public class BaccaratPlayerMgr : MonoBehaviour
         if (!Inst)
             Inst = this;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     internal void OnJoinSuccess()
     {
         try
@@ -100,5 +94,10 @@ public class BaccaratPlayerMgr : MonoBehaviour
     {
         var info = (string)player.CustomProperties[Common.PLAYER_INFO];
         m_playerList.Where(x=>x.id == player.ActorNumber).First().SetMe(info);
+    }
+
+    public void MoveCardEffect(GameObject obj,Vector3 pos)
+    {
+        iTween.MoveTo(obj, iTween.Hash("position", pos, "time", 0.5));    
     }
 }

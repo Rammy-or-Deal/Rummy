@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="add message anim0">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUserSeat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUserSeat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Baccarat/3_PlayBaccarat.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Baccarat/3_PlayBaccarat.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/baccarat/UserSeat 1.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/baccarat/UserSeat 1.prefab.meta" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,58 +17,137 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+            <state relative-caret-position="1869">
+              <caret line="98" column="13" selection-start-line="98" selection-start-column="13" selection-end-line="98" selection-end-column="13" />
               <folding>
-                <marker date="1572475279680" expanded="false" signature="6:259" ph="..." />
-                <marker date="1572475279680" expanded="true" signature="306:7496" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="676:861" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="768:815" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="892:1066" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="1105:1683" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="1200:1412" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="1253:1355" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="1453:1614" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="1718:1819" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="1860:2729" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="2105:2723" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="2142:2451" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="2204:2366" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="2468:2713" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="2530:2628" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="2771:3057" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="2964:3051" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="3094:3195" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="3269:3473" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="3519:4347" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="3949:4189" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
-                <marker date="1572475279680" expanded="true" signature="4422:4768" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="4549:4699" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="4810:5887" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="4967:5215" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
-                <marker date="1572475279680" expanded="true" signature="5439:5799" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="5465:5544" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="5812:5881" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="5937:7375" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="6095:7368" ph="{...}" />
-                <marker date="1572475279680" expanded="true" signature="7408:7494" ph="{...}" />
+                <marker date="1572485055588" expanded="false" signature="6:259" ph="..." />
+                <marker date="1572485055588" expanded="true" signature="306:9058" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="676:863" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="768:815" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="868:1111" ph="/* IEnumerator TestMessage() ... */" />
+                <marker date="1572485055588" expanded="true" signature="1143:1690" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="1207:1419" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="1260:1362" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="1460:1621" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="1724:1835" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="1876:2136" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="2177:3046" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="2422:3040" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="2459:2768" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="2521:2683" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="2785:3030" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="2847:2945" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="3076:3089" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="3131:3581" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="3393:3575" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="3623:3909" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="3816:3903" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="3946:4047" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="4121:4325" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="4371:5199" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="4801:5041" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
+                <marker date="1572485055588" expanded="true" signature="5274:5620" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="5401:5551" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="5662:7449" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="5819:6067" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
+                <marker date="1572485055588" expanded="true" signature="6274:6341" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="6568:7239" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="7252:7343" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="7499:8937" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="7657:8930" ph="{...}" />
+                <marker date="1572485055588" expanded="true" signature="8970:9056" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Assets/UITween/ScenesExamplesScripts/ActivateOnEnable.cs">
+        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUserSeat.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="49" />
+            <state relative-caret-position="399">
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
               <folding>
-                <marker date="1571188139454" expanded="false" signature="6:44" ph="..." />
-                <marker date="1571188139454" expanded="true" signature="92:253" ph="{...}" />
-                <marker date="1571188139454" expanded="true" signature="160:251" ph="{...}" />
+                <marker date="1572514169093" expanded="false" signature="6:288" ph="..." />
+                <marker date="1572514169093" expanded="true" signature="335:3066" ph="{...}" />
+                <marker date="1572514169093" expanded="false" signature="780:900" ph="UNITY" />
+                <marker date="1572514169093" expanded="true" signature="823:885" ph="{...}" />
+                <marker date="1572514169093" expanded="true" signature="838:879" ph="/* if (!Inst) ... */" />
+                <marker date="1572514169093" expanded="true" signature="944:1335" ph="{...}" />
+                <marker date="1572514169093" expanded="true" signature="1368:1439" ph="{...}" />
+                <marker date="1572514169093" expanded="true" signature="1466:1872" ph="{...}" />
+                <marker date="1572514169093" expanded="true" signature="1905:2615" ph="{...}" />
+                <marker date="1572514169093" expanded="true" signature="1923:2583" ph="{...}" />
+                <marker date="1572514169093" expanded="true" signature="2621:2956" ph="/* public void LeftRoom() // the number of left user ... */" />
+                <marker date="1572514169093" expanded="true" signature="2983:3064" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="92" column="43" lean-forward="true" selection-start-line="92" selection-start-column="43" selection-end-line="92" selection-end-column="43" />
+              <folding>
+                <marker date="1572516601818" expanded="true" signature="6:182" ph="..." />
+                <marker date="1572516601818" expanded="true" signature="230:3095" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="393:449" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="488:1015" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="506:596" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="710:1009" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="1060:2132" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="1258:1903" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="1574:1893" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="1916:2086" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="2180:2504" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="2252:2315" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="2328:2498" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="2354:2466" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="2550:2738" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="2625:2732" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="2783:2946" ph="{...}" />
+                <marker date="1572516601818" expanded="true" signature="3006:3093" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUIController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-255">
+              <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+              <folding>
+                <marker date="1572428814946" expanded="false" signature="6:131" ph="..." />
+                <marker date="1572428814946" expanded="true" signature="182:1288" ph="{...}" />
+                <marker date="1572428814946" expanded="true" signature="338:359" ph="{...}" />
+                <marker date="1572428814946" expanded="true" signature="419:653" ph="{...}" />
+                <marker date="1572428814946" expanded="true" signature="684:802" ph="{...}" />
+                <marker date="1572428814946" expanded="true" signature="833:957" ph="{...}" />
+                <marker date="1572428814946" expanded="true" signature="988:1064" ph="{...}" />
+                <marker date="1572428814946" expanded="true" signature="1098:1146" ph="{...}" />
+                <marker date="1572428814946" expanded="true" signature="1176:1286" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPan.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+              <folding>
+                <marker date="1572484985463" expanded="false" signature="6:114" ph="..." />
+                <marker date="1572484985463" expanded="true" signature="154:567" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="229:250" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="308:329" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="368:453" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="479:565" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -73,31 +156,18 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPanel.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+            <state relative-caret-position="312">
+              <caret line="29" column="102" lean-forward="true" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="102" />
               <folding>
-                <marker date="1572470047499" expanded="false" signature="6:115" ph="..." />
-                <marker date="1572470047499" expanded="true" signature="179:1516" ph="{...}" />
-                <marker date="1572470047499" expanded="true" signature="425:648" ph="{...}" />
-                <marker date="1572470047499" expanded="true" signature="523:642" ph="{...}" />
-                <marker date="1572470047499" expanded="true" signature="724:1102" ph="{...}" />
-                <marker date="1572470047499" expanded="true" signature="1157:1514" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratGameController.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-              <folding>
-                <marker date="1572470556075" expanded="false" signature="6:221" ph="..." />
-                <marker date="1572470556075" expanded="true" signature="273:785" ph="{...}" />
-                <marker date="1572470556075" expanded="true" signature="344:482" ph="{...}" />
-                <marker date="1572470556075" expanded="true" signature="499:646" ph="{...}" />
-                <marker date="1572470556075" expanded="true" signature="707:783" ph="{...}" />
+                <marker date="1572484985463" expanded="false" signature="6:137" ph="..." />
+                <marker date="1572484985463" expanded="true" signature="179:1839" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="471:694" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="569:688" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="770:1180" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="1235:1592" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="1618:1837" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="1657:1701" ph="{...}" />
+                <marker date="1572484985463" expanded="true" signature="1739:1805" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -106,12 +176,67 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCardPanel.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="315">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
-                <marker date="1572441649015" expanded="false" signature="6:78" ph="..." />
-                <marker date="1572441649015" expanded="true" signature="121:312" ph="{...}" />
-                <marker date="1572441649015" expanded="true" signature="288:309" ph="{...}" />
+                <marker date="1572484985466" expanded="true" signature="6:92" ph="..." />
+                <marker date="1572484985466" expanded="true" signature="135:636" ph="{...}" />
+                <marker date="1572484985466" expanded="true" signature="302:323" ph="{...}" />
+                <marker date="1572484985466" expanded="true" signature="349:634" ph="{...}" />
+                <marker date="1572484985466" expanded="true" signature="394:439" ph="{...}" />
+                <marker date="1572484985466" expanded="true" signature="530:575" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCard.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding>
+                <marker date="1572484985465" expanded="false" signature="6:100" ph="..." />
+                <marker date="1572484985465" expanded="true" signature="138:1271" ph="{...}" />
+                <marker date="1572484985465" expanded="true" signature="281:332" ph="{...}" />
+                <marker date="1572484985465" expanded="true" signature="374:556" ph="{...}" />
+                <marker date="1572484985465" expanded="true" signature="600:1212" ph="{...}" />
+                <marker date="1572484985465" expanded="true" signature="713:1059" ph="{...}" />
+                <marker date="1572484985465" expanded="true" signature="1243:1264" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetBtn.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+              <folding>
+                <marker date="1572387195747" expanded="false" signature="6:78" ph="..." />
+                <marker date="1572387195747" expanded="true" signature="118:590" ph="{...}" />
+                <marker date="1572387195747" expanded="true" signature="274:295" ph="{...}" />
+                <marker date="1572387195747" expanded="true" signature="341:505" ph="{...}" />
+                <marker date="1572387195747" expanded="true" signature="542:588" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetBtnList.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+              <folding>
+                <marker date="1572428814948" expanded="false" signature="6:92" ph="..." />
+                <marker date="1572428814948" expanded="true" signature="136:714" ph="{...}" />
+                <marker date="1572428814948" expanded="true" signature="307:362" ph="{...}" />
+                <marker date="1572428814948" expanded="true" signature="401:559" ph="{...}" />
+                <marker date="1572428814948" expanded="true" signature="419:476" ph="{...}" />
+                <marker date="1572428814948" expanded="true" signature="585:712" ph="{...}" />
+                <marker date="1572428814948" expanded="true" signature="649:706" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -173,6 +298,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/DataController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetBtnList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetBtn.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Common.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/UIController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnJoinedInstantiate.cs" root0="FORCE_HIGHLIGHTING" />
@@ -202,6 +328,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Utils/LogMgr.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LeanTween/Examples/Scripts/PathBezier.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/LamiGame/UI/UILamiCardSelect.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratMe.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/UIChangeCardDialog.cs" root0="FORCE_HIGHLIGHTING" />
@@ -310,7 +437,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/RummyScript/Fortune13/UIChangeCardDialog.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Fortune13/FortuneUserSeat.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Lami/GameSettingDialog.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Common.cs" />
@@ -348,7 +474,6 @@
         <option value="$PROJECT_DIR$/Assets/RummyScript/LamiGame/UI/UILamiFinishScorePan.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBRoomManager.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Lobby/LobbyController.cs" />
-        <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUserSeat.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUIController.cs" />
         <option value="$PROJECT_DIR$/Assets/UIBBetBtnList.cs" />
         <option value="$PROJECT_DIR$/Assets/UIBBetBtn.cs" />
@@ -356,11 +481,13 @@
         <option value="$PROJECT_DIR$/Assets/UIBCardPanel.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCardPanel.cs" />
         <option value="$PROJECT_DIR$/Assets/UIBBetPan.cs" />
-        <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPanel.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratGameController.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCard.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBMessage.cs" />
         <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs" />
+        <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUserSeat.cs" />
+        <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPanel.cs" />
+        <option value="$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs" />
       </list>
     </option>
   </component>
@@ -669,7 +796,7 @@
       <workItem from="1571584616122" duration="4241000" />
       <workItem from="1571661460766" duration="63667000" />
       <workItem from="1571900791239" duration="9812000" />
-      <workItem from="1571943579641" duration="70973000" />
+      <workItem from="1571943579641" duration="76456000" />
     </task>
     <task id="LOCAL-00001" summary="added LamiMGR in scene , onJoinedLobby">
       <created>1571226511212</created>
@@ -1004,7 +1131,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243811000" />
+    <option name="totallyTimeSpent" value="249294000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1019,7 +1146,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19226637" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19226637" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -1034,7 +1161,7 @@
       <window_info anchor="bottom" id="NuGet" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Performance Profiler" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.49438202" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.36404493" />
       <window_info anchor="bottom" id="Unity" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Unit Tests" order="13" />
@@ -1147,84 +1274,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerManager.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="98" column="68" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="68" />
-          <folding>
-            <marker date="1571188133921" expanded="true" signature="0:510" ph="/*  Used in PUN Basics Tutorial to deal with the networked player instance ... */" />
-            <marker date="1571188133921" expanded="false" signature="518:562" ph="..." />
-            <marker date="1571188133921" expanded="true" signature="599:9621" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="636:730" ph="/// Player manager. ... " />
-            <marker date="1571188133921" expanded="true" signature="805:9619" ph="{...}" />
-            <marker date="1571188133921" expanded="false" signature="820:1118" ph="Public Fields" />
-            <marker date="1571188133921" expanded="false" signature="1128:1471" ph="Private Fields" />
-            <marker date="1571188133921" expanded="true" signature="1481:7651" ph="MonoBehaviour CallBacks" />
-            <marker date="1571188133921" expanded="true" signature="1522:1656" ph="/// MonoBehaviour method called on GameObject by Unity during early initialization phase. ... " />
-            <marker date="1571188133921" expanded="true" signature="1684:2443" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="1730:1850" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="1867:1940" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="1954:2102" ph="/* ##Important ... */" />
-            <marker date="1571188133921" expanded="true" signature="2137:2215" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="2229:2390" ph="/* ##Critical ... */" />
-            <marker date="1571188133921" expanded="true" signature="2453:2581" ph="/// MonoBehaviour method called on GameObject by Unity during initialization phase. ... " />
-            <marker date="1571188133921" expanded="true" signature="2609:3716" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="2733:2888" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="2786:2874" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="2905:3047" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="3122:3309" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="3326:3474" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="3753:3941" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="3952:4213" ph="/// MonoBehaviour method called on GameObject by Unity on every frame. ... " />
-            <marker date="1571188133921" expanded="true" signature="4242:4742" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="4369:4565" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="4461:4551" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="4651:4732" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="4752:5170" ph="/// MonoBehaviour method called when the Collider 'other' enters the trigger. ... " />
-            <marker date="1571188133921" expanded="true" signature="5221:5613" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="5267:5319" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="5334:5471" ph="/* We are only interested in Beamers ... */" />
-            <marker date="1571188133921" expanded="true" signature="5517:5569" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="5623:5902" ph="/// MonoBehaviour method called once per frame for every Collider 'other' that is touching the trigger. ... " />
-            <marker date="1571188133921" expanded="true" signature="5952:6541" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="6066:6118" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="6132:6269" ph="/* We are only interested in Beamers ... */" />
-            <marker date="1571188133921" expanded="true" signature="6315:6367" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="6792:7128" ph="/// MonoBehaviour method called after a new level of index 'level' was loaded. ... " />
-            <marker date="1571188133921" expanded="true" signature="7175:7631" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="7379:7469" ph="{...}" />
-            <marker date="1571188133921" expanded="false" signature="7661:9006" ph="Private Methods" />
-            <marker date="1571188133921" expanded="true" signature="7828:7886" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="7905:8087" ph="/// Processes the inputs. This MUST ONLY BE USED when the player has authority over this Networked GameObject (ph ... " />
-            <marker date="1571188133921" expanded="true" signature="8116:8986" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="8172:8789" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="8203:8526" ph="/* we don't want to fire when we interact with UI buttons for example. IsPointerOverGameObject really means IsPoi ... */" />
-            <marker date="1571188133921" expanded="true" signature="8593:8660" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="8697:8775" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="8834:8976" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="8883:8962" ph="{...}" />
-            <marker date="1571188133921" expanded="false" signature="9016:9613" ph="IPunObservable implementation" />
-            <marker date="1571188133921" expanded="true" signature="9141:9593" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="9185:9371" ph="{...}" />
-            <marker date="1571188133921" expanded="true" signature="9388:9583" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Lami/LamiGameCard.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-          <folding>
-            <marker date="1571911372182" expanded="false" signature="6:100" ph="..." />
-            <marker date="1571911372182" expanded="true" signature="143:745" ph="{...}" />
-            <marker date="1571911372182" expanded="true" signature="324:359" ph="{...}" />
-            <marker date="1571911372182" expanded="true" signature="390:617" ph="{...}" />
-            <marker date="1571911372182" expanded="true" signature="656:743" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/LamiGame/LamiPanMgr.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="564">
@@ -1358,8 +1407,8 @@
         <state relative-caret-position="336">
           <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
-            <marker date="1572471710058" expanded="true" signature="172:226" ph="{...}" />
-            <marker date="1572471710058" expanded="true" signature="989:992" ph="{...}" />
+            <marker date="1572484985468" expanded="true" signature="172:226" ph="{...}" />
+            <marker date="1572484985468" expanded="true" signature="989:992" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2276,18 +2325,6 @@
             <marker date="1571340487509" expanded="true" signature="1582:1837" ph="{...}" />
             <marker date="1571340487509" expanded="true" signature="1756:1831" ph="{...}" />
             <marker date="1571340487509" expanded="true" signature="1873:1947" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetBtnList.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <marker date="1572428814948" expanded="false" signature="6:12" ph="..." />
-            <marker date="1572428814948" expanded="true" signature="706:712" ph="{...}" />
-            <marker date="1572428814948" expanded="true" signature="706:714" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -3286,53 +3323,20 @@
         <state relative-caret-position="333">
           <caret line="99" column="33" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="33" />
           <folding>
-            <marker date="1572428814943" expanded="false" signature="6:163" ph="..." />
-            <marker date="1572428814943" expanded="true" signature="203:3452" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="403:530" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="428:524" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="593:1210" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="799:851" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="931:1115" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="1268:1281" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="1312:2571" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="1954:2019" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="2186:2339" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="2604:3233" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="3263:3314" ph="{...}" />
-            <marker date="1572428814943" expanded="true" signature="3349:3449" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUserSeat.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
-          <folding>
-            <marker date="1572428814947" expanded="true" signature="6:288" ph="..." />
-            <marker date="1572428814947" expanded="true" signature="335:3046" ph="{...}" />
-            <marker date="1572428814947" expanded="true" signature="747:867" ph="UNITY" />
-            <marker date="1572428814947" expanded="true" signature="790:852" ph="{...}" />
-            <marker date="1572428814947" expanded="true" signature="805:846" ph="/* if (!Inst) ... */" />
-            <marker date="1572428814947" expanded="true" signature="911:1302" ph="{...}" />
-            <marker date="1572428814947" expanded="true" signature="1335:1406" ph="{...}" />
-            <marker date="1572428814947" expanded="true" signature="1433:1839" ph="{...}" />
-            <marker date="1572428814947" expanded="true" signature="1872:2582" ph="{...}" />
-            <marker date="1572428814947" expanded="true" signature="1890:2550" ph="{...}" />
-            <marker date="1572428814947" expanded="true" signature="2588:2923" ph="/* public void LeftRoom() // the number of left user ... */" />
-            <marker date="1572428814947" expanded="true" signature="2932:3044" ph="/* public void OnClick() ... */" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCardPanel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <marker date="1572441649015" expanded="false" signature="6:78" ph="..." />
-            <marker date="1572441649015" expanded="true" signature="121:312" ph="{...}" />
-            <marker date="1572441649015" expanded="true" signature="288:309" ph="{...}" />
+            <marker date="1572484985459" expanded="false" signature="6:163" ph="..." />
+            <marker date="1572484985459" expanded="true" signature="203:4755" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="403:530" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="428:524" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="593:610" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="799:851" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="931:1115" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="1268:1281" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="1312:2571" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="1954:2019" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="2186:2339" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="2604:3233" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="4611:4617" ph="{...}" />
+            <marker date="1572484985459" expanded="true" signature="4652:4752" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -3341,21 +3345,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPanel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
-          <folding>
-            <marker date="1572470047499" expanded="false" signature="6:115" ph="..." />
-            <marker date="1572470047499" expanded="true" signature="179:1516" ph="{...}" />
-            <marker date="1572470047499" expanded="true" signature="425:648" ph="{...}" />
-            <marker date="1572470047499" expanded="true" signature="523:642" ph="{...}" />
-            <marker date="1572470047499" expanded="true" signature="724:1102" ph="{...}" />
-            <marker date="1572470047499" expanded="true" signature="1157:1514" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3376,7 +3365,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/UITween/ScenesExamplesScripts/ActivateOnEnable.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="49" />
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="49" />
           <folding>
             <marker date="1571188139454" expanded="false" signature="6:44" ph="..." />
             <marker date="1571188139454" expanded="true" signature="92:253" ph="{...}" />
@@ -3390,41 +3379,12 @@
         <state relative-caret-position="147">
           <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
           <folding>
-            <marker date="1572474842509" expanded="false" signature="6:78" ph="..." />
-            <marker date="1572474842509" expanded="true" signature="141:556" ph="{...}" />
-            <marker date="1572474842509" expanded="true" signature="182:203" ph="{...}" />
-            <marker date="1572474842509" expanded="true" signature="237:372" ph="{...}" />
-            <marker date="1572474842509" expanded="true" signature="396:470" ph="{...}" />
-            <marker date="1572474842509" expanded="true" signature="505:554" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCard.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
-          <folding>
-            <marker date="1572471710055" expanded="false" signature="6:100" ph="..." />
-            <marker date="1572471710055" expanded="true" signature="138:1250" ph="{...}" />
-            <marker date="1572471710055" expanded="true" signature="281:332" ph="{...}" />
-            <marker date="1572471710055" expanded="true" signature="355:535" ph="{...}" />
-            <marker date="1572471710055" expanded="true" signature="579:1191" ph="{...}" />
-            <marker date="1572471710055" expanded="true" signature="692:1038" ph="{...}" />
-            <marker date="1572471710055" expanded="true" signature="1222:1243" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPan.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-          <folding>
-            <marker date="1572466018304" expanded="false" signature="6:100" ph="..." />
-            <marker date="1572466018304" expanded="true" signature="140:317" ph="{...}" />
-            <marker date="1572466018304" expanded="true" signature="215:236" ph="{...}" />
-            <marker date="1572466018304" expanded="true" signature="294:315" ph="{...}" />
+            <marker date="1572485647572" expanded="false" signature="6:78" ph="..." />
+            <marker date="1572485647572" expanded="true" signature="141:602" ph="{...}" />
+            <marker date="1572485647572" expanded="true" signature="182:189" ph="{...}" />
+            <marker date="1572485647572" expanded="true" signature="237:372" ph="{...}" />
+            <marker date="1572485647572" expanded="true" signature="510:516" ph="{...}" />
+            <marker date="1572485647572" expanded="true" signature="551:600" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -3443,10 +3403,101 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCard.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <marker date="1572484985465" expanded="false" signature="6:100" ph="..." />
+            <marker date="1572484985465" expanded="true" signature="138:1271" ph="{...}" />
+            <marker date="1572484985465" expanded="true" signature="281:332" ph="{...}" />
+            <marker date="1572484985465" expanded="true" signature="374:556" ph="{...}" />
+            <marker date="1572484985465" expanded="true" signature="600:1212" ph="{...}" />
+            <marker date="1572484985465" expanded="true" signature="713:1059" ph="{...}" />
+            <marker date="1572484985465" expanded="true" signature="1243:1264" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetBtn.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+          <folding>
+            <marker date="1572387195747" expanded="false" signature="6:78" ph="..." />
+            <marker date="1572387195747" expanded="true" signature="118:590" ph="{...}" />
+            <marker date="1572387195747" expanded="true" signature="274:295" ph="{...}" />
+            <marker date="1572387195747" expanded="true" signature="341:505" ph="{...}" />
+            <marker date="1572387195747" expanded="true" signature="542:588" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetBtnList.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+          <folding>
+            <marker date="1572428814948" expanded="false" signature="6:92" ph="..." />
+            <marker date="1572428814948" expanded="true" signature="136:714" ph="{...}" />
+            <marker date="1572428814948" expanded="true" signature="307:362" ph="{...}" />
+            <marker date="1572428814948" expanded="true" signature="401:559" ph="{...}" />
+            <marker date="1572428814948" expanded="true" signature="419:476" ph="{...}" />
+            <marker date="1572428814948" expanded="true" signature="585:712" ph="{...}" />
+            <marker date="1572428814948" expanded="true" signature="649:706" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1869">
+          <caret line="98" column="13" selection-start-line="98" selection-start-column="13" selection-end-line="98" selection-end-column="13" />
+          <folding>
+            <marker date="1572485055588" expanded="false" signature="6:259" ph="..." />
+            <marker date="1572485055588" expanded="true" signature="306:9058" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="676:863" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="768:815" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="868:1111" ph="/* IEnumerator TestMessage() ... */" />
+            <marker date="1572485055588" expanded="true" signature="1143:1690" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="1207:1419" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="1260:1362" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="1460:1621" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="1724:1835" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="1876:2136" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="2177:3046" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="2422:3040" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="2459:2768" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="2521:2683" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="2785:3030" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="2847:2945" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="3076:3089" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="3131:3581" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="3393:3575" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="3623:3909" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="3816:3903" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="3946:4047" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="4121:4325" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="4371:5199" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="4801:5041" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
+            <marker date="1572485055588" expanded="true" signature="5274:5620" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="5401:5551" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="5662:7449" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="5819:6067" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
+            <marker date="1572485055588" expanded="true" signature="6274:6341" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="6568:7239" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="7252:7343" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="7499:8937" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="7657:8930" ph="{...}" />
+            <marker date="1572485055588" expanded="true" signature="8970:9056" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUIController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="15" column="8" lean-forward="true" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        <state relative-caret-position="-255">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
           <folding>
             <marker date="1572428814946" expanded="false" signature="6:131" ph="..." />
             <marker date="1572428814946" expanded="true" signature="182:1288" ph="{...}" />
@@ -3461,43 +3512,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPanMgr.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPan.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+        <state relative-caret-position="336">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
           <folding>
-            <marker date="1572475279680" expanded="false" signature="6:259" ph="..." />
-            <marker date="1572475279680" expanded="true" signature="306:7496" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="676:861" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="768:815" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="892:1066" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="1105:1683" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="1200:1412" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="1253:1355" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="1453:1614" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="1718:1819" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="1860:2729" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="2105:2723" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="2142:2451" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="2204:2366" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="2468:2713" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="2530:2628" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="2771:3057" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="2964:3051" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="3094:3195" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="3269:3473" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="3519:4347" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="3949:4189" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
-            <marker date="1572475279680" expanded="true" signature="4422:4768" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="4549:4699" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="4810:5887" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="4967:5215" ph="/* Here, we can add the code to make the users can open the card. player is depended on ... */" />
-            <marker date="1572475279680" expanded="true" signature="5439:5799" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="5465:5544" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="5812:5881" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="5937:7375" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="6095:7368" ph="{...}" />
-            <marker date="1572475279680" expanded="true" signature="7408:7494" ph="{...}" />
+            <marker date="1572484985463" expanded="false" signature="6:114" ph="..." />
+            <marker date="1572484985463" expanded="true" signature="154:567" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="229:250" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="308:329" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="368:453" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="479:565" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/BaccaratUserSeat.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+          <folding>
+            <marker date="1572514169093" expanded="false" signature="6:288" ph="..." />
+            <marker date="1572514169093" expanded="true" signature="335:3066" ph="{...}" />
+            <marker date="1572514169093" expanded="false" signature="780:900" ph="UNITY" />
+            <marker date="1572514169093" expanded="true" signature="823:885" ph="{...}" />
+            <marker date="1572514169093" expanded="true" signature="838:879" ph="/* if (!Inst) ... */" />
+            <marker date="1572514169093" expanded="true" signature="944:1335" ph="{...}" />
+            <marker date="1572514169093" expanded="true" signature="1368:1439" ph="{...}" />
+            <marker date="1572514169093" expanded="true" signature="1466:1872" ph="{...}" />
+            <marker date="1572514169093" expanded="true" signature="1905:2615" ph="{...}" />
+            <marker date="1572514169093" expanded="true" signature="1923:2583" ph="{...}" />
+            <marker date="1572514169093" expanded="true" signature="2621:2956" ph="/* public void LeftRoom() // the number of left user ... */" />
+            <marker date="1572514169093" expanded="true" signature="2983:3064" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBBetPanel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="29" column="102" lean-forward="true" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="102" />
+          <folding>
+            <marker date="1572484985463" expanded="false" signature="6:137" ph="..." />
+            <marker date="1572484985463" expanded="true" signature="179:1839" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="471:694" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="569:688" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="770:1180" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="1235:1592" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="1618:1837" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="1657:1701" ph="{...}" />
+            <marker date="1572484985463" expanded="true" signature="1739:1805" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/UI/UIBCardPanel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <marker date="1572484985466" expanded="true" signature="6:92" ph="..." />
+            <marker date="1572484985466" expanded="true" signature="135:636" ph="{...}" />
+            <marker date="1572484985466" expanded="true" signature="302:323" ph="{...}" />
+            <marker date="1572484985466" expanded="true" signature="349:634" ph="{...}" />
+            <marker date="1572484985466" expanded="true" signature="394:439" ph="{...}" />
+            <marker date="1572484985466" expanded="true" signature="530:575" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="92" column="43" lean-forward="true" selection-start-line="92" selection-start-column="43" selection-end-line="92" selection-end-column="43" />
+          <folding>
+            <marker date="1572516601818" expanded="true" signature="6:182" ph="..." />
+            <marker date="1572516601818" expanded="true" signature="230:3095" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="393:449" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="488:1015" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="506:596" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="710:1009" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="1060:2132" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="1258:1903" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="1574:1893" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="1916:2086" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="2180:2504" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="2252:2315" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="2328:2498" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="2354:2466" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="2550:2738" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="2625:2732" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="2783:2946" ph="{...}" />
+            <marker date="1572516601818" expanded="true" signature="3006:3093" ph="{...}" />
           </folding>
         </state>
       </provider>
