@@ -10,7 +10,17 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Editor" t="Include">
+          <e p="ChangeSibiling.cs" t="Include" />
+          <e p="ClearConsole.cs" t="Include" />
+          <e p="CopyPasteTransform.cs" t="Include" />
+          <e p="DeselectAll.cs" t="Include" />
+          <e p="DuplicateWithoutSerialNumber.cs" t="Include" />
+          <e p="InvertActiveGameObject.cs" t="Include" />
+          <e p="LockInspector.cs" t="Include" />
           <e p="PostBuildActions.cs" t="Include" />
+          <e p="RemoveDuplicatedName.cs" t="Include" />
+          <e p="RunUnity.cs" t="Include" />
+          <e p="ToggleDebugMode.cs" t="Include" />
         </e>
         <e p="GaussianBlur" t="Include">
           <e p="FPSDisplay.cs" t="Include" />
