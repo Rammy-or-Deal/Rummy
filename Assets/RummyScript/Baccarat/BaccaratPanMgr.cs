@@ -38,9 +38,9 @@ public class BaccaratPanMgr : MonoBehaviour
     IEnumerator TestMessage()
     {
         yield return new WaitForSeconds	(1);
-        message	.Show	("Baccarat Betting Ends");
+        message	.Show("Baccarat Betting Ends");
         yield return new WaitForSeconds	(1);
-        message.Hide	();
+        message.Hide();
     }
 
     internal async void StartNewPan()
