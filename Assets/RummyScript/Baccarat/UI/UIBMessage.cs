@@ -8,7 +8,7 @@ public class UIBMessage : MonoBehaviour
     public Text text;
     void Start()
     {
-        
+
     }
 
     public void Show(string str)
@@ -20,7 +20,11 @@ public class UIBMessage : MonoBehaviour
 
     public void Hide()
     {
-        GetComponent<EasyTween>().OpenCloseObjectAnimation();
+        try
+        {
+            GetComponent<EasyTween>().OpenCloseObjectAnimation();
+        }
+        catch { }
     }
 
     public void OnExitAnimation()
