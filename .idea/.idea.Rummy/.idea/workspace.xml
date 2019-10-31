@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Images/new_Lobby/baccarat.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Images/new_Lobby/baccarat.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Images/new_Lobby/fortune13.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Images/new_Lobby/fortune13.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Images/new_Lobby/lami.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Images/new_Lobby/lami.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Baccarat/2_Baccarat.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Baccarat/2_Baccarat.unity" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,8 +86,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="93" column="5" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
+            <state relative-caret-position="333">
+              <caret line="92" column="43" lean-forward="true" selection-start-line="92" selection-start-column="43" selection-end-line="92" selection-end-column="43" />
               <folding>
                 <marker date="1572516601818" expanded="true" signature="6:182" ph="..." />
                 <marker date="1572516601818" expanded="true" signature="230:3095" ph="{...}" />
@@ -795,14 +793,7 @@
       <workItem from="1571584616122" duration="4241000" />
       <workItem from="1571661460766" duration="63667000" />
       <workItem from="1571900791239" duration="9812000" />
-      <workItem from="1571943579641" duration="77764000" />
-    </task>
-    <task id="LOCAL-00001" summary="added LamiMGR in scene , onJoinedLobby">
-      <created>1571226511212</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1571226511212</updated>
+      <workItem from="1571943579641" duration="79147000" />
     </task>
     <task id="LOCAL-00002" summary="added Finish DLG data 80%">
       <created>1571869908642</created>
@@ -1140,11 +1131,18 @@
       <option name="project" value="LOCAL" />
       <updated>1572529591172</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="change lobby icons">
+      <created>1572540493367</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1572540493368</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250602000" />
+    <option name="totallyTimeSpent" value="251985000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1159,7 +1157,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19226637" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19226637" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -1249,7 +1247,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="remove warnings" />
     <MESSAGE value="add bot time 2sec, delay finish dlg 4sec" />
     <MESSAGE value="add skill sprite in finish dlg" />
     <MESSAGE value="baccarat game secene" />
@@ -1274,7 +1271,8 @@
     <MESSAGE value="add message anim0" />
     <MESSAGE value="add cards in play seat" />
     <MESSAGE value="game room scene" />
-    <option name="LAST_COMMIT_MESSAGE" value="game room scene" />
+    <MESSAGE value="change lobby icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="change lobby icons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3596,8 +3594,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Baccarat/BaccaratPlayerMgr.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="93" column="5" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
+        <state relative-caret-position="333">
+          <caret line="92" column="43" lean-forward="true" selection-start-line="92" selection-start-column="43" selection-end-line="92" selection-end-column="43" />
           <folding>
             <marker date="1572516601818" expanded="true" signature="6:182" ph="..." />
             <marker date="1572516601818" expanded="true" signature="230:3095" ph="{...}" />
