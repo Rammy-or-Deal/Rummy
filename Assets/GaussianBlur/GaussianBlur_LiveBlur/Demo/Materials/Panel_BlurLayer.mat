@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Panel_BlurLayer
   m_Shader: {fileID: 4800000, guid: 7056a564dba094d5eb98c700d3de5fee, type: 3}
   m_ShaderKeywords: REPROCESS_ON _EMISSION _REPROCESSHOR_ON _REPROCESS_ON _WOLDSPACE_ON
@@ -102,8 +103,8 @@ Material:
     - _RenderBlurTex: -1
     - _Reprocess: 1
     - _ReprocessHor: 1
-    - _ScreenHeight: 1080
-    - _ScreenWidth: 1920
+    - _ScreenHeight: 518
+    - _ScreenWidth: 1036
     - _Size: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
