@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,5 +49,11 @@ public class UIBRoomItem : MonoBehaviour
         UI_minBet.text = minBet.ToString();
         UI_maxBet.text = maxBet.ToString();
         UI_players.text = playersNum + " / " + totalPlayers;
+    }
+
+    internal void SetMe(BaccaratRoomInfo room)
+    {
+        
+        
     }
 }
