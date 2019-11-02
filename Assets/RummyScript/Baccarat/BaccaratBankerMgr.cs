@@ -74,6 +74,7 @@ public class BaccaratBankerMgr : MonoBehaviour
             {Common.BACCARAT_NOW_SHOWING_LIMIT, limit}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+
     }
     int GetMaxBettingPlayer(bool isBanker)
     {
@@ -191,11 +192,22 @@ public class BaccaratBankerMgr : MonoBehaviour
 
         string areaString = string.Join(",", victoryArea);
 
+        string exitInfo = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.AdditionalRoomProperty];
+        BaccaratRoomInfo info = new BaccaratRoomInfo();
+        info.roomString = exitInfo;
+        info.status += "," + victoryArea[0];
+        info.status = info.status.Trim(',');
+
         Hashtable table = new Hashtable{
             {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnShowingVictoryArea},
-            {Common.BACCARAT_VICTORY_AREA, areaString}
+            {Common.BACCARAT_VICTORY_AREA, areaString},
+            {Common.AdditionalRoomProperty, info.roomString}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+
+        //Common.AdditionalRoomProperty
+
+
         return victoryArea;
     }
     public int getCoinValue(int coinId)

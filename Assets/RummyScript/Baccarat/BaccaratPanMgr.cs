@@ -75,7 +75,11 @@ public class BaccaratPanMgr : MonoBehaviour
         await Task.Delay(3000);
         message.Hide();
 
-        m_panClock.gameObject.SetActive(true);
+        try
+        {
+            m_panClock.gameObject.SetActive(true);
+        }
+        catch { }
         betPanel.Init();
         cardPanel.Init();
         StartCoroutine(WaitFor1Second());

@@ -209,6 +209,7 @@ public class PunController : MonoBehaviourPunCallbacks
             {
                 Debug.Log("RoomProeprty:=" + (string)info.CustomProperties[Common.AdditionalRoomProperty]);
             }
+
             catch { }
 
             Debug.Log("roomList" + info);
