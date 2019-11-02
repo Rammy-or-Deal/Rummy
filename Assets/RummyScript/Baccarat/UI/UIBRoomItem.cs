@@ -40,4 +40,8 @@ public class UIBRoomItem : MonoBehaviour
         UI_maxBet.text = roomInfo.maxBet.ToString();
         UI_players.text = roomInfo.playersNum + " / " + roomInfo.totalPlayers;
     }
+    public void JoinRoom()
+    {
+        PunController.Inst.JoinRoom(this.roomInfo.tableName);
+    }
 }

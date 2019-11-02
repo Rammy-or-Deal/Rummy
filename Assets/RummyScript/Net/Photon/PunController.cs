@@ -200,16 +200,17 @@ public class PunController : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(roomName, null);
         Debug.Log("join room" + roomName);
     }
-
+    public Dictionary<string, string> baccaratRoomList = new Dictionary<string, string>();
     public void UpdateCachedRoomList(List<RoomInfo> roomList)
     {
+        baccaratRoomList.Clear();
         foreach (RoomInfo info in roomList)
         {
             try
             {
                 Debug.Log("RoomProeprty:=" + (string)info.CustomProperties[Common.AdditionalRoomProperty]);
+                baccaratRoomList.Add(info.Name, (string)info.CustomProperties[Common.AdditionalRoomProperty]);
             }
-
             catch { }
 
             Debug.Log("roomList" + info);
