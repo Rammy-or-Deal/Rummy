@@ -10,11 +10,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 public class PunController : MonoBehaviourPunCallbacks
 {
     static public PunController Inst;
-
+    private TypedLobby _defaultLobby = new TypedLobby("rummyLobby", LobbyType.SqlLobby);
     public Dictionary<string, RoomInfo> cachedRoomList;
 
     private int mTierIdx;
@@ -95,7 +96,27 @@ public class PunController : MonoBehaviourPunCallbacks
             CreateRoom(roomName);
         }
     }
-
+    public void CreateBacaratRoom(BaccaratRoomInfo roomInfo)
+    {
+        string roomName = "baccarat_" + Random.Range(0, 100);
+        bool isNameSet = false;
+        while (!isNameSet)
+        {
+            isNameSet = true;
+            foreach (RoomInfo info in cachedRoomList.Values)
+            {
+                if (info.Name == roomName)
+                {
+                    isNameSet = false;
+                    roomName = "baccarat_" + Random.Range(0, 100);
+                    break;
+                }
+            }
+        }
+        CreateRoom(roomName, 9, roomInfo.roomString);
+        Debug.Log("room created:" + roomName + ", property:="+roomInfo.roomString);
+    }
+    
     public void CreateOrJoinBaccaratRoom()
     {
         UIController.Inst.loadingDlg.gameObject.SetActive(true);
@@ -122,10 +143,7 @@ public class PunController : MonoBehaviourPunCallbacks
         if (isNewRoom)
         {
             roomName = roomName + "_" + DateTime.Now.ToString("MMddHHmmss");
-
-            byte maxPlayers = 10;
-            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
-            PhotonNetwork.CreateRoom(roomName, options, null);
+            CreateRoom(roomName, 10, "E:A:SDFQW:EAS234:346:Adsfa:WERQ6:623:asd");
             Debug.Log("room created " + roomName);
         }
     }
@@ -163,12 +181,16 @@ public class PunController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void CreateRoom(string roomName)
+    public void CreateRoom(string roomName, byte maxPlayers = 4, string AdditionalRoomProperty = "")
     {
         roomName = roomName + "_" + DateTime.Now.ToString("MMddHHmmss");
 
-        byte maxPlayers = 4;
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
+        if (AdditionalRoomProperty != "")
+        {
+            options.CustomRoomProperties = new Hashtable { { Common.AdditionalRoomProperty, AdditionalRoomProperty }};
+            options.CustomRoomPropertiesForLobby = new string[] { Common.AdditionalRoomProperty, Common.BaccaratRoomPlayers};
+        }
         PhotonNetwork.CreateRoom(roomName, options, TypedLobby.Default);
         Debug.Log("room created " + roomName);
     }
@@ -183,6 +205,12 @@ public class PunController : MonoBehaviourPunCallbacks
     {
         foreach (RoomInfo info in roomList)
         {
+            try
+            {
+                Debug.Log("RoomProeprty:=" + (string)info.CustomProperties[Common.AdditionalRoomProperty]);
+            }
+            catch { }
+
             Debug.Log("roomList" + info);
             // Remove room from cached room list if it got closed, became invisible or was marked as removed
             if (!info.IsOpen || !info.IsVisible || info.RemovedFromList || info.PlayerCount == info.MaxPlayers)

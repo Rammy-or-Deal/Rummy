@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class BaccaratRoomController : MonoBehaviour
@@ -10,6 +11,8 @@ public class BaccaratRoomController : MonoBehaviour
     public static BaccaratRoomController Inst;
     public existingRoomPanelController existingRoomPanel;
     public newRoomPanelController newRoomPanel;
+    public Text UIPassword;
+    BaccaratRoomInfo tmpRoomInfo = new BaccaratRoomInfo();
 
     void Awake()
     {
@@ -51,6 +54,16 @@ public class BaccaratRoomController : MonoBehaviour
         //existingRoomPanel
         existingRoomPanel.ShowRoomList(id);
     }
+
+    public void CreateBaccaratRoom_Type(int id)
+    {
+        tmpRoomInfo = tmpRoomInfo.InitRoomByType(id);
+        newRoomPanel.ShowRoom(tmpRoomInfo);
+    }
+    public void CreateBaccaratRoom()
+    {
+
+    }    
 }
 
 public class BaccaratRoomInfo
@@ -65,6 +78,62 @@ public class BaccaratRoomInfo
     public int roomNo;
     public string password;
     public int roomType;
+    public int coin;
+    public int gem;
+    public BaccaratRoomInfo()
+    {
+        tableName = "baccaratTable";
+        isPrivate = false;
+        minBet = 0;
+        maxBet = 0;
+        status = "";
+        playersNum = 0;
+        totalPlayers = 0;
+        roomNo = 0;
+        password = "";
+        roomType = -1;
+        gem = 0;
+        coin = 0;
+    }
+    public BaccaratRoomInfo InitRoomByType(int id)
+    {
+        switch (id)
+        {
+            case (int)BaccaratRoomType.Regular:
+                minBet = 100;
+                maxBet = 12500;
+                totalPlayers = 9;
+                roomType = id;
+                coin = 1500;
+                gem = 1;
+                break;
+            case (int)BaccaratRoomType.Silver:
+                minBet = 1000;
+                maxBet = 125000;
+                totalPlayers = 9;
+                roomType = id;
+                coin = 15000;
+                gem = 10;
+                break;
+            case (int)BaccaratRoomType.Gold:
+                minBet = 5000;
+                maxBet = 625000;
+                totalPlayers = 9;
+                roomType = id;
+                coin = 75000;
+                gem = 50;
+                break;        
+            case (int)BaccaratRoomType.Platinum:
+                minBet = 10000;
+                maxBet = 1250000;
+                totalPlayers = 9;
+                roomType = id;
+                coin = 150000;
+                gem = 100;
+                break;
+        }
+        return this;
+    }
     public string roomString
     {
         get

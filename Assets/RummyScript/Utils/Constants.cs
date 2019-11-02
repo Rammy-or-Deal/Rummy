@@ -29,6 +29,10 @@ public enum BaccaratPlayerType
     Player,
     Banker,
 }
+public enum BaccaratRoomType
+{
+    Regular, Silver, Gold, Platinum    
+}
 public enum BuildMethod
 {
     Product,

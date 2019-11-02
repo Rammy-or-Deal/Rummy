@@ -79,5 +79,11 @@ public class Common : MonoBehaviour
     public static string BACCARAT_VICTORY_AREA = "BACCARAT_VICTORY_AREA";
     public static string BACCARAT_PRIZE = "BACCARAT_PRIZE";
     public static string BACCARAT_PRIZE_AREA = "BACCARAT_PRIZE_AREA";
+
+    
     #endregion
+    public static string AdditionalRoomProperty = "AdditionalRoomProperty";
+    public static string AdditionalRoomType = "AdditionalRoomType";
+
+    public static string BaccaratRoomPlayers = "BaccaratRoomPlayers";
 }

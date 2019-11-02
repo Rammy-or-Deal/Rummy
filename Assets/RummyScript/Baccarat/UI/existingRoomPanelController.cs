@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 
@@ -50,9 +52,9 @@ public class existingRoomPanelController : MonoBehaviour
         AddNewRoom(roomInfo2);
     }
 
-    internal void ShowRoomList(int id)
+    internal void ShowRoomList(int roomType)
     {
-        
+
     }
 
     // Update is called once per frame
@@ -68,6 +70,4 @@ public class existingRoomPanelController : MonoBehaviour
         originItem.SetMe(room);        
         roomList.Add(originItem);
     }
-    
-
 }

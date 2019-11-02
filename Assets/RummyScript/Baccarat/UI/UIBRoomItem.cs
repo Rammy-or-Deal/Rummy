@@ -7,14 +7,8 @@ using UnityEngine.UI;
 public class UIBRoomItem : MonoBehaviour
 {
     // Start is called before the first frame update
-    [HideInInspector] public string tableName;
-    [HideInInspector] public bool isPrivate;
-    [HideInInspector] public int minBet;
-    [HideInInspector] public int maxBet;
-    [HideInInspector] public string status;
-    [HideInInspector] public int playersNum;
-    [HideInInspector] public int totalPlayers;
-    [HideInInspector] public int roomNo;
+    [HideInInspector] public BaccaratRoomInfo roomInfo;
+
 
     public Text UI_tableName;
     public Image UI_isPrivate;
@@ -36,24 +30,14 @@ public class UIBRoomItem : MonoBehaviour
 
     }
     #endregion
-
-    public void ShowMe()
-    {
-        UI_tableName.text = tableName;
-        if (isPrivate)
-        {
-            UI_isPrivate.gameObject.SetActive(false);
-        }else{
-            UI_isPrivate.gameObject.SetActive(true);
-        }
-        UI_minBet.text = minBet.ToString();
-        UI_maxBet.text = maxBet.ToString();
-        UI_players.text = playersNum + " / " + totalPlayers;
-    }
-
     internal void SetMe(BaccaratRoomInfo room)
     {
-        
-        
+        this.roomInfo = room;
+        UI_tableName.text = roomInfo.tableName;
+
+        UI_isPrivate.gameObject.SetActive(roomInfo.isPrivate);
+        UI_minBet.text = roomInfo.minBet.ToString();
+        UI_maxBet.text = roomInfo.maxBet.ToString();
+        UI_players.text = roomInfo.playersNum + " / " + roomInfo.totalPlayers;
     }
 }

@@ -267,6 +267,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8751313885203938059, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 29686434}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickedMe
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: cover
+      value: 
+      objectReference: {fileID: 29686433}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: friend
+      value: 
+      objectReference: {fileID: 993161991}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2, type: 3}
 --- !u!224 &29686432 stripped
@@ -275,6 +305,30 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 29686431}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &29686433 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4370597356284152980, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 29686431}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &29686434 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 29686431}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c430c206ea443da46902acf6eec06470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &68644910
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,10 +363,10 @@ RectTransform:
   m_Father: {fileID: 1887301870}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -35.505}
-  m_SizeDelta: {x: 100, y: 41.010002}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &68644912
 MonoBehaviour:
@@ -356,7 +410,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 68644913}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1083665711}
+        m_MethodName: CreateBaccaratRoom_Type
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &68644913
@@ -945,8 +1010,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 382.76, y: 0}
-  m_SizeDelta: {x: 765.52, y: 0}
+  m_AnchoredPosition: {x: 315.80157, y: 0}
+  m_SizeDelta: {x: 631.60315, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &356394700
 MonoBehaviour:
@@ -1059,10 +1124,10 @@ RectTransform:
   m_Father: {fileID: 1887301870}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -35.505}
-  m_SizeDelta: {x: 100, y: 41.010002}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &357482796
 MonoBehaviour:
@@ -1106,7 +1171,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 357482797}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1083665711}
+        m_MethodName: CreateBaccaratRoom_Type
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &357482797
@@ -1229,8 +1305,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 359117460}
   m_TextComponent: {fileID: 697964155}
   m_Placeholder: {fileID: 1754599078}
-  m_ContentType: 7
-  m_InputType: 2
+  m_ContentType: 0
+  m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -1452,7 +1528,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 367820508}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1176399635}
+        m_MethodName: OnClickCreateTable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &367820508
@@ -3113,6 +3200,12 @@ PrefabInstance:
       propertyPath: m_Text
       value: 1 gem
       objectReference: {fileID: 0}
+    - target: {fileID: 6647588815780437828, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a0591b016af775449cdf55cd6093dfa,
+        type: 3}
     - target: {fileID: 6647588815780437827, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3133,12 +3226,36 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 28.15
       objectReference: {fileID: 0}
-    - target: {fileID: 6647588815780437828, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    - target: {fileID: 8751313885203938059, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
         type: 3}
-      propertyPath: m_Sprite
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 21300000, guid: 5a0591b016af775449cdf55cd6093dfa,
+      objectReference: {fileID: 781373043}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickedMe
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: cover
+      value: 
+      objectReference: {fileID: 781373042}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: friend
+      value: 
+      objectReference: {fileID: 1876099012}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2, type: 3}
 --- !u!224 &781373041 stripped
@@ -3147,6 +3264,30 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 781373040}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &781373042 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4370597356284152980, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 781373040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &781373043 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 781373040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c430c206ea443da46902acf6eec06470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &783179699
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,6 +4465,12 @@ PrefabInstance:
       propertyPath: m_Text
       value: Private
       objectReference: {fileID: 0}
+    - target: {fileID: 6647588815780437828, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0fe71377c3a5589488b753c1fb453f10,
+        type: 3}
     - target: {fileID: 6647588815780437827, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4344,12 +4491,36 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 42.13
       objectReference: {fileID: 0}
-    - target: {fileID: 6647588815780437828, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    - target: {fileID: 8751313885203938059, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
         type: 3}
-      propertyPath: m_Sprite
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 21300000, guid: 0fe71377c3a5589488b753c1fb453f10,
+      objectReference: {fileID: 993161991}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickedMe
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: cover
+      value: 
+      objectReference: {fileID: 993161990}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: friend
+      value: 
+      objectReference: {fileID: 29686434}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2, type: 3}
 --- !u!224 &993161989 stripped
@@ -4358,6 +4529,30 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 993161988}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &993161990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4370597356284152980, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 993161988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &993161991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 993161988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c430c206ea443da46902acf6eec06470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1001134126
 GameObject:
   m_ObjectHideFlags: 0
@@ -4466,6 +4661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   existingRoomPanel: {fileID: 2122559651}
   newRoomPanel: {fileID: 1176399635}
+  UIPassword: {fileID: 697964155}
 --- !u!4 &1083665712
 Transform:
   m_ObjectHideFlags: 0
@@ -4571,7 +4767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1176399634
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4607,6 +4803,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbedc09fb0671b4bb4ceaf7b744bfae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minBet: {fileID: 465293123}
+  maxBet: {fileID: 248791485}
+  maxPlayers: {fileID: 979674893}
+  coin: {fileID: 1773165080}
+  gem: {fileID: 2042477179}
+  moneyList:
+  - {fileID: 1876099012}
+  - {fileID: 781373043}
+  privacyList:
+  - {fileID: 29686434}
+  - {fileID: 993161991}
+  password: {fileID: 359117459}
 --- !u!1 &1186312088
 GameObject:
   m_ObjectHideFlags: 0
@@ -6206,10 +6414,10 @@ RectTransform:
   m_Father: {fileID: 1887301870}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 155, y: -35.505}
-  m_SizeDelta: {x: 100, y: 41.010002}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1683646507
 MonoBehaviour:
@@ -6253,7 +6461,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1683646508}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1083665711}
+        m_MethodName: CreateBaccaratRoom_Type
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1683646508
@@ -6450,6 +6669,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764714625}
   m_CullTransparentMesh: 0
+--- !u!114 &1773165080 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6647588816179605869, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1876099009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1801669422
 GameObject:
   m_ObjectHideFlags: 0
@@ -6642,6 +6873,36 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8751313885203938059, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1876099012}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickedMe
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647588816162661782, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: cover
+      value: 
+      objectReference: {fileID: 1876099011}
+    - target: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+        type: 3}
+      propertyPath: friend
+      value: 
+      objectReference: {fileID: 781373043}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2, type: 3}
 --- !u!224 &1876099010 stripped
@@ -6650,6 +6911,30 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1876099009}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1876099011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4370597356284152980, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1876099009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1876099012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2014196685180152808, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1876099009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c430c206ea443da46902acf6eec06470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1887301869
 GameObject:
   m_ObjectHideFlags: 0
@@ -7169,7 +7454,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Room provacy:'
+  m_Text: 'Room privacy:'
 --- !u!222 &2038805944
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7178,6 +7463,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038805941}
   m_CullTransparentMesh: 0
+--- !u!114 &2042477179 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6647588816179605869, guid: 1254ecc4e17a2db4d84f7f5018ebd2c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 781373040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2065567745
 GameObject:
   m_ObjectHideFlags: 0
@@ -7287,10 +7584,10 @@ RectTransform:
   m_Father: {fileID: 1887301870}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 365, y: -35.505}
-  m_SizeDelta: {x: 100, y: 41.010002}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2074350268
 MonoBehaviour:
@@ -7334,7 +7631,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2074350269}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1083665711}
+        m_MethodName: CreateBaccaratRoom_Type
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2074350269
