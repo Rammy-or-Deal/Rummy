@@ -87,6 +87,18 @@ MonoBehaviour:
   UI_status: {fileID: 7814973369615971283}
   UI_players: {fileID: 1967702879783444211}
   UI_join: {fileID: 2436720067799194660}
+--- !u!114 &4949175671234113852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6522859927220064293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37d24aa197fdc94ea938d76cc85146d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &747194272099530200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -826,6 +838,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: statusButton
       objectReference: {fileID: 0}
+    - target: {fileID: 472486243683610746, guid: 010daffef1cf13441ab3e74f7433bb8a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 472486243683610746, guid: 010daffef1cf13441ab3e74f7433bb8a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 472486243683610746, guid: 010daffef1cf13441ab3e74f7433bb8a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 472486243683610746, guid: 010daffef1cf13441ab3e74f7433bb8a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 472486243683610746, guid: 010daffef1cf13441ab3e74f7433bb8a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2635956890999916179, guid: 010daffef1cf13441ab3e74f7433bb8a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -939,13 +976,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7708692944326083497}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6522859927220064293 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3494544720892842892, guid: 010daffef1cf13441ab3e74f7433bb8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7708692944326083497}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7814973369615971283 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 472486243683610746, guid: 010daffef1cf13441ab3e74f7433bb8a,
     type: 3}
   m_PrefabInstance: {fileID: 7708692944326083497}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6522859927220064293}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}

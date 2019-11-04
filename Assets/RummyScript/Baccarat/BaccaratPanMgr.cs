@@ -87,11 +87,19 @@ public class BaccaratPanMgr : MonoBehaviour
 
     public IEnumerator WaitFor1Second()
     {
-        int time = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CURRENT_TIME];
+        int time = -100;
+        try
+        {
+            time = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CURRENT_TIME];
+        }
+        catch
+        {
+            
+        }
         m_panTime.text = time + "";
         yield return new WaitForSeconds(1.0f);
         time--;
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && time >= -1)
         {
             if (time >= 0)
             {

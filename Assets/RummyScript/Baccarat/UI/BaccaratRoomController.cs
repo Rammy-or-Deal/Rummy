@@ -142,6 +142,7 @@ public class BaccaratRoomInfo
         }
         set
         {
+            try{
             var list = value.Split(':');
             tableName = list[0];
             isPrivate = bool.Parse(list[1]);
@@ -153,6 +154,7 @@ public class BaccaratRoomInfo
             roomNo = int.Parse(list[7]);
             password = list[8];
             roomType = int.Parse(list[9]);
+            }catch{}
         }
     }
 }
