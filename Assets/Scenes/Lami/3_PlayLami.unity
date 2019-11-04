@@ -1259,7 +1259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &285155091
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1318,7 +1318,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 285155093}
   m_OnClick:
     m_PersistentCalls:
@@ -4938,6 +4938,7 @@ MonoBehaviour:
   tipButton: {fileID: 1653582870}
   playButton: {fileID: 1121929573}
   arrangeButton: {fileID: 669914119}
+  shuffleButton: {fileID: 285155092}
   settingDlg: {fileID: 1009053349}
   finishDlg: {fileID: 837236363}
   mMenuPanel: {fileID: 1032242594}
