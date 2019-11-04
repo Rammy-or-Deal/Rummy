@@ -175,14 +175,16 @@ public class LamiMe : MonoBehaviour
         nowFlush = 0;
 
         List<List<Card>> panList = new List<List<Card>>();
-        foreach(var list in LamiGameUIManager.Inst.mGameCardPanelList)
+        foreach (var list in LamiGameUIManager.Inst.mGameCardPanelList)
         {
             panList.Add(list.mGameCardList);
         }
 
 
-        var allFlushList = FilterByCurrentTurn(GetAvailableCards_Flush(LamiGameUIManager.Inst.myCardPanel.myCards), panList, isFirstTurn);
-        var allSetList = FilterByCurrentTurn(GetAvailableCards_Set(LamiGameUIManager.Inst.myCardPanel.myCards), panList, isFirstTurn);
+        List<ATTACH_CLASS> allFlushList = FilterByCurrentTurn_FLUSH(GetAvailableCards_Flush(LamiGameUIManager.Inst.myCardPanel.myCards), panList, isFirstTurn);
+        List<ATTACH_CLASS> allSetList = new List<ATTACH_CLASS>();
+        if (!isFirstTurn)
+            allSetList = FilterByCurrentTurn_SET(GetAvailableCards_Set(LamiGameUIManager.Inst.myCardPanel.myCards), panList);
 
         var allFlushList_nonJoker = allFlushList.Where(x => x.list.Count(y => y.num == 15) == 0).ToList();
         allFlushList_nonJoker.Sort((a, b) => b.list.Sum(x => x.virtual_num) - a.list.Sum(x => x.virtual_num));
@@ -223,6 +225,258 @@ public class LamiMe : MonoBehaviour
         }
         CheckAllList("availList");
     }
+
+    public static List<ATTACH_CLASS> FilterByCurrentTurn_SET(List<List<Card>> AllList, List<List<Card>> panList)
+    {
+        List<ATTACH_CLASS> resList = new List<ATTACH_CLASS>();
+
+        List<ATTACH_CLASS> attachList = new List<ATTACH_CLASS>();
+        List<ATTACH_CLASS> addList = new List<ATTACH_CLASS>();
+
+        LogMgr.Inst.Log("------------------------------------ All lines -------------------------------------------", (int)LogLevels.SpecialLog);
+        LogMgr.Inst.ShowLog(AllList);
+        LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
+
+
+
+        LogMgr.Inst.Log("------------------------------------ Pane  lines -------------------------------------------", (int)LogLevels.SpecialLog);
+        for (int j = 0; j < panList.Count; j++)
+        {
+            LogMgr.Inst.ShowLog(panList[j]);
+        }
+        LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
+
+
+        bool canAttach = false;
+
+        // Get all cards
+        for (int i = 0; i < AllList.Count; i++)
+        {
+            canAttach = false;
+
+            int firstNum = AllList[i][0].virtual_num;
+
+            //Check if the card can attach to the existing lines.
+            for (int j = 0; j < panList.Count && canAttach == false; j++)
+            {
+                var line = panList[j];
+
+                bool isFlush = true;
+                firstNum = line[0].virtual_num;
+                for (int tttt = 1; tttt < line.Count; tttt++)
+                {
+                    if (line[tttt].virtual_num == firstNum)
+                    {
+                        isFlush = false;
+                        break;
+                    }
+                }
+
+                if (AllList[i].Count == 1 && !isFlush)
+                {
+                    if (AllList[i][0].virtual_num == line[0].virtual_num)
+                    {
+                        canAttach = true;
+
+                        ATTACH_CLASS new_item = new ATTACH_CLASS();
+                        new_item.lineNo = j;
+                        new_item.list = new List<Card>();
+                        new_item.list.AddRange(AllList[i].ToList());
+
+                        attachList.Add(new_item);
+
+                        CheckCondition("SET 1 Success", AllList[i], line);
+                        continue;
+                    }
+                    else
+                    {
+                        CheckCondition("SET 1 Second Condition error", AllList[i], line);
+                    }
+                }
+                else
+                {
+                    CheckCondition("SET 1 First Condition error", AllList[i], line);
+                }
+
+
+                if (AllList[i].Count > 1 && !isFlush)
+                {
+                    if (AllList[i][0].virtual_num == line[0].virtual_num)
+                    {
+                        if (AllList[i][0].virtual_num == line[1].virtual_num)
+                        {
+                            canAttach = true;
+
+                            ATTACH_CLASS new_item = new ATTACH_CLASS();
+                            new_item.lineNo = j;
+                            new_item.list = new List<Card>();
+                            new_item.list.AddRange(AllList[i].ToList());
+                            attachList.Add(new_item);
+                            CheckCondition("SET 22 Success", AllList[i], line);
+                            continue;
+                        }
+                        else
+                        {
+                            CheckCondition("SET 22 Third Condition error", AllList[i], line);
+                        }
+                    }
+                    else
+                    {
+                        CheckCondition("SET 22 Second Condition error", AllList[i], line);
+                    }
+                }
+                else
+                {
+                    CheckCondition("SET 22 First Condition error", AllList[i], line);
+                }
+
+            }
+            //Check if the card can add to new Line
+            if (canAttach == false && AllList[i].Count >= 3)
+            {
+                ATTACH_CLASS new_item = new ATTACH_CLASS();
+                new_item.lineNo = -1;
+                new_item.list = new List<Card>();
+                new_item.list.AddRange(AllList[i].ToList());
+                addList.Add(new_item);
+            }
+        }
+
+        if (attachList.Count > 0)
+        {
+            resList.AddRange(attachList);
+            LogMgr.Inst.Log("attach List is added", (int)LogLevels.SpecialLog);
+        }
+
+
+        if (addList.Count > 0)
+        {
+            resList.AddRange(addList);
+        }
+        return resList;
+    }
+    public static List<ATTACH_CLASS> FilterByCurrentTurn_FLUSH(List<List<Card>> AllList, List<List<Card>> panList, bool isFirst = false)
+    {
+        Debug.Log("Is First: = " + isFirst);
+        List<ATTACH_CLASS> resList = new List<ATTACH_CLASS>();
+
+        List<ATTACH_CLASS> attachList = new List<ATTACH_CLASS>();
+        List<ATTACH_CLASS> addList = new List<ATTACH_CLASS>();
+
+        LogMgr.Inst.Log("------------------------------------ All lines -------------------------------------------", (int)LogLevels.SpecialLog);
+        LogMgr.Inst.ShowLog(AllList);
+        LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
+
+
+
+        LogMgr.Inst.Log("------------------------------------ Pane  lines -------------------------------------------", (int)LogLevels.SpecialLog);
+        for (int j = 0; j < panList.Count; j++)
+        {
+            LogMgr.Inst.ShowLog(panList[j]);
+        }
+        LogMgr.Inst.Log("--------------------- end -------------------", (int)LogLevels.SpecialLog);
+
+
+        bool canAttach = false;
+
+        // Get all cards
+        for (int i = 0; i < AllList.Count; i++)
+        {
+            canAttach = false;
+
+            int firstNum = AllList[i][0].virtual_num;
+
+            //Check if the card can attach to the existing lines.
+            for (int j = 0; j < panList.Count && canAttach == false; j++)
+            {
+                var line = panList[j];
+
+                bool isFlush = true;
+                firstNum = line[0].virtual_num;
+                for (int tttt = 1; tttt < line.Count; tttt++)
+                {
+                    if (line[tttt].virtual_num == firstNum)
+                    {
+                        isFlush = false;
+                        break;
+                    }
+                }
+
+                if (AllList[i][AllList[i].Count - 1].virtual_num == line[0].virtual_num - 1 || // can attach  dealt card to first
+                        AllList[i][0].virtual_num == line[line.Count - 1].virtual_num + 1)
+                {
+                    if (isFlush)
+                    {
+                        if (AllList[i][0].color == line[0].color)
+                        {
+                            canAttach = true;
+                            ATTACH_CLASS new_item = new ATTACH_CLASS();
+                            new_item.lineNo = j;
+                            new_item.list = new List<Card>();
+                            new_item.list.AddRange(AllList[i].ToList());
+
+                            attachList.Add(new_item);
+                            CheckCondition("Flush Success", AllList[i], line);
+                            continue;
+
+                        }
+                        else
+                        {
+                            CheckCondition("Flush Third Condition error", AllList[i], line);
+                        }
+                    }
+                    else
+                    {
+                        CheckCondition("Flush Second Condition error", AllList[i], line);
+                    }
+                }
+                else
+                {
+                    CheckCondition("Flush First Condition error", AllList[i], line);
+                }
+            }
+            //Check if the card can add to new Line
+            if (canAttach == false && AllList[i].Count >= 3)
+            {
+                ATTACH_CLASS new_item = new ATTACH_CLASS();
+                new_item.lineNo = -1;
+                new_item.list = new List<Card>();
+                new_item.list.AddRange(AllList[i].ToList());
+                addList.Add(new_item);
+            }
+        }
+
+        if (!isFirst && attachList.Count > 0)
+        {
+            resList.AddRange(attachList);
+            LogMgr.Inst.Log("attach List is added", (int)LogLevels.SpecialLog);
+        }
+        else
+        {
+            LogMgr.Inst.Log("attach List isn't added, Reason. !isFirst=" + (!isFirst) + ", attachList.Count=" + attachList.Count, (int)LogLevels.SpecialLog);
+        }
+
+
+        if (addList.Count > 0)
+        {
+            if (isFirst)
+            {
+                foreach (var line in addList)
+                {
+                    if (line.list[0].virtual_num != line.list[1].virtual_num)
+                    {
+                        resList.Add(line);
+                    }
+                }
+            }
+            else
+            {
+                resList.AddRange(addList);
+            }
+        }
+        return resList;
+    }
+
     public void CheckAllList(string header)
     {
         LogMgr.Inst.Log("--------------" + header + "-------------", (int)LogLevels.ShowLamiAllList);
@@ -238,6 +492,7 @@ public class LamiMe : MonoBehaviour
         //LogMgr.Inst.ShowLog(second, header);
         LogMgr.Inst.Log("------------------------------------------------", (int)LogLevels.SpecialLog);
     }
+
     public static List<ATTACH_CLASS> FilterByCurrentTurn(List<List<Card>> AllList, List<List<Card>> panList, bool isFirst = false)
     {
         Debug.Log("Is First: = " + isFirst);
@@ -287,7 +542,7 @@ public class LamiMe : MonoBehaviour
 
                 bool isFlush = true;
                 firstNum = line[0].virtual_num;
-                for(int tttt = 1; tttt < line.Count; tttt++)
+                for (int tttt = 1; tttt < line.Count; tttt++)
                 {
                     if (line[tttt].virtual_num == firstNum)
                     {
@@ -578,20 +833,45 @@ public class LamiMe : MonoBehaviour
         int count = same_List.Count;
         for (int i = 0; i < count; i++)
         {
-            var list = m_tmpCardList.Where(x => x.MyCardId != same_List[i][0].MyCardId && x.num == same_List[i][0].num && x.num != 15).ToList();
-            List<Card> tmpList = new List<Card>();
-            foreach (var card in list)
+
+            Card parent = new Card();
+            parent = m_tmpCardList[i];
+
+            Queue<Card> q = new Queue<Card>();
+            q.Enqueue(parent);
+
+            List<Card> m_tmp_same_List = new List<Card>();
+
+            while (q.Count > 0)
             {
-                Card new_card = new Card(card.num, card.color);
-                new_card.MyCardId = card.MyCardId;
+                Card current = q.Dequeue();
+                if (current == null)
+                    continue;
 
-                tmpList.Add(new_card);
+                foreach (var child in current.Children_Set(m_tmpCardList))
+                {
+                    var card = new Card();
+                    card = child;
+                    q.Enqueue(card);
+                }
 
-                List<Card> newList = new List<Card>();
-                newList.Add(same_List[i][0]);
-                newList.AddRange(tmpList.ToList());
+                m_tmp_same_List.Add(current);
+            }
 
-                same_List.Add(newList);
+            foreach (var card in m_tmp_same_List)
+            {
+                if (card.parent == null) continue;
+                List<Card> tmpList = new List<Card>();
+
+                tmpList.Add(OnlyCardInfo(card));
+                var tmpCard = card.parent;
+
+                while (tmpCard != null)
+                {
+                    tmpList.Add(OnlyCardInfo(tmpCard));
+                    tmpCard = tmpCard.parent;
+                }
+                same_List.Add(tmpList);
             }
         }
 
@@ -623,25 +903,22 @@ public class LamiMe : MonoBehaviour
             }
         }
 
-        // Remove only one carded list
-        same_List = same_List.Where(x => x.Count > 1).ToList();
+        // // Remove only one carded list
+        // same_List = same_List.Where(x => x.Count > 1).ToList();
 
-        // Sort by joker
-        //same_List.Sort((a, b) => a.Count(ai => ai.num == 15) - b.Count(bi => bi.num == 15));
-
-        // Debug.Log("------------ SET ----------------");
-        // foreach(var line in same_List)
-        // {
-        //     string str = "";
-        //     foreach(var card in line)
-        //     {
-        //         str += card.num+"("+card.virtual_num+")"+card.color+",";
-        //     }
-        //     Debug.Log(str);
-        // }
-        // Debug.Log("------------ SET End----------------");
         return same_List;
     }
+
+    private static Card OnlyCardInfo(Card card)
+    {
+        Card res = new Card();
+        res.MyCardId = card.MyCardId;
+        res.num = card.num;
+        res.color = card.color;
+        res.virtual_num = card.virtual_num;
+        return res;
+    }
+
     public static List<List<Card>> GetAvailableCards_Set(List<LamiMyCard> myCurrent)
     {
         List<Card> m_tmpCardList = new List<Card>();

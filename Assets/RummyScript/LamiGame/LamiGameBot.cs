@@ -214,9 +214,10 @@ public class LamiGameBot
         var flushList = LamiMe.GetAvailableCards_Flush_With_Card(remained_cardList);
         var setList = LamiMe.GetAvailableCards_Set_With_Card(remained_cardList);
 
-        var allFlushList = LamiMe.FilterByCurrentTurn(flushList, panList, isFirstTurn);
-        var allSetList = LamiMe.FilterByCurrentTurn(setList, panList, isFirstTurn);
-
+        List<ATTACH_CLASS> allFlushList = LamiMe.FilterByCurrentTurn_FLUSH(flushList, panList, isFirstTurn);
+        List<ATTACH_CLASS> allSetList = new List<ATTACH_CLASS>();
+        if(!isFirstTurn)
+            allSetList = LamiMe.FilterByCurrentTurn_SET(setList, panList);
 
 
         var allFlushList_nonJoker = allFlushList.Where(x => x.list.Count(y => y.num == 15) == 0).ToList();
