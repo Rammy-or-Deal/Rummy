@@ -236,23 +236,23 @@ public class BaccaratBankerMgr : MonoBehaviour
             string prize_area = "";
             foreach (var area in victoryArea)
             {
-                int prizeTime = 1;
+                int prizeTimes = 1;
                 switch (area)
                 {
                     case Constants.BaccaratPlayerArea:
-                        prizeTime = Constants.BaccaratPlayerArea_prize;
+                        prizeTimes = Constants.BaccaratPlayerArea_prize;
                         break;
                     case Constants.BaccaratBankerArea:
-                        prizeTime = Constants.BaccaratBankerArea_prize;
+                        prizeTimes = Constants.BaccaratBankerArea_prize;
                         break;
                     case Constants.BaccaratDrawArea:
-                        prizeTime = Constants.BaccaratDrawArea_prize;
+                        prizeTimes = Constants.BaccaratDrawArea_prize;
                         break;
                     case Constants.BaccaratPPArea:
-                        prizeTime = Constants.BaccaratPPArea_prize;
+                        prizeTimes = Constants.BaccaratPPArea_prize;
                         break;
                     case Constants.BaccaratBPArea:
-                        prizeTime = Constants.BaccaratBPArea_prize;
+                        prizeTimes = Constants.BaccaratBPArea_prize;
                         break;
                 }
 
@@ -263,7 +263,7 @@ public class BaccaratBankerMgr : MonoBehaviour
                     moneySum = betList.Where(x => int.Parse(x.Split(':')[1]) == area).Sum(x => getCoinValue(int.Parse(x.Split(':')[0])));
                 }
                 catch { }
-                prize += moneySum * prizeTime;
+                prize += moneySum * prizeTimes;
                 if (moneySum > 0)
                 {
                     prize_area += area + ":" + moneySum + ",";

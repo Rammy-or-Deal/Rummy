@@ -139,6 +139,14 @@ public class BaccaratPanMgr : MonoBehaviour
         {
             betPanel.pans[area].winObj.gameObject.SetActive(true);
         }
+
+        // Showing Historical chart.
+        UpdateHistoryPan(areaList[0]);
+    }
+
+    private void UpdateHistoryPan(int v)
+    {
+        UIBHistory.Inst.AddCell(v);
     }
 
     internal void OnPanTimeUpdate()

@@ -19,23 +19,26 @@ public class UIBHistoryCell : MonoBehaviour
     public void UpdateInfo(int type)
     {
         this.type = type;
-        if (type == 0)
+        if (type == Constants.BaccaratDrawArea)
         {
-            circle.color = new Color(66, 135, 39);
+            circle.color = new Color32(66, 135, 39, 100);
             letter.text = "T";
         }
-        else if (type == 1)
+        else if (type == Constants.BaccaratBankerArea)
         {
-            circle.color = new Color(236, 50, 63);
+            circle.color = new Color32(236, 50, 63, 100);
             letter.text = "B";
         }
-        else if (type == 2)
+        else if (type == Constants.BaccaratPlayerArea)
         {
-            circle.color = new Color(50, 101, 236);
+            circle.color = new Color32(50, 101, 236, 100);
             letter.text = "P";
         }
 
-        circle.gameObject.SetActive(true);
-        letter.gameObject.SetActive(true);
+        
+        circle.gameObject.SetActive(type != -1);
+        letter.gameObject.SetActive(type != -1);
+
+
     }
 }

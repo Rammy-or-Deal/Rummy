@@ -18,13 +18,21 @@ public class UIBHistory : MonoBehaviour
             Inst = this;
         else
         {
-            Destroy	(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 
     void Start()
     {
-        cells=layout.GetComponentsInChildren<UIBHistoryCell>();
+        cells = layout.GetComponentsInChildren<UIBHistoryCell>();
+        InitHistoryPan();
+    }
+
+    public void InitHistoryPan()
+    {
+        typeCnt = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        for (int i = 0; i < cells.Length; i++)
+            cells[i].UpdateInfo(-1);
     }
 
     public void OnClickShowBtn()
@@ -35,7 +43,9 @@ public class UIBHistory : MonoBehaviour
 
     public void AddCell(int type)
     {
+        LogMgr.Inst.Log("Added Victory area. " + type, (int)LogLevels.PanLog);
         cells[num].UpdateInfo(type);
+
         typeCnt[type]++;
         num++;
     }
