@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3185,7 +3185,7 @@ PrefabInstance:
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -87
+      value: 94
       objectReference: {fileID: 0}
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
@@ -6009,10 +6009,10 @@ RectTransform:
   m_Father: {fileID: 178366063}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &979231281
 PrefabInstance:
@@ -10500,12 +10500,12 @@ PrefabInstance:
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 383
+      value: 199
       objectReference: {fileID: 0}
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 34.100006
+      value: -103
       objectReference: {fileID: 0}
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}

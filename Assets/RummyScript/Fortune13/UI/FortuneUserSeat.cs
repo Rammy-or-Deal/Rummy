@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class FortuneUserSeat : MonoBehaviour
 {
- static public FortuneUserSeat Inst;
-    //user info
     public Image mUserFrame;
     public Image mUserPic;
     public Image mUserSkillPic;
@@ -26,13 +24,7 @@ public class FortuneUserSeat : MonoBehaviour
     public bool isSeat;
     public int actorNumber;
     #region UNITY   
-
-    private void Awake()
-    {
-        if (!Inst)
-            Inst = this;
-    }
-
+   
     public void Start()
     {
         mUserPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
