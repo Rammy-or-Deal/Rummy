@@ -97,7 +97,7 @@ public class BaccaratBankerMgr : MonoBehaviour
 
             var list = tmp.Split('/').ToList();
             var sum = 0;
-            sum = list.Where(x => int.Parse(x.Split(':')[1]) == area).Sum(x => int.Parse(x.Split(':')[1]));
+            sum = list.Where(x => int.Parse(x.Split(':')[1]) == area).Sum(x => int.Parse(x.Split(':')[0]));
             if (moneySum < sum)
             {
                 res = player.ActorNumber;

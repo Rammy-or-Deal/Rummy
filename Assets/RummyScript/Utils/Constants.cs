@@ -54,7 +54,7 @@ public static class Constants
     public static int botWaitTimeforBuild = 2;
 
     #region  constants for Baccarat
-    public static int BaccaratCurrentTime = 15;
+    public static int BaccaratCurrentTime = 7;
 
     public static int BaccaratCardUnitNumber = 4;
     public static int BaccaratScoreLimit = 5;
@@ -71,6 +71,6 @@ public static class Constants
     public const int BaccaratBPArea_prize = 11;
     
 
-    public static float BaccaratShowingCard_waitTime = 3;
+    public static float BaccaratShowingCard_waitTime = 10;
     #endregion
 }
