@@ -72,5 +72,7 @@ public static class Constants
     
 
     public static float BaccaratShowingCard_waitTime = 10;
+
+    public static float BaccaratDistributionTime = 2.0f;
     #endregion
 }

@@ -163,7 +163,6 @@ public class BaccaratPanMgr : MonoBehaviour
         var max_betting_player = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
 
         MoveDistributedCardToPlayer(max_betting_banker, max_betting_player);
-        //cardPanel.leftCards[0]
 
         LogMgr.Inst.Log("Card Distributed. banker:=" + bankerCard.cardString + ",  player:=" + playerCard.cardString, (int)LogLevels.PlayerLog1);
 
@@ -175,7 +174,9 @@ public class BaccaratPanMgr : MonoBehaviour
         ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player1));
     }
 
-    private async void MoveDistributedCardToPlayer(int max_betting_banker, int max_betting_player)
+
+
+    private void MoveDistributedCardToPlayer(int max_betting_banker, int max_betting_player)
     {
         BaccaratUserSeat banker = null;
         try
@@ -191,36 +192,41 @@ public class BaccaratPanMgr : MonoBehaviour
         catch { }
 
         // move cards to banker's seat
-        Vector3 position;
+
         if (banker != null)
         {
-            position = banker.cardPos[0].gameObject.transform.position;
-            iTween.MoveTo(cardPanel.leftCards[0].gameObject, position, 2.0f);
-            position = banker.cardPos[1].gameObject.transform.position;
-            iTween.MoveTo(cardPanel.leftCards[1].gameObject, position, 2.0f);
+            MoveDistributed_SmallCards(cardPanel.leftCards, banker.cardPos, Constants.BaccaratDistributionTime);
 
-            if(max_betting_banker == PhotonNetwork.LocalPlayer.ActorNumber)
+            if (max_betting_banker == PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                //await Task.Delay(1000);
-                position = cardPanel.bigCards[0].gameObject.transform.position;
-                var s = cardPanel.bigCards[0].gameObject.transform.lossyScale;
-                
-                iTween.MoveTo(cardPanel.leftCards[0].gameObject, position, 3.0f);
-                position = cardPanel.bigCards[1].gameObject.transform.position;
-                iTween.MoveTo(cardPanel.leftCards[1].gameObject, position, 3.0f);
-
-                
+                MoveDistributed_BigCards(cardPanel.leftCards, banker.cardPos, Constants.BaccaratDistributionTime);
             }
         }
 
         // move cards to player's seat.
         if (player != null)
         {
-            position = player.cardPos[0].gameObject.transform.position;
-            iTween.MoveTo(cardPanel.rightCards[0].gameObject, position, 2.0f);
-            position = player.cardPos[1].gameObject.transform.position;
-            iTween.MoveTo(cardPanel.rightCards[1].gameObject, position, 2.0f);
+            MoveDistributed_SmallCards(cardPanel.rightCards, player.cardPos, Constants.BaccaratDistributionTime);
+
+            if (max_betting_banker == PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                MoveDistributed_BigCards(cardPanel.leftCards, banker.cardPos, Constants.BaccaratDistributionTime);
+            }
         }
+    }
+
+    private void MoveDistributed_BigCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
+    {
+        
+    }
+
+    private void MoveDistributed_SmallCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
+    {
+        Vector3 position;
+        position = destination_cardPos[0].gameObject.transform.position;
+        iTween.MoveTo(originCards[0].gameObject, position, time);
+        position = destination_cardPos[1].gameObject.transform.position;
+        iTween.MoveTo(originCards[1].gameObject, position, time);
     }
 
     Coroutine ShowingCardRoutine;
