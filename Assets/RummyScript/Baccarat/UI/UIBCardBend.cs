@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using Unity.UNetWeaver;
 using UnityEngine;
 
@@ -12,9 +13,18 @@ public class UIBCardBend : MonoBehaviour
     public int id;
     public bool isClicked;
     private float damping = 10;
+    public static UIBCardBend Inst;
+
+    public GameObject bankBtn;
+    public GameObject camera;
+    public Transform bigCamPos;
+    public Transform originCamPos;
+
+    private bool isBigShow;
+    
     void Start()
     {
-        
+        Inst = this;
     }
     
     void Update () {
@@ -76,11 +86,24 @@ public class UIBCardBend : MonoBehaviour
             case TouchPhase.Ended:
                 if (isClicked)
                 {
-                    bend[id].position = new Vector3(2,0,0);
+                    bend[id].localPosition = new Vector3(2,0,0);
                     bend[id].localRotation=new Quaternion(0,0,0,0);
                     isClicked = false;
                 }
                 break;
         }
+    }
+
+    public void OnClickShowBigCard()
+    {
+        float time = 0.5f;
+        isBigShow = !isBigShow;
+        gameObject.SetActive(isBigShow);
+        bankBtn.SetActive(isBigShow);
+        if (isBigShow)
+            iTween.MoveTo(camera, bigCamPos.position, time);
+        else
+            camera.transform.localPosition=new Vector3(0,0,0);
+            
     }
 }
