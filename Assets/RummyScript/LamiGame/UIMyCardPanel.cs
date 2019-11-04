@@ -31,9 +31,9 @@ public class UIMyCardPanel : MonoBehaviour
     {
         for (int i = 0; i < cards.Length; i++)
         {
-            LamiMyCard cardEntry = myCards[i];
-            cardEntry.num = cards[i].num;
-            cardEntry.color = cards[i].color;
+            myCards[i].num = cards[i].num;
+            myCards[i].color = cards[i].color;
+            myCards[i].MyCardId = i;
             //cardEntry.UpdateValue();
         }
 
@@ -244,6 +244,16 @@ public class UIMyCardPanel : MonoBehaviour
     public void SetPlayButtonState()
     {
         int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);    // Get Selected Card
+
+        if (count == 3)
+        {
+            LamiGameUIManager.Inst.shuffleButton.interactable = true;
+        }
+        else
+        {
+            LamiGameUIManager.Inst.shuffleButton.interactable = false;
+        }
+
         ClearMachedCardList();
 
 

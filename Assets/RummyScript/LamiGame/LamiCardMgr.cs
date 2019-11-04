@@ -197,6 +197,34 @@ public class LamiCardMgr : MonoBehaviour
         return cardList;
     }
 
+    internal void OnShuffleRequest(Player player)
+    {
+        //cardString += card.num + ":" + card.color + ":" + card.MyCardId + ",";
+        var cardString = (string)player.CustomProperties[Common.SHUFFLE_CARDS];
+
+        var cardList = cardString.Split(',');
+        for(int i = 0; i < cardList.Length; i++)
+        {
+            try{
+            var tmp = cardList[i].Split(':').Select(Int32.Parse).ToArray();
+            initCard[tmp[1]][tmp[0]]++;
+
+            var new_card = GetRandomCard();
+            tmp[0] = new_card.num;
+            tmp[1] = new_card.color;
+            cardList[i] = tmp[0]+":"+tmp[1]+":"+tmp[2];
+            }catch{}
+        }
+        cardString = string.Join(",", cardList);
+
+        
+        Hashtable props = new Hashtable{
+            {Common.LAMI_MESSAGE, (int)LamiMessages.OnShuffleAccept},
+            {Common.SHUFFLE_CARDS, cardString}
+        };
+        player.SetCustomProperties(props);
+    }
+
     public static string ConvertSelectedListToString(List<Card> cardList)
     {
         int[] numList = new int[cardList.Count];

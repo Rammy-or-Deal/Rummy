@@ -84,7 +84,7 @@ public class LamiLogicMgr : MonoBehaviour
         //int botWaitTime = UnityEngine.Random.Range(7, 10);
         int botWaitTime = Constants.botWaitTime;
         if (Constants.LamiBuildMethod == BuildMethod.Product)
-            botWaitTime = UnityEngine.Random.Range(Constants.botWaitTimeforBuild, Constants.botWaitTimeforBuild+2);
+            botWaitTime = UnityEngine.Random.Range(Constants.botWaitTimeforBuild, Constants.botWaitTimeforBuild + 2);
 
         while (!isStart)
         {
@@ -158,6 +158,14 @@ public class LamiLogicMgr : MonoBehaviour
                 break;
             case (int)LamiMessages.OnAutoPlayer:
                 LamiPlayerMgr.Inst.OnAutoPlayer();
+                break;
+            case (int)LamiMessages.OnShuffleRequest:
+                if (PhotonNetwork.IsMasterClient)
+                    LamiCardMgr.Inst.OnShuffleRequest(p);
+                break;
+            case (int)LamiMessages.OnShuffleAccept:
+                if(p == PhotonNetwork.LocalPlayer)
+                    LamiMe.Inst.OnShuffleAccept();
                 break;
         }
     }

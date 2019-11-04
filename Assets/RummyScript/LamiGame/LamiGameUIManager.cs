@@ -21,6 +21,7 @@ public class LamiGameUIManager : MonoBehaviour
     public Button tipButton;
     public Button playButton;
     public Button arrangeButton;
+    public Button shuffleButton;
     public GameObject settingDlg;
     public UILamiFinish finishDlg;
     //Menu
@@ -69,6 +70,7 @@ public class LamiGameUIManager : MonoBehaviour
         playButton.gameObject.SetActive(false);
         tipButton.gameObject.SetActive(false);
         arrangeButton.gameObject.SetActive(true);
+        shuffleButton.gameObject.SetActive(true);
         firstImg.SetActive(false);
     }
 
@@ -85,7 +87,10 @@ public class LamiGameUIManager : MonoBehaviour
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         Debug.Log("ready click");
     }
-
+    public void OnClickShuffle()
+    {
+        LamiMe.Inst.OnClickShuffle();
+    }
     public void OnClickPlay()
     {
         //added GameCardList

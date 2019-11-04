@@ -24,7 +24,7 @@ public class Common : MonoBehaviour
     public static string BOT_ID = "Bot_ID";
     public static string BOT_STATUS = "BOT_STATUS";
     /********************************************* */
-
+    public static object SHUFFLE_CARDS = "LamiShuffleCards";
 
     public static string CARD_LIST_STRING = "CARD_LIST_STRING";
 
@@ -86,4 +86,6 @@ public class Common : MonoBehaviour
     public static string AdditionalRoomType = "AdditionalRoomType";
 
     public static string BaccaratRoomPlayers = "BaccaratRoomPlayers";
+
+    
 }

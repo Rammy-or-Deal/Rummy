@@ -35,6 +35,8 @@ enum LamiMessages
     OnUserReadyToStart_M,     // When the user received all cards and showed
     OnPlayerStatusChanged,
     OnAutoPlayer,
+    OnShuffleRequest,
+    OnShuffleAccept,
 }
 public class LamiMgr : MonoBehaviour
 {

@@ -76,6 +76,30 @@ public class LamiMe : MonoBehaviour
         LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
 
     }
+
+    internal void OnClickShuffle()
+    {
+        string cardString = "";
+        //LamiGameUIManager.Inst.myCardPanel.myCards
+        int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);    // Get Selected Card
+        if (count != 3)
+        {
+            LamiGameUIManager.Inst.shuffleButton.interactable = false;
+            return;
+        }
+        foreach (var card in LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList())
+        {
+            cardString += card.num + ":" + card.color + ":" + card.MyCardId + ",";
+        }
+        cardString = cardString.Trim(',');
+
+        Hashtable props = new Hashtable{
+            {Common.LAMI_MESSAGE, (int)LamiMessages.OnShuffleRequest},
+            {Common.SHUFFLE_CARDS, cardString}
+        };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+    }
+
     public void SendMyStatus()
     {
         Hashtable props = new Hashtable{
@@ -161,6 +185,24 @@ public class LamiMe : MonoBehaviour
         }
         catch { }
     }
+
+    internal void OnShuffleAccept()
+    {
+        var cardString = (string)PhotonNetwork.LocalPlayer.CustomProperties[Common.SHUFFLE_CARDS];
+
+        var cardList = cardString.Split(',');
+        for (int i = 0; i < cardList.Length; i++)
+        {
+            var tmp = cardList[i].Split(':').Select(Int32.Parse).ToArray();
+            var card = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x=>x.MyCardId == tmp[2]).First();
+            card.num = tmp[0];
+            card.color = tmp[1];
+            card.UpdateValue();
+        }
+        Init_FlashList();
+        LamiGameUIManager.Inst.playButton.interactable = false;
+    }
+
     public void Init_FlashList()
     {
         try
