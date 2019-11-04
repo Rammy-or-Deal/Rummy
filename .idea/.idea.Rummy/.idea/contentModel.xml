@@ -170,6 +170,359 @@
           <e p="License.txt" t="Include" />
           <e p="Readme.txt" t="Include" />
         </e>
+        <e p="Mega-Fiers" t="Include">
+          <e p="Editor" t="Include">
+            <e p="MegaFiers" t="Include">
+              <e p="MegaAttachEditor.cs" t="Include" />
+              <e p="MegaAttractorShapeEditor.cs" t="Include" />
+              <e p="MegaBendEditor.cs" t="Include" />
+              <e p="MegaBezPatchEditor.cs" t="Include" />
+              <e p="MegaBubbleEditor.cs" t="Include" />
+              <e p="MegaBulgeEditor.cs" t="Include" />
+              <e p="MegaConformModEditor.cs" t="Include" />
+              <e p="MegaConformMultiEditor.cs" t="Include" />
+              <e p="MegaCopyObjects.cs" t="Include" />
+              <e p="MegaCrumpleEditor.cs" t="Include" />
+              <e p="MegaCurveDeformEditor.cs" t="Include" />
+              <e p="MegaCurveSculptEditor.cs" t="Include" />
+              <e p="MegaCurveSculptLayeredEditor.cs" t="Include" />
+              <e p="MegaCylindrifyEditor.cs" t="Include" />
+              <e p="MegaDeepCopy.cs" t="Include" />
+              <e p="MegaDeformableEditor.cs" t="Include" />
+              <e p="MegaDisplaceEditor.cs" t="Include" />
+              <e p="MegaDisplaceLimitsEditor.cs" t="Include" />
+              <e p="MegaDynamicRippleEditor.cs" t="Include" />
+              <e p="MegaFFD2x2x2Editor.cs" t="Include" />
+              <e p="MegaFFD3x3x3Editor.cs" t="Include" />
+              <e p="MegaFFD4x4x4Editor.cs" t="Include" />
+              <e p="MegaFFDAnimateEditor.cs" t="Include" />
+              <e p="MegaFFDEditor.cs" t="Include" />
+              <e p="MegaFiersWindow.cs" t="Include" />
+              <e p="MegaGlobeEditor.cs" t="Include" />
+              <e p="MegaHumpEditor.cs" t="Include" />
+              <e p="MegaMatSelectEditor.cs" t="Include" />
+              <e p="MegaMeltEditor.cs" t="Include" />
+              <e p="MegaModifierEditor.cs" t="Include" />
+              <e p="MegaModifyGroupEditor.cs" t="Include" />
+              <e p="MegaModifyObjectEditor.cs" t="Include" />
+              <e p="MegaMorphAnimatorEditor.cs" t="Include" />
+              <e p="MegaMorphAnimEditor.cs" t="Include" />
+              <e p="MegaMorphEditor.cs" t="Include" />
+              <e p="MegaMorphLinkEditor.cs" t="Include" />
+              <e p="MegaMorphOMaticEditor.cs" t="Include" />
+              <e p="MegaMorphRefEditor.cs" t="Include" />
+              <e p="MegaMultiVolSelectEditor.cs" t="Include" />
+              <e p="MegaNoiseEditor.cs" t="Include" />
+              <e p="MegaOBJExportEditor.cs" t="Include" />
+              <e p="MegaPageFlipEditor.cs" t="Include" />
+              <e p="MegaPaintEditor.cs" t="Include" />
+              <e p="MegaParseEditor.cs" t="Include" />
+              <e p="MegaPathDeformEditor.cs" t="Include" />
+              <e p="MegaPivotAdjustEditor.cs" t="Include" />
+              <e p="MegaPointCacheAnimatorEditor.cs" t="Include" />
+              <e p="MegaPointCacheEditor.cs" t="Include" />
+              <e p="MegaPointCacheRefEditor.cs" t="Include" />
+              <e p="MegaPrefabMaker.cs" t="Include" />
+              <e p="MegaPushEditor.cs" t="Include" />
+              <e p="MegaRadialSkewEditor.cs" t="Include" />
+              <e p="MegaRippleEditor.cs" t="Include" />
+              <e p="MegaRopeDeformEditor.cs" t="Include" />
+              <e p="MegaRubberEditor.cs" t="Include" />
+              <e p="MegaScaleEditor.cs" t="Include" />
+              <e p="MegaSelectionEditor.cs" t="Include" />
+              <e p="MegaShape" t="Include">
+                <e p="MegaDrawSplineEditor.cs" t="Include" />
+                <e p="MegaHoseAttachEditor.cs" t="Include" />
+                <e p="MegaHoseEditor.cs" t="Include" />
+                <e p="MegaHoseNewAttachEditor.cs" t="Include" />
+                <e p="MegaHoseNewEditor.cs" t="Include" />
+                <e p="MegaMeshPageEditor.cs" t="Include" />
+                <e p="MegaShapeArcEditor.cs" t="Include" />
+                <e p="MegaShapeCircleEditor.cs" t="Include" />
+                <e p="MegaShapeEditor.cs" t="Include" />
+                <e p="MegaShapeEllipseEditor.cs" t="Include" />
+                <e p="MegaShapeHelixEditor.cs" t="Include" />
+                <e p="MegaShapeLineEditor.cs" t="Include" />
+                <e p="MegaShapeNGonEditor.cs" t="Include" />
+                <e p="MegaShapeOSMWindow.cs" t="Include" />
+                <e p="MegaShapeRectangleEditor.cs" t="Include" />
+                <e p="MegaShapeStarEditor.cs" t="Include" />
+                <e p="MegaShapeWindow.cs" t="Include" />
+                <e p="MegaShapeWizard.cs" t="Include" />
+                <e p="MegaTankWheelsEditor.cs" t="Include" />
+                <e p="MegaTracksEditor.cs" t="Include" />
+                <e p="MegaTrainFollowEditor.cs" t="Include" />
+              </e>
+              <e p="MegaSimpleEditor.cs" t="Include" />
+              <e p="MegaSimpleModEditor.cs" t="Include" />
+              <e p="MegaSinusCurveEditor.cs" t="Include" />
+              <e p="MegaSkewEditor.cs" t="Include" />
+              <e p="MegaSpherifyEditor.cs" t="Include" />
+              <e p="MegaSqueezeEditor.cs" t="Include" />
+              <e p="MegaStretchEditor.cs" t="Include" />
+              <e p="MegaTaperEditor.cs" t="Include" />
+              <e p="MegaTreeBendEditor.cs" t="Include" />
+              <e p="MegaTwistEditor.cs" t="Include" />
+              <e p="MegaUndo.cs" t="Include" />
+              <e p="MegaUVAdjustEditor.cs" t="Include" />
+              <e p="MegaUVTilesEditor.cs" t="Include" />
+              <e p="MegaVertColSelectEditor.cs" t="Include" />
+              <e p="MegaVertexAnimEditor.cs" t="Include" />
+              <e p="MegaVertNoiseEditor.cs" t="Include" />
+              <e p="MegaVolSelectEditor.cs" t="Include" />
+              <e p="MegaWarpBindEditor.cs" t="Include" />
+              <e p="MegaWaveEditor.cs" t="Include" />
+              <e p="MegaWaveMeshEditor.cs" t="Include" />
+              <e p="MegaWavingEditor.cs" t="Include" />
+              <e p="MegaWireDeformEditor.cs" t="Include" />
+              <e p="MegaWorldPathDeformEditor.cs" t="Include" />
+              <e p="MegaWrapEditor.cs" t="Include" />
+              <e p="Warps" t="Include">
+                <e p="MegaBendWarpEditor.cs" t="Include" />
+                <e p="MegaBubbleWarpEditor.cs" t="Include" />
+                <e p="MegaCylindrifyWarpEditor.cs" t="Include" />
+                <e p="MegaFFD2x2x2WarpEditor.cs" t="Include" />
+                <e p="MegaFFD3x3x3WarpEditor.cs" t="Include" />
+                <e p="MegaFFD4x4x4WarpEditor.cs" t="Include" />
+                <e p="MegaFFDWarpEditor.cs" t="Include" />
+                <e p="MegaGlobeWarpEditor.cs" t="Include" />
+                <e p="MegaHumpWarpEditor.cs" t="Include" />
+                <e p="MegaMeltWarpEditor.cs" t="Include" />
+                <e p="MegaNoiseWarpEditor.cs" t="Include" />
+                <e p="MegaRippleWarpEditor.cs" t="Include" />
+                <e p="MegaSinusCurveWarpEditor.cs" t="Include" />
+                <e p="MegaSkewWarpEditor.cs" t="Include" />
+                <e p="MegaSpherifyWarpEditor.cs" t="Include" />
+                <e p="MegaSqueezeWarpEditor.cs" t="Include" />
+                <e p="MegaStretchWarpEditor.cs" t="Include" />
+                <e p="MegaTaperWarpEditor.cs" t="Include" />
+                <e p="MegaTwistWarpEditor.cs" t="Include" />
+                <e p="MegaWarpEditor.cs" t="Include" />
+                <e p="MegaWaveWarpEditor.cs" t="Include" />
+                <e p="MegaWavingWarpEditor.cs" t="Include" />
+                <e p="MegaZStretchWarpEditor.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="MegaCache" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="Editor" t="Include">
+                <e p="MegaCacheOBJEditor.cs" t="Include" />
+              </e>
+              <e p="MegaCacheImage.cs" t="Include" />
+              <e p="MegaCacheMeshConstructor.cs" t="Include" />
+              <e p="MegaCacheOBJ.cs" t="Include" />
+              <e p="MegaCacheOBJImport.cs" t="Include" />
+              <e p="MegaCacheUtils.cs" t="Include" />
+            </e>
+          </e>
+          <e p="MegaFier Test Scene" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="BallBounce.cs" t="Include" />
+              <e p="Bouyancy.cs" t="Include" />
+              <e p="BouyancyNew.cs" t="Include" />
+              <e p="KDTree.cs" t="Include" />
+              <e p="MatchShape.cs" t="Include" />
+              <e p="MegaGlobeLink.cs" t="Include" />
+              <e p="MegaGUI.cs" t="Include" />
+              <e p="MegaIWave.cs" t="Include" />
+              <e p="MegaRuntimeAttach.cs" t="Include" />
+              <e p="MegaSpawnTest.cs" t="Include" />
+              <e p="MegaTestAnimator.cs" t="Include" />
+              <e p="MegaWireDeform.cs" t="Include" />
+              <e p="MOrbit.cs" t="Include" />
+              <e p="PathFollow.cs" t="Include" />
+              <e p="PyramidMesh.cs" t="Include" />
+              <e p="Scroll.cs" t="Include" />
+              <e p="SoftBody.cs" t="Include" />
+              <e p="ToggleMultiCore.cs" t="Include" />
+              <e p="TyreRipple.cs" t="Include" />
+              <e p="WalkBridge.cs" t="Include" />
+              <e p="WalkRope.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Readme.txt" t="Include" />
+          <e p="Scripts" t="Include">
+            <e p="MegaFiers" t="Include">
+              <e p="MegaBezPatch.cs" t="Include" />
+              <e p="MegaBook.cs" t="Include" />
+              <e p="MegaBookNew.cs" t="Include" />
+              <e p="MegaBox3.cs" t="Include" />
+              <e p="MegaControllers" t="Include">
+                <e p="MegaBezFloatKeyControl.cs" t="Include" />
+                <e p="MegaBezVector3KeyControl.cs" t="Include" />
+                <e p="MegaControl.cs" t="Include" />
+              </e>
+              <e p="MegaMatrix.cs" t="Include" />
+              <e p="MegaPerlin.cs" t="Include" />
+              <e p="MegaShape" t="Include">
+                <e p="MegaCharacterFollow.cs" t="Include" />
+                <e p="MegaDrawSpline.cs" t="Include" />
+                <e p="MegaHose.cs" t="Include" />
+                <e p="MegaHoseAttach.cs" t="Include" />
+                <e p="MegaHoseNew.cs" t="Include" />
+                <e p="MegaHoseNewAttach.cs" t="Include" />
+                <e p="MegaKML.cs" t="Include" />
+                <e p="MegaMeshPage.cs" t="Include" />
+                <e p="MegaShape.cs" t="Include" />
+                <e p="MegaShapeAnimate.cs" t="Include" />
+                <e p="MegaShapeArc.cs" t="Include" />
+                <e p="MegaShapeCircle.cs" t="Include" />
+                <e p="MegaShapeEllipse.cs" t="Include" />
+                <e p="MegaShapeHelix.cs" t="Include" />
+                <e p="MegaShapeLightMapWindow.cs" t="Include" />
+                <e p="MegaShapeLine.cs" t="Include" />
+                <e p="MegaShapeNGon.cs" t="Include" />
+                <e p="MegaShapeOSM.cs" t="Include" />
+                <e p="MegaShapeRBodyPath.cs" t="Include" />
+                <e p="MegaShapeRBodyPathNew.cs" t="Include" />
+                <e p="MegaShapeRectangle.cs" t="Include" />
+                <e p="MegaShapeStar.cs" t="Include" />
+                <e p="MegaShapeSVG.cs" t="Include" />
+                <e p="MegaShapeSXL.cs" t="Include" />
+                <e p="MegaTankWheels.cs" t="Include" />
+                <e p="MegaTracks.cs" t="Include" />
+                <e p="MegaTrainFollow.cs" t="Include" />
+              </e>
+              <e p="MegaUtils.cs" t="Include" />
+              <e p="MegaWaveMesh.cs" t="Include" />
+              <e p="MegaXMLReader.cs" t="Include" />
+              <e p="Modifiers" t="Include">
+                <e p="MegaAttractorShape.cs" t="Include" />
+                <e p="MegaBend.cs" t="Include" />
+                <e p="MegaBubble.cs" t="Include" />
+                <e p="MegaBulge.cs" t="Include" />
+                <e p="MegaCollisionDeform.cs" t="Include" />
+                <e p="MegaConformMod.cs" t="Include" />
+                <e p="MegaConformMulti.cs" t="Include" />
+                <e p="MegaCrumple.cs" t="Include" />
+                <e p="MegaCurveDeform.cs" t="Include" />
+                <e p="MegaCurveSculpt.cs" t="Include" />
+                <e p="MegaCurveSculptLayered.cs" t="Include" />
+                <e p="MegaCylindrify.cs" t="Include" />
+                <e p="MegaDeformable.cs" t="Include" />
+                <e p="MegaDisplace.cs" t="Include" />
+                <e p="MegaDisplaceLimits.cs" t="Include" />
+                <e p="MegaDisplaceRT.cs" t="Include" />
+                <e p="MegaDisplaceWebCam.cs" t="Include" />
+                <e p="MegaDynamicRipple.cs" t="Include" />
+                <e p="MegaFFD.cs" t="Include" />
+                <e p="MegaFFD2x2x2.cs" t="Include" />
+                <e p="MegaFFD3x3x3.cs" t="Include" />
+                <e p="MegaFFD4x4x4.cs" t="Include" />
+                <e p="MegaFFDAnimate.cs" t="Include" />
+                <e p="MegaGlobe.cs" t="Include" />
+                <e p="MegaHitDeform.cs" t="Include" />
+                <e p="MegaHump.cs" t="Include" />
+                <e p="MegaMelt.cs" t="Include" />
+                <e p="MegaModifier.cs" t="Include" />
+                <e p="MegaModifiers.cs" t="Include" />
+                <e p="MegaModifyGroup.cs" t="Include" />
+                <e p="MegaModifyObject.cs" t="Include" />
+                <e p="MegaMorph" t="Include">
+                  <e p="MegaMorphOMatic.cs" t="Include" />
+                </e>
+                <e p="MegaNoise.cs" t="Include" />
+                <e p="MegaPageFlip.cs" t="Include" />
+                <e p="MegaPaint.cs" t="Include" />
+                <e p="MegaPathDeform.cs" t="Include" />
+                <e p="MegaPivotAdjust.cs" t="Include" />
+                <e p="MegaPointCache.cs" t="Include" />
+                <e p="MegaPointCacheAnimator.cs" t="Include" />
+                <e p="MegaPointCacheInstance.cs" t="Include" />
+                <e p="MegaPointCacheRef.cs" t="Include" />
+                <e p="MegaPush.cs" t="Include" />
+                <e p="MegaRadialSkew.cs" t="Include" />
+                <e p="MegaRelax.cs" t="Include" />
+                <e p="MegaRipple.cs" t="Include" />
+                <e p="MegaRolled.cs" t="Include" />
+                <e p="MegaRopeDeform.cs" t="Include" />
+                <e p="MegaRubber.cs" t="Include" />
+                <e p="MegaScale.cs" t="Include" />
+                <e p="MegaSimpleMod.cs" t="Include" />
+                <e p="MegaSinusCurve.cs" t="Include" />
+                <e p="MegaSkew.cs" t="Include" />
+                <e p="MegaSpherify.cs" t="Include" />
+                <e p="MegaSqueeze.cs" t="Include" />
+                <e p="MegaStretch.cs" t="Include" />
+                <e p="MegaTaper.cs" t="Include" />
+                <e p="MegaTreeBend.cs" t="Include" />
+                <e p="MegaTwist.cs" t="Include" />
+                <e p="MegaVertexAnim.cs" t="Include" />
+                <e p="MegaVertNoise.cs" t="Include" />
+                <e p="MegaWave.cs" t="Include" />
+                <e p="MegaWaving.cs" t="Include" />
+                <e p="MegaWorldPathDeform.cs" t="Include" />
+                <e p="Morph" t="Include">
+                  <e p="MegaMorph.cs" t="Include" />
+                  <e p="MegaMorphAnim.cs" t="Include" />
+                  <e p="MegaMorphAnimator.cs" t="Include" />
+                  <e p="MegaMorphChan.cs" t="Include" />
+                  <e p="MegaMorphLink.cs" t="Include" />
+                  <e p="MegaMorphRef.cs" t="Include" />
+                  <e p="MegaMorphTarget.cs" t="Include" />
+                </e>
+                <e p="Selection" t="Include">
+                  <e p="MegaMatSelect.cs" t="Include" />
+                  <e p="MegaMultiVolSelect.cs" t="Include" />
+                  <e p="MegaSelection.cs" t="Include" />
+                  <e p="MegaVertColSelect.cs" t="Include" />
+                  <e p="MegaVolSelect.cs" t="Include" />
+                </e>
+                <e p="UVMods" t="Include">
+                  <e p="MegaUVAdjust.cs" t="Include" />
+                  <e p="MegaUVTiles.cs" t="Include" />
+                </e>
+                <e p="Warps" t="Include">
+                  <e p="MegaBendWarp.cs" t="Include" />
+                  <e p="MegaBubbleWarp.cs" t="Include" />
+                  <e p="MegaCylindrifyWarp.cs" t="Include" />
+                  <e p="MegaFFD2x2x2Warp.cs" t="Include" />
+                  <e p="MegaFFD3x3x3Warp.cs" t="Include" />
+                  <e p="MegaFFD4x4x4Warp.cs" t="Include" />
+                  <e p="MegaFFDWarp.cs" t="Include" />
+                  <e p="MegaGlobeWarp.cs" t="Include" />
+                  <e p="MegaHumpWarp.cs" t="Include" />
+                  <e p="MegaMeltWarp.cs" t="Include" />
+                  <e p="MegaNoiseWarp.cs" t="Include" />
+                  <e p="MegaRippleWarp.cs" t="Include" />
+                  <e p="MegaSinusCurveWarp.cs" t="Include" />
+                  <e p="MegaSkewWarp.cs" t="Include" />
+                  <e p="MegaSpherifyWarp.cs" t="Include" />
+                  <e p="MegaSqueezeWarp.cs" t="Include" />
+                  <e p="MegaStretchWarp.cs" t="Include" />
+                  <e p="MegaTaperWarp.cs" t="Include" />
+                  <e p="MegaTwistWarp.cs" t="Include" />
+                  <e p="MegaWarp.cs" t="Include" />
+                  <e p="MegaWarpBind.cs" t="Include" />
+                  <e p="MegaWaveWarp.cs" t="Include" />
+                  <e p="MegaWavingWarp.cs" t="Include" />
+                  <e p="MegaZStretchWarp.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Utils" t="Include">
+                <e p="MegaAttach.cs" t="Include" />
+                <e p="MegaBallBounce.cs" t="Include" />
+                <e p="MegaCopyObject.cs" t="Include" />
+                <e p="MegaModLODManager.cs" t="Include" />
+                <e p="MegaNearestPoint.cs" t="Include" />
+                <e p="MegaOBJExport.cs" t="Include" />
+                <e p="MegaScroll.cs" t="Include" />
+                <e p="MegaSoft2D.cs" t="Include" />
+                <e p="MegaToggleMultiCore.cs" t="Include" />
+                <e p="MegaWalkBridge.cs" t="Include" />
+                <e p="MegaWalkRope.cs" t="Include" />
+                <e p="MegaWrap.cs" t="Include" />
+                <e p="MegaWrapRef.cs" t="Include" />
+              </e>
+            </e>
+            <e p="MegaGrab" t="Include">
+              <e p="DOFCamera.cs" t="Include" />
+              <e p="JPGEncoder.cs" t="Include" />
+              <e p="MegaGrab.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Photon" t="Include">
           <e p="PhotonChat" t="Include">
             <e p="Code" t="Include">
@@ -589,6 +942,7 @@
             </e>
             <e p="UI" t="Include">
               <e p="BaccaratRoomController.cs" t="Include" />
+              <e p="BaccaratRoomMoneyButton.cs" t="Include" />
               <e p="BaccaratUIController.cs" t="Include" />
               <e p="BaccaratUserSeat.cs" t="Include" />
               <e p="existingRoomPanelController.cs" t="Include" />
@@ -598,6 +952,8 @@
               <e p="UIBBetPan.cs" t="Include" />
               <e p="UIBBetPanel.cs" t="Include" />
               <e p="UIBCard.cs" t="Include" />
+              <e p="UIBCardBend.cs" t="Include" />
+              <e p="UIBCardModel.cs" t="Include" />
               <e p="UIBCardPanel.cs" t="Include" />
               <e p="UIBHistory.cs" t="Include" />
               <e p="UIBHistoryCell.cs" t="Include" />
