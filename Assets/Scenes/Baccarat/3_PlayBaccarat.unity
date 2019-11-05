@@ -20889,6 +20889,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UserSeat
       objectReference: {fileID: 0}
+    - target: {fileID: 707481900537605049, guid: fbd67900235206d44a26fe3f96204b62,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 707481900537605030, guid: fbd67900235206d44a26fe3f96204b62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21013,6 +21018,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 31.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 707481899507031424, guid: fbd67900235206d44a26fe3f96204b62,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbd67900235206d44a26fe3f96204b62, type: 3}
