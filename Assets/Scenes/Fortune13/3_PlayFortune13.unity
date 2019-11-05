@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -131,6 +131,9 @@ GameObject:
   - component: {fileID: 33997593}
   - component: {fileID: 33997592}
   - component: {fileID: 33997594}
+  - component: {fileID: 33997597}
+  - component: {fileID: 33997596}
+  - component: {fileID: 33997595}
   m_Layer: 5
   m_Name: FortuneGameController
   m_TagString: Untagged
@@ -192,6 +195,48 @@ MonoBehaviour:
   calcDlg: {fileID: 45845557}
   changeDlg: {fileID: 323553431}
   centerCard: {fileID: 1842634220}
+--- !u!114 &33997595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33997591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c111cfed5f650084aaeb585931394907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerList:
+  - {fileID: 1341022576}
+  - {fileID: 145326400}
+  - {fileID: 1685565988}
+  - {fileID: 419488133}
+--- !u!114 &33997596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33997591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0761d062d86bcd4691898d4e6c2c7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &33997597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33997591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1099257902683044cb414e466b404c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManagement: {fileID: 0}
 --- !u!1 &45845553
 GameObject:
   m_ObjectHideFlags: 0
@@ -6729,6 +6774,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LuckyUserSeat (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5715356242903726955, guid: 80c34771af892854491baf01ee8153e8,
+        type: 3}
+      propertyPath: id
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7904,11 +7954,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 51.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5715356242903726955, guid: 80c34771af892854491baf01ee8153e8,
-        type: 3}
-      propertyPath: id
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5869066176910749934, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
       propertyPath: m_Enabled
@@ -8848,6 +8893,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LuckyUserSeat (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715356242903726955, guid: 80c34771af892854491baf01ee8153e8,
+        type: 3}
+      propertyPath: id
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
@@ -10044,11 +10094,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 29.7
       objectReference: {fileID: 0}
-    - target: {fileID: 5715356242903726955, guid: 80c34771af892854491baf01ee8153e8,
-        type: 3}
-      propertyPath: id
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5869066176910749934, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
       propertyPath: m_Enabled
@@ -10515,6 +10560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LuckyUserSeat (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715356242903726955, guid: 80c34771af892854491baf01ee8153e8,
+        type: 3}
+      propertyPath: id
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5794668613910608710, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
@@ -11690,11 +11740,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 39.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715356242903726955, guid: 80c34771af892854491baf01ee8153e8,
-        type: 3}
-      propertyPath: id
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5869066176910749934, guid: 80c34771af892854491baf01ee8153e8,
         type: 3}
