@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="">
+    <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="change userseat ui">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/FortuneUIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/FortuneUIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Images/SevenStar/Resources_0/Texture/Play/Meun icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Images/SevenStar/Resources_0/Texture/Play/Meun icon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Images/new_Lami/new_Lami_Play/chat_btn.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Images/new_Lami/new_Lami_Play/chat_btn.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Images/new_Lami/new_Lami_panel/PlayLM_atlas_qy9he.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Images/new_Lami/new_Lami_panel/PlayLM_atlas_qy9he.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Fortune13/3_PlayFortune13.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Fortune13/3_PlayFortune13.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Lami/3_PlayLami.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Lami/3_PlayLami.unity" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/FortuneGameController.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
-              <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
               <folding>
                 <marker date="1571188135230" expanded="false" signature="6:113" ph="..." />
                 <marker date="1571188135230" expanded="true" signature="165:596" ph="{...}" />
@@ -108,17 +114,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/FortuneUIController.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+            <state relative-caret-position="441">
+              <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
               <folding>
-                <marker date="1572981746940" expanded="false" signature="6:113" ph="..." />
-                <marker date="1572981746940" expanded="true" signature="163:1140" ph="{...}" />
-                <marker date="1572981746940" expanded="true" signature="476:497" ph="{...}" />
-                <marker date="1572981746940" expanded="true" signature="528:646" ph="{...}" />
-                <marker date="1572981746940" expanded="true" signature="677:809" ph="{...}" />
-                <marker date="1572981746940" expanded="true" signature="840:916" ph="{...}" />
-                <marker date="1572981746940" expanded="true" signature="950:998" ph="{...}" />
-                <marker date="1572981746940" expanded="true" signature="1028:1138" ph="{...}" />
+                <marker date="1572981776149" expanded="false" signature="6:113" ph="..." />
+                <marker date="1572981776149" expanded="true" signature="163:1169" ph="{...}" />
+                <marker date="1572981776149" expanded="true" signature="505:526" ph="{...}" />
+                <marker date="1572981776149" expanded="true" signature="557:675" ph="{...}" />
+                <marker date="1572981776149" expanded="true" signature="706:838" ph="{...}" />
+                <marker date="1572981776149" expanded="true" signature="869:945" ph="{...}" />
+                <marker date="1572981776149" expanded="true" signature="979:1027" ph="{...}" />
+                <marker date="1572981776149" expanded="true" signature="1057:1167" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -208,7 +214,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>List&lt;Card&gt;</find>
       <find>mUserFrame</find>
       <find>mUserPic.sprite</find>
       <find>skill</find>
@@ -238,6 +243,7 @@
       <find>onplayerb</find>
       <find>scale</find>
       <find>UNetWeaver</find>
+      <find>dialog_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -823,21 +829,7 @@
       <workItem from="1571661460766" duration="63667000" />
       <workItem from="1571900791239" duration="9812000" />
       <workItem from="1571943579641" duration="89828000" />
-      <workItem from="1572778296977" duration="37538000" />
-    </task>
-    <task id="LOCAL-00020" summary="userseat issue">
-      <created>1572078712158</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1572078712158</updated>
-    </task>
-    <task id="LOCAL-00021" summary="add autoOn image">
-      <created>1572079539844</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1572079539844</updated>
+      <workItem from="1572778296977" duration="39348000" />
     </task>
     <task id="LOCAL-00022" summary="add autoOn image0">
       <created>1572080170168</created>
@@ -1168,11 +1160,25 @@
       <option name="project" value="LOCAL" />
       <updated>1572977885795</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="add center card">
+      <created>1572981815106</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1572981815106</updated>
+    </task>
+    <task id="LOCAL-00070" summary="change userseat ui">
+      <created>1572988894741</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1572988894741</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="300204000" />
+    <option name="totallyTimeSpent" value="302014000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1277,8 +1283,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="add list" />
-    <MESSAGE value="remove user pan" />
     <MESSAGE value="add enable object" />
     <MESSAGE value="add message anim" />
     <MESSAGE value="add message anim0" />
@@ -1302,7 +1306,9 @@
     <MESSAGE value="Calc Dlg" />
     <MESSAGE value="Change Card Dlg" />
     <MESSAGE value="complete demo UI scenes" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete demo UI scenes" />
+    <MESSAGE value="add center card" />
+    <MESSAGE value="change userseat ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="change userseat ui" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4163,7 +4169,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/FortuneGameController.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
           <folding>
             <marker date="1571188135230" expanded="false" signature="6:113" ph="..." />
             <marker date="1571188135230" expanded="true" signature="165:596" ph="{...}" />
@@ -4175,17 +4181,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/FortuneUIController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+        <state relative-caret-position="441">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
           <folding>
-            <marker date="1572981746940" expanded="false" signature="6:113" ph="..." />
-            <marker date="1572981746940" expanded="true" signature="163:1140" ph="{...}" />
-            <marker date="1572981746940" expanded="true" signature="476:497" ph="{...}" />
-            <marker date="1572981746940" expanded="true" signature="528:646" ph="{...}" />
-            <marker date="1572981746940" expanded="true" signature="677:809" ph="{...}" />
-            <marker date="1572981746940" expanded="true" signature="840:916" ph="{...}" />
-            <marker date="1572981746940" expanded="true" signature="950:998" ph="{...}" />
-            <marker date="1572981746940" expanded="true" signature="1028:1138" ph="{...}" />
+            <marker date="1572981776149" expanded="false" signature="6:113" ph="..." />
+            <marker date="1572981776149" expanded="true" signature="163:1169" ph="{...}" />
+            <marker date="1572981776149" expanded="true" signature="505:526" ph="{...}" />
+            <marker date="1572981776149" expanded="true" signature="557:675" ph="{...}" />
+            <marker date="1572981776149" expanded="true" signature="706:838" ph="{...}" />
+            <marker date="1572981776149" expanded="true" signature="869:945" ph="{...}" />
+            <marker date="1572981776149" expanded="true" signature="979:1027" ph="{...}" />
+            <marker date="1572981776149" expanded="true" signature="1057:1167" ph="{...}" />
           </folding>
         </state>
       </provider>
