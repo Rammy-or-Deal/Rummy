@@ -941,6 +941,7 @@
               <e p="TurnExtensions.cs" t="Include" />
             </e>
             <e p="UI" t="Include">
+              <e p="BaccaratJoinButtonController.cs" t="Include" />
               <e p="BaccaratRoomController.cs" t="Include" />
               <e p="BaccaratRoomMoneyButton.cs" t="Include" />
               <e p="BaccaratUIController.cs" t="Include" />
@@ -970,7 +971,9 @@
             <e p="FortuneHandMission.cs" t="Include" />
             <e p="FortuneTierController.cs" t="Include" />
             <e p="FortuneUIController.cs" t="Include" />
-            <e p="FortuneUserSeat.cs" t="Include" />
+            <e p="UI" t="Include">
+              <e p="FortuneUserSeat.cs" t="Include" />
+            </e>
             <e p="UICalcDialog.cs" t="Include" />
             <e p="UIChangeCardDialog.cs" t="Include" />
             <e p="UIReadyDialog.cs" t="Include" />
