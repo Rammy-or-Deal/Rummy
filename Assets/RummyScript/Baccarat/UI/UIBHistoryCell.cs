@@ -21,17 +21,17 @@ public class UIBHistoryCell : MonoBehaviour
         this.type = type;
         if (type == Constants.BaccaratDrawArea)
         {
-            circle.color = new Color32(66, 135, 39, 100);
+            circle.color = new Color32(66, 135, 39, 200);
             letter.text = "T";
         }
         else if (type == Constants.BaccaratBankerArea)
         {
-            circle.color = new Color32(236, 50, 63, 100);
+            circle.color = new Color32(236, 50, 63, 200);
             letter.text = "B";
         }
         else if (type == Constants.BaccaratPlayerArea)
         {
-            circle.color = new Color32(50, 101, 236, 100);
+            circle.color = new Color32(50, 101, 236, 200);
             letter.text = "P";
         }
 

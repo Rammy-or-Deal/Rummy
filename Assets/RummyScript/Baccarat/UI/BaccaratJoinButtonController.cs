@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class BaccaratJoinButtonController : MonoBehaviour
+public class BaccaratJoinButtonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     // Start is called before the first frame update
+    public UIBRoomItem parent;
     void Start()
     {
 
@@ -15,18 +17,22 @@ public class BaccaratJoinButtonController : MonoBehaviour
     {
 
     }
-
-    private void OnGUI()
+    public bool buttonPressed;
+    public void OnPointerDown(PointerEventData eventData)
     {
-        //Event e = Event.current;
-        if (Input.GetMouseButton(0))
-        {
-            Debug.Log("Hold");
-        }
-        else
-        {
-            Debug.Log("Released");
-        }
+        buttonPressed = true;
+        Debug.Log("Left Hold. status=" + parent.roomInfo.status);
+        UIBHistory.Inst.ParseStatusString(parent.roomInfo.status);
+        iTween.MoveTo(UIBHistory.Inst.gameObject, this.gameObject.transform.position, 0);
+        UIBHistory.Inst.gameObject.SetActive(true);
+        
+    }
 
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        buttonPressed = false;
+        Debug.Log("Left Released");
+
+        UIBHistory.Inst.gameObject.SetActive(false);
     }
 }
