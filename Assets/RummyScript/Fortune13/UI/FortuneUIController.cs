@@ -12,6 +12,8 @@ public class FortuneUIController : MonoBehaviour
     public UIResultDialog resultDlg;
     public UICalcDialog calcDlg;
     public UIChangeCardDialog changeDlg;
+
+    public FortuneCard centerCard;
     
     // Start is called before the first frame update
     void Start()
