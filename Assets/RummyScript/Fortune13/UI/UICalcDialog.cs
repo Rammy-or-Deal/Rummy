@@ -10,12 +10,6 @@ public class UICalcDialog : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnClose()
     {
         gameObject.SetActive(false);
