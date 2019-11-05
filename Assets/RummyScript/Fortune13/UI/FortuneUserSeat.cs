@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class FortuneUserSeat : MonoBehaviour
 {
+    public GameObject MyObject;
     public Image mUserFrame;
     public Image mUserPic;
     public Image mUserSkillPic;

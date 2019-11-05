@@ -1,3 +1,9 @@
+public enum RoomManagementMessages{
+    OnJoinSuccess = 1000,
+    OnUserEnteredRoom_M = 1001,
+    OnUserEnteredRoom = 1002,
+    OnUserLeave = 1003,
+}
 public enum BaccaratShowingCard_NowTurn
 {
     Player1 = 0, 
