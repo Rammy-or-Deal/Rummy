@@ -8,6 +8,10 @@ public class FortuneUIController : MonoBehaviour
 //Menu
     public GameObject mMenuPanel;
     public GameObject settingDlg;
+    public FortuneUserSeat[] userSeatList;
+    public UIResultDialog resultDlg;
+    public UICalcDialog calcDlg;
+    public UIChangeCardDialog changeDlg;
     
     // Start is called before the first frame update
     void Start()
