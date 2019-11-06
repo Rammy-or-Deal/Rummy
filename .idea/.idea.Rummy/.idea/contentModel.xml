@@ -9,6 +9,15 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="CrystalFramework" t="Include">
+          <e p="Utility" t="Include">
+            <e p="Demos" t="Include">
+              <e p="SafeAreaDemo.cs" t="Include" />
+              <e p="SafeAreaDemo.txt" t="Include" />
+            </e>
+            <e p="SafeArea.cs" t="Include" />
+          </e>
+        </e>
         <e p="Editor" t="Include">
           <e p="ChangeSibiling.cs" t="Include" />
           <e p="ClearConsole.cs" t="Include" />
@@ -964,6 +973,11 @@
             </e>
           </e>
           <e p="Common.cs" t="Include" />
+          <e p="CommonController" t="Include">
+            <e p="PlayerManagement.cs" t="Include" />
+            <e p="RoomManagement.cs" t="Include" />
+            <e p="RoomMessageManagement.cs" t="Include" />
+          </e>
           <e p="DataController.cs" t="Include" />
           <e p="Fortune13" t="Include">
             <e p="FortuneCard.cs" t="Include" />
