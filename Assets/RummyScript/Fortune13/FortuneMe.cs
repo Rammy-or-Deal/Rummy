@@ -63,6 +63,8 @@ public class FortuneMe : MonoBehaviour
 
     internal void OnGameStarted()
     {
+        string mission = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
+
         Debug.Log("Game Started message Received.");
         var changeDlg = FortuneUIController.Inst.changeDlg;
         changeDlg.gameObject.SetActive(true);
@@ -71,5 +73,6 @@ public class FortuneMe : MonoBehaviour
         {
             changeDlg.myCards[i].SetValue(cardList[i]);
         }
+        changeDlg.SetMission(mission);
     }
 }

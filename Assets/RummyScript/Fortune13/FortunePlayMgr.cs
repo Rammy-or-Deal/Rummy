@@ -95,10 +95,10 @@ public class FortunePlayMgr : MonoBehaviour
         if (seatList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
 
         int missionCard = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length);
-
+        int missionLine = Random.Range(0, 4);
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},
-            {Common.FORTUNE_MISSION_CARD, missionCard}
+            {Common.FORTUNE_MISSION_CARD, missionCard+":"+missionLine}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }

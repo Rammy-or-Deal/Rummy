@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ public class UIChangeCardDialog : MonoBehaviour
     public Text frontText;
     public Text middleText;
     public Text backText;
+    public GameObject mClock;
+    public Text mClockText;
 
     //
     // Start is called before the first frame update
@@ -30,6 +33,8 @@ public class UIChangeCardDialog : MonoBehaviour
         {
             myCards[i].Init(true);
         }
+        for(int i = 0; i < handMissions.Length; i++)
+            handMissions[i].gameObject.SetActive(false);
     }
 
     public void OnTipClick()
@@ -44,5 +49,10 @@ public class UIChangeCardDialog : MonoBehaviour
     public void OnConfirmClick()
     {
 
+    }
+
+    internal void SetMission(string mission)
+    {
+        
     }
 }
