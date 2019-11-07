@@ -72,7 +72,9 @@ public class PlayerManagement : MonoBehaviour
 
     public List<RoomManagement_Seat> getSeatList()
     {
+        
         string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        Debug.Log("getSeatList function called.seatString:=" + seatString);
         List<RoomManagement_Seat> seatList = new List<RoomManagement_Seat>();
         foreach (var str in seatString.Split(','))
         {

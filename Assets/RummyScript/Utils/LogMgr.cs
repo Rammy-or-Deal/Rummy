@@ -16,6 +16,7 @@ enum LogLevels
     ShowLamiAllList,
     MeLog_Baccarat,
     PanLog,
+    CardLog,
 }
 
 public class LogMgr : MonoBehaviour
@@ -42,9 +43,12 @@ public class LogMgr : MonoBehaviour
             avail_logs.Add((int)LogLevels.ShowLamiAllList);
 
             avail_logs.Add((int)LogLevels.BotLog);
-        }      
-        avail_logs.Add((int)LogLevels.PlayerLog1);
-        avail_logs.Add((int)LogLevels.PanLog);
+            avail_logs.Add((int)LogLevels.PlayerLog1);
+            avail_logs.Add((int)LogLevels.PanLog);
+
+            avail_logs.Add((int)LogLevels.CardLog);
+        }
+
     }
     // Start is called before the first frame update
     public void Log(string log, int level = 0)

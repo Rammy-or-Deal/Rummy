@@ -24,11 +24,11 @@ public class FortuneUserSeat : CommonSeat
         }
     }
 
-    internal async void moveDealCard(Vector3 srcPos)
+    internal void moveDealCard(Vector3 srcPos)
     {
         foreach(var card in myCards)
         {
-            await Task.Delay(500);
+            //await Task.Delay(500);
             card.moveDealCard(srcPos);
         }
     }

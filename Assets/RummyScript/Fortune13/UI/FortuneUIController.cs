@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class FortuneUIController : MonoBehaviour
 {
 //Menu
+    public static FortuneUIController Inst;
     public GameObject mMenuPanel;
     public GameObject settingDlg;
     public FortuneUserSeat[] userSeatList;
@@ -18,7 +19,8 @@ public class FortuneUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(!Inst)
+            Inst = this;
     }
 
     public void OnClickMenu()

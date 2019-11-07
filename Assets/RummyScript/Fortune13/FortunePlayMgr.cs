@@ -29,7 +29,7 @@ public class FortunePlayMgr : MonoBehaviour
 
     internal void OnUserSit()
     {
-        if(!isFirst) return;
+        if (!isFirst) return;
         isFirst = false;
         var seatList = PlayerManagement.Inst.getSeatList();
         //if (seatList.Count > 2) return;
@@ -49,7 +49,7 @@ public class FortunePlayMgr : MonoBehaviour
         foreach (var seat in seatList.Where(x => x.status == (int)FortunePlayerStatus.canStart))
         {
             string cardString = "";
-            cardString = string.Join(",", cardList[seatList.IndexOf(seat)].Select(x=>x.cardString));
+            cardString = string.Join(",", cardList[seatList.IndexOf(seat)].Select(x => x.cardString));
             Hashtable props = new Hashtable{
                 {Common.FORTUNE_MESSAGE, FortuneMessages.OnCardDistributed},
                 {Common.PLAYER_ID, seat.actorNumber},
@@ -57,6 +57,17 @@ public class FortunePlayMgr : MonoBehaviour
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
+    }
+
+    internal void OnUserReady()
+    {
+        var seatList = PlayerManagement.Inst.getSeatList();
+        if (seatList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
+
+        Hashtable props = new Hashtable{
+            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 
     private List<List<Card>> generateRandomCards()
@@ -98,7 +109,7 @@ public class FortunePlayMgr : MonoBehaviour
         {
             seat.status = status;
         }
-        var seatString = string.Join(",", seatList.Select(x=>x.seatString));
+        var seatString = string.Join(",", seatList.Select(x => x.seatString));
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
             {Common.SEAT_STRING, seatString},

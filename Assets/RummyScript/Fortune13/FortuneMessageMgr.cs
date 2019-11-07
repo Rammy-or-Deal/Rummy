@@ -32,6 +32,9 @@ public class FortuneMessageMgr : MonoBehaviour
 
     public void OnMessageArrived(int messageId, Player p = null)
     {
+        try{
+        Debug.Log((FortuneMessages)messageId + " is Called.");
+        }catch{}
         switch (messageId)
         {
             case (int)RoomManagementMessages.OnUserSit: // This function is used only one time - start time.
@@ -39,10 +42,11 @@ public class FortuneMessageMgr : MonoBehaviour
                     FortunePlayMgr.Inst.OnUserSit();
                 break;
             case (int)FortuneMessages.OnUserReady:
-
+                if (PhotonNetwork.IsMasterClient)
+                    FortunePlayMgr.Inst.OnUserReady();
                 break;
             case (int)FortuneMessages.OnGameStarted:
-
+                FortuneMe.Inst.OnGameStarted();
                 break;
             case (int)FortuneMessages.OnCardDistributed:
                 FortuneMe.Inst.OnCardDistributed();

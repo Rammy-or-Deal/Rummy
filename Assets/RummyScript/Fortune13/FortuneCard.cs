@@ -13,12 +13,28 @@ public class FortuneCard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isSelected = false;        
+        isSelected = false;
     }
 
     public void UpdateValue()
     {
-        mCover.sprite = Resources.Load<Sprite>("Card/" + "card_" + color + "_" + num);
+        string colorCharacter = "";
+        switch (color)
+        {
+            case 0:
+                colorCharacter = "A"; break;
+            case 1:
+                colorCharacter = "B"; break;
+            case 2:
+                colorCharacter = "C"; break;
+            case 3:
+                colorCharacter = "D"; break;
+            default:
+                colorCharacter = "A"; break;
+        }
+        var image = this.gameObject.GetComponent<Image> ();
+        LogMgr.Inst.Log("Card update called. cardValue=" + "Card/" + colorCharacter + "" + num, (int)LogLevels.CardLog);
+        image.sprite = Resources.Load<Sprite>("Card/" + colorCharacter + "" + num);
     }
 
     internal void Init(bool v)
@@ -30,15 +46,15 @@ public class FortuneCard : MonoBehaviour
 
     internal void moveDealCard(Vector3 srcPos)
     {
-        
-        iTween.MoveFrom(this.gameObject, srcPos, 0.5f);
+        iTween.MoveFrom(this.gameObject, srcPos, 3.0f);
         this.gameObject.SetActive(true);
     }
 
-    public void Move()
+    internal void SetValue(Card card)
     {
-        
-
+        this.gameObject.SetActive(true);
+        color = card.color;
+        num = card.num;
+        UpdateValue();
     }
-
 }
