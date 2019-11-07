@@ -11,7 +11,7 @@ public class PlayerManagement : MonoBehaviour
     public static PlayerManagement Inst;
 
     // Start is called before the first frame update
-    public List<MonoBehaviour> m_playerList = new List<MonoBehaviour>();
+    public List<CommonSeat> m_playerList = new List<CommonSeat>();
 
     public int GameID { get; internal set; }
 
@@ -96,13 +96,13 @@ public class PlayerManagement : MonoBehaviour
         // Make all players to hide.
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            ((dynamic)m_playerList[i]).IsSeat = false;
+            m_playerList[i].IsSeat = false;
         }
 
         // Hide/Show the players by seatList
         foreach (var seat in seatList)
         {
-            ((dynamic)m_playerList[GetUserSeat(seat.seatNo)]).SetProperty(seat.actorNumber);
+            m_playerList[GetUserSeat(seat.seatNo)].SetProperty(seat.actorNumber);
         }
 
         // Send User Sit Message to master
