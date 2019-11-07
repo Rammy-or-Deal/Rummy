@@ -8,6 +8,36 @@ using Random = UnityEngine.Random;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Realtime;
 
+public enum HandSuit
+{
+    Royal_Flush,
+    Straight_Flush,
+    Four_Of_A_Kind,
+    Full_House,
+    Flush,
+    Straight,
+    Triple,
+    Two_Pair,
+    Pair,
+    High_Card,
+}
+public enum Lucky
+{
+    Grand_Dragon,
+    Dragon,
+    Twelve_Royals,
+    Three_Straight_Flushes,
+    Three_4_Of_A_Kind,
+    All_Small,
+    All_Big,
+    Same_Colour,
+    Four_Triples,
+    Five_Pair_Plus_Triple,
+    Six_Pairs,
+    Three_Straights,
+    Three_Flushes,
+}
+
 public class FortunePlayMgr : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -64,8 +94,11 @@ public class FortunePlayMgr : MonoBehaviour
         var seatList = PlayerManagement.Inst.getSeatList();
         if (seatList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
 
+        int missionCard = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length);
+
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},
+            {Common.FORTUNE_MISSION_CARD, missionCard}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }

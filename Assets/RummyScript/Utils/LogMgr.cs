@@ -46,7 +46,7 @@ public class LogMgr : MonoBehaviour
             avail_logs.Add((int)LogLevels.PlayerLog1);
             avail_logs.Add((int)LogLevels.PanLog);
 
-            avail_logs.Add((int)LogLevels.CardLog);
+            //avail_logs.Add((int)LogLevels.CardLog);
         }
 
     }

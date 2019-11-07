@@ -91,5 +91,7 @@ public class Common : MonoBehaviour
     public static string FORTUNE_MESSAGE = "FORTUNE_MESSAGE";
 
     public static object NEW_BOT_INFO = "NEW_BOT_INFO";
+
+    public static object FORTUNE_MISSION_CARD = "FORTUNE_MISSION_CARD";
     #endregion
 }
