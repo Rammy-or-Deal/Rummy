@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="add safeArea for iPhoneX layout">
+    <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Lami/3_PlayLami.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Lami/3_PlayLami.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/0_Intro.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/0_Intro.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/1_Title.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/1_Title.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/2_Lobby.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/2_Lobby.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Baccarat/2_Baccarat.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Baccarat/2_Baccarat.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Baccarat/3_PlayBaccarat.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Baccarat/3_PlayBaccarat.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Fortune13/2_Fortune13.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Fortune13/2_Fortune13.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Fortune13/3_PlayFortune13.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Fortune13/3_PlayFortune13.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Lami/2_Lami.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Lami/2_Lami.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/global/PnlTop.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/global/PnlTop.prefab" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,8 +95,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/CrystalFramework/Utility/SafeArea.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="121" column="23" lean-forward="true" selection-start-line="121" selection-start-column="23" selection-end-line="121" selection-end-column="23" />
+            <state relative-caret-position="378">
+              <caret line="117" column="9" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
               <folding>
                 <marker date="1564300632000" expanded="true" signature="37:8302" ph="{...}" />
                 <marker date="1564300632000" expanded="true" signature="44:682" ph="/// Safe area implementation for notched mobile devices. Usage: ... " />
@@ -247,6 +255,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/prefabs/global/PnlTop.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/RummyScript/IBot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/prefabs/baccarat/Card.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/Spaceship.cs" root0="FORCE_HIGHLIGHTING" />
@@ -844,14 +853,7 @@
       <workItem from="1571661460766" duration="63667000" />
       <workItem from="1571900791239" duration="9812000" />
       <workItem from="1571943579641" duration="89828000" />
-      <workItem from="1572778296977" duration="43934000" />
-    </task>
-    <task id="LOCAL-00025" summary="remove warnings">
-      <created>1572090999840</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1572090999840</updated>
+      <workItem from="1572778296977" duration="45815000" />
     </task>
     <task id="LOCAL-00026" summary="add bot time 2sec, delay finish dlg 4sec">
       <created>1572142808955</created>
@@ -1189,11 +1191,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573032129243</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="add safeArea for iPhoneX layout rummy">
+      <created>1573036659283</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1573036659283</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="306600000" />
+    <option name="totallyTimeSpent" value="308481000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1208,7 +1217,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19495167" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19495167" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -1298,7 +1307,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="add cards in play seat" />
     <MESSAGE value="game room scene" />
     <MESSAGE value="change lobby icons" />
     <MESSAGE value="add big cards transform" />
@@ -1323,7 +1331,8 @@
     <MESSAGE value="added new images for lami" />
     <MESSAGE value="change ui" />
     <MESSAGE value="add safeArea for iPhoneX layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="add safeArea for iPhoneX layout" />
+    <MESSAGE value="add safeArea for iPhoneX layout rummy" />
+    <option name="LAST_COMMIT_MESSAGE" value="add safeArea for iPhoneX layout rummy" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4153,8 +4162,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/CrystalFramework/Utility/SafeArea.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="121" column="23" lean-forward="true" selection-start-line="121" selection-start-column="23" selection-end-line="121" selection-end-column="23" />
+        <state relative-caret-position="378">
+          <caret line="117" column="9" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
           <folding>
             <marker date="1564300632000" expanded="true" signature="37:8302" ph="{...}" />
             <marker date="1564300632000" expanded="true" signature="44:682" ph="/// Safe area implementation for notched mobile devices. Usage: ... " />
