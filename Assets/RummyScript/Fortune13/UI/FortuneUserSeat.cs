@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -25,14 +26,15 @@ public class FortuneUserSeat : MonoBehaviour
     {
         foreach(var card in myCards)
         {
-            card.Init(true);
+            card.Init(false);
         }
     }
 
-    internal void moveDealCard(Vector3 srcPos)
+    internal async void moveDealCard(Vector3 srcPos)
     {
         foreach(var card in myCards)
         {
+            await Task.Delay(500);
             card.moveDealCard(srcPos);
         }
     }

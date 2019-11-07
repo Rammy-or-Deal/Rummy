@@ -13,10 +13,12 @@ public class FortunePlayMgr : MonoBehaviour
     // Start is called before the first frame update
     public static FortunePlayMgr Inst;
     public List<FortuneUserSeat> m_playerList;
+    [HideInInspector] bool isFirst;
     void Start()
     {
         if (!Inst)
             Inst = this;
+        isFirst = true;
     }
 
     // Update is called once per frame
@@ -27,6 +29,8 @@ public class FortunePlayMgr : MonoBehaviour
 
     internal void OnUserSit()
     {
+        if(!isFirst) return;
+        isFirst = false;
         var seatList = PlayerManagement.Inst.getSeatList();
         //if (seatList.Count > 2) return;
 
@@ -45,7 +49,7 @@ public class FortunePlayMgr : MonoBehaviour
         foreach (var seat in seatList.Where(x => x.status == (int)FortunePlayerStatus.canStart))
         {
             string cardString = "";
-            cardString = string.Join(",", cardList[seatList.IndexOf(seat)]);
+            cardString = string.Join(",", cardList[seatList.IndexOf(seat)].Select(x=>x.cardString));
             Hashtable props = new Hashtable{
                 {Common.FORTUNE_MESSAGE, FortuneMessages.OnCardDistributed},
                 {Common.PLAYER_ID, seat.actorNumber},
@@ -65,12 +69,12 @@ public class FortunePlayMgr : MonoBehaviour
         List<Card> totalCard = new List<Card>();
         for (int i = 0; i < 4 * 13; i++)
         {
-            int num = Random.Range(1, 13);
-            int col = Random.Range(0, 3);
-            while (totalCard.Count(x => x.num == num && x.color == col) == 0)
+            int num = Random.Range(1, 14);
+            int col = Random.Range(0, 4);
+            while (totalCard.Count(x => x.num == num && x.color == col) != 0)
             {
-                num = Random.Range(1, 13);
-                col = Random.Range(0, 3);
+                num = Random.Range(1, 14);
+                col = Random.Range(0, 4);
             }
 
             totalCard.Add(new Card(num, col));
@@ -94,7 +98,7 @@ public class FortunePlayMgr : MonoBehaviour
         {
             seat.status = status;
         }
-        var seatString = string.Join(",", seatList);
+        var seatString = string.Join(",", seatList.Select(x=>x.seatString));
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
             {Common.SEAT_STRING, seatString},

@@ -35,8 +35,9 @@ public class FortuneCard : MonoBehaviour
 
     internal void moveDealCard(Vector3 srcPos)
     {
-        this.gameObject.SetActive(true);
+        
         iTween.MoveFrom(this.gameObject, srcPos, 0.5f);
+        this.gameObject.SetActive(true);
     }
 
     public void Move()

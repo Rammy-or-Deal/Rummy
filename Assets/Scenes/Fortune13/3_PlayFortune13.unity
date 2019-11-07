@@ -295,11 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becb7d2ead6cf22438c357e603163563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPanelList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  centerCard: {fileID: 599890163}
 --- !u!1 &45845553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,6 +2871,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558936776}
   m_CullTransparentMesh: 0
+--- !u!1 &599890163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4442552118232282407, guid: 117bc0595ef0e0c4683358e2c9043c5b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1842634219}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &613167308 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -5333808736548245905, guid: 117bc0595ef0e0c4683358e2c9043c5b,
@@ -12571,7 +12573,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1842634219}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 599890163}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2605abdc3face8438e28cdee3360899, type: 3}

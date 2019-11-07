@@ -46,6 +46,7 @@ public class FortuneMessageMgr : MonoBehaviour
                 break;
             case (int)FortuneMessages.OnCardDistributed:
                 FortuneMe.Inst.OnCardDistributed();
+                FortunePanMgr.Inst.OnCardDistributed();
                 break;
             default:
                 RoomMessageManagement.Inst.OnMessageArrived(messageId, p);

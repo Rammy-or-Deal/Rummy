@@ -19,7 +19,7 @@ public class FortunePanMgr : MonoBehaviour
         
     }
 
-    public void OnDistributedCard()
+    public void OnCardDistributed()
     {
         var playerList = FortunePlayMgr.Inst.m_playerList;
         centerCard.SetActive(true);
