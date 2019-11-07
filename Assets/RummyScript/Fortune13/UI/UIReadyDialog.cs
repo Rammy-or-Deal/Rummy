@@ -7,17 +7,20 @@ using UnityEngine.UI;
 public class UIReadyDialog : MonoBehaviour
 {
     public static UIReadyDialog Inst;
-    
+
     public Image mTierPic;
     public Text mTierText;
     public Text mWinMoreText;
     public Text mBetterHandText;
-    
     // Start is called before the first frame update
-
+    [HideInInspector] public int idx;
     private void Awake()
     {
-        if (!Inst) Inst = this;
+        if (!Inst)
+        {
+            Inst = this;
+            idx = -1;
+        }
     }
 
     private void Start()
@@ -43,7 +46,10 @@ public class UIReadyDialog : MonoBehaviour
     }
     public void OnReadyClick()
     {
-        SceneManager.LoadScene("3_PlayFortune13");
+        if(idx == -1) return;
+        
+        PunController.Inst.CreateOrJoinLuckyRoom(idx);
+        //SceneManager.LoadScene("3_PlayFortune13");
     }
 
     public void OnClose()

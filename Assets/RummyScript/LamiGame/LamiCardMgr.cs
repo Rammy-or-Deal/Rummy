@@ -18,6 +18,16 @@ public class Card
     public int virtual_num;
     public List<Card> children;
     public Card parent = null;
+    public string cardString{
+        get{
+            return num+":"+color;
+        }
+        set{
+            var tmp = value.Split(':').Select(Int32.Parse).ToArray();
+            num = tmp[0];
+            color = tmp[1];
+        }
+    }
     public Card(int num0, int color0)
     {
         num = num0;
@@ -28,6 +38,9 @@ public class Card
     {
 
     }
+
+
+    #region For only baccarat
     public List<Card> Children_Set(List<Card> m_orgList)
     {
         children = new List<Card>();
@@ -54,6 +67,7 @@ public class Card
         }
         return children;
     }
+    #endregion
 }
 public class LamiCardMgr : MonoBehaviour
 {

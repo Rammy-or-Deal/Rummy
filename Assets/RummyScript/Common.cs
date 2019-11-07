@@ -87,5 +87,9 @@ public class Common : MonoBehaviour
 
     public static string BaccaratRoomPlayers = "BaccaratRoomPlayers";
 
-    
+#region  Fortune
+    public static string FORTUNE_MESSAGE = "FORTUNE_MESSAGE";
+
+    public static object NEW_BOT_INFO = "NEW_BOT_INFO";
+    #endregion
 }

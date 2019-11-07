@@ -40,9 +40,14 @@ public class FortuneTierController : MonoBehaviour
 
         readyDlg.mTierPic.sprite = Resources.Load<Sprite>("new_skill/skill_" + (type + 1).ToString());
         readyDlg.mTierText.text = "Tier " + (type + 1).ToString();
+        
         readyDlg.gameObject.SetActive(true);
-//        Debug.Log("TierButton click:"+type+"  roomCount:"+PunController.Inst.cachedRoomList.Count);
-//        int idx = (int)type;
+        
+        int idx = (int)type;
+        if (idx < mTiers.Length)
+            UIReadyDialog.Inst.idx = (int)type;
+//        Debug.Log("TierButton click:"+type+"  roomCount:"+PunController.Inst.cachedRoomList.Count);        
+//        
 //        if (idx < mTiers.Length)
 //        {
 //            PunController.Inst.CreateOrJoinLuckyRoom(idx);

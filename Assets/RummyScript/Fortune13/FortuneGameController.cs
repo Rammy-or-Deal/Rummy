@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,5 +21,10 @@ public class FortuneGameController : MonoBehaviour
     {
         UIController.Inst.userInfoPanel.gameObject.SetActive(false);
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
+    }
+
+    public void SendMessage(int messageId, Player p = null)
+    {
+        FortuneMessageMgr.Inst.OnMessageArrived(messageId, p);
     }
 }

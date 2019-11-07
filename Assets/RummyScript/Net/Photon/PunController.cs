@@ -114,9 +114,9 @@ public class PunController : MonoBehaviourPunCallbacks
             }
         }
         CreateRoom(roomName, 9, roomInfo.roomString);
-        Debug.Log("room created:" + roomName + ", property:="+roomInfo.roomString);
+        Debug.Log("room created:" + roomName + ", property:=" + roomInfo.roomString);
     }
-    
+
     public void CreateOrJoinBaccaratRoom()
     {
         UIController.Inst.loadingDlg.gameObject.SetActive(true);
@@ -150,7 +150,7 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public void CreateOrJoinLuckyRoom(int tierIdx)
     {
-        string roomName = "lucky_" + mTierIdx.ToString();
+        string roomName = "fortune_" + tierIdx.ToString();
         bool isNewRoom = true;
 
         Debug.Log("cachedRoom : " + cachedRoomList.Count);
@@ -188,8 +188,8 @@ public class PunController : MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
         if (AdditionalRoomProperty != "")
         {
-            options.CustomRoomProperties = new Hashtable { { Common.AdditionalRoomProperty, AdditionalRoomProperty }};
-            options.CustomRoomPropertiesForLobby = new string[] { Common.AdditionalRoomProperty, Common.BaccaratRoomPlayers};
+            options.CustomRoomProperties = new Hashtable { { Common.AdditionalRoomProperty, AdditionalRoomProperty } };
+            options.CustomRoomPropertiesForLobby = new string[] { Common.AdditionalRoomProperty, Common.BaccaratRoomPlayers };
         }
         PhotonNetwork.CreateRoom(roomName, options, TypedLobby.Default);
         Debug.Log("room created " + roomName);
@@ -342,9 +342,28 @@ public class PunController : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
         }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("lucky"))
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
         {
+            SceneManager.LoadScene("3_PlayFortune13");
 
+            string infoString = "";
+            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
+                    DataController.Inst.userInfo.name,
+                    DataController.Inst.userInfo.pic,
+                    DataController.Inst.userInfo.coinValue,
+                    DataController.Inst.userInfo.skillLevel,
+                    DataController.Inst.userInfo.frameId,
+                    (int)FortunePlayerStatus.Init
+                );
+
+            // Save my info to photon
+            Hashtable props = new Hashtable
+            {
+                {Common.FORTUNE_MESSAGE, (int)RoomManagementMessages.OnUserEnteredRoom_M},
+                {Common.PLAYER_INFO, infoString},
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
 
@@ -438,6 +457,13 @@ public class PunController : MonoBehaviourPunCallbacks
                 BaccaratGameController.Inst.SendMessage((int)hashtable[Common.BACCARAT_MESSAGE], otherPlayer);
             }
         }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
+        {
+            if (hashtable.ContainsKey(Common.FORTUNE_MESSAGE))
+            {
+                FortuneGameController.Inst.SendMessage((int)hashtable[Common.FORTUNE_MESSAGE], otherPlayer);
+            }
+        }
 
     }
 
@@ -456,6 +482,13 @@ public class PunController : MonoBehaviourPunCallbacks
             if (propertiesThatChanged.ContainsKey(Common.BACCARAT_MESSAGE))
             {
                 BaccaratGameController.Inst.SendMessage((int)propertiesThatChanged[Common.BACCARAT_MESSAGE]);
+            }
+        }
+        else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
+        {
+            if (propertiesThatChanged.ContainsKey(Common.FORTUNE_MESSAGE))
+            {
+                FortuneGameController.Inst.SendMessage((int)propertiesThatChanged[Common.FORTUNE_MESSAGE]);
             }
         }
     }

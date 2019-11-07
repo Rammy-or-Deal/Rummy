@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,4 +24,25 @@ public class FortuneCard : MonoBehaviour
         mCover.sprite = Resources.Load<Sprite>("new_card/card_pan");
         mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_" + color + "_" + num);
     }
+
+    internal void Init(bool v)
+    {
+        isSelected = false;
+        this.gameObject.SetActive(v);
+        mCover.sprite = Resources.Load<Sprite>("new_card/card_cover");
+        mCard.sprite = Resources.Load<Sprite>("new_card/cover_pan");
+    }
+
+    internal void moveDealCard(Vector3 srcPos)
+    {
+        this.gameObject.SetActive(true);
+        iTween.MoveFrom(this.gameObject, srcPos, 0.5f);
+    }
+
+    public void Move()
+    {
+        
+
+    }
+
 }

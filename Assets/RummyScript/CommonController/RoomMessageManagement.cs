@@ -33,6 +33,12 @@ public class RoomMessageManagement : MonoBehaviour
             case (int)RoomManagementMessages.OnUserEnteredRoom_M:
                 PlayerManagement.Inst.OnUserEnteredRoom_M(player.ActorNumber);
                 break;
+            case (int)RoomManagementMessages.OnRoomSeatUpdate:
+                PlayerManagement.Inst.OnRoomSeatUpdate();
+                break;
+            case (int)RoomManagementMessages.OnUserLeave:
+                PlayerManagement.Inst.OnUserLeave_M(player.ActorNumber);
+                break;
         }
     }
 }

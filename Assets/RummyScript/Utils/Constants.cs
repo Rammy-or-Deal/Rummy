@@ -1,8 +1,22 @@
+public enum FortunePlayerStatus{
+    Init = 0,
+    Ready = 1,
+    canStart = 2,
+}
+
+public enum Game_Identifier{
+    Lami = 10,
+    Baccarat = 20,
+    Fortune14 = 30,
+}
 public enum RoomManagementMessages{
     OnJoinSuccess = 1000,
     OnUserEnteredRoom_M = 1001,
     OnUserEnteredRoom = 1002,
     OnUserLeave = 1003,
+    OnBotRemoved = 1004,
+    OnRoomSeatUpdate = 1005,
+    OnUserSit = 1006,
 }
 public enum BaccaratShowingCard_NowTurn
 {
