@@ -10,16 +10,17 @@ using Photon.Realtime;
 
 public enum HandSuit
 {
-    Royal_Flush,
-    Straight_Flush,
-    Four_Of_A_Kind,
-    Full_House,
-    Flush,
-    Straight,
-    Triple,
-    Two_Pair,
-    Pair,
-    High_Card,
+    Royal_Flush = 9,
+    Straight_Flush = 8,
+    Four_Of_A_Kind = 7,
+    Full_House = 6,
+    Flush = 5,
+    Straight = 4,
+    Triple = 3,
+    Two_Pair = 2,
+    Pair = 1,
+    High_Card = 0,
+    Error=-1,
 }
 public enum Lucky
 {
@@ -94,11 +95,9 @@ public class FortunePlayMgr : MonoBehaviour
         var seatList = PlayerManagement.Inst.getSeatList();
         if (seatList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
 
-        int missionCard = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length);
-        int missionLine = Random.Range(0, 4);
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},
-            {Common.FORTUNE_MISSION_CARD, missionCard+":"+missionLine}
+            {Common.FORTUNE_MISSION_CARD, new FortuneMissionCard().CreateMissionString()}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
@@ -148,5 +147,34 @@ public class FortunePlayMgr : MonoBehaviour
             {Common.SEAT_STRING, seatString},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+    }
+}
+
+public class FortuneMissionCard
+{
+    public int missionNo;
+    public int missionLine;
+    public int missionPrice;
+    public string CreateMissionString()
+    {
+        missionNo = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length);
+        missionLine = Random.Range(0, 3);
+        missionPrice = Random.Range(2, 4);
+
+        return missionString;
+    }
+    public string missionString
+    {
+        get
+        {
+            return missionNo + ":" + missionLine + ":" + missionPrice;
+        }
+        set
+        {
+            var tmp = value.Split(':').Select(Int32.Parse).ToArray();
+            missionNo = tmp[0];
+            missionLine = tmp[1];
+            missionPrice = tmp[2];
+        }
     }
 }

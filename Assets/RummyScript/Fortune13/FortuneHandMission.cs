@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,5 +19,13 @@ public class FortuneHandMission : MonoBehaviour
     void Update()
     {
         
+    }
+
+    internal void SetMission(FortuneMissionCard mission)
+    {
+        this.gameObject.SetActive(true);
+        id = mission.missionNo;
+        mMissionValue.text = "×" + mission.missionPrice;
+        mMissionText.text = (((HandSuit)mission.missionNo) + "").Replace('_', ' ');
     }
 }

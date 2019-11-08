@@ -59,6 +59,8 @@
             FortuneCard toCard = gameObject.GetComponent<FortuneCard>();
             fromCard.SetValue(toCard.GetValue());
             toCard.SetValue(card);
+
+            FortuneUIController.Inst.changeDlg.UpdateHandSuitString();
         }
     }
 }

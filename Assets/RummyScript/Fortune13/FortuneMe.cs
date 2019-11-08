@@ -10,6 +10,7 @@ public class FortuneMe : MonoBehaviour
 {
     // Start is called before the first frame update
     public static FortuneMe Inst;
+    public FortuneMissionCard mission;
     List<Card> cardList;
     void Start()
     {
@@ -17,6 +18,7 @@ public class FortuneMe : MonoBehaviour
         {
             Inst = this;
             cardList = new List<Card>();
+            mission = new FortuneMissionCard();
         }
     }
 
@@ -63,10 +65,12 @@ public class FortuneMe : MonoBehaviour
 
     internal void OnGameStarted()
     {
-        string mission = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
+        string missionString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
+        mission.missionString = missionString;
 
-        Debug.Log("Game Started message Received.");
+        LogMgr.Inst.Log("Game Started message Received. MissionCard="+missionString, (int)LogLevels.RoomLog1);
         var changeDlg = FortuneUIController.Inst.changeDlg;
+        changeDlg.Init();
         changeDlg.gameObject.SetActive(true);
 
         for(int i = 0; i < cardList.Count; i++)
@@ -74,5 +78,6 @@ public class FortuneMe : MonoBehaviour
             changeDlg.myCards[i].SetValue(cardList[i]);
         }
         changeDlg.SetMission(mission);
+        changeDlg.UpdateHandSuitString();
     }
 }

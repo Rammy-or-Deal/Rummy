@@ -33,8 +33,10 @@ public class FortuneCard : MonoBehaviour
                 colorCharacter = "A"; break;
         }
         var image = this.gameObject.GetComponent<Image> ();
-        LogMgr.Inst.Log("Card update called. cardValue=" + "Card/" + colorCharacter + "" + num, (int)LogLevels.CardLog);
-        image.sprite = Resources.Load<Sprite>("Card/" + colorCharacter + "" + num);
+        int tmpNum = num;
+        if(tmpNum == 14) tmpNum = 1;
+        LogMgr.Inst.Log("Card update called. cardValue=" + "Card/" + colorCharacter + "" + tmpNum, (int)LogLevels.CardLog);
+        image.sprite = Resources.Load<Sprite>("Card/" + colorCharacter + "" + tmpNum);
     }
 
     internal void Init(bool v)
