@@ -45,14 +45,14 @@ public class FortuneMe : MonoBehaviour
 
         // Send I am ready.
         await Task.Delay(3000);
-       
+
         try
         {
             var seatList = PlayerManagement.Inst.getSeatList();
             var mySeat = seatList.Where(x => x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).First();
             mySeat.status = (int)FortunePlayerStatus.Ready;
-            
-            LogMgr.Inst.Log("My status("+PhotonNetwork.LocalPlayer.ActorNumber+") is changed: seatstring=" + string.Join(",", seatList.Select(x=>x.seatString)), (int)LogLevels.PlayerLog1);
+
+            LogMgr.Inst.Log("My status(" + PhotonNetwork.LocalPlayer.ActorNumber + ") is changed: seatstring=" + string.Join(",", seatList.Select(x => x.seatString)), (int)LogLevels.PlayerLog1);
             FortunePlayMgr.Inst.m_playerList[0].Status = (int)FortunePlayerStatus.Ready;
             Hashtable table = new Hashtable{
                 {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnUserReady},
@@ -68,16 +68,39 @@ public class FortuneMe : MonoBehaviour
         string missionString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
         mission.missionString = missionString;
 
-        LogMgr.Inst.Log("Game Started message Received. MissionCard="+missionString, (int)LogLevels.RoomLog1);
+        LogMgr.Inst.Log("Game Started message Received. MissionCard=" + missionString, (int)LogLevels.RoomLog1);
         var changeDlg = FortuneUIController.Inst.changeDlg;
         changeDlg.Init();
         changeDlg.gameObject.SetActive(true);
 
-        for(int i = 0; i < cardList.Count; i++)
+        for (int i = 0; i < cardList.Count; i++)
         {
             changeDlg.myCards[i].SetValue(cardList[i]);
         }
         changeDlg.SetMission(mission);
         changeDlg.UpdateHandSuitString();
+
+        SetMyProperty((int)FortunePlayerStatus.OnChanging);
+
+        changeDlg.StartTimer();
+    }
+
+
+    
+
+    public void SetMyProperty(int status)
+    {
+        var seatList = PlayerManagement.Inst.getSeatList();
+        foreach (var seat in seatList.Where(x=>x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            seat.status = status;
+        }
+        
+        var seatString = string.Join(",", seatList.Select(x => x.seatString));
+        Hashtable props = new Hashtable{
+            {Common.FORTUNE_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
+            {Common.SEAT_STRING, seatString},
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 }

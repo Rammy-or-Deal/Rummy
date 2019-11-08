@@ -93,5 +93,9 @@ public class Common : MonoBehaviour
     public static object NEW_BOT_INFO = "NEW_BOT_INFO";
 
     public static object FORTUNE_MISSION_CARD = "FORTUNE_MISSION_CARD";
+
+    public static object FORTUNE_PLAYER_FRONT_CARD = "FORTUNE_PLAYER_FRONT_CARD";
+    public static object FORTUNE_PLAYER_MIDDLE_CARD = "FORTUNE_PLAYER_MIDDLE_CARD";
+    public static object FORTUNE_PLAYER_BACK_CARD = "FORTUNE_PLAYER_BACK_CARD";
     #endregion
 }

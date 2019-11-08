@@ -31,6 +31,15 @@ public static class FortuneRuleMgr
         }
         return (HandSuit)(CardData.GetScoreToCardType(t));
     }
+    public static int GetScore(List<Card> list, HandSuit type)
+    {
+        int score = 0;
+        score += ((int)type+1) * 2000;
+        score += list[0].num * 100;
+        score += (4-list[0].color)*10;
+
+        return score;
+    }
     public static string GetCardTypeString(HandSuit type)
     {
         string res = "";

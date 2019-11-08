@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class UIChangeCardDialog : MonoBehaviour
 {
     //cards
@@ -48,7 +50,7 @@ public class UIChangeCardDialog : MonoBehaviour
 
     public void OnConfirmClick()
     {
-
+        SendMyCards();
     }
 
     internal void SetMission(FortuneMissionCard mission)
@@ -75,32 +77,24 @@ public class UIChangeCardDialog : MonoBehaviour
         middleText.text = FortuneRuleMgr.GetCardTypeString(middleType);
         backText.text = FortuneRuleMgr.GetCardTypeString(backType);
 
-        LogMgr.Inst.Log("Result calculated. score=(front,middle,back) : " + frontType + ", " + middleType + ", " + backType);
+        LogMgr.Inst.Log("Result calculated. type=(front,middle,back) : " + frontType + ", " + middleType + ", " + backType, (int)LogLevels.PlayerLog1);
 
+        var frontScore = FortuneRuleMgr.GetScore(frontList, frontType);
+        var middleScore = FortuneRuleMgr.GetScore(middleList, middleType);
+        var backScore = FortuneRuleMgr.GetScore(backList, backType);
+
+        LogMgr.Inst.Log("score=(front,middle,back) : " + frontScore + ", " + middleScore + ", " + backScore, (int)LogLevels.PlayerLog1);
         // Compare front and middle
-        if (frontType > middleType)
+        if (frontScore > middleScore)
         {
-            frontText.color = Color.red; middleText.color = Color.red;
+            frontText.color = Color.red;
+            middleText.color = Color.red;
+            backText.color = Color.red;
         }
-        if (frontType == middleType)
+        if (middleScore > backScore)
         {
-            if (frontList[0].num > middleList[0].num)
-            { frontText.color = Color.red; middleText.color = Color.red; }
-            if (frontList[0].num == middleList[0].num && frontList[0].color < middleCards[0].color)
-            { frontText.color = Color.red; middleText.color = Color.red; }
-        }
-
-
-        if (middleType > backType)
-        {
-            middleText.color = Color.red; backText.color = Color.red;
-        }
-        if (middleType == backType)
-        {
-            if (middleList[0].num > backList[0].num)
-            { middleText.color = Color.red; backText.color = Color.red; }
-            if (middleList[0].num == backList[0].num && middleList[0].color < backCards[0].color)
-            { middleText.color = Color.red; backText.color = Color.red; }
+            middleText.color = Color.red;
+            backText.color = Color.red;
         }
     }
     List<Card> getCardList(FortuneCard[] cards)
@@ -112,5 +106,48 @@ public class UIChangeCardDialog : MonoBehaviour
         }
         return cardList;
     }
+    Coroutine countdownTimerRoutine;
+    internal void StartTimer()
+    {
+        countdownTimerRoutine = StartCoroutine(CountTime(Constants.FortuneWaitTimeForPlay));
+    }
 
+    IEnumerator CountTime(int waitTime)
+    {
+        mClockText.text = waitTime.ToString();
+        while (waitTime > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            waitTime--;
+            mClockText.text = waitTime.ToString();
+        }
+        SendMyCards();
+    }
+
+    private void SendMyCards()
+    {
+        try{
+            StopCoroutine(countdownTimerRoutine);
+        }catch{
+
+        }
+
+        FortuneMe.Inst.SetMyProperty((int)FortunePlayerStatus.dealtCard);
+
+        var frontList = getCardList(frontCards);
+        var middleList = getCardList(middleCards);
+        var backList = getCardList(backCards);
+
+        
+        Hashtable props = new Hashtable{
+            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnPlayerDealCard},
+            {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
+            {Common.FORTUNE_PLAYER_FRONT_CARD, string.Join(",", frontList.Select(x=>x.cardString))},
+            {Common.FORTUNE_PLAYER_MIDDLE_CARD, string.Join(",", middleList.Select(x=>x.cardString))},
+            {Common.FORTUNE_PLAYER_BACK_CARD, string.Join(",", backList.Select(x=>x.cardString))}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+
+        this.gameObject.SetActive(false);
+    }
 }

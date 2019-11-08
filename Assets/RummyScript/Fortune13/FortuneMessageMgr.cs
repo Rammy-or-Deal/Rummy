@@ -9,6 +9,7 @@ public enum FortuneMessages
     OnUserReady = 1,
     OnGameStarted = 2,
     OnCardDistributed = 3,
+    OnPlayerDealCard = 4,
 }
 
 public class FortuneMessageMgr : MonoBehaviour
@@ -33,7 +34,7 @@ public class FortuneMessageMgr : MonoBehaviour
     public void OnMessageArrived(int messageId, Player p = null)
     {
         try{
-        Debug.Log((FortuneMessages)messageId + " is Called.");
+            Debug.Log((FortuneMessages)messageId + " is Called.");
         }catch{}
         switch (messageId)
         {

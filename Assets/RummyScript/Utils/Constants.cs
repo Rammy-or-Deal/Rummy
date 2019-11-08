@@ -2,6 +2,8 @@ public enum FortunePlayerStatus{
     Init = 0,
     Ready = 1,
     canStart = 2,
+    OnChanging = 3,
+    dealtCard = 4,
 }
 
 public enum Game_Identifier{
@@ -94,5 +96,7 @@ public static class Constants
     public static float BaccaratShowingCard_waitTime = 1;
 
     public static float BaccaratDistributionTime = 2.0f;
+
+    public static int FortuneWaitTimeForPlay = 90;
     #endregion
 }
