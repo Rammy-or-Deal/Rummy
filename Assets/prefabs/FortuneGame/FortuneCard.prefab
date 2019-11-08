@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4721680544290295722}
   - component: {fileID: 7790945628772487102}
   - component: {fileID: -5333808736548245905}
+  - component: {fileID: 5792074989552293754}
   m_Layer: 5
   m_Name: FortuneCard
   m_TagString: Untagged
@@ -88,8 +89,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2605abdc3face8438e28cdee3360899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCard: {fileID: 0}
   mCover: {fileID: 7790945628772487102}
   isSelected: 0
   color: 0
   num: 0
+--- !u!114 &5792074989552293754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442552118232282407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd5aa5978894a77a99ff4d43ccf4e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

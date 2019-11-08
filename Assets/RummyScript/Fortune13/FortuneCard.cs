@@ -57,4 +57,12 @@ public class FortuneCard : MonoBehaviour
         num = card.num;
         UpdateValue();
     }
+
+    public Card GetValue()
+    {
+        Card card = new Card();
+        card.num = num;
+        card.color = color;
+        return card;
+    }
 }
