@@ -97,5 +97,7 @@ public class Common : MonoBehaviour
     public static object FORTUNE_PLAYER_FRONT_CARD = "FORTUNE_PLAYER_FRONT_CARD";
     public static object FORTUNE_PLAYER_MIDDLE_CARD = "FORTUNE_PLAYER_MIDDLE_CARD";
     public static object FORTUNE_PLAYER_BACK_CARD = "FORTUNE_PLAYER_BACK_CARD";
+
+    public static object FORTUNE_OPEN_CARD_LINE = "FORTUNE_OPEN_CARD_LINE";
     #endregion
 }

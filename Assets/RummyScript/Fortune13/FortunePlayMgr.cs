@@ -20,7 +20,7 @@ public enum HandSuit
     Two_Pair = 2,
     Pair = 1,
     High_Card = 0,
-    Error=-1,
+    Error = -1,
 }
 public enum Lucky
 {
@@ -90,6 +90,62 @@ public class FortunePlayMgr : MonoBehaviour
         }
     }
 
+    internal void OnOpenCard()
+    {
+        int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
+        lineNo--;
+        if(lineNo < 0)
+        {
+            CalcResult();
+        }else{
+            StartCoroutine(SendPlayersCardToAll_Event(lineNo));
+        }
+    }
+
+    IEnumerator SendPlayersCardToAll_Event(int lineNo)
+    {
+        yield return new WaitForSeconds(Constants.FortuneWaitTimeForCheckingCard);
+        SendPlayersCardToAll(lineNo);
+    }
+
+    private void CalcResult()
+    {
+        LogMgr.Inst.Log("End");
+    }
+
+    public List<FortuneUserCardList> userCardList = new List<FortuneUserCardList>();
+    internal void OnPlayerDealCard()
+    {
+        var seatList = PlayerManagement.Inst.getSeatList();
+
+        // Store Usercards
+        FortuneUserCardList newUser = new FortuneUserCardList();
+        newUser.actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        newUser.frontCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_FRONT_CARD]);
+        newUser.middleCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_MIDDLE_CARD]);
+        newUser.backCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_BACK_CARD]);
+
+        if (userCardList.Count(x => x.actorNumber == newUser.actorNumber) == 0)
+        {
+            userCardList.Add(newUser);
+        }
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
+
+        // If all users dealt card.
+        SendPlayersCardToAll(2);
+    }
+
+    private void SendPlayersCardToAll(int lineNo)
+    {
+        Hashtable props = new Hashtable{
+            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnOpenCard},
+            {Common.FORTUNE_OPEN_CARD_LINE, lineNo}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+    }
+
     internal void OnUserReady()
     {
         var seatList = PlayerManagement.Inst.getSeatList();
@@ -149,7 +205,37 @@ public class FortunePlayMgr : MonoBehaviour
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 }
+public class FortuneUserCardList
+{
+    public int actorNumber;
+    public List<Card> frontCard;
+    public List<Card> middleCard;
+    public List<Card> backCard;
 
+    public static List<Card> stringToCardList(string cardString)
+    {
+        List<Card> cardList = new List<Card>();
+        var strArray = cardString.Split(',');
+        foreach (var str in strArray)
+        {
+            Card card = new Card();
+            card.cardString = str;
+            cardList.Add(card);
+        }
+        return cardList;
+    }
+    public static string cardlistTostring(List<Card> cardList)
+    {
+        return string.Join(",", cardList.Select(x=>x.cardString));
+    }
+    public FortuneUserCardList()
+    {
+        frontCard = new List<Card>();
+        middleCard = new List<Card>();
+        backCard = new List<Card>();
+    }
+
+}
 public class FortuneMissionCard
 {
     public int missionNo;
@@ -157,10 +243,17 @@ public class FortuneMissionCard
     public int missionPrice;
     public string CreateMissionString()
     {
-        missionNo = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length);
+        missionNo = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length - 1);
         missionLine = Random.Range(0, 3);
         missionPrice = Random.Range(2, 4);
+        if (missionLine == 0)
+        {
+            while ((missionNo == (int)HandSuit.Two_Pair) || (missionNo > (int)HandSuit.Triple))
+            {
+                missionNo = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length - 1);
+            }
 
+        }
         return missionString;
     }
     public string missionString

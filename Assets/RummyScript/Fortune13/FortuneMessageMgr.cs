@@ -10,6 +10,7 @@ public enum FortuneMessages
     OnGameStarted = 2,
     OnCardDistributed = 3,
     OnPlayerDealCard = 4,
+    OnOpenCard = 5,
 }
 
 public class FortuneMessageMgr : MonoBehaviour
@@ -33,9 +34,11 @@ public class FortuneMessageMgr : MonoBehaviour
 
     public void OnMessageArrived(int messageId, Player p = null)
     {
-        try{
+        try
+        {
             Debug.Log((FortuneMessages)messageId + " is Called.");
-        }catch{}
+        }
+        catch { }
         switch (messageId)
         {
             case (int)RoomManagementMessages.OnUserSit: // This function is used only one time - start time.
@@ -52,6 +55,13 @@ public class FortuneMessageMgr : MonoBehaviour
             case (int)FortuneMessages.OnCardDistributed:
                 FortuneMe.Inst.OnCardDistributed();
                 FortunePanMgr.Inst.OnCardDistributed();
+                break;
+            case (int)FortuneMessages.OnPlayerDealCard:
+                FortunePlayMgr.Inst.OnPlayerDealCard();
+                break;
+            case (int)FortuneMessages.OnOpenCard:
+                FortunePanMgr.Inst.OnOpenCard();
+                FortunePlayMgr.Inst.OnOpenCard();
                 break;
             default:
                 RoomMessageManagement.Inst.OnMessageArrived(messageId, p);

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class FortuneUserSeat : CommonSeat
 {
-    
+
     //cards
     public FortuneCard[] frontCards;
     public FortuneCard[] middleCards;
@@ -18,7 +18,7 @@ public class FortuneUserSeat : CommonSeat
 
     internal void InitCards()
     {
-        foreach(var card in myCards)
+        foreach (var card in myCards)
         {
             card.Init(false);
         }
@@ -26,7 +26,7 @@ public class FortuneUserSeat : CommonSeat
 
     internal void moveDealCard(Vector3 srcPos)
     {
-        foreach(var card in myCards)
+        foreach (var card in myCards)
         {
             //await Task.Delay(500);
             card.moveDealCard(srcPos);
@@ -36,12 +36,12 @@ public class FortuneUserSeat : CommonSeat
     //seat state
     //
 
- 
+
     #region UNITY
 
     public void Start()
     {
-        
+
         mUserPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
         mUserName.text = DataController.Inst.userInfo.name;
         mCoinValue.text = DataController.Inst.userInfo.coinValue.ToString();
@@ -66,4 +66,28 @@ public class FortuneUserSeat : CommonSeat
         UIController.Inst.userInfoMenu.gameObject.SetActive(true);
     }
 
+    internal void ShowCards(int lineNo, List<Card> showList)
+    {
+        switch (lineNo)
+        {
+            case 0:
+                for (int i = 0; i < showList.Count; i++)
+                {
+                    frontCards[i].SetValue(showList[i]);
+                }
+                break;
+            case 1:
+                for (int i = 0; i < showList.Count; i++)
+                {
+                    middleCards[i].SetValue(showList[i]);
+                }
+                break;
+            case 2:
+                for (int i = 0; i < showList.Count; i++)
+                {
+                    backCards[i].SetValue(showList[i]);
+                }
+                break;
+        }
+    }
 }

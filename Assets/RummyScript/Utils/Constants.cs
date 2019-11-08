@@ -98,5 +98,7 @@ public static class Constants
     public static float BaccaratDistributionTime = 2.0f;
 
     public static int FortuneWaitTimeForPlay = 90;
+
+    public static float FortuneWaitTimeForCheckingCard = 5.0f;
     #endregion
 }

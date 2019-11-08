@@ -65,6 +65,8 @@ public class FortuneMe : MonoBehaviour
 
     internal void OnGameStarted()
     {
+        FortunePlayMgr.Inst.userCardList.Clear();
+
         string missionString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
         mission.missionString = missionString;
 
@@ -85,8 +87,6 @@ public class FortuneMe : MonoBehaviour
         changeDlg.StartTimer();
     }
 
-
-    
 
     public void SetMyProperty(int status)
     {
