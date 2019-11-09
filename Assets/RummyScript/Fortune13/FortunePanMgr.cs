@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Photon.Pun;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class FortunePanMgr : MonoBehaviour
     public static FortunePanMgr Inst;
     public GameObject centerCard;
     public GameObject centerCoin;
-    
+
     void Start()
     {
         if (!Inst)
@@ -38,11 +39,20 @@ public class FortunePanMgr : MonoBehaviour
         }
     }
 
-    internal void OnOpenCard()
+    internal async void OnOpenCard()
     {
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         var playerList = FortunePlayMgr.Inst.m_playerList;
-        FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
+        LogMgr.Inst.Log("OnOpenCard is called. playerCount=" + playerList.Count);
+
+        if (lineNo == 2)
+        {
+            FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
+            await Task.Delay(1000);
+            FortuneUIController.Inst.calcDlg.Init(playerList);
+            await Task.Delay(1000);
+        }
+
         foreach (var user in FortunePlayMgr.Inst.userCardList)
         {
             try
@@ -57,12 +67,12 @@ public class FortunePanMgr : MonoBehaviour
                     case 1:
                         showList = user.middleCard;
                         break;
-                    case 2:
+                    case 2:                        
                         showList = user.backCard;
                         break;
                 }
                 seat.ShowCards(lineNo, showList);
-                FortuneUIController.Inst.calcDlg.ShowCards(showList);
+                FortuneUIController.Inst.calcDlg.ShowCards(user, showList);
             }
             catch
             {
