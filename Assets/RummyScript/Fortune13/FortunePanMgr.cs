@@ -10,6 +10,8 @@ public class FortunePanMgr : MonoBehaviour
     // Start is called before the first frame update
     public static FortunePanMgr Inst;
     public GameObject centerCard;
+    public GameObject centerCoin;
+    
     void Start()
     {
         if (!Inst)
