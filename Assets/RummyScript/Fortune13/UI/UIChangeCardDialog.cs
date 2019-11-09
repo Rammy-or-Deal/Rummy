@@ -22,13 +22,13 @@ public class UIChangeCardDialog : MonoBehaviour
     public Text backText;
     public GameObject mClock;
     public Text mClockText;
-    
+
 
     //
     // Start is called before the first frame update
     void Start()
     {
-        SetCardGroupColor(1, false);
+
     }
 
     public void Init()
@@ -70,6 +70,9 @@ public class UIChangeCardDialog : MonoBehaviour
         frontText.color = Color.green;
         middleText.color = Color.green;
         backText.color = Color.green;
+        SetCardGroupColor(0, true);
+        SetCardGroupColor(1, true);
+        SetCardGroupColor(2, true);
 
         var frontType = FortuneRuleMgr.GetCardType(frontList, ref frontList);
         var middleType = FortuneRuleMgr.GetCardType(middleList, ref middleList);
@@ -92,11 +95,17 @@ public class UIChangeCardDialog : MonoBehaviour
             frontText.color = Color.red;
             middleText.color = Color.red;
             backText.color = Color.red;
+
+            SetCardGroupColor(0, false);
+            SetCardGroupColor(1, false);
         }
         if (middleScore > backScore)
         {
             middleText.color = Color.red;
             backText.color = Color.red;
+            SetCardGroupColor(0, false);
+            SetCardGroupColor(1, false);
+            SetCardGroupColor(2 , false);
         }
     }
     List<Card> getCardList(FortuneCard[] cards)
@@ -128,9 +137,12 @@ public class UIChangeCardDialog : MonoBehaviour
 
     private void SendMyCards()
     {
-        try{
+        try
+        {
             StopCoroutine(countdownTimerRoutine);
-        }catch{
+        }
+        catch
+        {
 
         }
 
@@ -140,7 +152,7 @@ public class UIChangeCardDialog : MonoBehaviour
         var middleList = getCardList(middleCards);
         var backList = getCardList(backCards);
 
-        
+
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnPlayerDealCard},
             {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
@@ -155,6 +167,6 @@ public class UIChangeCardDialog : MonoBehaviour
 
     public void SetCardGroupColor(int id, bool flag)
     {
-        cardGroups[id].color=flag? new Color32(43,43,43,255):new Color32(255,42,42,255);
+        cardGroups[id].color = flag ? new Color32(43, 43, 43, 255) : new Color32(255, 42, 42, 255);
     }
 }

@@ -43,12 +43,20 @@ public class FortunePlayMgr : MonoBehaviour
 {
     // Start is called before the first frame update
     public static FortunePlayMgr Inst;
+    [HideInInspector]
     public List<FortuneUserSeat> m_playerList;
     [HideInInspector] bool isFirst;
     void Start()
     {
         if (!Inst)
+        {
+            List<FortuneUserSeat> m_playerList = new List<FortuneUserSeat>();
             Inst = this;
+            foreach(var seat in PlayerManagement.Inst.m_playerList)
+            {
+                m_playerList.Add((FortuneUserSeat)seat);
+            }
+        }
         isFirst = true;
     }
 
@@ -94,10 +102,12 @@ public class FortunePlayMgr : MonoBehaviour
     {
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         lineNo--;
-        if(lineNo < 0)
+        if (lineNo < 0)
         {
             CalcResult();
-        }else{
+        }
+        else
+        {
             StartCoroutine(SendPlayersCardToAll_Event(lineNo));
         }
     }
@@ -226,7 +236,7 @@ public class FortuneUserCardList
     }
     public static string cardlistTostring(List<Card> cardList)
     {
-        return string.Join(",", cardList.Select(x=>x.cardString));
+        return string.Join(",", cardList.Select(x => x.cardString));
     }
     public FortuneUserCardList()
     {

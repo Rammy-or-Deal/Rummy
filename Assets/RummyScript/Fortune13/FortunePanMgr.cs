@@ -40,6 +40,7 @@ public class FortunePanMgr : MonoBehaviour
     {
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         var playerList = FortunePlayMgr.Inst.m_playerList;
+        FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
         foreach (var user in FortunePlayMgr.Inst.userCardList)
         {
             try
@@ -59,6 +60,7 @@ public class FortunePanMgr : MonoBehaviour
                         break;
                 }
                 seat.ShowCards(lineNo, showList);
+                FortuneUIController.Inst.calcDlg.ShowCards(showList);
             }
             catch
             {
