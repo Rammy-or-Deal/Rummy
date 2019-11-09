@@ -18,6 +18,7 @@ public class FortuneUIController : MonoBehaviour
     {
         if(!Inst)
             Inst = this;
+        
     }
 
     public void OnClickMenu()
