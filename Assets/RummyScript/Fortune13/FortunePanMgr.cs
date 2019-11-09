@@ -19,11 +19,6 @@ public class FortunePanMgr : MonoBehaviour
             Inst = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void OnInitCard()
     {
 
@@ -39,7 +34,7 @@ public class FortunePanMgr : MonoBehaviour
         }
     }
 
-    internal async void OnOpenCard()
+    internal void OnOpenCard()
     {
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         var playerList = FortunePlayMgr.Inst.m_playerList;
@@ -48,9 +43,7 @@ public class FortunePanMgr : MonoBehaviour
         if (lineNo == 2)
         {
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
-            await Task.Delay(1000);
             FortuneUIController.Inst.calcDlg.Init(playerList);
-            await Task.Delay(1000);
         }
 
         foreach (var user in FortunePlayMgr.Inst.userCardList)

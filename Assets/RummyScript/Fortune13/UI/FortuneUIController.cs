@@ -12,15 +12,26 @@ public class FortuneUIController : MonoBehaviour
     public UIResultDialog resultDlg;
     public UICalcDialog calcDlg;
     public UIChangeCardDialog changeDlg;
-
+    
     // Start is called before the first frame update
     void Start()
     {
         if(!Inst)
             Inst = this;
-        
+        StartCoroutine(Init());
     }
-
+   
+    IEnumerator Init()
+    {
+        UIController.Inst.loadingDlg.gameObject.SetActive(true);
+        calcDlg.gameObject.SetActive(true);
+        
+        yield return new WaitForFixedUpdate();
+        
+        calcDlg.gameObject.SetActive(false);
+        UIController.Inst.loadingDlg.gameObject.SetActive(false);
+    }
+    
     public void OnClickMenu()
     {
         bool active = mMenuPanel.activeSelf == true ? false : true;

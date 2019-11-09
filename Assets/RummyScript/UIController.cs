@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
     {
         if (!Inst)
             Inst= this;
+        
     }
 
     void Start()

@@ -12,6 +12,17 @@ public class UILoadingDialog : MonoBehaviour
     void Start () {
         // Initialize onProgressComplete and set a basic callback
     }
+    public void Show(float time)
+    {
+        gameObject.SetActive(true);
+        StartCoroutine(Hide(time));
+    }
+
+    IEnumerator Hide(float time)
+    {
+        yield return new WaitForFixedUpdate();
+        gameObject.SetActive(false);
+    }
     
    public void Update()
     {
