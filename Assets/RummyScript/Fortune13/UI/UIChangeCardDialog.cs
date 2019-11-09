@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class UIChangeCardDialog : MonoBehaviour
 {
+    public Image[] cardGroups;
     //cards
     public FortuneCard[] frontCards;
     public FortuneCard[] middleCards;
@@ -21,12 +22,13 @@ public class UIChangeCardDialog : MonoBehaviour
     public Text backText;
     public GameObject mClock;
     public Text mClockText;
+    
 
     //
     // Start is called before the first frame update
     void Start()
     {
-
+        SetCardGroupColor(1, false);
     }
 
     public void Init()
@@ -149,5 +151,10 @@ public class UIChangeCardDialog : MonoBehaviour
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
         this.gameObject.SetActive(false);
+    }
+
+    public void SetCardGroupColor(int id, bool flag)
+    {
+        cardGroups[id].color=flag? new Color32(43,43,43,255):new Color32(255,42,42,255);
     }
 }
