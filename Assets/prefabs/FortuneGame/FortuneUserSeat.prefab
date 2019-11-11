@@ -757,6 +757,9 @@ MonoBehaviour:
   mUserName: {fileID: 5877839854055745145}
   mUserSkillName: {fileID: 592984590453523233}
   mCoinValue: {fileID: 2155537083632369487}
+  actorNumber: 0
+  isSeat: 0
+  _status: 0
   frontCards:
   - {fileID: 1736890874183422916}
   - {fileID: 1265860706800123428}
@@ -787,9 +790,6 @@ MonoBehaviour:
   - {fileID: 6576227043632813651}
   - {fileID: 7221628454829210375}
   - {fileID: 6457320890738548775}
-  actorNumber: 0
-  isSeat: 0
-  _status: 0
 --- !u!1 &6816337373200460805
 GameObject:
   m_ObjectHideFlags: 0
