@@ -55,7 +55,7 @@ public class FortuneMe : MonoBehaviour
         FortunePanMgr.Inst.SetMissionText(mission);        
 
         // Send I am ready.
-        await Task.Delay(3000);
+        await Task.Delay(5000);
 
         try
         {

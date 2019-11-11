@@ -27,6 +27,7 @@ public class FortunePanMgr : MonoBehaviour
     {
         var playerList = FortunePlayMgr.Inst.m_playerList;
         centerCard.SetActive(true);
+        LogMgr.Inst.Log("PanMgr OnCardDistributed called");
         foreach (var player in playerList)
         {
             player.InitCards();
