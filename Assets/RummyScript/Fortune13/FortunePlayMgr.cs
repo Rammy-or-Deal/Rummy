@@ -130,7 +130,7 @@ public class FortunePlayMgr : MonoBehaviour
     public List<FortuneUserCardList> userCardList = new List<FortuneUserCardList>();
     internal void OnPlayerDealCard()
     {
-        var seatList = PlayerManagement.Inst.getSeatList();
+        //var seatList = PlayerManagement.Inst.getSeatList();
 
         // Store Usercards
         FortuneUserCardList newUser = new FortuneUserCardList();

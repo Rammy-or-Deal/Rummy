@@ -146,7 +146,7 @@ public class UIChangeCardDialog : MonoBehaviour
 
         }
 
-        FortuneMe.Inst.SetMyProperty((int)FortunePlayerStatus.dealtCard);
+        //FortuneMe.Inst.SetMyProperty((int)FortunePlayerStatus.dealtCard);
 
         var frontList = getCardList(frontCards);
         var middleList = getCardList(middleCards);
@@ -158,7 +158,8 @@ public class UIChangeCardDialog : MonoBehaviour
             {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
             {Common.FORTUNE_PLAYER_FRONT_CARD, string.Join(",", frontList.Select(x=>x.cardString))},
             {Common.FORTUNE_PLAYER_MIDDLE_CARD, string.Join(",", middleList.Select(x=>x.cardString))},
-            {Common.FORTUNE_PLAYER_BACK_CARD, string.Join(",", backList.Select(x=>x.cardString))}
+            {Common.FORTUNE_PLAYER_BACK_CARD, string.Join(",", backList.Select(x=>x.cardString))},
+            {Common.PLAYER_STATUS, (int)FortunePlayerStatus.dealtCard}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
