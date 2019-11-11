@@ -52,7 +52,7 @@ public class FortunePlayMgr : MonoBehaviour
         {
             List<FortuneUserSeat> m_playerList = new List<FortuneUserSeat>();
             Inst = this;
-            foreach(var seat in PlayerManagement.Inst.m_playerList)
+            foreach (var seat in PlayerManagement.Inst.m_playerList)
             {
                 m_playerList.Add((FortuneUserSeat)seat);
             }
@@ -69,7 +69,7 @@ public class FortunePlayMgr : MonoBehaviour
     internal void OnUserSit()
     {
         if (!isFirst) return;
-        
+
         var seatList = PlayerManagement.Inst.getSeatList();
         if (seatList.Count < 2) return;
         isFirst = false;
@@ -103,7 +103,7 @@ public class FortunePlayMgr : MonoBehaviour
 
     internal void OnOpenCard()
     {
-        if(!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         lineNo--;
         if (lineNo < 0)
@@ -146,9 +146,9 @@ public class FortunePlayMgr : MonoBehaviour
 
         if (!PhotonNetwork.IsMasterClient) return;
         //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
-        foreach(var player in PhotonNetwork.PlayerList)
+        foreach (var player in PhotonNetwork.PlayerList)
         {
-            if((int)player.CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.OnChanging)
+            if ((int)player.CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.OnChanging)
                 return;
         }
 
@@ -170,14 +170,18 @@ public class FortunePlayMgr : MonoBehaviour
         //var seatList = PlayerManagement.Inst.getSeatList();
         //if (PhotonNetwork.PlayerList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
 
-        foreach(var player in PhotonNetwork.PlayerList)
+        foreach (var player in PhotonNetwork.PlayerList)
         {
-            var status = (int)player.CustomProperties[Common.PLAYER_STATUS];
-            if(status == (int)FortunePlayerStatus.canStart)   return;
+            try
+            {
+                var status = (int)player.CustomProperties[Common.PLAYER_STATUS];
+                if (status == (int)FortunePlayerStatus.canStart) return;
+            }
+            catch { continue; }
         }
 
         Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},            
+            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
@@ -227,6 +231,14 @@ public class FortunePlayMgr : MonoBehaviour
             {Common.SEAT_STRING, seatString},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+
+        props = new Hashtable{
+            {Common.PLAYER_STATUS, status}
+        };
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            player.SetCustomProperties(props);
+        }
     }
 }
 public class FortuneUserCardList
