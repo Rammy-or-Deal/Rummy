@@ -78,8 +78,8 @@ public class FortunePanMgr : MonoBehaviour
                 }
                 seat.ShowCards(lineNo, showList);
                 FortuneUIController.Inst.calcDlg.ShowCards(user, showList);
+                await Task.Delay(500);
                 FortuneUIController.Inst.calcDlg.SendReceiveCoin(lineNo);
-
             }
             catch
             {
