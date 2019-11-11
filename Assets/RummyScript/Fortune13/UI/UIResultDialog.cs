@@ -10,4 +10,9 @@ public class UIResultDialog : MonoBehaviour
         
     }
 
+    public void OnCloseBtn()
+    {
+        this.gameObject.SetActive(false);
+    }
+
 }
