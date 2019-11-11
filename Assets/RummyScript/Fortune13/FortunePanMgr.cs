@@ -32,6 +32,7 @@ public class FortunePanMgr : MonoBehaviour
             player.InitCards();
             player.moveDealCard(centerCard.transform.position);
         }
+        centerCard.SetActive(false);
     }    
 
     internal async void OnOpenCard()

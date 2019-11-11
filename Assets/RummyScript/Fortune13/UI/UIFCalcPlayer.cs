@@ -81,7 +81,7 @@ public class UIFCalcPlayer : MonoBehaviour
             cardList.Add(card);
         }
 
-        CoinImage = this.gameObject.transform.parent.parent.GetComponentsInChildren<Image>().Where(x => x.gameObject.name == "CenterCoin").First().gameObject;
+        CoinImage = this.gameObject.transform.parent.parent.GetComponentsInChildren<Image>(true).Where(x => x.gameObject.name == "CenterCoin").First().gameObject;
     }
 
     internal void Init(FortuneUserSeat seat)
@@ -115,15 +115,16 @@ public class UIFCalcPlayer : MonoBehaviour
 
     private async void ShowSendCoinEffect(UIFCalcPlayer tarPlayer)
     {
-        List<GameObject> coinImages = new List<GameObject>();
+        List<GameObject> coinImages = new List<GameObject>();        
         for (int i = 0; i < 10; i++)
         {
-            GameObject obj = Instantiate(CoinImage, coinText.transform);
+            GameObject obj = Instantiate(CoinImage, coinText.transform);            
             obj.transform.localPosition = new Vector3(0, 0, 0);
             Vector3 scale = obj.transform.localScale;
             scale.y = 1.5f;
             scale.x = 1.5f;
             obj.transform.localScale = scale;
+            obj.SetActive(true);
             coinImages.Add(obj);
         }
         await Task.Delay(500);
