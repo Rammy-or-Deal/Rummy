@@ -161,18 +161,18 @@ public class UICalcDialog : MonoBehaviour
         switch (lineNo)
         {
             case 0:
-            LogMgr.Inst.Log(string.Format("Back Hand: {0}", curCoin));
-            LogMgr.Inst.Log(string.Format("Total Result: {0}", myCoin));
-                m_FrontText.text = string.Format("Front Hand: {0}", curCoin);
-                m_TotalText.text = string.Format("Total Result: {0}", myCoin);
+                LogMgr.Inst.Log(string.Format("Back Hand:\t{0}", curCoin));
+                LogMgr.Inst.Log(string.Format("Total Result: {0}", myCoin));
+                m_FrontText.text = string.Format("Front Hand:\t{0}", curCoin);
+                m_TotalText.text = string.Format("Total Result:\t{0}", myCoin);
                 break;
             case 1:
-            LogMgr.Inst.Log(string.Format("Middle Hand: {0}", curCoin));
-                m_MiddleText.text = string.Format("Middle Hand: {0}", curCoin);
+                LogMgr.Inst.Log(string.Format("Middle Hand:\t{0}", curCoin));
+                m_MiddleText.text = string.Format("Middle Hand:\t{0}", curCoin);
                 break;
             case 2:
-            LogMgr.Inst.Log(string.Format("Back Hand: {0}", curCoin));
-                m_BackText.text = string.Format("Back Hand: {0}", curCoin);
+                LogMgr.Inst.Log(string.Format("Back Hand:\t {0}", curCoin));
+                m_BackText.text = string.Format("Back Hand:\t {0}", curCoin);
                 break;
         }
     }
