@@ -5369,7 +5369,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: backText
 --- !u!222 &779286862
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5947,9 +5947,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 979231282}
-  - {fileID: 1939638623}
-  - {fileID: 785626346}
   - {fileID: 1385059416}
+  - {fileID: 785626346}
+  - {fileID: 1939638623}
   - {fileID: 65051535}
   - {fileID: 1618199043}
   - {fileID: 2005806392}
@@ -5976,9 +5976,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players:
   - {fileID: 979231283}
-  - {fileID: 1939638624}
-  - {fileID: 785626347}
   - {fileID: 1385059417}
+  - {fileID: 785626347}
+  - {fileID: 1939638624}
   frontTxt: {fileID: 884576539}
   middleTxt: {fileID: 1975144639}
   backTxt: {fileID: 1580298642}
@@ -7229,7 +7229,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: totalText
 --- !u!222 &1027362840
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9313,7 +9313,7 @@ PrefabInstance:
     - target: {fileID: 3039013597937111365, guid: 35ca156f62880e842ae2e6b0f8cdc0aa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3039013597937111365, guid: 35ca156f62880e842ae2e6b0f8cdc0aa,
         type: 3}
@@ -9757,7 +9757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: fontText
 --- !u!222 &1512037013
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13695,7 +13695,7 @@ PrefabInstance:
     - target: {fileID: 3039013597937111365, guid: 35ca156f62880e842ae2e6b0f8cdc0aa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3039013597937111365, guid: 35ca156f62880e842ae2e6b0f8cdc0aa,
         type: 3}
@@ -14152,7 +14152,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: middleText
 --- !u!222 &1997650777
 CanvasRenderer:
   m_ObjectHideFlags: 0
