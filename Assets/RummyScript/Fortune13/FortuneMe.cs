@@ -47,12 +47,12 @@ public class FortuneMe : MonoBehaviour
         
         string missionString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
         mission.missionString = missionString;
-        LogMgr.Inst.Log("Game Started message Received. MissionCard=" + missionString, (int)LogLevels.RoomLog1);
+        LogMgr.Inst.Log("OnCardDistributed Received. MissionCard=" + missionString, (int)LogLevels.RoomLog1);
 
         var changeDlg = FortuneUIController.Inst.changeDlg;
         changeDlg.Init();
         changeDlg.SetMission(mission);
-        FortunePanMgr.Inst.SetMissionText(mission);        
+        FortunePanMgr.Inst.SetMissionText(mission);
 
         // Send I am ready.
         await Task.Delay(5000);
@@ -76,6 +76,7 @@ public class FortuneMe : MonoBehaviour
 
     internal void OnGameStarted()
     {
+        LogMgr.Inst.Log("Game Started Message received.");
         FortunePlayMgr.Inst.userCardList.Clear();
 
         var changeDlg = FortuneUIController.Inst.changeDlg;

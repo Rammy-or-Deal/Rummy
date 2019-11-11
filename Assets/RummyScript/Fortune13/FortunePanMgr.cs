@@ -25,6 +25,9 @@ public class FortunePanMgr : MonoBehaviour
     }
     public void OnCardDistributed()
     {
+        var actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        if (actorNumber != PhotonNetwork.LocalPlayer.ActorNumber) return;
+
         var playerList = FortunePlayMgr.Inst.m_playerList;
         centerCard.SetActive(true);
         LogMgr.Inst.Log("PanMgr OnCardDistributed called");
@@ -50,7 +53,7 @@ public class FortunePanMgr : MonoBehaviour
         {
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
             FortuneUIController.Inst.calcDlg.Init(playerList);
-            
+
         }
 
         FortuneUIController.Inst.calcDlg.showLineLabel(lineNo);
@@ -90,7 +93,7 @@ public class FortunePanMgr : MonoBehaviour
         {
             FortuneUIController.Inst.resultDlg.Init(playerList);
             await Task.Delay(7000);
-            
+
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(false);
             FortuneUIController.Inst.resultDlg.SetProperty(FortuneUIController.Inst.calcDlg);
             FortuneUIController.Inst.resultDlg.gameObject.SetActive(true);
