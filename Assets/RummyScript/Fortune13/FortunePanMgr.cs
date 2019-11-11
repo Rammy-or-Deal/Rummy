@@ -41,9 +41,7 @@ public class FortunePanMgr : MonoBehaviour
 
     internal async void OnOpenCard()
     {
-        var seatList = PlayerManagement.Inst.getSeatList();
-        int status = seatList.Where(x => x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).Select(x => x.status).First();
-        if (status != (int)FortunePlayerStatus.dealtCard) return;
+        if ((int)PhotonNetwork.LocalPlayer.CustomProperties[Common.PLAYER_STATUS] != (int)FortunePlayerStatus.dealtCard) return;
 
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         var playerList = FortunePlayMgr.Inst.m_playerList;
