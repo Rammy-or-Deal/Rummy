@@ -12,17 +12,25 @@ public enum FortuneMessages
     OnPlayerDealCard = 4,
     OnOpenCard = 5,
 }
+public enum FortuneGameStatus
+{
+    Init = 0,
+    GameStarted = 1,
+    CardDealt = 2,
 
+}
 public class FortuneMessageMgr : MonoBehaviour
 {
     public static FortuneMessageMgr Inst;
     // Start is called before the first frame update
+    public FortuneGameStatus nowGameStatus;
     void Start()
     {
         if (!Inst)
         {
             Inst = this;
             RoomMessageManagement.Inst.GameID = 30;
+            nowGameStatus = FortuneGameStatus.Init;
         }
     }
 
@@ -50,18 +58,28 @@ public class FortuneMessageMgr : MonoBehaviour
                     FortunePlayMgr.Inst.OnUserReady();
                 break;
             case (int)FortuneMessages.OnGameStarted:
+                nowGameStatus = FortuneGameStatus.GameStarted;  // started
                 FortuneMe.Inst.OnGameStarted();
                 break;
             case (int)FortuneMessages.OnCardDistributed:
-                FortuneMe.Inst.OnCardDistributed();
-                FortunePanMgr.Inst.OnCardDistributed();
+                if (nowGameStatus != FortuneGameStatus.GameStarted)
+                {
+                    FortuneMe.Inst.OnCardDistributed();
+                    FortunePanMgr.Inst.OnCardDistributed();
+                }
                 break;
             case (int)FortuneMessages.OnPlayerDealCard:
-                FortunePlayMgr.Inst.OnPlayerDealCard();
+                if (nowGameStatus != FortuneGameStatus.GameStarted)
+                {
+                    FortunePlayMgr.Inst.OnPlayerDealCard();
+                }
                 break;
             case (int)FortuneMessages.OnOpenCard:
-                FortunePanMgr.Inst.OnOpenCard();
-                FortunePlayMgr.Inst.OnOpenCard();
+                if (nowGameStatus != FortuneGameStatus.GameStarted)
+                {
+                    FortunePanMgr.Inst.OnOpenCard();
+                    FortunePlayMgr.Inst.OnOpenCard();
+                }
                 break;
             default:
                 RoomMessageManagement.Inst.OnMessageArrived(messageId, p);

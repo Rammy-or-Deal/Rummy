@@ -18,7 +18,7 @@ public class UIFCalcPlayer : MonoBehaviour
 
     public GameObject CoinImage;
 
-    public int Score;    
+    public int Score;
 
     [HideInInspector]
     public bool IsSeat
@@ -74,11 +74,23 @@ public class UIFCalcPlayer : MonoBehaviour
 
     internal void Init(FortuneUserSeat seat)
     {
-        IsSeat = seat.IsSeat;
-        actorNumber = seat.actorNumber;
-        coinText.text = "";
-        cardText.text = "";
-        totalCoin = 0;
+        try
+        {
+            if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.actorNumber).First().CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.Init)
+                IsSeat = false;
+            else
+                IsSeat = seat.IsSeat;
+                
+            actorNumber = seat.actorNumber;
+            coinText.text = "";
+            cardText.text = "";
+            totalCoin = 0;
+        }
+        catch
+        {
+            IsSeat = false;
+
+        }
     }
 
     internal void ShowCards(List<Card> showList)
@@ -143,7 +155,7 @@ public class UIFCalcPlayer : MonoBehaviour
     internal void SetCardType()
     {
         List<Card> cards = new List<Card>();
-        foreach (var card in cardList.Where(x=>x.gameObject.activeSelf == true))
+        foreach (var card in cardList.Where(x => x.gameObject.activeSelf == true))
         {
             cards.Add(card.GetValue());
         }

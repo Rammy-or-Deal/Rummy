@@ -66,7 +66,9 @@ public class UICalcDialog : MonoBehaviour
         LogMgr.Inst.Log("Calc Dialog Init is called. playerCount=" + m_playerList.Count);
         for (int i = 0; i < m_playerList.Count; i++)
         {
+            
             LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_playerList[i].IsSeat);
+
             m_calc_player[i].Init(m_playerList[i]);
         }
 
