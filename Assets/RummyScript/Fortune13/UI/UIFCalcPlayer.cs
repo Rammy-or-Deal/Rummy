@@ -143,7 +143,7 @@ public class UIFCalcPlayer : MonoBehaviour
     internal void SetCardType()
     {
         List<Card> cards = new List<Card>();
-        foreach (var card in cardList)
+        foreach (var card in cardList.Where(x=>x.gameObject.activeSelf == true))
         {
             cards.Add(card.GetValue());
         }
