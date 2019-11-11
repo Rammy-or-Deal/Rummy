@@ -32,10 +32,16 @@ public class FortunePanMgr : MonoBehaviour
             player.InitCards();
             player.moveDealCard(centerCard.transform.position);
         }
-    }
+    }    
 
-    internal void OnOpenCard()
-    {
+    internal async void OnOpenCard()
+    {        
+        var seatList = PlayerManagement.Inst.getSeatList();
+        int status = seatList.Where(x=>x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).Select(x=>x.status).First();
+        if(status != (int)FortunePlayerStatus.dealtCard) return;
+
+
+
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         var playerList = FortunePlayMgr.Inst.m_playerList;
         LogMgr.Inst.Log("OnOpenCard is called. playerCount=" + playerList.Count);
@@ -45,7 +51,11 @@ public class FortunePanMgr : MonoBehaviour
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
             FortuneUIController.Inst.calcDlg.Init(playerList);
         }
+        
+        FortuneUIController.Inst.calcDlg.showLineLabel(lineNo);
+        await Task.Delay(1000);
 
+        // Showing card
         foreach (var user in FortunePlayMgr.Inst.userCardList)
         {
             try
@@ -66,11 +76,12 @@ public class FortunePanMgr : MonoBehaviour
                 }
                 seat.ShowCards(lineNo, showList);
                 FortuneUIController.Inst.calcDlg.ShowCards(user, showList);
+                FortuneUIController.Inst.calcDlg.SendReceiveCoin(lineNo);
             }
             catch
             {
                 break;
             }
-        }
+        }            
     }
 }

@@ -100,6 +100,7 @@ public class FortunePlayMgr : MonoBehaviour
 
     internal void OnOpenCard()
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         lineNo--;
         if (lineNo < 0)
