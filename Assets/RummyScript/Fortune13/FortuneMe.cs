@@ -43,6 +43,17 @@ public class FortuneMe : MonoBehaviour
             cardList.Add(card);
         }
 
+    //  Set Mission String
+        
+        string missionString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
+        mission.missionString = missionString;
+        LogMgr.Inst.Log("Game Started message Received. MissionCard=" + missionString, (int)LogLevels.RoomLog1);
+
+        var changeDlg = FortuneUIController.Inst.changeDlg;
+        changeDlg.Init();
+        changeDlg.SetMission(mission);
+        FortunePanMgr.Inst.SetMissionText(mission);        
+
         // Send I am ready.
         await Task.Delay(3000);
 
@@ -67,21 +78,15 @@ public class FortuneMe : MonoBehaviour
     {
         FortunePlayMgr.Inst.userCardList.Clear();
 
-        string missionString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
-        mission.missionString = missionString;
-
-        LogMgr.Inst.Log("Game Started message Received. MissionCard=" + missionString, (int)LogLevels.RoomLog1);
         var changeDlg = FortuneUIController.Inst.changeDlg;
-        changeDlg.Init();
+        
         changeDlg.gameObject.SetActive(true);
 
         for (int i = 0; i < cardList.Count; i++)
         {
             changeDlg.myCards[i].SetValue(cardList[i]);
         }
-        changeDlg.SetMission(mission);
         changeDlg.UpdateHandSuitString();
-
         SetMyProperty((int)FortunePlayerStatus.OnChanging);
 
         changeDlg.StartTimer();
@@ -91,11 +96,11 @@ public class FortuneMe : MonoBehaviour
     public void SetMyProperty(int status)
     {
         var seatList = PlayerManagement.Inst.getSeatList();
-        foreach (var seat in seatList.Where(x=>x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber))
+        foreach (var seat in seatList.Where(x => x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber))
         {
             seat.status = status;
         }
-        
+
         var seatString = string.Join(",", seatList.Select(x => x.seatString));
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},

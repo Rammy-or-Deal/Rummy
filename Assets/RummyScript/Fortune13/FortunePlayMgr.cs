@@ -92,7 +92,8 @@ public class FortunePlayMgr : MonoBehaviour
             Hashtable props = new Hashtable{
                 {Common.FORTUNE_MESSAGE, FortuneMessages.OnCardDistributed},
                 {Common.PLAYER_ID, seat.actorNumber},
-                {Common.CARD_LIST_STRING, string.Join(",", cardString)}
+                {Common.CARD_LIST_STRING, string.Join(",", cardString)},
+                {Common.FORTUNE_MISSION_CARD, new FortuneMissionCard().CreateMissionString()}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
@@ -163,8 +164,7 @@ public class FortunePlayMgr : MonoBehaviour
         if (seatList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
 
         Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},
-            {Common.FORTUNE_MISSION_CARD, new FortuneMissionCard().CreateMissionString()}
+            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},            
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
