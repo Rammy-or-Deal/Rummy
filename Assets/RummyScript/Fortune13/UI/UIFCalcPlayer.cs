@@ -18,6 +18,8 @@ public class UIFCalcPlayer : MonoBehaviour
 
     public GameObject CoinImage;
 
+    public int Score;    
+
     [HideInInspector]
     public bool IsSeat
     {
@@ -25,20 +27,6 @@ public class UIFCalcPlayer : MonoBehaviour
         set { this.gameObject.SetActive(value); }
     }
 
-    public int Score
-    {
-        get
-        {
-            List<Card> cards = new List<Card>();
-            foreach (var card in cardList)
-            {
-                cards.Add(card.GetValue());
-            }
-            var type = FortuneRuleMgr.GetCardType(cards, ref cards);
-            return FortuneRuleMgr.GetScore(cards, type);
-        }
-        internal set { }
-    }
     public int Coin
     {
         get
@@ -115,10 +103,10 @@ public class UIFCalcPlayer : MonoBehaviour
 
     private async void ShowSendCoinEffect(UIFCalcPlayer tarPlayer)
     {
-        List<GameObject> coinImages = new List<GameObject>();        
+        List<GameObject> coinImages = new List<GameObject>();
         for (int i = 0; i < 10; i++)
         {
-            GameObject obj = Instantiate(CoinImage, coinText.transform);            
+            GameObject obj = Instantiate(CoinImage, coinText.transform);
             obj.transform.localPosition = new Vector3(0, 0, 0);
             Vector3 scale = obj.transform.localScale;
             scale.y = 1.5f;
@@ -143,8 +131,20 @@ public class UIFCalcPlayer : MonoBehaviour
         yield return new WaitForSeconds(4.0f);
         foreach (var img in coinImages)
         {
-            //Destroy(img);
-            img.SetActive(false);
+            Destroy(img);
+            //img.SetActive(false);
         }
+    }
+
+    internal void SetCardType()
+    {
+        List<Card> cards = new List<Card>();
+        foreach (var card in cardList)
+        {
+            cards.Add(card.GetValue());
+        }
+        var type = FortuneRuleMgr.GetCardType(cards, ref cards);
+        Score = FortuneRuleMgr.GetScore(cards, type);
+        cardText.text = FortuneRuleMgr.GetCardTypeString(type);
     }
 }

@@ -33,15 +33,13 @@ public class FortunePanMgr : MonoBehaviour
             player.moveDealCard(centerCard.transform.position);
         }
         centerCard.SetActive(false);
-    }    
+    }
 
     internal async void OnOpenCard()
-    {        
+    {
         var seatList = PlayerManagement.Inst.getSeatList();
-        int status = seatList.Where(x=>x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).Select(x=>x.status).First();
-        if(status != (int)FortunePlayerStatus.dealtCard) return;
-
-
+        int status = seatList.Where(x => x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).Select(x => x.status).First();
+        if (status != (int)FortunePlayerStatus.dealtCard) return;
 
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         var playerList = FortunePlayMgr.Inst.m_playerList;
@@ -51,8 +49,9 @@ public class FortunePanMgr : MonoBehaviour
         {
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
             FortuneUIController.Inst.calcDlg.Init(playerList);
+            FortuneUIController.Inst.resultDlg.Init(playerList);
         }
-        
+
         FortuneUIController.Inst.calcDlg.showLineLabel(lineNo);
         await Task.Delay(1000);
 
@@ -71,18 +70,33 @@ public class FortunePanMgr : MonoBehaviour
                     case 1:
                         showList = user.middleCard;
                         break;
-                    case 2:                        
+                    case 2:
                         showList = user.backCard;
                         break;
                 }
                 seat.ShowCards(lineNo, showList);
                 FortuneUIController.Inst.calcDlg.ShowCards(user, showList);
                 FortuneUIController.Inst.calcDlg.SendReceiveCoin(lineNo);
+
+                if (lineNo == 0)
+                {
+                    await Task.Delay(10000);
+
+                    FortuneUIController.Inst.calcDlg.gameObject.SetActive(false);
+                    FortuneUIController.Inst.resultDlg.gameObject.SetActive(true);
+                }
+
             }
             catch
             {
                 break;
             }
-        }            
+        }
+    }
+
+    internal void SetMissionText(FortuneMissionCard mission)
+    {
+        var missionText = centerCard.gameObject.transform.parent.parent.GetComponentsInChildren<UnityEngine.UI.Text>(true).Where(x => x.gameObject.name == "MissionText").First();
+        missionText.text = FortuneRuleMgr.GetCardTypeString((HandSuit)mission.missionNo);
     }
 }

@@ -124,6 +124,7 @@ public class UICalcDialog : MonoBehaviour
         foreach (var player in m_calc_player.Where(x => x.IsSeat == true))
         {
             player.Coin = 0;
+            player.SetCardType();
         }
         //UIFCalcPlayer
 
@@ -162,18 +163,15 @@ public class UICalcDialog : MonoBehaviour
         switch (lineNo)
         {
             case 0:
-                LogMgr.Inst.Log(string.Format("Back\t Hand:{0}", curCoin));
-                LogMgr.Inst.Log(string.Format("Total Result: {0}", myCoin));
-                m_FrontText.text = string.Format("Front\t Hand: {0}", curCoin);
-                m_TotalText.text = string.Format("Total\t Result: {0}", myCoin);
+                m_FrontText.text = string.Format("Front\tHand: {0}", curCoin);
+                m_TotalText.text = string.Format("Total \tResult: {0}", myCoin);                
+
                 break;
             case 1:
-                LogMgr.Inst.Log(string.Format("Middle\t Hand:{0}", curCoin));
-                m_MiddleText.text = string.Format("Middle\t Hand: {0}", curCoin);
+                m_MiddleText.text = string.Format("Middle\tHand: {0}", curCoin);
                 break;
             case 2:
-                LogMgr.Inst.Log(string.Format("Back\t Hand:{0}", curCoin));
-                m_BackText.text = string.Format("Back\t Hand: {0}", curCoin);
+                m_BackText.text = string.Format("Back  \tHand: {0}", curCoin);
                 break;
         }
         }catch{}
