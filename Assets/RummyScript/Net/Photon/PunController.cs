@@ -362,6 +362,7 @@ public class PunController : MonoBehaviourPunCallbacks
             {
                 {Common.FORTUNE_MESSAGE, (int)RoomManagementMessages.OnUserEnteredRoom_M},
                 {Common.PLAYER_INFO, infoString},
+                {Common.PLAYER_STATUS, (int)FortunePlayerStatus.Init}
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }

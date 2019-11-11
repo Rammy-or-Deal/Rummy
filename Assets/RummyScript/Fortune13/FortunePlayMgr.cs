@@ -148,9 +148,13 @@ public class FortunePlayMgr : MonoBehaviour
         //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
         foreach (var player in PhotonNetwork.PlayerList)
         {
-            LogMgr.Inst.Log("Player("+player.ActorNumber+")'s status="+((FortunePlayerStatus)((int)player.CustomProperties[Common.PLAYER_STATUS])));
-            if ((int)player.CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.OnChanging)
-                return;
+            try
+            {
+                LogMgr.Inst.Log("Player(" + player.ActorNumber + ")'s status=" + ((FortunePlayerStatus)((int)player.CustomProperties[Common.PLAYER_STATUS])));
+                if ((int)player.CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.OnChanging)
+                    return;
+            }
+            catch { continue; }
         }
 
         // If all users dealt card.
