@@ -15,10 +15,13 @@ public static class FortuneRuleMgr
     {
         CardData cardData = new CardData();
         List<byte> m_Cards = new List<byte>();
+        string cardListString = "";
         for (int i = 0; i < list.Count; i++)
         {
             m_Cards.Add(new Card(list[i].num, list[i].color).byteValue);
+            cardListString += list[i].num + ":" + list[i].color + ",";
         }
+        Debug.Log(cardListString);
         byte[] resCard = new byte[m_Cards.Count];
         var t = cardData.GetScore(m_Cards.ToArray(), ref resCard);
 
