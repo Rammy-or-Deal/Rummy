@@ -73,7 +73,7 @@ public class FortunePlayMgr : MonoBehaviour
         var seatList = PlayerManagement.Inst.getSeatList();
         if (seatList.Count < 2) return;
         isFirst = false;
-        
+
         if (!PhotonNetwork.IsMasterClient) return;
         SetAllPlayersStatus((int)FortunePlayerStatus.canStart);
         DistributeCards();
@@ -86,6 +86,7 @@ public class FortunePlayMgr : MonoBehaviour
 
         List<List<Card>> cardList = generateRandomCards();
         var seatList = PlayerManagement.Inst.getSeatList();
+        string missionString = new FortuneMissionCard().CreateMissionString();
         foreach (var seat in seatList.Where(x => x.status == (int)FortunePlayerStatus.canStart))
         {
             string cardString = "";
@@ -94,7 +95,7 @@ public class FortunePlayMgr : MonoBehaviour
                 {Common.FORTUNE_MESSAGE, FortuneMessages.OnCardDistributed},
                 {Common.PLAYER_ID, seat.actorNumber},
                 {Common.CARD_LIST_STRING, string.Join(",", cardString)},
-                {Common.FORTUNE_MISSION_CARD, new FortuneMissionCard().CreateMissionString()}
+                {Common.FORTUNE_MISSION_CARD, missionString}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
@@ -144,7 +145,12 @@ public class FortunePlayMgr : MonoBehaviour
         }
 
         if (!PhotonNetwork.IsMasterClient) return;
-        if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
+        //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
+        foreach(var player in PhotonNetwork.PlayerList)
+        {
+            if((int)player.CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.OnChanging)
+                return;
+        }
 
         // If all users dealt card.
         SendPlayersCardToAll(2);
@@ -161,8 +167,14 @@ public class FortunePlayMgr : MonoBehaviour
 
     internal void OnUserReady()
     {
-        var seatList = PlayerManagement.Inst.getSeatList();
-        if (seatList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
+        //var seatList = PlayerManagement.Inst.getSeatList();
+        //if (PhotonNetwork.PlayerList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
+
+        foreach(var player in PhotonNetwork.PlayerList)
+        {
+            var status = (int)player.CustomProperties[Common.PLAYER_STATUS];
+            if(status == (int)FortunePlayerStatus.canStart)   return;
+        }
 
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},            

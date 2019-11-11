@@ -55,7 +55,7 @@ public class FortuneMe : MonoBehaviour
         FortunePanMgr.Inst.SetMissionText(mission);
 
         // Send I am ready.
-        await Task.Delay(10000);
+        await Task.Delay(5000);
 
         try
         {
@@ -67,9 +67,9 @@ public class FortuneMe : MonoBehaviour
             FortunePlayMgr.Inst.m_playerList[0].Status = (int)FortunePlayerStatus.Ready;
             Hashtable table = new Hashtable{
                 {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnUserReady},
-                {Common.SEAT_STRING, string.Join(",", seatList.Select(x=>x.seatString))}
+                {Common.PLAYER_STATUS, string.Join(",", seatList.Select(x=>x.seatString))}
             };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(table);
         }
         catch { }
     }
@@ -96,17 +96,11 @@ public class FortuneMe : MonoBehaviour
 
     public void SetMyProperty(int status)
     {
-        var seatList = PlayerManagement.Inst.getSeatList();
-        foreach (var seat in seatList.Where(x => x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber))
-        {
-            seat.status = status;
-        }
-
-        var seatString = string.Join(",", seatList.Select(x => x.seatString));
+        
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
-            {Common.SEAT_STRING, seatString},
+            {Common.PLAYER_STATUS, status},
         };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
 }
