@@ -73,8 +73,9 @@ public class FortunePlayMgr : MonoBehaviour
         var seatList = PlayerManagement.Inst.getSeatList();
         if (seatList.Count < 2) return;
         isFirst = false;
+        
+        if (!PhotonNetwork.IsMasterClient) return;
         SetAllPlayersStatus((int)FortunePlayerStatus.canStart);
-
         DistributeCards();
 
     }
