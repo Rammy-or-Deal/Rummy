@@ -69,10 +69,10 @@ public class FortunePlayMgr : MonoBehaviour
     internal void OnUserSit()
     {
         if (!isFirst) return;
-        isFirst = false;
+        
         var seatList = PlayerManagement.Inst.getSeatList();
-        //if (seatList.Count > 2) return;
-
+        if (seatList.Count < 2) return;
+        isFirst = false;
         SetAllPlayersStatus((int)FortunePlayerStatus.canStart);
 
         DistributeCards();

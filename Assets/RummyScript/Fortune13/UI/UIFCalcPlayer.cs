@@ -26,7 +26,7 @@ public class UIFCalcPlayer : MonoBehaviour
         get { return this.gameObject.activeSelf; }
         set { this.gameObject.SetActive(value); }
     }
-
+    public int totalCoin;
     public int Coin
     {
         get
@@ -78,6 +78,7 @@ public class UIFCalcPlayer : MonoBehaviour
         actorNumber = seat.actorNumber;
         coinText.text = "";
         cardText.text = "";
+        totalCoin = 0;
     }
 
     internal void ShowCards(List<Card> showList)
@@ -99,6 +100,9 @@ public class UIFCalcPlayer : MonoBehaviour
         await Task.Delay(1000);
         Coin -= v;
         tarPlayer.Coin += v;
+
+        totalCoin -= v;
+        tarPlayer.totalCoin += v;
     }
 
     private async void ShowSendCoinEffect(UIFCalcPlayer tarPlayer)
@@ -128,7 +132,7 @@ public class UIFCalcPlayer : MonoBehaviour
 
     IEnumerator DestroyCoins(List<GameObject> coinImages)
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(3.5f);
         foreach (var img in coinImages)
         {
             Destroy(img);

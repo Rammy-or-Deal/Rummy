@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class UICalcDialog : MonoBehaviour
 {
     // Start is called before the first frame update
-    List<UIFCalcPlayer> m_calc_player;
+    public List<UIFCalcPlayer> m_calc_player;
     public Text m_CardLineText;
 
     public Text m_FrontText;
@@ -60,8 +60,7 @@ public class UICalcDialog : MonoBehaviour
         m_MiddleText.text = "";
         m_BackText.text = "";
         m_TotalText.text = "";
-        myCoin = 0;
-
+        
         m_CardLineText.text = "";
         LogMgr.Inst.Log("Calc Dialog Init is called. cardLineText=" + m_CardLineText.text);
         LogMgr.Inst.Log("Calc Dialog Init is called. playerCount=" + m_playerList.Count);
@@ -72,6 +71,7 @@ public class UICalcDialog : MonoBehaviour
         }
 
         //Sample 
+        /*
         m_calc_player[3].IsSeat = true;
         List<Card> cards3 = new List<Card>();
         cards3.Add(new Card(4, 8));
@@ -98,6 +98,7 @@ public class UICalcDialog : MonoBehaviour
         cards1.Add(new Card(5, 3));
         cards1.Add(new Card(3, 1));
         m_calc_player[1].ShowCards(cards1);
+        */
     }
 
     internal void showLineLabel(int lineNo)
@@ -118,7 +119,6 @@ public class UICalcDialog : MonoBehaviour
         LogMgr.Inst.Log("Card Line=" + m_CardLineText.text);
     }
 
-    int myCoin = 0;
     internal async void SendReceiveCoin(int lineNo)
     {
         foreach (var player in m_calc_player.Where(x => x.IsSeat == true))
@@ -135,43 +135,27 @@ public class UICalcDialog : MonoBehaviour
                 //if (srcPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber || tarPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
                 srcPlayer.SendCoin(tarPlayer, 100);
             }
-        }
-        /*
-        var srcPlayer = m_calc_player[0];
-        for (int i = 0; i < m_calc_player.Count; i++)
-        {
-            if (m_calc_player[i].IsSeat == false) continue;
-            var tarPlayer = m_calc_player[i];
-            if (srcPlayer.Score < tarPlayer.Score)
-            {
-                LogMgr.Inst.Log(string.Format("I Should send {0} to player[{1}]. My Coin={2}, TarPlayer's Coin={3}",
-                        100, i, srcPlayer.Coin, tarPlayer.Coin));
-                srcPlayer.SendCoin(tarPlayer, 100);
-                LogMgr.Inst.Log(string.Format("I Sent {0} to player[{1}]. My Coin={2}, TarPlayer's Coin={3}",
-                            100, i, srcPlayer.Coin, tarPlayer.Coin));
-            }
-        }
-        */
+        }      
 
 
         await Task.Delay(2000);
         int curCoin = m_calc_player[0].Coin;
-        myCoin += curCoin;
+        int myCoin = m_calc_player[0].totalCoin;
         LogMgr.Inst.Log(string.Format("{0} line. CurCoin={1}, TotalCoin={2}", lineNo, curCoin, myCoin));
         await Task.Delay(1000);
         try{
         switch (lineNo)
         {
             case 0:
-                m_FrontText.text = string.Format("Front\tHand: {0}", curCoin);
-                m_TotalText.text = string.Format("Total \tResult: {0}", myCoin);                
+                m_FrontText.text = string.Format("Front\t: {0}", curCoin);
+                m_TotalText.text = string.Format("Total \t: {0}", myCoin);                
 
                 break;
             case 1:
-                m_MiddleText.text = string.Format("Middle\tHand: {0}", curCoin);
+                m_MiddleText.text = string.Format("Middle\t: {0}", curCoin);
                 break;
             case 2:
-                m_BackText.text = string.Format("Back  \tHand: {0}", curCoin);
+                m_BackText.text = string.Format("Back  \t: {0}", curCoin);
                 break;
         }
         }catch{}

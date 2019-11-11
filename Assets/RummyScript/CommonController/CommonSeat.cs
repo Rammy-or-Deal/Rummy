@@ -14,6 +14,8 @@ public class CommonSeat : MonoBehaviour
     public Text mUserName;
     public Text mUserSkillName;
 
+    public string _mUserPic;
+
     public Text mCoinValue;
     // Start is called before the first frame update
     void Start()
@@ -77,6 +79,7 @@ public class CommonSeat : MonoBehaviour
             actorNumber = int.Parse(tmp[0]);
             mUserName.text = tmp[1];
             mUserPic.sprite = Resources.Load<Sprite>((string)tmp[2]);
+            _mUserPic = (string)tmp[2];
             mCoinValue.text = tmp[3];
             //mUserSkillPic.sprite = Resources.Load<Sprite>((string)tmp[4]);
             //mUserFrame.sprite = Resources.Load<Sprite>((string)tmp[5]);            

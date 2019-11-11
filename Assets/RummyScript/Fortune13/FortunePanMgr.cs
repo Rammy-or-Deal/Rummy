@@ -49,7 +49,7 @@ public class FortunePanMgr : MonoBehaviour
         {
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
             FortuneUIController.Inst.calcDlg.Init(playerList);
-            FortuneUIController.Inst.resultDlg.Init(playerList);
+            
         }
 
         FortuneUIController.Inst.calcDlg.showLineLabel(lineNo);
@@ -78,19 +78,21 @@ public class FortunePanMgr : MonoBehaviour
                 FortuneUIController.Inst.calcDlg.ShowCards(user, showList);
                 FortuneUIController.Inst.calcDlg.SendReceiveCoin(lineNo);
 
-                if (lineNo == 0)
-                {
-                    await Task.Delay(10000);
-
-                    FortuneUIController.Inst.calcDlg.gameObject.SetActive(false);
-                    FortuneUIController.Inst.resultDlg.gameObject.SetActive(true);
-                }
-
             }
             catch
             {
                 break;
             }
+        }
+
+        if (lineNo == 0)
+        {
+            FortuneUIController.Inst.resultDlg.Init(playerList);
+            await Task.Delay(7000);
+            
+            FortuneUIController.Inst.calcDlg.gameObject.SetActive(false);
+            FortuneUIController.Inst.resultDlg.SetProperty(FortuneUIController.Inst.calcDlg);
+            FortuneUIController.Inst.resultDlg.gameObject.SetActive(true);
         }
     }
 
