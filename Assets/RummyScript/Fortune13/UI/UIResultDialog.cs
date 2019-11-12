@@ -90,7 +90,7 @@ public class UIResultDialog : MonoBehaviour
         while (waitTime > 0)
         {
             yield return new WaitForSeconds(1.0f);
-            RestartMessageText.text = string.Format("You will be exited in {0} seconds", waitTime);
+            RestartMessageText.text = string.Format("Will leave in {0}sec", waitTime);
             waitTime--;
         }
         OnCloseBtn();
