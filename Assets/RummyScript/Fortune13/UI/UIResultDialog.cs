@@ -12,7 +12,7 @@ public class UIResultDialog : MonoBehaviour
     public Text backTxt;
     public Text totalTxt;
     public Text tableTaxTxt;
-
+    public Text RestartMessageText;
     void Start()
     {
 
@@ -22,7 +22,10 @@ public class UIResultDialog : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-
+    public void OnRestartBtn()
+    {
+        
+    }
     internal void Init(List<FortuneUserSeat> m_playerList)
     {
         frontTxt.text = "";
@@ -55,12 +58,12 @@ public class UIResultDialog : MonoBehaviour
         if (m_calc_player[0].totalCoin > 0)
         {
             totalTxt.text = "Total :" + (m_calc_player[0].totalCoin * 0.9);
-            tableTaxTxt.text = "Table Tax(10%):" + (m_calc_player[0].totalCoin * 0.1);            
+            tableTaxTxt.text = "TableTax: " + (m_calc_player[0].totalCoin * 0.1);            
             totalTxt.color = Color.green;
         }
         else
         {
-            tableTaxTxt.text = "Table Tax(10%): 0";
+            tableTaxTxt.text = "TableTax: 0";
             tableTaxTxt.color = Color.yellow;
             totalTxt.text = "Total :" + (m_calc_player[0].totalCoin);
             totalTxt.color =  Color.red;
