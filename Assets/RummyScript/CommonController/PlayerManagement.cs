@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -84,8 +85,14 @@ public class PlayerManagement : MonoBehaviour
         return seatList;
     }
 
-    internal void OnRoomSeatUpdate()
+    internal void OnRoomSeatUpdate(Player p)
     {
+        if(p != null)
+        {
+            m_playerList.Where(x=>x.actorNumber == p.ActorNumber).First()._status = (int)p.CustomProperties[Common.PLAYER_STATUS];
+            return;
+        }
+
         List<RoomManagement_Seat> seatList = getSeatList();
 
         // Make seatNumList
@@ -100,6 +107,8 @@ public class PlayerManagement : MonoBehaviour
         {
             m_playerList[i].IsSeat = false;
         }
+
+        //{Common.PLAYER_STATUS, status}
 
         // Hide/Show the players by seatList
         foreach (var seat in seatList)

@@ -1,7 +1,7 @@
 public enum FortunePlayerStatus{
     Init = 0,
-    Ready = 1,
-    canStart = 2,
+    canStart = 1,
+    Ready = 2,
     OnChanging = 3,
     dealtCard = 4,
 }

@@ -33,8 +33,19 @@ public class FortunePanMgr : MonoBehaviour
         LogMgr.Inst.Log("PanMgr OnCardDistributed called");
         foreach (var player in playerList)
         {
-            player.InitCards();
-            player.moveDealCard(centerCard.transform.position);
+            int status = 0;
+
+            try
+            {
+                status = (int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == player.actorNumber).First().CustomProperties[Common.PLAYER_STATUS];
+            }
+            catch { }
+            
+            if (status == (int)FortunePlayerStatus.canStart || player.actorNumber < 0)
+            {
+                player.InitCards();
+                player.moveDealCard(centerCard.transform.position);
+            }
         }
         centerCard.SetActive(false);
     }
@@ -86,7 +97,7 @@ public class FortunePanMgr : MonoBehaviour
         }
         await Task.Delay(500);
         FortuneUIController.Inst.calcDlg.SendReceiveCoin(lineNo);
-        
+
         if (lineNo == 0)
         {
             FortuneUIController.Inst.resultDlg.Init(playerList);

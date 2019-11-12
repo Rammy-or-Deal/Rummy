@@ -59,15 +59,11 @@ public class FortuneMe : MonoBehaviour
 
         try
         {
-            var seatList = PlayerManagement.Inst.getSeatList();
-            var mySeat = seatList.Where(x => x.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).First();
-            mySeat.status = (int)FortunePlayerStatus.Ready;
-
-            LogMgr.Inst.Log("My status(" + PhotonNetwork.LocalPlayer.ActorNumber + ") is changed: seatstring=" + string.Join(",", seatList.Select(x => x.seatString)), (int)LogLevels.PlayerLog1);
+            LogMgr.Inst.Log("My status(" + PhotonNetwork.LocalPlayer.ActorNumber + ") is changed: " + (int)FortunePlayerStatus.Ready);
             FortunePlayMgr.Inst.m_playerList[0].Status = (int)FortunePlayerStatus.Ready;
             Hashtable table = new Hashtable{
                 {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnUserReady},
-                {Common.PLAYER_STATUS, string.Join(",", seatList.Select(x=>x.seatString))}
+                {Common.PLAYER_STATUS, (int)FortunePlayerStatus.Ready}
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(table);
         }
@@ -76,6 +72,9 @@ public class FortuneMe : MonoBehaviour
 
     internal void OnGameStarted()
     {
+        if((int)PhotonNetwork.LocalPlayer.CustomProperties[Common.PLAYER_STATUS] != (int)FortunePlayerStatus.Ready) 
+            return;
+            
         LogMgr.Inst.Log("Game Started Message received.");
         FortunePlayMgr.Inst.userCardList.Clear();
 
@@ -95,8 +94,7 @@ public class FortuneMe : MonoBehaviour
 
 
     public void SetMyProperty(int status)
-    {
-        
+    {        
         Hashtable props = new Hashtable{
             {Common.FORTUNE_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
             {Common.PLAYER_STATUS, status},

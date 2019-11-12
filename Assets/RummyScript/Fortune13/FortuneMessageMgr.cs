@@ -51,7 +51,11 @@ public class FortuneMessageMgr : MonoBehaviour
         {
             case (int)RoomManagementMessages.OnUserSit: // This function is used only one time - start time.
                 if (PhotonNetwork.IsMasterClient)
-                    FortunePlayMgr.Inst.OnUserSit();
+                    FortunePlayMgr.Inst.OnUserSit();        // set status to canStart
+                break;
+            case (int)FortuneMessages.OnCardDistributed:
+                FortuneMe.Inst.OnCardDistributed();         // set status to Ready
+                FortunePanMgr.Inst.OnCardDistributed();
                 break;
             case (int)FortuneMessages.OnUserReady:
                 if (PhotonNetwork.IsMasterClient)
@@ -59,27 +63,14 @@ public class FortuneMessageMgr : MonoBehaviour
                 break;
             case (int)FortuneMessages.OnGameStarted:
                 nowGameStatus = FortuneGameStatus.GameStarted;  // started
-                FortuneMe.Inst.OnGameStarted();
-                break;
-            case (int)FortuneMessages.OnCardDistributed:
-                if (nowGameStatus != FortuneGameStatus.GameStarted)
-                {
-                    FortuneMe.Inst.OnCardDistributed();
-                    FortunePanMgr.Inst.OnCardDistributed();
-                }
+                FortuneMe.Inst.OnGameStarted();           // set status to OnChanging
                 break;
             case (int)FortuneMessages.OnPlayerDealCard:
-                if (nowGameStatus != FortuneGameStatus.GameStarted)
-                {
-                    FortunePlayMgr.Inst.OnPlayerDealCard();
-                }
+                FortunePlayMgr.Inst.OnPlayerDealCard();
                 break;
             case (int)FortuneMessages.OnOpenCard:
-                if (nowGameStatus != FortuneGameStatus.GameStarted)
-                {
-                    FortunePanMgr.Inst.OnOpenCard();
-                    FortunePlayMgr.Inst.OnOpenCard();
-                }
+                FortunePanMgr.Inst.OnOpenCard();
+                FortunePlayMgr.Inst.OnOpenCard();
                 break;
             default:
                 RoomMessageManagement.Inst.OnMessageArrived(messageId, p);
