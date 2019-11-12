@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,10 +22,11 @@ public class UIResultDialog : MonoBehaviour
     public void OnCloseBtn()
     {
         this.gameObject.SetActive(false);
+        PhotonNetwork.LeaveRoom();
     }
     public void OnRestartBtn()
     {
-        
+
     }
     internal void Init(List<FortuneUserSeat> m_playerList)
     {
