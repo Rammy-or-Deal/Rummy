@@ -30,7 +30,8 @@
         /// <param name="eventData">Data from that event.</param>
         public void OnDrag(PointerEventData eventData)
         {
-            transform.position += (Vector3)eventData.delta;
+            if (FortuneUIController.Inst.changeDlg.gameObject.activeSelf)
+                transform.position += (Vector3)eventData.delta;
         }
 
         /// <summary>
@@ -39,12 +40,17 @@
         /// <param name="eventData">Data from that event.</param>
         public void OnEndDrag(PointerEventData eventData)
         {
-            this.GetComponent<Graphic>().raycastTarget = true;
-            transform.position = LastPosition;
+            if (FortuneUIController.Inst.changeDlg.gameObject.activeSelf)
+            {
+                this.GetComponent<Graphic>().raycastTarget = true;
+                transform.position = LastPosition;    
+            }
         }
         
         public void OnDrop(PointerEventData data)
         {
+            if (!FortuneUIController.Inst.changeDlg.gameObject.activeSelf)
+                return;
             GameObject fromItem = data.pointerDrag;
             if (data.pointerDrag == null) return; // (will never happen)
             DragElement d = fromItem.GetComponent<DragElement>();
