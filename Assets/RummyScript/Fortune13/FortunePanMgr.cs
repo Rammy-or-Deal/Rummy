@@ -104,7 +104,8 @@ public class FortunePanMgr : MonoBehaviour
 
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(false);
             FortuneUIController.Inst.resultDlg.SetProperty(FortuneUIController.Inst.calcDlg);
-            FortuneUIController.Inst.resultDlg.gameObject.SetActive(true);
+            
+            FortuneUIController.Inst.resultDlg.ShowResult();
         }
     }
 

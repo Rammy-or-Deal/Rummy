@@ -81,14 +81,7 @@ public class UIResultDialog : MonoBehaviour
             totalTxt.text = "Total :" + (m_calc_player[0].totalCoin);
             totalTxt.color = Color.red;
         }
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnFinishedGame}
-            };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        }
-        exitEvent = StartCoroutine(ShowTimeForExit(7));
+
     }
 
     Coroutine exitEvent;
@@ -101,5 +94,18 @@ public class UIResultDialog : MonoBehaviour
             waitTime--;
         }
         OnCloseBtn();
+    }
+
+    internal void ShowResult()
+    {
+        this.gameObject.SetActive(true);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Hashtable props = new Hashtable{
+            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnFinishedGame}
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+        exitEvent = StartCoroutine(ShowTimeForExit(7));
     }
 }
