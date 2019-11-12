@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="83263089-1db2-4261-b52c-b7241188bf0b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rummy/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/DragElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/DragElement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Baccarat/2_Baccarat.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Baccarat/2_Baccarat.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Fortune13/2_Fortune13.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Fortune13/2_Fortune13.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Fortune13/3_PlayFortune13.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Fortune13/3_PlayFortune13.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Lami/2_Lami.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Lami/2_Lami.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Lami/3_PlayLami.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Lami/3_PlayLami.unity" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/UIResultDialog.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="472">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
               <folding>
                 <marker date="1573567874848" expanded="true" signature="6:204" ph="..." />
                 <marker date="1573567874848" expanded="true" signature="248:3119" ph="{...}" />
@@ -86,8 +89,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/DragElement.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+            <state relative-caret-position="504">
+              <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
               <folding>
                 <marker date="1573581425623" expanded="true" signature="29:2476" ph="{...}" />
                 <marker date="1573581425623" expanded="false" signature="42:134" ph="..." />
@@ -264,7 +267,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/FortunePlayMgr.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="13">
-              <caret line="165" column="65" lean-forward="true" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
+              <caret line="165" column="65" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
               <folding>
                 <marker date="1573563875528" expanded="false" signature="6:240" ph="..." />
                 <marker date="1573563875528" expanded="true" signature="262:471" ph="{...}" />
@@ -1072,14 +1075,7 @@
       <workItem from="1573238149910" duration="5147000" />
       <workItem from="1573258173685" duration="2740000" />
       <workItem from="1573275692329" duration="8072000" />
-      <workItem from="1573462530790" duration="15194000" />
-    </task>
-    <task id="LOCAL-00040" summary="add id">
-      <created>1572461941737</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1572461941737</updated>
+      <workItem from="1573462530790" duration="17767000" />
     </task>
     <task id="LOCAL-00041" summary="change id">
       <created>1572462170560</created>
@@ -1417,11 +1413,18 @@
       <option name="project" value="LOCAL" />
       <updated>1573563890023</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="fix card drag issue">
+      <created>1573581577115</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1573581577115</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="354953000" />
+    <option name="totallyTimeSpent" value="357526000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1526,7 +1529,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="change scene" />
     <MESSAGE value="Fortune scene" />
     <MESSAGE value="project settings and fortune card" />
     <MESSAGE value="change baccarat image" />
@@ -1551,7 +1553,8 @@
     <MESSAGE value="add mask for user avatar" />
     <MESSAGE value="current sit" />
     <MESSAGE value="change UI for Pad" />
-    <option name="LAST_COMMIT_MESSAGE" value="change UI for Pad" />
+    <MESSAGE value="fix card drag issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix card drag issue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4110,7 +4113,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/UIResultDialog.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="472">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
           <folding>
             <marker date="1573567874848" expanded="true" signature="6:204" ph="..." />
             <marker date="1573567874848" expanded="true" signature="248:3119" ph="{...}" />
@@ -4174,7 +4177,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/FortunePlayMgr.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13">
-          <caret line="165" column="65" lean-forward="true" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
+          <caret line="165" column="65" selection-start-line="165" selection-start-column="65" selection-end-line="165" selection-end-column="65" />
           <folding>
             <marker date="1573563875528" expanded="false" signature="6:240" ph="..." />
             <marker date="1573563875528" expanded="true" signature="262:471" ph="{...}" />
@@ -4402,8 +4405,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/RummyScript/Fortune13/UI/DragElement.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+        <state relative-caret-position="504">
+          <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
           <folding>
             <marker date="1573581425623" expanded="true" signature="29:2476" ph="{...}" />
             <marker date="1573581425623" expanded="false" signature="42:134" ph="..." />
