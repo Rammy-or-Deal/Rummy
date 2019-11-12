@@ -100,5 +100,6 @@ public static class Constants
     public static int FortuneWaitTimeForPlay = 90;
 
     public static float FortuneWaitTimeForCheckingCard = 7.0f;
+    internal static float fortuneWaitTimeForRestart = 10.0f;
     #endregion
 }

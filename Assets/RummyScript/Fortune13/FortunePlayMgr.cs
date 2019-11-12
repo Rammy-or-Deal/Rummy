@@ -101,6 +101,18 @@ public class FortunePlayMgr : MonoBehaviour
         }
     }
 
+    internal void OnFinishedGame()
+    {
+        StartCoroutine(WaitForRestart(Constants.fortuneWaitTimeForRestart));
+    }
+
+    IEnumerator WaitForRestart(float fortuneWaitTimeForRestart)
+    {
+        yield return new WaitForSeconds(fortuneWaitTimeForRestart);
+        SetAllPlayersStatus((int)FortunePlayerStatus.canStart);
+        DistributeCards();
+    }
+
     internal void OnOpenCard()
     {
         if (!PhotonNetwork.IsMasterClient) return;

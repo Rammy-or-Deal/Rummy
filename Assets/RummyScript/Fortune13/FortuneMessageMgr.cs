@@ -11,6 +11,7 @@ public enum FortuneMessages
     OnCardDistributed = 3,
     OnPlayerDealCard = 4,
     OnOpenCard = 5,
+    OnFinishedGame = 6,
 }
 public enum FortuneGameStatus
 {
@@ -71,6 +72,10 @@ public class FortuneMessageMgr : MonoBehaviour
             case (int)FortuneMessages.OnOpenCard:
                 FortunePanMgr.Inst.OnOpenCard();
                 FortunePlayMgr.Inst.OnOpenCard();
+                break;
+            case (int)FortuneMessages.OnFinishedGame:
+                if (PhotonNetwork.IsMasterClient)
+                    FortunePlayMgr.Inst.OnFinishedGame();
                 break;
             default:
                 RoomMessageManagement.Inst.OnMessageArrived(messageId, p);
