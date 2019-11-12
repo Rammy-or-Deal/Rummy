@@ -40,7 +40,7 @@ public class FortunePanMgr : MonoBehaviour
                 status = (int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == player.actorNumber).First().CustomProperties[Common.PLAYER_STATUS];
             }
             catch { }
-            
+
             if (status == (int)FortunePlayerStatus.canStart || player.actorNumber < 0)
             {
                 player.InitCards();
@@ -62,7 +62,6 @@ public class FortunePanMgr : MonoBehaviour
         {
             FortuneUIController.Inst.calcDlg.gameObject.SetActive(true);
             FortuneUIController.Inst.calcDlg.Init(playerList);
-
         }
 
         FortuneUIController.Inst.calcDlg.showLineLabel(lineNo);

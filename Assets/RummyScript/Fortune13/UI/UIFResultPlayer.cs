@@ -32,12 +32,14 @@ public class UIFResultPlayer : MonoBehaviour
 
     internal void Init(FortuneUserSeat seat)
     {
+        try{
         if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.actorNumber).First().CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.Init)
             IsSeat = false;
         else
             IsSeat = seat.IsSeat;
-        
-            
+        }catch{IsSeat = false;}
+
+
         actorNumber = seat.actorNumber;
         
         avatar.sprite = seat.mUserPic.sprite;
