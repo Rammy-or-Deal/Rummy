@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 4879322113677003006}
   - component: {fileID: 8772899956745424991}
   - component: {fileID: 6212411728641536845}
+  - component: {fileID: 6498146271366848671}
   m_Layer: 5
   m_Name: card_number
   m_TagString: Untagged
@@ -396,7 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9150943, g: 0.7307134, b: 0.06474723, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -417,6 +418,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 20
+--- !u!114 &6498146271366848671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564941313691896214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.02756321, g: 0.012771457, b: 0.38679248, a: 0.92941177}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1741225863574155907
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,10 +544,10 @@ RectTransform:
   m_Father: {fileID: 5794668613910608710}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.45, y: 67.955}
-  m_SizeDelta: {x: 26.14, y: 24.09}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0.45, y: 13.300003}
+  m_SizeDelta: {x: 26.14, y: 24.089996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2676032356751141305
 GameObject:
@@ -793,7 +809,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.20999002, y: -32.66}
+  m_AnchoredPosition: {x: -0.20999002, y: -64.7}
   m_SizeDelta: {x: 66.76, y: 14.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4798672187908199420
@@ -905,8 +921,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000013709, y: -0.0000014901}
-  m_SizeDelta: {x: 61.92, y: 14.34}
+  m_AnchoredPosition: {x: 0.88, y: -0.27}
+  m_SizeDelta: {x: 76.81, y: 22.93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5424366727997891795
 CanvasRenderer:
@@ -936,7 +952,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 39979086044f50c4e8261e464304f4ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8469afb5382ad9e4a93a4353e50df935, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1462,6 +1478,7 @@ GameObject:
   - component: {fileID: 2793884267699635754}
   - component: {fileID: 5348824849862131610}
   - component: {fileID: 2155537083632369487}
+  - component: {fileID: 6226368758872992099}
   m_Layer: 5
   m_Name: Coin_value
   m_TagString: Untagged
@@ -1485,7 +1502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0024974, y: -0.00000453}
+  m_AnchoredPosition: {x: 0.0024974, y: -0}
   m_SizeDelta: {x: 60.33, y: 14.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5348824849862131610
@@ -1530,6 +1547,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 2000000000
+--- !u!114 &6226368758872992099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6816337373200460805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.7607843}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &6899470879065555497
 GameObject:
   m_ObjectHideFlags: 0
