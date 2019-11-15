@@ -194,7 +194,7 @@ public class LamiMe : MonoBehaviour
         for (int i = 0; i < cardList.Length; i++)
         {
             var tmp = cardList[i].Split(':').Select(Int32.Parse).ToArray();
-            var card = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x=>x.MyCardId == tmp[2]).First();
+            var card = LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.MyCardId == tmp[2]).First();
             card.num = tmp[0];
             card.color = tmp[1];
             card.UpdateValue();
@@ -225,8 +225,12 @@ public class LamiMe : MonoBehaviour
 
         List<ATTACH_CLASS> allFlushList = FilterByCurrentTurn_FLUSH(GetAvailableCards_Flush(LamiGameUIManager.Inst.myCardPanel.myCards), panList, isFirstTurn);
         List<ATTACH_CLASS> allSetList = new List<ATTACH_CLASS>();
+        List<ATTACH_CLASS> allJokerList = new List<ATTACH_CLASS>();
         if (!isFirstTurn)
+        {
             allSetList = FilterByCurrentTurn_SET(GetAvailableCards_Set(LamiGameUIManager.Inst.myCardPanel.myCards), panList);
+            allJokerList = FilterByCurrentTurn_JOKER(GetAvailableCards_Joker(LamiGameUIManager.Inst.myCardPanel.myCards), panList);
+        }
 
         var allFlushList_nonJoker = allFlushList.Where(x => x.list.Count(y => y.num == 15) == 0).ToList();
         allFlushList_nonJoker.Sort((a, b) => b.list.Sum(x => x.virtual_num) - a.list.Sum(x => x.virtual_num));
@@ -244,7 +248,7 @@ public class LamiMe : MonoBehaviour
         availList.AddRange(allSetList_nonJoker);
         availList.AddRange(allFlushList_Joker);
         availList.AddRange(allSetList_Joker);
-
+        availList.AddRange(allJokerList);
         if (availList.Count == 0)
         {
             if (isFirstTurn)
@@ -266,6 +270,151 @@ public class LamiMe : MonoBehaviour
             return;
         }
         CheckAllList("availList");
+    }
+
+    private List<ATTACH_CLASS> FilterByCurrentTurn_JOKER(List<List<Card>> AllList, List<List<Card>> panList)
+    {
+        List<ATTACH_CLASS> resList = new List<ATTACH_CLASS>();
+
+        for (int j = 0; j < panList.Count; j++)
+        {
+            var line = panList[j];
+            bool isFlush = true;
+            int firstNum = line[0].virtual_num;
+            for (int tttt = 1; tttt < line.Count; tttt++)
+            {
+                if (line[tttt].virtual_num == firstNum)
+                {
+                    isFlush = false;
+                    break;
+                }
+            }
+
+
+            if (isFlush)
+            {
+                foreach (var list in AllList)
+                {
+                    if (line[0].virtual_num - 1 >= list.Count) // Attach to the front
+                    {
+                        ATTACH_CLASS new_list = new ATTACH_CLASS();
+                        new_list.list = new List<Card>();
+                        new_list.lineNo = j;
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            Card new_card = new Card();
+                            new_card.num = list[i].num;
+                            new_card.virtual_num = line[0].virtual_num - 1 - i;
+                            new_card.color = line[0].color;
+                            new_card.MyCardId = list[i].MyCardId;
+                            new_list.list.Add(new_card);
+                        }
+                        resList.Add(new_list);
+                    }
+
+                    if ((14 - line[line.Count - 1].virtual_num) >= list.Count)
+                    {
+                        ATTACH_CLASS new_list = new ATTACH_CLASS();
+                        new_list.list = new List<Card>();
+                        new_list.lineNo = j;
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            Card new_card = new Card();
+                            new_card.num = list[i].num;
+                            new_card.virtual_num = line[line.Count - 1].virtual_num + 1 + i;
+                            new_card.color = line[line.Count - 1].color;
+                            new_card.MyCardId = list[i].MyCardId;
+                            new_list.list.Add(new_card);
+                        }
+                        resList.Add(new_list);
+                    }
+                }
+            }
+            else    // It's set, add
+            {
+                ATTACH_CLASS new_item = new ATTACH_CLASS();
+                new_item.lineNo = j;
+                new_item.list = new List<Card>();
+
+                List<Card> new_list = new List<Card>();
+                foreach (var list in AllList)
+                {
+                    foreach (var card in list)
+                    {
+                        Card new_card = new Card(card.num, card.color);
+                        new_card.MyCardId = card.MyCardId;
+                        new_card.virtual_num = line[0].virtual_num;
+                        new_list.Add(new_card);
+                    }
+                }
+                new_item.list.AddRange(new_list);
+
+                resList.Add(new_item);
+            }
+        }
+        //resList.Sort((a,b)=>(a.list.Count() - b.list.Count()));
+        return resList;
+    }
+
+    private List<List<Card>> GetAvailableCards_Joker(List<LamiMyCard> myCurrent)
+    {
+        List<Card> m_tmpCardList = new List<Card>();
+
+        m_tmpCardList.Clear();
+
+        for (int i = 0; i < myCurrent.Count; i++)
+        {
+            Card card = new Card();
+            card.color = myCurrent[i].color;
+            card.num = myCurrent[i].num;
+            card.MyCardId = i;
+            card.virtual_num = card.num;
+            m_tmpCardList.Add(card);
+        }
+        return GetAvailableCards_Joker_With_Card(m_tmpCardList);
+    }
+
+    private List<List<Card>> GetAvailableCards_Joker_With_Card(List<Card> m_tmpCardList)
+    {
+
+        List<List<Card>> same_List = new List<List<Card>>();
+        //bool con = false;
+
+        // Add first card
+        for (int i = 0; i < m_tmpCardList.Count; i++)
+        {
+            if (m_tmpCardList[i].num == 15)
+            {
+                List<Card> tt11 = new List<Card>();
+                tt11.Add(m_tmpCardList[i]);
+                same_List.Add(tt11);
+            }
+        }
+
+        // Include joker
+
+        int count = same_List.Count;
+        for (int i = 0; i < count; i++)
+        {
+            var list = m_tmpCardList.Where(x => x.num == 15 && x.MyCardId > same_List[i][0].MyCardId).ToList();
+            List<Card> tmpList = new List<Card>();
+
+            foreach (var card in list)
+            {
+                Card new_card = new Card(15, same_List[i][0].color);
+                new_card.MyCardId = card.MyCardId;
+                tmpList.Add(new_card);
+
+                List<Card> newList = new List<Card>();
+                newList.AddRange(same_List[i]);
+
+                newList.AddRange(tmpList.ToList());
+                same_List.Add(newList);
+            }
+        }
+
+
+        return same_List;
     }
 
     public static List<ATTACH_CLASS> FilterByCurrentTurn_SET(List<List<Card>> AllList, List<List<Card>> panList)
@@ -429,7 +578,7 @@ public class LamiMe : MonoBehaviour
             int firstNum = AllList[i][0].virtual_num;
 
             //Check if the card can attach to the existing lines.
-            for (int j = 0; j < panList.Count && canAttach == false; j++)
+            for (int j = 0; j < panList.Count; j++)
             {
                 var line = panList[j];
 
@@ -459,8 +608,6 @@ public class LamiMe : MonoBehaviour
 
                             attachList.Add(new_item);
                             CheckCondition("Flush Success", AllList[i], line);
-                            continue;
-
                         }
                         else
                         {
@@ -478,7 +625,7 @@ public class LamiMe : MonoBehaviour
                 }
             }
             //Check if the card can add to new Line
-            if (canAttach == false && AllList[i].Count >= 3)
+            if (AllList[i].Count >= 3 && canAttach == false)
             {
                 ATTACH_CLASS new_item = new ATTACH_CLASS();
                 new_item.lineNo = -1;
@@ -501,20 +648,7 @@ public class LamiMe : MonoBehaviour
 
         if (addList.Count > 0)
         {
-            if (isFirst)
-            {
-                foreach (var line in addList)
-                {
-                    if (line.list[0].virtual_num != line.list[1].virtual_num)
-                    {
-                        resList.Add(line);
-                    }
-                }
-            }
-            else
-            {
-                resList.AddRange(addList);
-            }
+            resList.AddRange(addList);
         }
         return resList;
     }

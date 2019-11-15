@@ -411,7 +411,9 @@ public class UIMyCardPanel : MonoBehaviour
     }
 
     private void ShowCursorpoint(int lineNum)
-    {  // Show cursor by lineNum
+    {  
+        Debug.Log(lineNum);
+        // Show cursor by lineNum
         Vector3 pos = LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform.position;
         int xDiff = 60;
         //        RectTransform rect = (RectTransform) LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform;
