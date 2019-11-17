@@ -9,7 +9,7 @@ public enum FortunePlayerStatus{
 public enum Game_Identifier{
     Lami = 10,
     Baccarat = 20,
-    Fortune14 = 30,
+    Fortune13 = 30,
 }
 public enum RoomManagementMessages{
     OnJoinSuccess = 1000,

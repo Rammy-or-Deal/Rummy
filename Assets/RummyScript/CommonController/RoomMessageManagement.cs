@@ -8,7 +8,7 @@ public class RoomMessageManagement : MonoBehaviour
     public static RoomMessageManagement Inst;
 
     [HideInInspector] public string prefix;
-    public int GameID;
+    public Game_Identifier GameID;
     // Start is called before the first frame update
     void Start()
     {

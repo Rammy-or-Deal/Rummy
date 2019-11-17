@@ -14,7 +14,7 @@ public class PlayerManagement : MonoBehaviour
     // Start is called before the first frame update
     public List<CommonSeat> m_playerList = new List<CommonSeat>();
 
-    public int GameID { get; internal set; }
+    public Game_Identifier GameID { get; internal set; }
 
     [HideInInspector] public Dictionary<int, int> seatNumList;
     void Start()
@@ -37,13 +37,13 @@ public class PlayerManagement : MonoBehaviour
 
         switch (GameID)
         {
-            case (int)Game_Identifier.Fortune14:
+            case Game_Identifier.Fortune13:
                 res = Common.FORTUNE_MESSAGE;
                 break;
-            case (int)Game_Identifier.Lami:
+            case Game_Identifier.Lami:
                 res = Common.LAMI_MESSAGE;
                 break;
-            case (int)Game_Identifier.Baccarat:
+            case Game_Identifier.Baccarat:
                 res = Common.BACCARAT_MESSAGE;
                 break;
         }

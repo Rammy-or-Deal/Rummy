@@ -30,7 +30,7 @@ public class FortuneMessageMgr : MonoBehaviour
         if (!Inst)
         {
             Inst = this;
-            RoomMessageManagement.Inst.GameID = 30;
+            RoomMessageManagement.Inst.GameID = Game_Identifier.Fortune13;
             nowGameStatus = FortuneGameStatus.Init;
         }
     }
