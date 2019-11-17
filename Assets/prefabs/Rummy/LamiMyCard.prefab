@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.27, y: -7.15}
-  m_SizeDelta: {x: 36.34, y: 43.9}
+  m_AnchoredPosition: {x: 0.27, y: -4.7}
+  m_SizeDelta: {x: 30, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4077396894203925298
 CanvasRenderer:
@@ -167,9 +167,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCard: {fileID: 8797521695333302468}
-  isSelected: 0
   color: 0
   num: 0
+  isSelected: 0
+  MyCardId: 0
+  virtual_num: 0
 --- !u!114 &8534233255767925000
 MonoBehaviour:
   m_ObjectHideFlags: 0
