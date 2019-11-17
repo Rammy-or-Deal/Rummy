@@ -20,8 +20,6 @@ public class PunController : MonoBehaviourPunCallbacks
 
     private int mTierIdx;
 
-
-
     public void Awake()
     {
         if (!Inst)

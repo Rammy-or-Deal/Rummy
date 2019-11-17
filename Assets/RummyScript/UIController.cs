@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
@@ -36,12 +37,13 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        
+        StartCoroutine(ActiveDlgs());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator ActiveDlgs()
     {
-        
+        alertDlg.gameObject.SetActive(true);
+        yield return new WaitForEndOfFrame();
+        alertDlg.gameObject.SetActive(false);
     }
 }

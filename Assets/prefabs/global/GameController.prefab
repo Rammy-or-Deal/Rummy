@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4367887661135896530}
   - component: {fileID: 8540268881108559116}
   - component: {fileID: 6795841368181779631}
-  - component: {fileID: 8477671821767321427}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -117,6 +116,13 @@ MonoBehaviour:
     frameId: 0
     friendItemId: 0
     requestId: 0
+    skillLevelList:
+    - Novice
+    - Expert
+    - Hero
+    - Elite
+    - King
+    - Master
   sysExchangeItem:
     id: 0
     pic: 
@@ -135,13 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c886b3a0f869284bb6db56240bc7551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingDlg: {fileID: 1323037895471827870, guid: e6c1bc1821726804cb576077e790a8e2,
-    type: 3}
   shopDlg: {fileID: 2136115060997021366, guid: 008ac53b63db1ca45b63188ffd3f19a1, type: 3}
-  collectionDlg: {fileID: 6376073064415168928, guid: 566d005779cd83647b5836fc3c3e030f,
-    type: 3}
-  avatarDlg: {fileID: 1821815026262500387, guid: 775ae8d8dcc0be94eb3e2a6d7a62f5c2,
-    type: 3}
   chatDlg: {fileID: 0}
   emailDlg: {fileID: 0}
   eventDlg: {fileID: 0}
@@ -150,10 +150,15 @@ MonoBehaviour:
   noticeDlg: {fileID: 0}
   rewardDlg: {fileID: 0}
   settingDlg: {fileID: 0}
-  userInfoMenu: {fileID: 2744548887899042507, guid: 24b875d96f3050543a5c68879ce9bf9b,
-    type: 3}
-  uiMoneyPanel: {fileID: 0}
-  uiUserInfoPanel: {fileID: 0}
+  challengeDlg: {fileID: 0}
+  exchangeDlg: {fileID: 0}
+  userInfoMenu: {fileID: 0}
+  moneyPanel: {fileID: 0}
+  userInfoPanel: {fileID: 0}
+  avatarDlg: {fileID: 0}
+  alertDlg: {fileID: 0}
+  loadingDlg: {fileID: 0}
+  collectionDlg: {fileID: 0}
 --- !u!114 &6795841368181779631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,17 +169,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a75885f4c8f46814e86514d580181380, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8477671821767321427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4367887661135896533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca859041a50eabd4eb521867cccbe76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

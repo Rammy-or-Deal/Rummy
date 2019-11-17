@@ -55,6 +55,14 @@ public class LamiGameUIManager : MonoBehaviour
     private void Start()
     {
         mGameCardPanelList = new List<LamiGameCardList>();
+        
+        //alert dlg example
+        UIAlertDialog.Inst.Show(Game_Identifier.Lami,OnYesDlg,"WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?",3);
+    }
+
+    public void OnYesDlg()
+    {
+        Debug.Log("Yes clicked");
     }
 
     public void InitLineNumbers()
