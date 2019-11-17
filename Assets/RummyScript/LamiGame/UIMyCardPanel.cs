@@ -416,9 +416,9 @@ public class UIMyCardPanel : MonoBehaviour
         LogMgr.Inst.Log("cursor num:="+ lineNum + ", count:=" + cursorPoints.Length, (int)LogLevels.LamiFinishLog);
         // Show cursor by lineNum
         Vector3 pos = LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform.position;
-        int xDiff = 60;
+        int xDiff = 75;
         //        RectTransform rect = (RectTransform) LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform;
-        cursorPoints[curCursorNum].transform.position = new Vector3(pos.x + xDiff, pos.y, pos.z);
+        cursorPoints[curCursorNum].transform.position = new Vector3(pos.x + xDiff, pos.y-15, pos.z);
         cursorPoints[curCursorNum].SetActive(true);
         LamiGameUIManager.Inst.mGameCardPanelList[lineNum].lineNum = lineNum;
         curCursorNum++;
