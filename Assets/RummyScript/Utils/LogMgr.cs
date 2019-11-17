@@ -17,6 +17,7 @@ enum LogLevels
     MeLog_Baccarat,
     PanLog,
     CardLog,
+    LamiFinishLog,
 }
 
 public class LogMgr : MonoBehaviour
@@ -31,6 +32,7 @@ public class LogMgr : MonoBehaviour
 
         if (Constants.LamiBuildMethod == BuildMethod.Develop_Message)
         {
+            /*
             avail_logs.Add((int)LogLevels.RoomLog1);
             avail_logs.Add((int)LogLevels.RoomLog2);
             avail_logs.Add((int)LogLevels.RoomLog3);
@@ -47,6 +49,9 @@ public class LogMgr : MonoBehaviour
             avail_logs.Add((int)LogLevels.PanLog);
 
             //avail_logs.Add((int)LogLevels.CardLog);
+            */
+
+            avail_logs.Add((int)LogLevels.LamiFinishLog);
         }
 
     }

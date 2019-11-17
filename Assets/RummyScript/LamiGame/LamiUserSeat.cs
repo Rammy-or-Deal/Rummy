@@ -76,12 +76,14 @@ public class LamiUserSeat : MonoBehaviour
 
     public void OnUserDealt(string dealString)
     {
+        
         var cards = dealString.Split(',').Select(Int32.Parse).ToArray();
         int aCount = cards.Count(x => x == 1);
         int jokerCount = cards.Count(x => x == 15);
 
         mAceValue.text = (int.Parse(mAceValue.text) + aCount) + "";
         mJokerValue.text = (int.Parse(mJokerValue.text) + jokerCount) + "";
+        
     }
 
     internal void SetProperty(int tmpActor)
@@ -199,6 +201,8 @@ public class LamiUserSeat : MonoBehaviour
 
     internal void cardListUpdate(string totalCardString, string totalPayString)
     {
+        LogMgr.Inst.Log(string.Format("GameFinished. totalCardString={0}, totalPayString={1}", totalCardString, totalPayString), (int)LogLevels.LamiFinishLog);
+
         cardList.Clear();
         var players = totalCardString.Trim('/').Split('/');
         foreach (var player in players)

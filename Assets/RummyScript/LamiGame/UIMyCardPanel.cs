@@ -315,6 +315,7 @@ public class UIMyCardPanel : MonoBehaviour
             if (!cursorList.Contains(line.lineNo) && line.lineNo != -1)
                 cursorList.Add(line.lineNo);
         }
+
         foreach (var cursorPos in cursorList)
         {
             ShowCursorpoint(cursorPos);
@@ -412,7 +413,7 @@ public class UIMyCardPanel : MonoBehaviour
 
     private void ShowCursorpoint(int lineNum)
     {  
-        Debug.Log(lineNum);
+        LogMgr.Inst.Log("cursor num:="+ lineNum + ", count:=" + cursorPoints.Length, (int)LogLevels.LamiFinishLog);
         // Show cursor by lineNum
         Vector3 pos = LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform.position;
         int xDiff = 60;

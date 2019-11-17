@@ -267,14 +267,17 @@ public class LamiPlayerMgr : MonoBehaviour
 
     private void UpdateRemainCards(string cardString)
     {
+        
         int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        Debug.Log("CardString:=" + cardString + "   actor="+actor);
+        
         var numList = cardString.Split(':')[1].Split(',').Select(Int32.Parse).ToArray();
         var colList = cardString.Split(':')[2].Split(',').Select(Int32.Parse).ToArray();
         for(int i = 0; i < numList.Length; i++)
         {
             totalPayString += actor + ":" + numList[i] + ":" + colList[i] + "/";
         }
-
+        
 
         //totalPayString = totalPayString.Trim('/');
         
