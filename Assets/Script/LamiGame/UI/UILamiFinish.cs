@@ -59,7 +59,7 @@ public class UILamiFinish : MonoBehaviour
 
     public void OnReportBtn()
     {
-
+        
     }
 
     public void OnExitBtn()

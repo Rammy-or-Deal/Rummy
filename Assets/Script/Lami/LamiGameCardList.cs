@@ -81,7 +81,7 @@ public class LamiGameCardList : MonoBehaviour
         LogMgr.Inst.Log("Clicked: " + lineNum, (int)LogLevels.PlayerLog2);
         if (lineNum > -1)
         {
-            LamiMe.Inst.OnClickLine(lineNum);    
+            LamiMe.Inst.OnClickLine(lineNum);
         }
     }
 }

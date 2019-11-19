@@ -18,6 +18,7 @@ enum LogLevels
     PanLog,
     CardLog,
     LamiFinishLog,
+    Lami_Second_Working,
 }
 
 public class LogMgr : MonoBehaviour
@@ -52,6 +53,7 @@ public class LogMgr : MonoBehaviour
             */
 
             avail_logs.Add((int)LogLevels.LamiFinishLog);
+            avail_logs.Add((int)LogLevels.Lami_Second_Working);
         }
 
     }

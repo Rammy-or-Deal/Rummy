@@ -64,7 +64,7 @@ public enum BuildMethod
 
 public static class Constants
 {
-    public static BuildMethod LamiBuildMethod = BuildMethod.Product;
+    public static BuildMethod LamiBuildMethod = BuildMethod.Develop_Message;
     public static int FinishDiabledFlag = 1;
     public static float turnTime_AutoPlay = 3.0f;
     public static float turnTime_Develop = 1000;

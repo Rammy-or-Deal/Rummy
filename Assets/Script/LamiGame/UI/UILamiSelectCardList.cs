@@ -10,14 +10,14 @@ public class UILamiSelectCardList : MonoBehaviour
 
     private const int cardWidth = 26;
     private const int padding = 10; 
-    public void Show(List<List<Card>> list)
+    public void Show(List<List<Card>> list, List<int> matchNoList)
     {
         transform.parent.gameObject.SetActive(true);
         mList = list;
         for (int i = 0; i < mList.Count; i ++)
         {
             UILamiCardSelect cardSelect = Instantiate(listObj,transform);
-            cardSelect.id = i;
+            cardSelect.id = matchNoList[i];
             foreach (var card in list[i])
             {
                 LamiGameCard mCard = Instantiate(gameCard,cardSelect.transform);

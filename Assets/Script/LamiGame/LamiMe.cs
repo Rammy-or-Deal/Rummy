@@ -392,30 +392,32 @@ public class LamiMe : MonoBehaviour
                 List<Card> tt11 = new List<Card>();
                 tt11.Add(m_tmpCardList[i]);
                 same_List.Add(tt11);
+                break;
             }
         }
 
         // Append joker
 
-        int count = same_List.Count;
-        for (int i = 0; i < count; i++)
-        {
-            var list = m_tmpCardList.Where(x => x.num == 15 && x.MyCardId > same_List[i][0].MyCardId).ToList();
+        //int count = same_List.Count;
+        //for (int i = 0; i < count; i++)
+        //{
+            var list = m_tmpCardList.Where(x => x.num == 15 && x.MyCardId > same_List[0][0].MyCardId).ToList();
             List<Card> tmpList = new List<Card>();
 
             foreach (var card in list)
             {
-                Card new_card = new Card(15, same_List[i][0].color);
+                Card new_card = new Card(15, same_List[0][0].color);
                 new_card.MyCardId = card.MyCardId;
                 tmpList.Add(new_card);
 
                 List<Card> newList = new List<Card>();
-                newList.AddRange(same_List[i]);
+                newList.AddRange(same_List[0]);
 
                 newList.AddRange(tmpList.ToList());
                 same_List.Add(newList);
             }
-        }
+            //break;
+        //}
 
 
         return same_List;

@@ -55,9 +55,9 @@ public class LamiGameUIManager : MonoBehaviour
     private void Start()
     {
         mGameCardPanelList = new List<LamiGameCardList>();
-        
+
         //alert dlg example
-        UIAlertDialog.Inst.Show(Game_Identifier.Lami,OnYesDlg,"WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?",3);
+        UIAlertDialog.Inst.Show(Game_Identifier.Lami, OnYesDlg, "WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?", 3);
     }
 
     public void OnYesDlg()
@@ -101,16 +101,8 @@ public class LamiGameUIManager : MonoBehaviour
     }
     public void OnClickPlay()
     {
-        //added GameCardList
-        //        curGameCardList = Instantiate(gameCardListPrefab,gameCardPanelPan.transform);
-        //        curGameCardList.gameObject.transform.localScale = Vector3.one;
-        //        mGameCardPanelList.Add(curGameCardList);
-
-        //myCardPanel.DealCards();
-        //SetPlayButtonState
-
         List<List<Card>> temp = new List<List<Card>>();
-        //var machingList = UIMyCardPanel.GetMatchedList(LamiGameUIManager.Inst.myCardPanel.myCards.Where(x => x.isSelected == true).ToList(), LamiMe.Inst.availList);
+        List<int> matchNoList = new List<int>();
         var machingList = myCardPanel.m_machedList;
         if (machingList.Count == 1)
         {
@@ -126,14 +118,14 @@ public class LamiGameUIManager : MonoBehaviour
             }
             else
             {
-                foreach(var list in machingList)
+                foreach (var list in machingList)
+                {
                     temp.Add(list.list);
-                uiSelectCardList.Show(temp);
+                    matchNoList.Add(machingList.IndexOf(list));
+                }
+                uiSelectCardList.Show(temp, matchNoList);
             }
         }
-
-
-
 
         //InitPanList
         //
@@ -192,7 +184,7 @@ public class LamiGameUIManager : MonoBehaviour
     }
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
-        
+
     }
 
     public void OnClickTips()

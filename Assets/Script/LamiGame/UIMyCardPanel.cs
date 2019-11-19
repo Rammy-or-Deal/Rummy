@@ -186,9 +186,8 @@ public class UIMyCardPanel : MonoBehaviour
     public static List<ATTACH_CLASS> GetMatchedList(List<LamiMyCard> selList, List<ATTACH_CLASS> sourceList)
     {
         List<ATTACH_CLASS> resList = new List<ATTACH_CLASS>();
-        sourceList = sourceList.Where(x => x.list.Count == selList.Count).ToList();
 
-        foreach (var list in sourceList)
+        foreach (var list in sourceList.Where(x => x.list.Count == selList.Count))
         {
             bool isSame = true;
             LogMgr.Inst.ShowLog(list.list, "Match list:=");
@@ -297,18 +296,30 @@ public class UIMyCardPanel : MonoBehaviour
             log += card.MyCardId + "/ num=" + card.num + ", color=" + card.color + ", virtual=" + card.virtual_num + "  :  ";
         }
 
-        LogMgr.Inst.Log("selectedCard: " + log, (int)LogLevels.SpecialLog);
+        //LogMgr.Inst.Log("selectedCard: " + log, (int)LogLevels.SpecialLog);
+        LogMgr.Inst.Log("selectedCard: " + log, (int)LogLevels.Lami_Second_Working);
 
 
 
         // Get all mached lists
 
         m_machedList.AddRange(GetMatchedList(selectedList, LamiMe.Inst.availList));
+        log = "";
+        foreach (var list in m_machedList)
+        {
+            log += "lineNo:=" + list.lineNo + "/ ";
+            foreach (var card in list.list)
+            {
+                log += card.MyCardId + "/ num=" + card.num + ", color=" + card.color + ", virtual=" + card.virtual_num + "  :  ";
+            }
+
+        }
+        LogMgr.Inst.Log("Matched List: " + log, (int)LogLevels.Lami_Second_Working);
+
 
         InitPanList();  // Remove all cursors
 
         // Check if it's matched pan game cards.
-
         List<int> cursorList = new List<int>();
         foreach (var line in m_machedList)
         {
@@ -322,6 +333,7 @@ public class UIMyCardPanel : MonoBehaviour
         }
 
 
+        // Log
         LogMgr.Inst.Log("---- m_machedList ---", (int)LogLevels.SpecialLog);
         for (int i = 0; i < m_machedList.Count; i++)
         {
@@ -336,6 +348,8 @@ public class UIMyCardPanel : MonoBehaviour
         LogMgr.Inst.Log("---- end ---", (int)LogLevels.SpecialLog);
 
 
+
+
         LamiGameUIManager.Inst.playButton.interactable = (m_machedList.Count > 0);
     }
     public void OnClickLine(int lineNum = -1)
@@ -343,27 +357,74 @@ public class UIMyCardPanel : MonoBehaviour
         InitPanList();
         //if (attachList.Count > 1 && lineNum == -1) return;
 
-        foreach (var attach in m_machedList)
+        if (m_machedList.Count(x=>x.lineNo == lineNum) > 1)
         {
-            if (attach.lineNo == lineNum)
+
+            List<List<Card>> temp = new List<List<Card>>();
+            List<int> matchNoList = new List<int>();
+            foreach (var list in m_machedList.Where(x => x.lineNo == lineNum))
             {
-                SendDealtCard(attach.lineNo, attach.list);
-                break;
+                if (list.list.Count(x => x.num != 15) > 0)
+                {
+                    temp.Add(list.list);
+                }
+                else // If matched cards are only joker, then add pan list, too.
+                {
+                    if (LamiGameUIManager.Inst.mGameCardPanelList[lineNum].mGameCardList[0].virtual_num == list.list[list.list.Count - 1].virtual_num + 1)
+                    {
+                        temp.Add(GetCopyList(list.list));
+                        temp[temp.Count - 1].AddRange(GetCopyList(LamiGameUIManager.Inst.mGameCardPanelList[lineNum].mGameCardList));
+                    }
+                    else
+                    {                        
+                        temp.Add(GetCopyList(LamiGameUIManager.Inst.mGameCardPanelList[lineNum].mGameCardList));
+                        temp[temp.Count - 1].AddRange(GetCopyList(list.list));
+                    }
+                }
+                matchNoList.Add(m_machedList.IndexOf(list));
             }
+            LamiGameUIManager.Inst.uiSelectCardList.Show(temp, matchNoList);
         }
-
-
-        for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
+        else
         {
-            myCards[i].isSelected = false;
-            myCards[i].SetUpdate();
-        }
 
-        LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
-        LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
+            foreach (var attach in m_machedList)
+            {
+                if (attach.lineNo == lineNum)
+                {
+                    SendDealtCard(attach.lineNo, attach.list);
+                    break;
+                }
+            }
+
+
+            for (int i = 0; i < LamiGameUIManager.Inst.myCardPanel.myCards.Count; i++)
+            {
+                myCards[i].isSelected = false;
+                myCards[i].SetUpdate();
+            }
+
+            LamiGameUIManager.Inst.playButton.gameObject.SetActive(false);
+            LamiGameUIManager.Inst.tipButton.gameObject.SetActive(false);
+        }
     }
+
+    public static List<Card> GetCopyList(List<Card> list)
+    {
+        List<Card> new_list = new List<Card>();
+        foreach(var card in list)
+        {
+            Card new_card = new Card(card.num, card.color);
+            new_card.MyCardId = card.MyCardId;
+            new_card.virtual_num = card.virtual_num;
+            new_list.Add(new_card);
+        }
+        return new_list;
+    }
+
     public void OnClickCardList(int listNum = -1)
     {
+        LogMgr.Inst.Log("Matched List("+listNum+") clicked", (int)LogLevels.Lami_Second_Working);
         InitPanList();
         if (listNum == -1) return;
 
@@ -412,13 +473,13 @@ public class UIMyCardPanel : MonoBehaviour
     }
 
     private void ShowCursorpoint(int lineNum)
-    {  
-        LogMgr.Inst.Log("cursor num:="+ lineNum + ", count:=" + cursorPoints.Length, (int)LogLevels.LamiFinishLog);
+    {
+        LogMgr.Inst.Log("cursor num:=" + lineNum + ", count:=" + cursorPoints.Length, (int)LogLevels.LamiFinishLog);
         // Show cursor by lineNum
         Vector3 pos = LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform.position;
         int xDiff = 75;
         //        RectTransform rect = (RectTransform) LamiGameUIManager.Inst.mGameCardPanelList[lineNum].transform;
-        cursorPoints[curCursorNum].transform.position = new Vector3(pos.x + xDiff, pos.y-15, pos.z);
+        cursorPoints[curCursorNum].transform.position = new Vector3(pos.x + xDiff, pos.y - 15, pos.z);
         cursorPoints[curCursorNum].SetActive(true);
         LamiGameUIManager.Inst.mGameCardPanelList[lineNum].lineNum = lineNum;
         curCursorNum++;
