@@ -29965,8 +29965,7 @@ MonoBehaviour:
   - {x: 1, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
-  cachedMesh: {fileID: 3660652376195365350, guid: 739421e29c141cc478b2e1c4f44a65ad,
-    type: 3}
+  cachedMesh: {fileID: 0}
   InvisibleUpdate: 0
 --- !u!1 &2057050646395764113
 GameObject:
@@ -30332,7 +30331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6170179229183691082
 Transform:
   m_ObjectHideFlags: 0
@@ -30373,4 +30372,7 @@ MonoBehaviour:
   - {fileID: 3747281185509318658}
   id: 0
   isClicked: 0
-  Inst: {fileID: 0}
+  bankBtn: {fileID: 0}
+  camera: {fileID: 0}
+  bigCamPos: {fileID: 0}
+  originCamPos: {fileID: 0}
