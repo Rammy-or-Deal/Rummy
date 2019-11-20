@@ -159,6 +159,9 @@ public class LamiLogicMgr : MonoBehaviour
             case (int)LamiMessages.OnAutoPlayer:
                 LamiPlayerMgr.Inst.OnAutoPlayer();
                 break;
+            case (int)LamiMessages.OffAutoPlayer:
+                LamiPlayerMgr.Inst.OffAutoPlayer();
+                break;
             case (int)LamiMessages.OnShuffleRequest:
                 if (PhotonNetwork.IsMasterClient)
                     LamiCardMgr.Inst.OnShuffleRequest(p);

@@ -57,7 +57,7 @@ public class LamiGameUIManager : MonoBehaviour
         NewMethod();
 
         //alert dlg example
-        UIAlertDialog.Inst.Show(Game_Identifier.Lami, OnYesDlg, "WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?", 3);
+        //UIAlertDialog.Inst.Show(Game_Identifier.Lami, OnYesDlg, "WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?", 3);
     }
 
     private void NewMethod()
@@ -243,6 +243,12 @@ public class LamiGameUIManager : MonoBehaviour
         LamiMe.Inst.isAuto = false;
         LamiCountdownTimer.Inst.StartTurnTimer(true);
         autoOffBtn.SetActive(false);
+
+        Hashtable table = new Hashtable{
+                    {Common.LAMI_MESSAGE, (int)LamiMessages.OffAutoPlayer},
+                    {Common.PLAYER_ID, (int)PhotonNetwork.LocalPlayer.ActorNumber}
+                };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
 
     public void Init_Clear()
@@ -253,7 +259,7 @@ public class LamiGameUIManager : MonoBehaviour
         playButton.gameObject.SetActive(false);
         arrangeButton.gameObject.SetActive(false);
 
-        foreach(var list in mGameCardPanelList)
+        foreach (var list in mGameCardPanelList)
         {
             list.Init_Clear();
         }

@@ -93,9 +93,9 @@ public class LamiCountdownTimer : MonoBehaviour
                 LamiGameUIManager.Inst.myCardPanel.SendDealtCard(LamiGameUIManager.Inst.myCardPanel.m_machedList[0].lineNo, LamiGameUIManager.Inst.myCardPanel.m_machedList[0].list);
                 LamiMe.Inst.isAuto = true;
                 Hashtable table = new Hashtable{
-               {Common.LAMI_MESSAGE, (int)LamiMessages.OnAutoPlayer},
-               {Common.PLAYER_ID, (int)PhotonNetwork.LocalPlayer.ActorNumber}
-           };
+                    {Common.LAMI_MESSAGE, (int)LamiMessages.OnAutoPlayer},
+                    {Common.PLAYER_ID, (int)PhotonNetwork.LocalPlayer.ActorNumber}
+                };
                 PhotonNetwork.CurrentRoom.SetCustomProperties(table);
                 LamiGameUIManager.Inst.uiSelectCardList.Hide();
                 LamiGameUIManager.Inst.autoOffBtn.SetActive(true);

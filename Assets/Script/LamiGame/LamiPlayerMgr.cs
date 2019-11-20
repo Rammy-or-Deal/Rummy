@@ -155,6 +155,19 @@ public class LamiPlayerMgr : MonoBehaviour
         }
     }
 
+    internal void OffAutoPlayer()
+    {
+        int playerId = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        foreach (var player in m_playerList)
+        {
+            if (player.id == playerId)
+            {
+                player.isAuto = false;
+            }
+            player.Show();
+        }
+    }
+
     internal void OnAutoPlayer()
     {
         int playerId = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
