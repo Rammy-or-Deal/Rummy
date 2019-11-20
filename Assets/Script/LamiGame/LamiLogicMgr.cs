@@ -117,9 +117,9 @@ public class LamiLogicMgr : MonoBehaviour
             case (int)LamiMessages.OnRemovedBot:
                 LamiPlayerMgr.Inst.OnRemovedBot();
                 break;
-            case (int)LamiMessages.OnBotInfoChanged:
-                LamiPlayerMgr.Inst.OnBotInfoChanged();
-                break;
+            // case (int)LamiMessages.OnBotInfoChanged:
+            //     LamiPlayerMgr.Inst.OnBotInfoChanged();
+            //     break;
             case (int)LamiMessages.OnUserReady:
                 LamiPlayerMgr.Inst.OnUserReady(p.ActorNumber);
                 break;
@@ -164,8 +164,16 @@ public class LamiLogicMgr : MonoBehaviour
                     LamiCardMgr.Inst.OnShuffleRequest(p);
                 break;
             case (int)LamiMessages.OnShuffleAccept:
-                if(p == PhotonNetwork.LocalPlayer)
+                if (p == PhotonNetwork.LocalPlayer)
                     LamiMe.Inst.OnShuffleAccept();
+                break;
+            case (int)LamiMessages.OnGameRestart:
+                LamiCountdownTimer.Inst.StartTimer();
+                isStart = false;
+                StartCoroutine(CreateBot());
+
+                LamiPanMgr.Inst.OnGameRestart();
+                LamiMe.Inst.OnGameRestart();
                 break;
         }
     }

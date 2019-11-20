@@ -45,6 +45,7 @@ public class LamiCountdownTimer : MonoBehaviour
 
         while (currCountdownValue > 0)
         {
+            m_timer_description.gameObject.SetActive(true);
             m_timer_description.text = string.Format("Game starts in {0} seconds", currCountdownValue.ToString());
             yield return new WaitForSeconds(1.0f);
             currCountdownValue--;
@@ -67,6 +68,7 @@ public class LamiCountdownTimer : MonoBehaviour
 
         while (currCountdownValue > 0)
         {
+            turnTime.gameObject.SetActive(true);
             turnTime.text = string.Format("{0}", currCountdownValue.ToString());
 
             try

@@ -15,25 +15,38 @@ public class UIMyCardPanel : MonoBehaviour
     //MyCard
     public List<ATTACH_CLASS> m_machedList = new List<ATTACH_CLASS>();
     public List<LamiMyCard> myCards;
+    public List<LamiMyCard> originalCards;
+
     public GameObject[] cursorPoints;
     private int curCursorNum = 0;
     public bool sortedByColor;
     [HideInInspector] public List<LamiMyCard> selectedCards;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    private void Awake() {
+        
         selectedCards = new List<LamiMyCard>();
-        sortedByColor = false;
+        
+        sortedByColor = false;        
     }
 
     public void InitCards(Card[] cards)
     {
+        if(myCards == null)
+            myCards = new List<LamiMyCard>();
+        else
+            myCards.Clear();
+            
+        foreach(var card in originalCards)
+        {
+            myCards.Add(card);
+        }
         for (int i = 0; i < cards.Length; i++)
         {
             myCards[i].num = cards[i].num;
             myCards[i].color = cards[i].color;
             myCards[i].MyCardId = i;
+            myCards[i].gameObject.SetActive(true);
             //cardEntry.UpdateValue();
         }
 
@@ -455,6 +468,7 @@ public class UIMyCardPanel : MonoBehaviour
             //var tmp = myCards.Where(x => (x.num == card.num && x.color == card.color) || (x.num==15 &&  card.num==15)).First();
             //myCards.Remove(tmp);
             //tmp.gameObject.SetActive(false);
+
             myCards.Remove(card);
             card.gameObject.SetActive(false);
         }
@@ -483,5 +497,13 @@ public class UIMyCardPanel : MonoBehaviour
         cursorPoints[curCursorNum].SetActive(true);
         LamiGameUIManager.Inst.mGameCardPanelList[lineNum].lineNum = lineNum;
         curCursorNum++;
+    }
+    public void Init_Clear()
+    {
+        sortedByColor = false;       
+        foreach(var card in myCards)
+        {
+            card.gameObject.SetActive(false);
+        }
     }
 }

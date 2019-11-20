@@ -64,7 +64,7 @@ public enum BuildMethod
 
 public static class Constants
 {
-    public static BuildMethod LamiBuildMethod = BuildMethod.Develop_Message;
+    public static BuildMethod LamiBuildMethod = BuildMethod.Product;
     public static int FinishDiabledFlag = 1;
     public static float turnTime_AutoPlay = 3.0f;
     public static float turnTime_Develop = 1000;
@@ -76,7 +76,7 @@ public static class Constants
     public static int botWaitTimeforBuild = 2;
 
     #region  constants for Baccarat
-    public static int BaccaratCurrentTime = 7;
+    public static int BaccaratCurrentTime = 15;
 
     public static int BaccaratCardUnitNumber = 4;
     public static int BaccaratScoreLimit = 5;

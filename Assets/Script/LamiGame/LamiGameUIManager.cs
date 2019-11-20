@@ -54,10 +54,15 @@ public class LamiGameUIManager : MonoBehaviour
 
     private void Start()
     {
-        mGameCardPanelList = new List<LamiGameCardList>();
+        NewMethod();
 
         //alert dlg example
         UIAlertDialog.Inst.Show(Game_Identifier.Lami, OnYesDlg, "WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?", 3);
+    }
+
+    private void NewMethod()
+    {
+        mGameCardPanelList = new List<LamiGameCardList>();
     }
 
     public void OnYesDlg()
@@ -238,5 +243,22 @@ public class LamiGameUIManager : MonoBehaviour
         LamiMe.Inst.isAuto = false;
         LamiCountdownTimer.Inst.StartTurnTimer(true);
         autoOffBtn.SetActive(false);
+    }
+
+    public void Init_Clear()
+    {
+        readyButton.gameObject.SetActive(true);
+        autoOffBtn.gameObject.SetActive(false);
+        tipButton.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(false);
+        arrangeButton.gameObject.SetActive(false);
+
+        foreach(var list in mGameCardPanelList)
+        {
+            list.Init_Clear();
+        }
+        mGameCardPanelList.Clear();
+
+        myCardPanel.Init_Clear();
     }
 }

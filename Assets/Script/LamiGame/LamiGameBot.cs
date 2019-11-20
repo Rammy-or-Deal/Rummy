@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
@@ -33,17 +34,14 @@ public class LamiGameBot
     public int friendItemId;
     public int requestId;
     public int status;
-    LamiPlayerMgr parent;
+
     bool isFirstTurn = true;
     public string[] skillLevelList = new string[] { "Novice", "Expert", "Hero", "Elite", "King", "Master" };
 
-    public LamiGameBot(LamiPlayerMgr parent)
-    {
-        this.parent = parent;
-    }
+
     public void Init()
     {
-        status = (int)LamiPlayerStatus.Ready;
+        status = (int)LamiPlayerStatus.Init;
         id = -(UnityEngine.Random.Range(1000, 9999));
         name = "Guest" + "[" + UnityEngine.Random.Range(1000, 9999).ToString() + "]";
         pic = "new_avatar/avatar_" + UnityEngine.Random.Range(1, 26).ToString();
@@ -108,36 +106,48 @@ public class LamiGameBot
                 status
                 );
 
+
+        Debug.Log("Publish Bot:=   " + LamiPlayerMgr.Inst.getBotString());
         // Send Add New player Message. - OnUserEnteredRoom
         Hashtable props = new Hashtable
             {
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
                 {Common.NEW_PLAYER_INFO, infoString},
-                {Common.NEW_PLAYER_STATUS, status},
-                {Common.IS_BOT, true}
+                {Common.BOT_STATUS, status},
+                {Common.IS_BOT, true},
+                {Common.BOT_LIST_STRING, LamiPlayerMgr.Inst.getBotString()}
             };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
         ReadyMessageSend();
     }
+
     async void ReadyMessageSend()
     {
         try
         {
-            await Task.Delay(1000);
-            status = (int)LamiPlayerStatus.Ready;
+            await Task.Delay(Random.Range(1000, 2000));
 
+            status = (int)LamiPlayerStatus.Ready;
+            Debug.Log(id + ":"+ status);
+            Debug.Log(LamiPlayerMgr.Inst.getBotString());
+
+            Debug.Log("Bot Ready:=   " + LamiPlayerMgr.Inst.getBotString());
             Hashtable props = new Hashtable
             {
                 {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReady_BOT},
                 {Common.BOT_ID, id},
                 {Common.BOT_STATUS, status},
+                {Common.BOT_LIST_STRING, LamiPlayerMgr.Inst.getBotString()}
             };
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
-        catch { }
+        catch
+        {
+
+        }
     }
     internal void SetMyCards(string cardString)
     {
@@ -163,7 +173,7 @@ public class LamiGameBot
 
     private async void DealCard()
     {
-        await Task.Delay(Random.Range(1, 5)*1000);
+        await Task.Delay(Random.Range(1, 5) * 1000);
         var list = availList[0].list;
         string cardStr = LamiCardMgr.ConvertSelectedListToString(availList[0].list);
         cardStr = id + ":" + cardStr;
@@ -178,9 +188,11 @@ public class LamiGameBot
             {Common.GAME_CARD, cardStr},
             {Common.GAME_CARD_PAN, availList[0].lineNo},
         };
-        try{
-        PhotonNetwork.CurrentRoom.SetCustomProperties(gameCards);
-        }catch{}
+        try
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(gameCards);
+        }
+        catch { }
         LogMgr.Inst.Log("Bot dealt card: " + id + " ------" + cardStr, (int)LogLevels.BotLog);
         isFirstTurn = false;
     }
@@ -216,7 +228,7 @@ public class LamiGameBot
 
         List<ATTACH_CLASS> allFlushList = LamiMe.FilterByCurrentTurn_FLUSH(flushList, panList, isFirstTurn);
         List<ATTACH_CLASS> allSetList = new List<ATTACH_CLASS>();
-        if(!isFirstTurn)
+        if (!isFirstTurn)
             allSetList = LamiMe.FilterByCurrentTurn_SET(setList, panList);
 
 

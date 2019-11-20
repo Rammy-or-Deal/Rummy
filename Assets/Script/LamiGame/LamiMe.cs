@@ -13,7 +13,7 @@ public class LamiMe : MonoBehaviour
     public bool isAuto = false;
     public Text m_timer_description;
     public bool isFirstTurn = true;
-    public List<ATTACH_CLASS> availList = new List<ATTACH_CLASS>();
+    public List<ATTACH_CLASS> availList;
     int nowFlush = 0;
     public static LamiMe Inst;
 
@@ -23,6 +23,22 @@ public class LamiMe : MonoBehaviour
 
     int cardLineNumber;
     private bool IsSortClicked = false;
+
+    public LamiMe(bool isAuto, Text timer_description, bool isFirstTurn, List<ATTACH_CLASS> availList, int nowFlush, List<LamiMyCard> cardList, List<LamiMyCard> sel_cards, int cardLineNumber, bool isSortClicked, List<int> avail_lineList, LamiPlayerMgr parent, int status)
+    {
+        this.isAuto = isAuto;
+        m_timer_description = timer_description;
+        this.isFirstTurn = isFirstTurn;
+        this.availList = availList;
+        this.nowFlush = nowFlush;
+        m_cardList = cardList;
+        this.sel_cards = sel_cards;
+        this.cardLineNumber = cardLineNumber;
+        IsSortClicked = isSortClicked;
+        this.avail_lineList = avail_lineList;
+        this.parent = parent;
+        this.status = status;
+    }
 
     List<int> avail_lineList = new List<int>();
     LamiPlayerMgr parent;
@@ -34,6 +50,7 @@ public class LamiMe : MonoBehaviour
         if (!Inst)
             Inst = this;
         status = (int)LamiPlayerStatus.Init;
+        availList = new List<ATTACH_CLASS>();
     }
 
     internal void PublishMe()
@@ -184,6 +201,21 @@ public class LamiMe : MonoBehaviour
             nowFlush = nowFlush % availList.Count;
         }
         catch { }
+    }
+
+    internal void OnGameRestart()
+    {
+        StopAllCoroutines();
+        LamiCountdownTimer.Inst.StopTurnTimer();
+
+        isAuto = false;
+        isFirstTurn = true;
+
+        LamiGameUIManager.Inst.Init_Clear();
+        foreach(var player in LamiPlayerMgr.Inst.m_playerList)
+        {
+            player.Init_Clear();
+        }
     }
 
     internal void OnShuffleAccept()
@@ -1531,5 +1563,18 @@ public class LamiMe : MonoBehaviour
         }
     }
 
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 
+    public override bool Equals(object other)
+    {
+        return base.Equals(other);
+    }
+
+    public override string ToString()
+    {
+        return base.ToString();
+    }
 }

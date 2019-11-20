@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 public class LamiPlayerMgr : MonoBehaviour
 {
     public string totalCardString = "";
@@ -123,6 +124,7 @@ public class LamiPlayerMgr : MonoBehaviour
 
     internal void OnCardDistributed()
     {
+        CreateBotsFromPhoton();
         var cardListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
         totalCardString = cardListString;
         totalRemainString = cardListString;
@@ -156,11 +158,11 @@ public class LamiPlayerMgr : MonoBehaviour
     internal void OnAutoPlayer()
     {
         int playerId = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
-        foreach(var player in m_playerList)
+        foreach (var player in m_playerList)
         {
-            if(player.id == playerId)
+            if (player.id == playerId)
             {
-                player.isAuto = true;                
+                player.isAuto = true;
             }
             player.Show();
         }
@@ -251,9 +253,9 @@ public class LamiPlayerMgr : MonoBehaviour
         }
 
 
-        for(int i = 0; i < m_botList.Count; i++)
+        for (int i = 0; i < m_botList.Count; i++)
         {
-            if(actor == m_botList[i].id)
+            if (actor == m_botList[i].id)
             {
                 m_botList[i].OnUserDealt(cardString);
             }
@@ -267,20 +269,20 @@ public class LamiPlayerMgr : MonoBehaviour
 
     private void UpdateRemainCards(string cardString)
     {
-        
+
         int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
-        Debug.Log("CardString:=" + cardString + "   actor="+actor);
-        
+        Debug.Log("CardString:=" + cardString + "   actor=" + actor);
+
         var numList = cardString.Split(':')[1].Split(',').Select(Int32.Parse).ToArray();
         var colList = cardString.Split(':')[2].Split(',').Select(Int32.Parse).ToArray();
-        for(int i = 0; i < numList.Length; i++)
+        for (int i = 0; i < numList.Length; i++)
         {
             totalPayString += actor + ":" + numList[i] + ":" + colList[i] + "/";
         }
-        
+
 
         //totalPayString = totalPayString.Trim('/');
-        
+
         //Debug.Log(totalRemainString);
     }
 
@@ -302,6 +304,9 @@ public class LamiPlayerMgr : MonoBehaviour
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
             //LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
+
+
+            StartCoroutine(SendRestartEvent());
         }
         else
         {
@@ -312,6 +317,16 @@ public class LamiPlayerMgr : MonoBehaviour
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
+
+    IEnumerator SendRestartEvent()
+    {
+        yield return new WaitForSeconds(3);
+        Hashtable props = new Hashtable{
+            {Common.LAMI_MESSAGE, (int)LamiMessages.OnGameRestart},
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+    }
+
     internal void OnUserTurnChanged()
     {
         int turn = -1;
@@ -522,21 +537,26 @@ public class LamiPlayerMgr : MonoBehaviour
     }
 
     #region  Bot Section
-    internal void OnBotInfoChanged()
+    internal void CreateBotsFromPhoton()
     {
         string botListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BOT_LIST_STRING];
-        LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
-        var tmp = botListString.Split(',');
-        m_botList.Clear();
-        if (botListString == "") return;
-        for (int i = 0; i < tmp.Length; i++)
+        //LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
+        Debug.Log(botListString);
+        try
         {
-            LamiGameBot bot = new LamiGameBot(this);
-            bot.SetBotInfo(tmp[i]);
-            m_botList.Add(bot);
+            var tmp = botListString.Split(',');
+            m_botList.Clear();
+            if (botListString == "") return;
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                LamiGameBot bot = new LamiGameBot();
+                bot.SetBotInfo(tmp[i]);
+                m_botList.Add(bot);
 
-            LogMgr.Inst.Log("Bot Created : " + bot.getBotString(), (int)LogLevels.BotLog);
+                LogMgr.Inst.Log("Bot Created : " + bot.getBotString(), (int)LogLevels.BotLog);
+            }
         }
+        catch { }
     }
     internal void OnRemovedBot()
     {
@@ -547,7 +567,16 @@ public class LamiPlayerMgr : MonoBehaviour
             SendBotListString();
         }
     }
-    void SendBotListString()
+    public void SendBotListString()
+    {
+        Hashtable botChangeString = new Hashtable
+            {
+                {Common.LAMI_MESSAGE, (int)LamiMessages.OnBotInfoChanged},
+                {Common.BOT_LIST_STRING, getBotString()}
+            };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(botChangeString);
+    }
+    public string getBotString()
     {
         string botString = "";
         for (int i = 0; i < m_botList.Count; i++)
@@ -555,13 +584,7 @@ public class LamiPlayerMgr : MonoBehaviour
             botString += m_botList[i].getBotString() + ",";
         }
         botString = botString.Trim(',');
-
-        Hashtable botChangeString = new Hashtable
-            {
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnBotInfoChanged},
-                {Common.BOT_LIST_STRING, botString}
-            };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(botChangeString);
+        return botString;
     }
 
     public void MakeOneBot()
@@ -581,14 +604,16 @@ public class LamiPlayerMgr : MonoBehaviour
         LogMgr.Inst.Log("Check Users before making bot. " + seatString, (int)LogLevels.BotLog);
 
         List<string> tmp = new List<string>();
-        try{
-        tmp.AddRange(seatString.Trim(',').Split(',').ToList());
-        }catch{}
+        try
+        {
+            tmp.AddRange(seatString.Trim(',').Split(',').ToList());
+        }
+        catch { }
         // if all seats are not empty, return.
         if (tmp.Count >= 4 || tmp.Count == 0) return;
 
         // Create a bot
-        LamiGameBot mBot = new LamiGameBot(this);
+        LamiGameBot mBot = new LamiGameBot();
         mBot.Init();
         bool isIdSet = false;
 
@@ -608,7 +633,7 @@ public class LamiPlayerMgr : MonoBehaviour
 
         m_botList.Add(mBot);
         LogMgr.Inst.Log("Bot Created : " + mBot.getBotString(), (int)LogLevels.BotLog);
-        SendBotListString();
+        //SendBotListString();
 
         mBot.PublishMe();
     }
@@ -658,7 +683,7 @@ public class LamiPlayerMgr : MonoBehaviour
 
         return userSeat;
     }
-    
+
     public void ShowFinishDlg()
     {
         StartCoroutine(WaitSecondds());
@@ -666,8 +691,8 @@ public class LamiPlayerMgr : MonoBehaviour
 
     IEnumerator WaitSecondds()
     {
-        yield return  new WaitForSeconds(3);
+        yield return new WaitForSeconds(3);
         LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
-    } 
+    }
 
 }

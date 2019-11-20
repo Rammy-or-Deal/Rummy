@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,5 +84,10 @@ public class LamiGameCardList : MonoBehaviour
         {
             LamiMe.Inst.OnClickLine(lineNum);
         }
+    }
+
+    internal void Init_Clear()
+    {
+        Destroy(this.gameObject);
     }
 }

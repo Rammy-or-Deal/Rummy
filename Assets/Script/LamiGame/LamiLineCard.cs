@@ -29,4 +29,8 @@ public class LamiLineCard
         property = 0;
     }
 
+    internal void Init_Clear()
+    {
+        
+    }
 }

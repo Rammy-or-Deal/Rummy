@@ -58,4 +58,12 @@ public class LamiPanMgr : MonoBehaviour
 
         LamiGameUIManager.Inst.OnDealCard(cardString);
     }
+
+    internal void OnGameRestart()
+    {
+        foreach(var line in m_cardLineList)
+        {
+            line.Init_Clear();
+        }
+    }
 }

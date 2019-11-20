@@ -37,6 +37,7 @@ enum LamiMessages
     OnAutoPlayer,
     OnShuffleRequest,
     OnShuffleAccept,
+    OnGameRestart,
 }
 public class LamiMgr : MonoBehaviour
 {

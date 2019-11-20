@@ -76,16 +76,37 @@ public class LamiUserSeat : MonoBehaviour
 
     public void OnUserDealt(string dealString)
     {
-        
+
         var cards = dealString.Split(',').Select(Int32.Parse).ToArray();
         int aCount = cards.Count(x => x == 1);
         int jokerCount = cards.Count(x => x == 15);
 
         mAceValue.text = (int.Parse(mAceValue.text) + aCount) + "";
         mJokerValue.text = (int.Parse(mJokerValue.text) + jokerCount) + "";
-        
-    }
 
+    }
+    public LamiGameBot getBotStringFromPhoton(int botID)
+    {
+        string res = "";
+
+        string botListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BOT_LIST_STRING];
+        //LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
+
+        var tmp = botListString.Split(',');
+        LamiGameBot resBot = null;
+        for (int i = 0; i < tmp.Length; i++)
+        {            
+            LamiGameBot bot = new LamiGameBot();
+            bot.SetBotInfo(tmp[i]);
+            if (bot.id == botID)
+            {
+                resBot = new LamiGameBot();
+                resBot.SetBotInfo(tmp[i]);
+            }
+        }
+
+        return resBot;
+    }
     internal void SetProperty(int tmpActor)
     {
         canShow = true;
@@ -109,12 +130,15 @@ public class LamiUserSeat : MonoBehaviour
             {
                 if (LamiPlayerMgr.Inst.m_botList[i].id == tmpActor)
                 {
-                    status = LamiPlayerMgr.Inst.m_botList[i].status;
-                    infoString = LamiPlayerMgr.Inst.m_botList[i].getBotString();
+                    //status = LamiPlayerMgr.Inst.m_botList[i].status;
+                    var infoBot = getBotStringFromPhoton(tmpActor);
+                    infoString = infoBot.getBotString();
+                    status = infoBot.status;
                     break;
                 }
             }
         }
+
         if (infoString != "")
         {
             var tmp = infoString.Split(':');
@@ -124,10 +148,8 @@ public class LamiUserSeat : MonoBehaviour
             mUserPic.sprite = Resources.Load<Sprite>((string)tmp[2]);
             mCoinValue.text = tmp[3];
             mUserSkillName.text = tmp[4];
-            frameId = int.Parse(tmp[5]);
+            frameId = int.Parse(tmp[5]);            
         }
-
-
     }
 
     public void SetAdditionalCardInfo(string data)
@@ -169,7 +191,7 @@ public class LamiUserSeat : MonoBehaviour
                     break;
             }
 
-            if(isAuto)
+            if (isAuto)
                 autoOnImage.gameObject.SetActive(true);
         }
         else
@@ -207,37 +229,51 @@ public class LamiUserSeat : MonoBehaviour
         var players = totalCardString.Trim('/').Split('/');
         foreach (var player in players)
         {
-            if(player == "") continue;
+            if (player == "") continue;
             int playerActor = int.Parse(player.Split(':')[0]);
             if (playerActor == id)
             {
                 var numList = player.Split(':')[1].Split(',').Select(Int32.Parse).ToArray();
                 var colList = player.Split(':')[2].Split(',').Select(Int32.Parse).ToArray();
-                for(int i = 0; i < numList.Length; i++)
+                for (int i = 0; i < numList.Length; i++)
                 {
                     Card card = new Card(numList[i], colList[i]);
                     cardList.Add(card);
                 }
-                
+
             }
         }
 
         var payItems = totalPayString.Trim('/').Split('/');
-        foreach(var item in payItems)
+        foreach (var item in payItems)
         {
             var tmp = item.Split(':').Select(Int32.Parse).ToArray();
-            if(tmp.Length == 0) continue;
-            if(tmp[0] == id)
+            if (tmp.Length == 0) continue;
+            if (tmp[0] == id)
             {
-                for(int i = 0; i < cardList.Count; i++)
+                for (int i = 0; i < cardList.Count; i++)
                 {
-                    if((cardList[i].num == tmp[1] && cardList[i].color == tmp[2] && cardList[i].MyCardId != -1) ||
+                    if ((cardList[i].num == tmp[1] && cardList[i].color == tmp[2] && cardList[i].MyCardId != -1) ||
                         (cardList[i].num == 15 && tmp[2] == 15 && cardList[i].MyCardId != -1))
-                        {
-                            cardList[i].MyCardId = 1;
-                        }
+                    {
+                        cardList[i].MyCardId = 1;
+                    }
                 }
             }
         }
+    }
+
+    internal void Init_Clear()
+    {
+        isAuto = false;
+        status = (int)LamiPlayerStatus.Init;
+        if(id < 0)
+            status = (int)LamiPlayerStatus.Ready;
+            
+        mAceValue.text = "0";
+        mJokerValue.text = "0";
+        mCardNum.text = "20";
+        mClock.gameObject.SetActive(false);
+        Show();
     }
 }

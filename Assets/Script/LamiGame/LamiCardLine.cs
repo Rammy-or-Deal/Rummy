@@ -96,4 +96,13 @@ public class LamiCardLine
             m_cardList.Add(array[i]);
         }
     }
+
+    internal void Init_Clear()
+    {
+        foreach(var card in m_cardList)
+        {
+            card.Init_Clear();
+        }
+        m_cardList.Clear();
+    }
 }
