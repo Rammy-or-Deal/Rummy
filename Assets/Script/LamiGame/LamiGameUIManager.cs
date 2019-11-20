@@ -116,7 +116,7 @@ public class LamiGameUIManager : MonoBehaviour
         }
         else if (machingList.Count > 1)
         {
-            if (machingList[0].list[0].virtual_num == machingList[0].list[1].virtual_num)
+            if (machingList[0].list[0].virtual_num == machingList[0].list[1].virtual_num)   // set
             {
                 //myCardPanel.OnClickLine();
                 myCardPanel.OnClickCardList(0);
@@ -125,6 +125,7 @@ public class LamiGameUIManager : MonoBehaviour
             {
                 foreach (var list in machingList)
                 {
+                    if(list.list.Count >= 3 && list.lineNo != -1) continue;
                     temp.Add(list.list);
                     matchNoList.Add(machingList.IndexOf(list));
                 }

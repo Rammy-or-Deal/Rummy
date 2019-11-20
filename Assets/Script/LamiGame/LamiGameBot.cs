@@ -127,7 +127,7 @@ public class LamiGameBot
     {
         try
         {
-            await Task.Delay(Random.Range(1000, 2000));
+            await Task.Delay(Random.Range(1000, 5000));
 
             status = (int)LamiPlayerStatus.Ready;
             Debug.Log(id + ":"+ status);

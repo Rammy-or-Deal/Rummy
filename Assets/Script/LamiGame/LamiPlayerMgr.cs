@@ -654,7 +654,7 @@ public class LamiPlayerMgr : MonoBehaviour
 
     #endregion
 
-    private int GetUserSeat(int seatNo_in_seatString)
+    public int GetUserSeat(int seatNo_in_seatString)
     {
 
         int seatPos;

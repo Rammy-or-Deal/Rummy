@@ -39,6 +39,7 @@ public class LamiMyCard : LamiGameCard
     {
         isSelected = (!isSelected);
         SetUpdate();
+
         LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState();
     }
     public void SetUpdate()

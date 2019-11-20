@@ -23,21 +23,22 @@ public class UIMyCardPanel : MonoBehaviour
     [HideInInspector] public List<LamiMyCard> selectedCards;
 
     // Start is called before the first frame update
-    private void Awake() {
-        
+    private void Awake()
+    {
+
         selectedCards = new List<LamiMyCard>();
-        
-        sortedByColor = false;        
+
+        sortedByColor = false;
     }
 
     public void InitCards(Card[] cards)
     {
-        if(myCards == null)
+        if (myCards == null)
             myCards = new List<LamiMyCard>();
         else
             myCards.Clear();
-            
-        foreach(var card in originalCards)
+
+        foreach (var card in originalCards)
         {
             myCards.Add(card);
         }
@@ -204,30 +205,36 @@ public class UIMyCardPanel : MonoBehaviour
         {
             bool isSame = true;
             LogMgr.Inst.ShowLog(list.list, "Match list:=");
-            for (int i = 0; i < list.list.Count; i++)
+
+            if (list.list.Count(x => x.num == 15) != selList.Count(x => x.num == 15))
+            { 
+                isSame = false; 
+            }
+            else
             {
-                if (selList.Count(x => x.num == list.list[i].num) == list.list.Count(y => y.num == list.list[i].num))
+                foreach (var sourceCard in list.list)
                 {
-                    if (selList.Count(x => x.color == list.list[i].color && x.num == list.list[i].num) == list.list.Count(y => y.color == list.list[i].color && y.num == list.list[i].num)
-                                    || list.list[i].num == 15)
-                    {
-                        continue;
-                    }
-                    else
+                    if (sourceCard.num == 15) continue;
+                    if (selList.Count(x => x.num == sourceCard.num && x.color == sourceCard.color) == 0)
                     {
                         isSame = false;
-                        LogMgr.Inst.Log("Match color error", (int)LogLevels.SpecialLog);
                         break;
                     }
                 }
-                else
+
+                if (isSame)
                 {
-                    isSame = false;
-                    LogMgr.Inst.Log("Match number error", (int)LogLevels.SpecialLog);
-                    break;
+                    foreach(var selCard in selList)
+                    {
+                        if(selCard.num == 15) continue;
+                        if(list.list.Count(x=>x.num == selCard.num && x.color == selCard.color) == 0)
+                        {
+                            isSame = false;
+                            break;
+                        }
+                    }
                 }
             }
-
             if (isSame)
             {
                 LogMgr.Inst.Log("Match added", (int)LogLevels.SpecialLog);
@@ -255,6 +262,8 @@ public class UIMyCardPanel : MonoBehaviour
 
     public void SetPlayButtonState()
     {
+        if (LamiPlayerMgr.Inst.GetUserSeat(LamiPlayerMgr.Inst.nowTurn) != 0) return;
+
         int count = LamiGameUIManager.Inst.myCardPanel.myCards.Count(x => x.isSelected == true);    // Get Selected Card
 
         if (count == 3)
@@ -370,7 +379,7 @@ public class UIMyCardPanel : MonoBehaviour
         InitPanList();
         //if (attachList.Count > 1 && lineNum == -1) return;
 
-        if (m_machedList.Count(x=>x.lineNo == lineNum) > 1)
+        if (m_machedList.Count(x => x.lineNo == lineNum) > 1)
         {
 
             List<List<Card>> temp = new List<List<Card>>();
@@ -389,7 +398,7 @@ public class UIMyCardPanel : MonoBehaviour
                         temp[temp.Count - 1].AddRange(GetCopyList(LamiGameUIManager.Inst.mGameCardPanelList[lineNum].mGameCardList));
                     }
                     else
-                    {                        
+                    {
                         temp.Add(GetCopyList(LamiGameUIManager.Inst.mGameCardPanelList[lineNum].mGameCardList));
                         temp[temp.Count - 1].AddRange(GetCopyList(list.list));
                     }
@@ -425,7 +434,7 @@ public class UIMyCardPanel : MonoBehaviour
     public static List<Card> GetCopyList(List<Card> list)
     {
         List<Card> new_list = new List<Card>();
-        foreach(var card in list)
+        foreach (var card in list)
         {
             Card new_card = new Card(card.num, card.color);
             new_card.MyCardId = card.MyCardId;
@@ -437,7 +446,7 @@ public class UIMyCardPanel : MonoBehaviour
 
     public void OnClickCardList(int listNum = -1)
     {
-        LogMgr.Inst.Log("Matched List("+listNum+") clicked", (int)LogLevels.Lami_Second_Working);
+        LogMgr.Inst.Log("Matched List(" + listNum + ") clicked", (int)LogLevels.Lami_Second_Working);
         InitPanList();
         if (listNum == -1) return;
 
@@ -500,8 +509,8 @@ public class UIMyCardPanel : MonoBehaviour
     }
     public void Init_Clear()
     {
-        sortedByColor = false;       
-        foreach(var card in myCards)
+        sortedByColor = false;
+        foreach (var card in myCards)
         {
             card.gameObject.SetActive(false);
         }
