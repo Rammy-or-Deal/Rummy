@@ -3,40 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LamiTierController : MonoBehaviour
+public class LamiTierController : TierController
 {
-
-    public GameObject[] mTiers;
     public GameObject[] mLamiDialogs;
 
-    public Transform userInfoPanel;
-    public Transform moneyPanel;
-
     // Start is called before the first frame update
-    void Start()
-    {
-        //        Debug.Log("roomCount:"+PunController.Inst.cachedRoomList.Count);
-        //        position = aTransform.localPosition;
-        //        rotation = aTransform.localRotation;
-        //        localScale = aTransform.localScale;
-        try
-        {
-            UIController.Inst.loadingDlg.gameObject.SetActive(false);
-        }
-        catch { }
-        UIController.Inst.userInfoPanel.gameObject.SetActive(true);
-        UIController.Inst.moneyPanel.gameObject.SetActive(true);
-        UIController.Inst.userInfoPanel.transform.position = userInfoPanel.position;
-        UIController.Inst.moneyPanel.transform.position = moneyPanel.position;
-        UIController.Inst.userInfoPanel.transform.localScale = userInfoPanel.localScale;
-        UIController.Inst.moneyPanel.transform.localScale = moneyPanel.localScale;
-    }
-
-    public void OnClickBack()
-    {
-        SceneManager.LoadScene("2_Lobby");
-    }
-
     public void OnClickHeader(int type)
     {
         Debug.Log("HeaderButton click");
@@ -57,9 +28,4 @@ public class LamiTierController : MonoBehaviour
             PunController.Inst.CreateOrJoinRoom(idx);
         }
     }
-    public void OnClickMoneyPanel()
-    {
-        UIController.Inst.shopDlg.gameObject.SetActive(true);
-    }
-
 }
