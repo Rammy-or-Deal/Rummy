@@ -6,6 +6,12 @@ using UnityEngine;
 public class UILamiFinish : MonoBehaviour
 {
     public UILamiFinishScorePan[] scorePan;
+    public GameObject backBtn;
+    public GameObject examineBtn;
+    public GameObject victoryObj;
+    public GameObject firstTitle;
+    public GameObject examineTitle;
+    
     void Start()
     {
         SetData();
@@ -71,5 +77,28 @@ public class UILamiFinish : MonoBehaviour
     public void OnContinueBtn()
     {
         gameObject.SetActive(false);
+    }
+    
+    public void OnCloseBtn()
+    {
+        gameObject.SetActive(false);
+    }
+    
+    public void OnExamineBtn()
+    {
+        UpdateObjs(true);
+    }
+    
+    public void OnBackBtn()
+    {
+        UpdateObjs(false);
+    }
+
+    void UpdateObjs(bool flag)
+    {
+        firstTitle.SetActive(!flag);
+        examineTitle.SetActive(flag);
+        examineBtn.SetActive(!flag);
+        backBtn.SetActive(flag);
     }
 }

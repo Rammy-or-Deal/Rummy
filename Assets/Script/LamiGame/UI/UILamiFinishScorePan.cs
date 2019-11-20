@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UILamiFinishScorePan : MonoBehaviour
 {
-    public Image background;
     
     public Image avatar;
     public Image frame;
@@ -13,7 +12,7 @@ public class UILamiFinishScorePan : MonoBehaviour
     public Text username;
 
     public Text rankTxt;
-
+    public Text matchwinningTxt;
     public UILamiFinishCardPan cardPan;
     public Text cardPoints;
     public Text aceCount;
