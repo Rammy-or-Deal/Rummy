@@ -35,4 +35,9 @@ public class UILamiSelectCardList : MonoBehaviour
         }
         transform.parent.gameObject.SetActive(false);
     }
+
+    public void OnCancelBtn()
+    {
+        Hide();
+    }
 }
