@@ -191,6 +191,7 @@ public class LamiPlayerMgr : MonoBehaviour
             }
             catch { }
             seat.cardListUpdate(totalCardString, totalPayString);
+            seat.calcScore();
         }
         ShowFinishDlg();
     }
@@ -699,6 +700,8 @@ public class LamiPlayerMgr : MonoBehaviour
 
     public void ShowFinishDlg()
     {
+        LamiGameUIManager.Inst.finishDlg.SetData();
+
         StartCoroutine(WaitSecondds());
     }
 

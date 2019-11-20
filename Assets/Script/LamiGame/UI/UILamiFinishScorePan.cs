@@ -24,20 +24,19 @@ public class UILamiFinishScorePan : MonoBehaviour
         
     }
 
-    public void UpdateInfo(Sprite picSprite,string frameName,string skillName,string userName,string rankText,int cardPoint,string aceCnt,string jockerCnt,int scoreVal,List<Card> cards)
+    public void UpdateInfo(LamiUserSeat seat)
     {
-        avatar.sprite=picSprite;
-        frame.sprite=Resources.Load<Sprite>("new_frame/frame_"+frameName);
-        Debug.Log("skill name:"+skillName);
-        skill.sprite=Resources.Load<Sprite>("new_skill/skill_"+skillName);
-        username.text =userName;
-        rankTxt.text = rankText;
+        avatar.sprite=seat.mUserPic.sprite;
+        frame.sprite=seat.mUserFrame.sprite;
+        //Debug.Log("skill name:"+skillName);
+        skill.sprite=Resources.Load<Sprite>("new_skill/skill_"+seat.mUserSkillName.text);
+        username.text =seat.mUserName.text;
 
-        cardPoints.text = cardPoint.ToString();
-        aceCount.text = aceCnt.ToString();
-        jockerCount.text = jockerCnt.ToString();
-        score.text = scoreVal.ToString();
+        cardPoints.text = seat.cardPoint.ToString();
+        aceCount.text = seat.aCount.ToString();
+        jockerCount.text = seat.jokerCount.ToString();
+        score.text = (seat.score + seat.AddScore + seat.aCount * Constants.lamiAMultiply + seat.jokerCount*Constants.lamiJokerMultiply).ToString();
         
-        cardPan.UpdateCards(cards);
+        cardPan.UpdateCards(seat.cardList);
     }
 }

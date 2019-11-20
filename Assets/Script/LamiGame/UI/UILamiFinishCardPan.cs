@@ -11,6 +11,9 @@ public class UILamiFinishCardPan : MonoBehaviour
     {
         try
         {
+            for(int i = 1; i < mCards.Count; i++)
+                Destroy(mCards[i].gameObject);
+
             LamiMyCard card = mCards[0];
             card.UpdateFinishCard(cards[0]);
             for (int i = 1; i < cardCount; i++)

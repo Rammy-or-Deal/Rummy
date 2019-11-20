@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class LamiUserSeat : MonoBehaviour
 {
 
-    public int cardPoint;
+
     static public LamiUserSeat Inst;
     public bool canShow;
     public int status;
@@ -42,7 +42,7 @@ public class LamiUserSeat : MonoBehaviour
     public int frameId;
     public List<Card> cardList = new List<Card>();
 
-    public int score = 0;
+
     internal bool isAuto;
 
     #region UNITY
@@ -95,7 +95,7 @@ public class LamiUserSeat : MonoBehaviour
         var tmp = botListString.Split(',');
         LamiGameBot resBot = null;
         for (int i = 0; i < tmp.Length; i++)
-        {            
+        {
             LamiGameBot bot = new LamiGameBot();
             bot.SetBotInfo(tmp[i]);
             if (bot.id == botID)
@@ -148,7 +148,7 @@ public class LamiUserSeat : MonoBehaviour
             mUserPic.sprite = Resources.Load<Sprite>((string)tmp[2]);
             mCoinValue.text = tmp[3];
             mUserSkillName.text = tmp[4];
-            frameId = int.Parse(tmp[5]);            
+            frameId = int.Parse(tmp[5]);
         }
     }
 
@@ -223,8 +223,8 @@ public class LamiUserSeat : MonoBehaviour
 
     internal void cardListUpdate(string totalCardString, string totalPayString)
     {
-        LogMgr.Inst.Log(string.Format("GameFinished. totalCardString={0}, totalPayString={1}", totalCardString, totalPayString), (int)LogLevels.LamiFinishLog);
-
+        //LogMgr.Inst.Log(string.Format("GameFinished. totalCardString={0}, totalPayString={1}", totalCardString, totalPayString), (int)LogLevels.LamiFinishLog);
+        //Debug.Log(string.Format("GameFinished. totalCardString={0}, totalPayString={1}", totalCardString, totalPayString));
         cardList.Clear();
         var players = totalCardString.Trim('/').Split('/');
         foreach (var player in players)
@@ -238,38 +238,91 @@ public class LamiUserSeat : MonoBehaviour
                 for (int i = 0; i < numList.Length; i++)
                 {
                     Card card = new Card(numList[i], colList[i]);
+                    card.MyCardId = -1;
                     cardList.Add(card);
                 }
 
             }
         }
-
+        string ss = "CreatedCardList := ";
+        foreach (var card in cardList)
+        {
+            ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
+        }
+        //Debug.Log(ss);
         var payItems = totalPayString.Trim('/').Split('/');
         foreach (var item in payItems)
         {
             var tmp = item.Split(':').Select(Int32.Parse).ToArray();
+            //Debug.Log(string.Format("MyId={0}, payId={1}, payCard={2}:{3}", id, tmp[0], tmp[1], tmp[2]));
             if (tmp.Length == 0) continue;
             if (tmp[0] == id)
             {
                 for (int i = 0; i < cardList.Count; i++)
                 {
-                    if ((cardList[i].num == tmp[1] && cardList[i].color == tmp[2] && cardList[i].MyCardId != -1) ||
-                        (cardList[i].num == 15 && tmp[2] == 15 && cardList[i].MyCardId != -1))
+                    if ((cardList[i].num == tmp[1] && cardList[i].color == tmp[2] && cardList[i].MyCardId == -1) ||
+                        (cardList[i].num == 15 && tmp[2] == 15 && cardList[i].MyCardId == -1))
                     {
                         cardList[i].MyCardId = 1;
+                        break;
                     }
                 }
             }
         }
+        ss = "UpdatedCardList := ";
+        foreach (var card in cardList)
+        {
+            ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
+        }
+
+        cardList = cardList.OrderByDescending(x=>x.MyCardId).ToList();
+        //Debug.Log(ss);
+    }
+
+    public int score = 0;
+    public int cardPoint = 0;
+    public int aCount = 0;
+    public int jokerCount = 0;
+
+    public int AddScore = 0;
+
+    internal void calcScore()
+    {
+        // Calc Card Score
+        cardPoint = cardList.Count(x => x.MyCardId != 1);
+        score = 0;
+        foreach (var card in cardList.Where(x => x.MyCardId != 1).ToList())
+        {
+            int addVal = 0;
+            switch (card.num)
+            {
+                case 1:
+                    addVal = 15; break;
+                case 15:
+                    addVal = 0; break;
+                case 11:
+                case 12:
+                case 13:
+                    addVal = 10;
+                    break;
+                default:
+                    addVal = card.num;
+                    break;
+            }
+            score -= addVal;
+            //cardPoint++;
+        }
+        jokerCount = cardList.Count(x => x.num == 15);
+        aCount = cardList.Count(x => x.num == 1);
     }
 
     internal void Init_Clear()
     {
         isAuto = false;
         status = (int)LamiPlayerStatus.Init;
-        if(id < 0)
+        if (id < 0)
             status = (int)LamiPlayerStatus.Ready;
-            
+
         mAceValue.text = "0";
         mJokerValue.text = "0";
         mCardNum.text = "20";

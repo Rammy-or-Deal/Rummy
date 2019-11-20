@@ -11,61 +11,45 @@ public class UILamiFinish : MonoBehaviour
     public GameObject victoryObj;
     public GameObject firstTitle;
     public GameObject examineTitle;
-    
+
     void Start()
     {
-        SetData();
+
     }
 
     public void SetData()
     {
-        for (int i = 0; i < scorePan.Length; i++)
+        int index = 0;
+        foreach (var player in LamiPlayerMgr.Inst.m_playerList.OrderByDescending(x => x.score))
         {
-            LamiUserSeat seat = LamiPlayerMgr.Inst.m_playerList[i];
-            seat.cardPoint = 0;
-            int cardPoint = 0;
-            foreach (var card in seat.cardList.Where(x=>x.MyCardId != 1).ToList())
+            switch (index)
             {
-                int addVal = 0;
-                switch (card.num)
-                {
-                    case 1:
-                        addVal = 15; break;
-                    case 15:
-                        addVal = 0; break;
-                    case 11:
-                    case 12:
-                    case 13:
-                        addVal = 10;
-                        break;
-                    default:
-                        addVal = card.num;
-                        break;
-                }
-                cardPoint += addVal;
-                seat.cardPoint++;
+                case 0:
+                    player.AddScore = 700; break;
+                case 1:
+                    player.AddScore = -100; break;
+                case 2:
+                    player.AddScore = -200; break;
+                case 3:
+                    player.AddScore = -400; break;
             }
-            seat.score = cardPoint;
             
-        }
-
-        for (int i = 0; i < scorePan.Length; i++)
-        {
-            var seat = LamiPlayerMgr.Inst.m_playerList.OrderBy(x=>x.cardPoint).ToList()[i];
 
             //LamiUserSeat seat = LamiPlayerMgr.Inst.m_playerList[i];
-            scorePan[i].UpdateInfo(seat.mUserPic.sprite, seat.mUserSkillName.text,
-                (i+1).ToString	(),
-                            seat.mUserName.text, (i+1) + "", seat.cardPoint,
-                            seat.mAceValue.text, seat.mJokerValue.text, 
-                            50*(int.Parse(seat.mAceValue.text) + int.Parse(seat.mJokerValue.text)) - seat.cardPoint*10 - (i*2*100),
-                            seat.cardList);
+            // scorePan[index].UpdateInfo(player.mUserPic.sprite, player.mUserSkillName.text,
+            //     (index + 1).ToString(),
+            //                 player.mUserName.text, (index + 1) + "", player.cardPoint,
+            //                 player.mAceValue.text, player.mJokerValue.text,
+            //                 50 * (int.Parse(player.mAceValue.text) + int.Parse(player.mJokerValue.text)) - player.cardPoint * 10 - (index * 2 * 100),
+            //                 player.cardList);
+            scorePan[index].UpdateInfo(player);
+            index++;
         }
     }
 
     public void OnReportBtn()
     {
-        
+
     }
 
     public void OnExitBtn()
@@ -78,17 +62,17 @@ public class UILamiFinish : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    
+
     public void OnCloseBtn()
     {
         gameObject.SetActive(false);
     }
-    
+
     public void OnExamineBtn()
     {
         UpdateObjs(true);
     }
-    
+
     public void OnBackBtn()
     {
         UpdateObjs(false);
@@ -100,5 +84,15 @@ public class UILamiFinish : MonoBehaviour
         examineTitle.SetActive(flag);
         examineBtn.SetActive(!flag);
         backBtn.SetActive(flag);
+
+        foreach (var line in scorePan)
+        {
+            line.cardPoints.gameObject.SetActive(!flag);
+            line.aceCount.gameObject.SetActive(!flag);
+            line.jockerCount.gameObject.SetActive(!flag);
+            line.matchwinningTxt.gameObject.SetActive(!flag);
+
+            line.cardPan.gameObject.SetActive(flag);
+        }
     }
 }
