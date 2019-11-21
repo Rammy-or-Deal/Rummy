@@ -18,7 +18,7 @@ public class existingRoomPanelController : MonoBehaviour
 
     void Start()
     {
-        UIBHistory.Inst.gameObject.SetActive(false);    
+        //UIBHistory.Inst.gameObject.SetActive(false);
     }
     List<BaccaratRoomInfo> existingList = new List<BaccaratRoomInfo>();
     internal void ShowRoomList(int roomType)

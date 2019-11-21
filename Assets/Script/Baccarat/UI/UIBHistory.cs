@@ -18,10 +18,7 @@ public class UIBHistory : MonoBehaviour
     {
         if (!Inst)
             Inst = this;
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        
     }
 
     void Start()
