@@ -37,6 +37,13 @@ public class UILamiFinishScorePan : MonoBehaviour
         jockerCount.text = seat.jokerCount.ToString();
         score.text = (seat.score + seat.AddScore + seat.aCount * Constants.lamiAMultiply + seat.jokerCount*Constants.lamiJokerMultiply).ToString();
         
+        string ss = "CreatedCardList("+seat.id+") := ";
+        foreach (var card in seat.cardList)
+        {
+            ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
+        }
+        //Debug.Log(ss);
+
         cardPan.UpdateCards(seat.cardList);
     }
 }

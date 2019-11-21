@@ -26,7 +26,7 @@ public class LamiMyCard : LamiGameCard
         num = card.num;
         color = card.color;
         UpdateValue();
-        if (card.MyCardId == Constants.FinishDiabledFlag)  //default:-1 , 1:disable
+        if (card.MyCardId == 1)  //default:-1 , 1:disable
         {
             Color col = mCard.color;
             col.a = 0.5f;

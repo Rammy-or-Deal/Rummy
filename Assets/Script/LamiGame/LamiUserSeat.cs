@@ -109,7 +109,7 @@ public class LamiUserSeat : MonoBehaviour
     }
     internal void SetProperty(int tmpActor)
     {
-        canShow = true;
+        
         isBot = true;
         string infoString = "";
         foreach (Player p in PhotonNetwork.PlayerList)  // If this isn't a bot
@@ -132,6 +132,7 @@ public class LamiUserSeat : MonoBehaviour
             //     {
                     //status = LamiPlayerMgr.Inst.m_botList[i].status;
                     var infoBot = getBotStringFromPhoton(tmpActor);
+                    if(infoBot == null) return;
                     infoString = infoBot.getBotString();
                     status = infoBot.status;
             //         break;
@@ -149,6 +150,8 @@ public class LamiUserSeat : MonoBehaviour
             mCoinValue.text = tmp[3];
             mUserSkillName.text = tmp[4];
             frameId = int.Parse(tmp[5]);
+
+            canShow = true;
         }
     }
 
@@ -244,12 +247,12 @@ public class LamiUserSeat : MonoBehaviour
 
             }
         }
-        string ss = "CreatedCardList := ";
-        foreach (var card in cardList)
-        {
-            ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
-        }
-        //Debug.Log(ss);
+        // string ss = "CreatedCardList := ";
+        // foreach (var card in cardList)
+        // {
+        //     ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
+        // }
+        // Debug.Log(ss);
         var payItems = totalPayString.Trim('/').Split('/');
         foreach (var item in payItems)
         {
@@ -269,11 +272,11 @@ public class LamiUserSeat : MonoBehaviour
                 }
             }
         }
-        ss = "UpdatedCardList := ";
-        foreach (var card in cardList)
-        {
-            ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
-        }
+        // ss = "UpdatedCardList := ";
+        // foreach (var card in cardList)
+        // {
+        //     ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
+        // }
 
         cardList = cardList.OrderByDescending(x=>x.MyCardId).ToList();
         //Debug.Log(ss);
