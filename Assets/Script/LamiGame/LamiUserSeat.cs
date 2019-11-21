@@ -126,17 +126,17 @@ public class LamiUserSeat : MonoBehaviour
 
         if (isBot)  //If this player is bot, pull data from parent's bot information
         {
-            for (int i = 0; i < LamiPlayerMgr.Inst.m_botList.Count; i++)
-            {
-                if (LamiPlayerMgr.Inst.m_botList[i].id == tmpActor)
-                {
+            // for (int i = 0; i < LamiPlayerMgr.Inst.m_botList.Count; i++)
+            // {
+            //     if (LamiPlayerMgr.Inst.m_botList[i].id == tmpActor)
+            //     {
                     //status = LamiPlayerMgr.Inst.m_botList[i].status;
                     var infoBot = getBotStringFromPhoton(tmpActor);
                     infoString = infoBot.getBotString();
                     status = infoBot.status;
-                    break;
-                }
-            }
+            //         break;
+            //     }
+            // }
         }
 
         if (infoString != "")

@@ -466,7 +466,8 @@ public class LamiPlayerMgr : MonoBehaviour
 
         string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
 
-        LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
+        //LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
+        //Debug.Log("OnRoomSeatUpdate: " + seatString);
         // Prepare seatNumList      - this is to remove unneeded for statement
         //if (seatString != "")
         seatNumList.Clear();
@@ -475,7 +476,8 @@ public class LamiPlayerMgr : MonoBehaviour
         {
             seatNumList.Add(int.Parse(tmp[i].Split(':')[0]), int.Parse(tmp[i].Split(':')[1]));
         }
-        LogMgr.Inst.Log("seatNumList: " + seatNumList.ToStringFull(), (int)LogLevels.PlayerLog1);
+        //LogMgr.Inst.Log("seatNumList: " + seatNumList.ToStringFull(), (int)LogLevels.PlayerLog1);
+        //Debug.Log("seatNumList: " + seatNumList.ToStringFull());
 
         // Get seat no from seat string
         for (int i = 0; i < m_playerList.Length; i++)
@@ -656,7 +658,7 @@ public class LamiPlayerMgr : MonoBehaviour
 
     public int GetUserSeat(int seatNo_in_seatString)
     {
-
+        Debug.Log("GetUserSeat, seatNo_in_seatString:=" + seatNo_in_seatString);
         int seatPos;
         if (seatNo_in_seatString == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
         {
