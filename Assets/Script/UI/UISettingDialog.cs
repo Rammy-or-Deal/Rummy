@@ -65,12 +65,14 @@ public class UISettingDialog : MonoBehaviour
             DataController.Inst.setting.Lang = "cn";
             mEnPic.sprite = _mUnCheckPic;
             mChPic.sprite = _mCheckPic;
+            LeanLocalization.CurrentLanguage = "Chinese";
         }
         else
         {
             DataController.Inst.setting.Lang = "en";
             mEnPic.sprite = _mCheckPic;
             mChPic.sprite = _mUnCheckPic;
+            LeanLocalization.CurrentLanguage = "English";
         }
     }
 
