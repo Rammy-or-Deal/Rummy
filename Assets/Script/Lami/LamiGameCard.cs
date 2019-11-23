@@ -8,6 +8,7 @@ public class LamiGameCard : MonoBehaviour
     public Image mCard;
     public int color;
     public int num;
+    public GameObject lastCardEffect;
     
     public const int JOKER_NUM = 15;
     // Start is called before the first frame update
