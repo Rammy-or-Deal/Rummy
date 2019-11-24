@@ -9,6 +9,15 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="CrystalFramework" t="Include">
+          <e p="Utility" t="Include">
+            <e p="Demos" t="Include">
+              <e p="SafeAreaDemo.cs" t="Include" />
+              <e p="SafeAreaDemo.txt" t="Include" />
+            </e>
+            <e p="SafeArea.cs" t="Include" />
+          </e>
+        </e>
         <e p="Editor" t="Include">
           <e p="ChangeSibiling.cs" t="Include" />
           <e p="ClearConsole.cs" t="Include" />
@@ -863,6 +872,186 @@
               </e>
             </e>
           </e>
+          <e p="PhotonVoice" t="Include">
+            <e p="changes-voice.txt" t="Include" />
+            <e p="Code" t="Include">
+              <e p="Editor" t="Include">
+                <e p="ExitPlayModeOnScriptCompile.cs" t="Include" />
+                <e p="PhotonVoice.Editor.asmdef" t="Include" />
+                <e p="PhotonVoiceEditorUtils.cs" t="Include" />
+                <e p="RecorderEditor.cs" t="Include" />
+                <e p="SpeakerEditor.cs" t="Include" />
+                <e p="VoiceConnectionEditor.cs" t="Include" />
+                <e p="WebRtcAudioDspEditor.cs" t="Include" />
+              </e>
+              <e p="ILoggable.cs" t="Include" />
+              <e p="PhotonVoice.asmdef" t="Include" />
+              <e p="PUN" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="PhotonVoice.PUN.Editor.asmdef" t="Include" />
+                  <e p="PhotonVoiceNetworkEditor.cs" t="Include" />
+                </e>
+                <e p="PhotonVoice.PUN.asmdef" t="Include" />
+                <e p="PhotonVoiceNetwork.cs" t="Include" />
+                <e p="PhotonVoiceView.cs" t="Include" />
+              </e>
+              <e p="Recorder.cs" t="Include" />
+              <e p="RemoteVoiceLink.cs" t="Include" />
+              <e p="Speaker.cs" t="Include" />
+              <e p="UtilityScripts" t="Include">
+                <e p="ConnectAndJoin.cs" t="Include" />
+                <e p="Editor" t="Include">
+                  <e p="ConnectAndJoinEditor.cs" t="Include" />
+                  <e p="PhotonVoice.Utilities.Editor.asmdef" t="Include" />
+                </e>
+                <e p="MicAmplifier" t="Include">
+                  <e p="MicAmplifier.cs" t="Include" />
+                  <e p="MicAmplifierEditor.cs" t="Include" />
+                  <e p="MicAmplifierFloat.cs" t="Include" />
+                  <e p="MicAmplifierShort.cs" t="Include" />
+                </e>
+                <e p="PhotonVoiceLagSimulationGui.cs" t="Include" />
+                <e p="PhotonVoiceStatsGui.cs" t="Include" />
+                <e p="TestTone.cs" t="Include" />
+              </e>
+              <e p="VoiceComponent.cs" t="Include" />
+              <e p="VoiceConnection.cs" t="Include" />
+              <e p="VoiceLogger.cs" t="Include" />
+              <e p="WebRtcAudioDsp.cs" t="Include" />
+            </e>
+            <e p="Demos" t="Include">
+              <e p="DemoProximityVoiceChat" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="ChangeColor.cs" t="Include" />
+                  <e p="ChangeName.cs" t="Include" />
+                  <e p="PointersController.cs" t="Include" />
+                  <e p="ProximityVoiceTrigger.cs" t="Include" />
+                </e>
+              </e>
+              <e p="DemoVoicePun" t="Include">
+                <e p="Audio" t="Include">
+                  <e p="Pop-J_Fairba-8421_hifi.mp3.txt" t="Include" />
+                  <e p="Reminder-public_d-291_hifi.mp3.txt" t="Include" />
+                </e>
+                <e p="Editor" t="Include">
+                  <e p="CrossPlatformInput" t="Include">
+                    <e p="CrossPlatformInputInitialize.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="Fonts" t="Include">
+                  <e p="Orbitron Black.txt" t="Include" />
+                </e>
+                <e p="Scripts" t="Include">
+                  <e p="BaseController.cs" t="Include" />
+                  <e p="BetterToggle.cs" t="Include" />
+                  <e p="ChangePOV.cs" t="Include" />
+                  <e p="CharacterInstantiation.cs" t="Include" />
+                  <e p="FirstPersonController.cs" t="Include" />
+                  <e p="Highlighter.cs" t="Include" />
+                  <e p="MouseLookHelper.cs" t="Include" />
+                  <e p="OrthographicController.cs" t="Include" />
+                  <e p="SoundsForJoinAndLeave.cs" t="Include" />
+                  <e p="ThirdPersonController.cs" t="Include" />
+                  <e p="VoiceDemoUI.cs" t="Include" />
+                </e>
+                <e p="Standard Assets" t="Include">
+                  <e p="CrossPlatformInput" t="Include">
+                    <e p="CrossPlatformInputGuidelines.txt" t="Include" />
+                    <e p="Scripts" t="Include">
+                      <e p="AxisTouchButton.cs" t="Include" />
+                      <e p="ButtonHandler.cs" t="Include" />
+                      <e p="CrossPlatformInputManager.cs" t="Include" />
+                      <e p="InputAxisScrollbar.cs" t="Include" />
+                      <e p="Joystick.cs" t="Include" />
+                      <e p="MobileControlRig.cs" t="Include" />
+                      <e p="PlatformSpecific" t="Include">
+                        <e p="MobileInput.cs" t="Include" />
+                        <e p="StandaloneInput.cs" t="Include" />
+                      </e>
+                      <e p="TouchPad.cs" t="Include" />
+                      <e p="VirtualInput.cs" t="Include" />
+                    </e>
+                  </e>
+                </e>
+              </e>
+              <e p="DemoVoiceUI" t="Include">
+                <e p="DemoVoiceUI.cs" t="Include" />
+                <e p="MicrophoneDropdownFiller.cs" t="Include" />
+                <e p="RemoteSpeakerUI.cs" t="Include" />
+                <e p="RobotoFont" t="Include">
+                  <e p="Apache License.txt" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="PhotonVoiceApi" t="Include">
+              <e p="Core" t="Include">
+                <e p="AudioGen.cs" t="Include" />
+                <e p="AudioInEnumerator.cs" t="Include" />
+                <e p="AudioStreamPlayer.cs" t="Include" />
+                <e p="AudioUtil.cs" t="Include" />
+                <e p="ObjectFactory.cs" t="Include" />
+                <e p="ObjectPool.cs" t="Include" />
+                <e p="OpusCodec.cs" t="Include" />
+                <e p="POpusCodec" t="Include">
+                  <e p="Enums" t="Include">
+                    <e p="Bandwidth.cs" t="Include" />
+                    <e p="Channels.cs" t="Include" />
+                    <e p="Complexity.cs" t="Include" />
+                    <e p="Delay.cs" t="Include" />
+                    <e p="ForceChannels.cs" t="Include" />
+                    <e p="OpusApplicationType.cs" t="Include" />
+                    <e p="OpusCtlGetRequest.cs" t="Include" />
+                    <e p="OpusCtlSetRequest.cs" t="Include" />
+                    <e p="OpusStatusCode.cs" t="Include" />
+                    <e p="SamplingRate.cs" t="Include" />
+                    <e p="SignalHint.cs" t="Include" />
+                  </e>
+                  <e p="OpusDecoder.cs" t="Include" />
+                  <e p="OpusEncoder.cs" t="Include" />
+                  <e p="OpusException.cs" t="Include" />
+                  <e p="OpusWrapper.cs" t="Include" />
+                </e>
+                <e p="RawCodec.cs" t="Include" />
+                <e p="Voice.cs" t="Include" />
+                <e p="VoiceAudio.cs" t="Include" />
+                <e p="VoiceClient.cs" t="Include" />
+                <e p="VoiceCodec.cs" t="Include" />
+                <e p="VoiceFramed.cs" t="Include" />
+                <e p="VoiceInfo.cs" t="Include" />
+                <e p="VoiceSourceAdapter.cs" t="Include" />
+                <e p="WebRTCAudioProcessor.cs" t="Include" />
+              </e>
+              <e p="LoadBalancingTransport.cs" t="Include" />
+              <e p="PhotonTransport.cs" t="Include" />
+              <e p="PhotonVoice.API.asmdef" t="Include" />
+              <e p="Platforms" t="Include">
+                <e p="Apple" t="Include">
+                  <e p="iOSAudioInPusher.cs" t="Include" />
+                  <e p="iOSAudioInReader.cs" t="Include" />
+                  <e p="iOSAudioSession.cs" t="Include" />
+                  <e p="MacOSAudioInPusher.cs" t="Include" />
+                  <e p="MacOSAudioInReader.cs" t="Include" />
+                </e>
+                <e p="Unity" t="Include">
+                  <e p="AudioClipWrapper.cs" t="Include" />
+                  <e p="AudioOutCapture.cs" t="Include" />
+                  <e p="Common.cs" t="Include" />
+                  <e p="IOSAudioForceToSpeaker.cs" t="Include" />
+                  <e p="Logger.cs" t="Include" />
+                  <e p="MicWrapper.cs" t="Include" />
+                  <e p="UnityAndroidAudioInAEC.cs" t="Include" />
+                  <e p="UnityAudioOut.cs" t="Include" />
+                </e>
+                <e p="Windows" t="Include">
+                  <e p="WindowsAudioIn.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Readme.txt" t="Include" />
+            </e>
+            <e p="PhotonVoiceLibs" t="Include">
+              <e p="lib-build-readme.txt" t="Include" />
+            </e>
+          </e>
         </e>
         <e p="Plugins" t="Include">
           <e p="Android" t="Include">
@@ -927,7 +1116,7 @@
             </e>
           </e>
         </e>
-        <e p="RummyScript" t="Include">
+        <e p="Script" t="Include">
           <e p="Baccarat" t="Include">
             <e p="BaccaratBankerMgr.cs" t="Include" />
             <e p="BaccaratGameController.cs" t="Include" />
@@ -964,17 +1153,33 @@
             </e>
           </e>
           <e p="Common.cs" t="Include" />
+          <e p="CommonController" t="Include">
+            <e p="CommonSeat.cs" t="Include" />
+            <e p="PlayerManagement.cs" t="Include" />
+            <e p="RoomManagement.cs" t="Include" />
+            <e p="RoomMessageManagement.cs" t="Include" />
+            <e p="TierController.cs" t="Include" />
+          </e>
           <e p="DataController.cs" t="Include" />
           <e p="Fortune13" t="Include">
             <e p="FortuneCard.cs" t="Include" />
             <e p="FortuneGameController.cs" t="Include" />
             <e p="FortuneHandMission.cs" t="Include" />
+            <e p="FortuneMe.cs" t="Include" />
+            <e p="FortuneMessageMgr.cs" t="Include" />
+            <e p="FortunePanMgr.cs" t="Include" />
+            <e p="FortunePlayMgr.cs" t="Include" />
+            <e p="FortuneRuleMgr.cs" t="Include" />
             <e p="FortuneTierController.cs" t="Include" />
             <e p="UI" t="Include">
+              <e p="DragElement.cs" t="Include" />
               <e p="FortuneUIController.cs" t="Include" />
               <e p="FortuneUserSeat.cs" t="Include" />
               <e p="UICalcDialog.cs" t="Include" />
+              <e p="UICardPanelMgr.cs" t="Include" />
               <e p="UIChangeCardDialog.cs" t="Include" />
+              <e p="UIFCalcPlayer.cs" t="Include" />
+              <e p="UIFResultPlayer.cs" t="Include" />
               <e p="UIReadyDialog.cs" t="Include" />
               <e p="UIResultDialog.cs" t="Include" />
             </e>
@@ -1113,6 +1318,12 @@
       <e p="PhotonUnityNetworking.Utilities.csproj" t="IncludeRecursive" />
       <e p="PhotonUnityNetworking.Utilities.Culling.Editor.csproj" t="IncludeRecursive" />
       <e p="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj" t="IncludeRecursive" />
+      <e p="PhotonVoice.API.csproj" t="IncludeRecursive" />
+      <e p="PhotonVoice.csproj" t="IncludeRecursive" />
+      <e p="PhotonVoice.Editor.csproj" t="IncludeRecursive" />
+      <e p="PhotonVoice.PUN.csproj" t="IncludeRecursive" />
+      <e p="PhotonVoice.PUN.Editor.csproj" t="IncludeRecursive" />
+      <e p="PhotonVoice.Utilities.Editor.csproj" t="IncludeRecursive" />
       <e p="PhotonWebSocket.csproj" t="IncludeRecursive" />
       <e p="PunDemos.DemoHubEditor.csproj" t="IncludeRecursive" />
       <e p="PunDemos.DemoSlotcarEditor.csproj" t="IncludeRecursive" />

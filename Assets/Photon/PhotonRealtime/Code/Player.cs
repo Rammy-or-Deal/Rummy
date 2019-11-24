@@ -421,10 +421,5 @@ namespace Photon.Realtime
                 this.RoomReference.LoadBalancingClient.LoadBalancingPeer.OpSetPropertiesOfActor(this.ActorNumber, properties);
             }
         }
-
-        public void SetCustomProperties(System.Collections.Hashtable propertiesToSet)
-        {
-//            throw new NotImplementedException();
-        }
     }
 }

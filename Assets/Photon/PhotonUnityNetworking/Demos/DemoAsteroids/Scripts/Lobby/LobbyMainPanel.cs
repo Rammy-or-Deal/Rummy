@@ -1,10 +1,8 @@
-﻿using System;
-using ExitGames.Client.Photon;
+﻿using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Photon.Pun.Demo.Asteroids
 {
@@ -66,9 +64,6 @@ namespace Photon.Pun.Demo.Asteroids
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
-
-            Debug.Log("OnRoomList");
-            Debug.Log(roomList);
             ClearRoomListView();
 
             UpdateCachedRoomList(roomList);

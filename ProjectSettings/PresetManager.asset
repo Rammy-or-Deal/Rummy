@@ -3,4 +3,11 @@
 --- !u!1386491679 &1
 PresetManager:
   m_ObjectHideFlags: 0
-  m_DefaultList: []
+  m_DefaultList:
+  - type:
+      m_NativeTypeID: 1006
+      m_ManagedTypePPtr: {fileID: 0}
+      m_ManagedTypeFallback: 
+    defaultPresets:
+    - m_Preset: {fileID: 2655988077585873504, guid: a994b3350f2dfb14fa62ce8e59e5ba2b,
+        type: 2}

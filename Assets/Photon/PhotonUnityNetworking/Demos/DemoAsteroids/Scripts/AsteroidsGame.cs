@@ -19,7 +19,7 @@ namespace Photon.Pun.Demo.Asteroids
         {
             switch (colorChoice)
             {
-                case 0: return Color.red; 
+                case 0: return Color.red;
                 case 1: return Color.green;
                 case 2: return Color.blue;
                 case 3: return Color.yellow;
