@@ -4012,7 +4012,7 @@ RectTransform:
   - {fileID: 1681316899}
   - {fileID: 519712499}
   m_Father: {fileID: 655759498}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7635,12 +7635,12 @@ RectTransform:
   m_Children:
   - {fileID: 1974370561}
   m_Father: {fileID: 655759498}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5, y: 21.225006}
-  m_SizeDelta: {x: 510.7, y: 217.15}
+  m_AnchoredPosition: {x: 1.3, y: 28.5}
+  m_SizeDelta: {x: 591.9, y: 344.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490862434
 MonoBehaviour:
@@ -7802,8 +7802,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000019073, y: 154}
-  m_SizeDelta: {x: 237.29, y: 41.42}
+  m_AnchoredPosition: {x: 0.0000071526, y: 222}
+  m_SizeDelta: {x: 252.3, y: 59.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &519712500
 MonoBehaviour:
@@ -8942,8 +8942,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 221.22, y: 45.17}
-  m_SizeDelta: {x: 71.25, y: 38.85}
+  m_AnchoredPosition: {x: 234.73, y: 47.32}
+  m_SizeDelta: {x: 113.01, y: 43.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &530065926
 MonoBehaviour:
@@ -11470,8 +11470,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 251608222}
   - {fileID: 490862433}
+  - {fileID: 251608222}
   - {fileID: 904105965}
   - {fileID: 530065925}
   m_Father: {fileID: 1978699073}
@@ -11479,8 +11479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.2, y: -3.8}
-  m_SizeDelta: {x: 547.5, y: 326.2}
+  m_AnchoredPosition: {x: 9.4, y: 2.1}
+  m_SizeDelta: {x: 667.2, y: 459.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &657946951 stripped
 MonoBehaviour:
@@ -13295,7 +13295,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b0e34f9c99275654b9dd762e3c60a3c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 550fe358b6412fa4faf349bd3cfbf1ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -14966,8 +14966,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -35.615, y: -117.93}
-  m_SizeDelta: {x: 436.47, y: 38.85}
+  m_AnchoredPosition: {x: -65.01, y: -174}
+  m_SizeDelta: {x: 459.28, y: 46.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &904105966
 MonoBehaviour:
@@ -16418,8 +16418,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000017285, y: 4}
-  m_SizeDelta: {x: 48.56, y: 16.58}
+  m_AnchoredPosition: {x: -0, y: -0.0000032187}
+  m_SizeDelta: {x: 59.62, y: 22.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1015892610
 MonoBehaviour:
@@ -16916,7 +16916,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 288ae0719863976459aacc288b9a1821, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88a7d25cc13d2a84696f211a1f5774bc, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -25745,8 +25745,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -27.990005, y: -8.90509}
-  m_SizeDelta: {x: 55.97998, y: 52.01}
+  m_AnchoredPosition: {x: -37.6, y: -18.945}
+  m_SizeDelta: {x: 75.2, y: 72.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1681316900
 MonoBehaviour:
@@ -25826,7 +25826,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 189da2e8fb8053f45824fa492b460978, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -27098,7 +27098,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9accb12cde700dd4faae3831537f1976, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c92e6a28597d784ba3fdd5d9dc3f605, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -30974,8 +30974,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.0000081062}
-  m_SizeDelta: {x: 493.7, y: 199.25}
+  m_AnchoredPosition: {x: -1.8, y: 2.6}
+  m_SizeDelta: {x: 545.8, y: 305.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1974370562
 MonoBehaviour:
@@ -30999,7 +30999,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 22
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -33109,6 +33109,113 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 638974b27b8d15d419d5a888d6f09091, type: 3}
+--- !u!1 &2096233292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096233293}
+  - component: {fileID: 2096233295}
+  - component: {fileID: 2096233294}
+  m_Layer: 0
+  m_Name: Voice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2096233293
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096233292}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 231322176}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2096233294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096233292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d9debcbaf99472bb70ffc2f99cb23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeepAliveInBackground: 60000
+  ApplyDontDestroyOnLoad: 1
+  logLevel: 1
+  enableSupportLogger: 0
+  updateInterval: 50
+  statsResetInterval: 1000
+  speakerPrefab: {fileID: 0}
+  primaryRecorder: {fileID: 2096233295}
+  Settings:
+    AppIdRealtime: 
+    AppIdChat: 
+    AppIdVoice: 
+    AppVersion: 
+    UseNameServer: 1
+    FixedRegion: 
+    Server: 
+    Port: 0
+    Protocol: 0
+    EnableLobbyStatistics: 0
+    NetworkLogging: 1
+  ShowSettings: 0
+  MinimalTimeScaleToDispatchInFixedUpdate: -1
+  AutoConnectAndJoin: 1
+  AutoLeaveAndDisconnect: 1
+  AutoCreateSpeakerIfNotFound: 1
+  usePunAppSettings: 1
+--- !u!114 &2096233295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096233292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91175dcc15224463780e01a8a98b1b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logLevel: 1
+  voiceDetection: 0
+  voiceDetectionThreshold: 0.01
+  voiceDetectionDelayMs: 500
+  unityMicrophoneDevice: Microphone (Realtek High Definition Audio)
+  photonMicrophoneDeviceId: 0
+  interestGroup: 0
+  debugEchoMode: 0
+  reliableMode: 0
+  encrypt: 0
+  transmitEnabled: 1
+  samplingRate: 24000
+  frameDuration: 20000
+  bitrate: 30000
+  sourceType: 0
+  microphoneType: 0
+  audioClip: {fileID: 0}
+  loopAudioClip: 1
+  reactOnSystemChanges: 0
+  autoStart: 1
 --- !u!1 &2096439505
 GameObject:
   m_ObjectHideFlags: 0
