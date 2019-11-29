@@ -91,7 +91,7 @@ public class BaccaratRoomInfo
         totalPlayers = 0;
         roomNo = 0;
         password = "";
-        roomType = -1;
+        roomType = 0;
         gem = 0;
         coin = 0;
     }
