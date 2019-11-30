@@ -270,24 +270,21 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        string infoString = "";
+        infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+            (int)PhotonNetwork.LocalPlayer.ActorNumber,
+            DataController.Inst.userInfo.name,
+            DataController.Inst.userInfo.pic,
+            DataController.Inst.userInfo.coinValue,
+            DataController.Inst.userInfo.skillLevel,
+            DataController.Inst.userInfo.frameId,
+            (int)LamiPlayerStatus.Init
+        );
+        string gameScene = "3_PlayLami";
+        
         UIController.Inst.loadingDlg.gameObject.SetActive(false);
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
-            Debug.Log("Join Success");
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("3_PlayLami");
-            PhotonNetwork.LoadLevel("3_PlayLami");
-
-            string infoString = "";
-            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
-                    DataController.Inst.userInfo.name,
-                    DataController.Inst.userInfo.pic,
-                    DataController.Inst.userInfo.coinValue,
-                    DataController.Inst.userInfo.skillLevel,
-                    DataController.Inst.userInfo.frameId,
-                    (int)LamiPlayerStatus.Init
-                );
-
             // Set local player's property.                    
             Hashtable props = new Hashtable
             {
@@ -310,19 +307,7 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
-            PhotonNetwork.LoadLevel("3_PlayBaccarat");
-
-            string infoString = "";
-            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
-                    DataController.Inst.userInfo.name,
-                    DataController.Inst.userInfo.pic,
-                    DataController.Inst.userInfo.coinValue,
-                    DataController.Inst.userInfo.skillLevel,
-                    DataController.Inst.userInfo.frameId,
-                    (int)BaccaratPlayerType.Player
-                );
-
+            gameScene = "3_PlayBaccarat";
             // Save my info to photon
             Hashtable props = new Hashtable
             {
@@ -342,19 +327,7 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
         {
-            PhotonNetwork.LoadLevel("3_PlayFortune13");
-
-            string infoString = "";
-            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
-                    DataController.Inst.userInfo.name,
-                    DataController.Inst.userInfo.pic,
-                    DataController.Inst.userInfo.coinValue,
-                    DataController.Inst.userInfo.skillLevel,
-                    DataController.Inst.userInfo.frameId,
-                    (int)FortunePlayerStatus.Init
-                );
-
+            gameScene = "3_PlayFortune13";
             // Save my info to photon
             Hashtable props = new Hashtable
             {
@@ -364,11 +337,9 @@ public class PunController : MonoBehaviourPunCallbacks
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
-
-
-        //        Hashtable turnProps = new Hashtable();
-        //        turnProps[Common.Game_START] = false;
-        //        PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
+        
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.LoadLevel(gameScene);
 
     }
 
