@@ -90,9 +90,10 @@ public class BaccaratBankerMgr : MonoBehaviour
             try
             {
                 tmp = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
+                tmp = tmp.Trim('/');
             }
             catch { continue; }
-            tmp = tmp.Trim('/');
+            
             if (tmp == "") continue;
 
             var list = tmp.Split('/').ToList();
