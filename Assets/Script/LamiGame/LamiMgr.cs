@@ -40,21 +40,9 @@ enum LamiMessages
     OnGameRestart,
     OffAutoPlayer,
 }
-public class LamiMgr : MonoBehaviour
-{
-    public static LamiMgr Inst;
-
-    private void Awake()
-    {
-        Debug.Log("LamiMgr Created.");
-
-        if (!DataController.Inst)
-            SceneManager.LoadScene("2_Lobby");
-        if (!Inst)
-            Inst = this;
-    }
-
-    public void SendMessage(int messageId, Player p = null)
+public class LamiMgr : GameController
+{   
+    public override void SendMessage(int messageId, Player p = null)
     {
         LamiLogicMgr.Inst.OnMessageArrived(messageId, p);
     }
