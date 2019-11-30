@@ -33120,7 +33120,6 @@ GameObject:
   - component: {fileID: 2096233293}
   - component: {fileID: 2096233295}
   - component: {fileID: 2096233294}
-  - component: {fileID: 2096233296}
   m_Layer: 0
   m_Name: VoiceNetwork
   m_TagString: Untagged
@@ -33217,18 +33216,6 @@ MonoBehaviour:
   loopAudioClip: 1
   reactOnSystemChanges: 0
   autoStart: 1
---- !u!114 &2096233296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096233292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e42c213f43d03f744b988f8e2d640883, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2096439505
 GameObject:
   m_ObjectHideFlags: 0

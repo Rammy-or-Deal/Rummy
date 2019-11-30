@@ -463,7 +463,6 @@ public class PunController : MonoBehaviourPunCallbacks
                 FortuneGameController.Inst.SendMessage((int)hashtable[Common.FORTUNE_MESSAGE], otherPlayer);
             }
         }
-
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)

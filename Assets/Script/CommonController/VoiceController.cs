@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class VoiceController : MonoBehaviour
+public class VoiceController : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
+//    public GameObject voiceView;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnJoinedRoom()
     {
         
     }

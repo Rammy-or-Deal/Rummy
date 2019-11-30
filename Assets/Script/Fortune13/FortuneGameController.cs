@@ -4,26 +4,15 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FortuneGameController : MonoBehaviour
+public class FortuneGameController : GameController
 {
-    public static FortuneGameController Inst;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        if (!DataController.Inst)
-            SceneManager.LoadScene("2_Lobby");
-
-        if (!Inst)
-            Inst = this;
-    }
-
     private void Start()
     {
         UIController.Inst.userInfoPanel.gameObject.SetActive(false);
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
     }
 
-    public void SendMessage(int messageId, Player p = null)
+    public override void SendMessage(int messageId, Player p = null)
     {
         FortuneMessageMgr.Inst.OnMessageArrived(messageId, p);
     }

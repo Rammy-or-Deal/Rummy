@@ -6,26 +6,62 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
-public class BaccaratGameController : MonoBehaviour
+public class BaccaratGameController : GameController
 {
-    public static BaccaratGameController Inst;
-    
-    void Awake()
+    public override void SendMessage(int message, Player player = null)
     {
-        if (!DataController.Inst)
-            SceneManager.LoadScene("2_Lobby");
-
-        if (!Inst)
-            Inst = this;
-    }
-    void Start()
-    {
-        UIController.Inst.userInfoPanel.gameObject.SetActive(false);
-        UIController.Inst.moneyPanel.gameObject.SetActive(false);
-    }
-
-    public void SendMessage(int messageId, Player p = null)
-    {
-        BaccaratMessageMgr.Inst.OnMessageArrived(messageId, p);
+        switch (message)
+        {
+            case (int)BaccaratMessages.OnJoinSuccess:
+                BaccaratPlayerMgr.Inst.OnJoinSuccess();
+                break;
+            case (int)BaccaratMessages.OnUserEnteredRoom:
+                BaccaratPlayerMgr.Inst.OnUserEnteredRoom();
+                break;
+            case (int)BaccaratMessages.OnUserLeave:
+                BaccaratPlayerMgr.Inst.OnUserLeave(player);
+                break;
+            case (int)BaccaratMessages.OnStartNewPan:
+                BaccaratPanMgr.Inst.OnStartNewPan();
+                BaccaratMe.Inst.OnStartNewPan();
+                break;
+            case (int)BaccaratMessages.OnPanTimeUpdate:
+                BaccaratPanMgr.Inst.OnPanTimeUpdate();
+                break;
+            case (int)BaccaratMessages.OnEndPan:
+                BaccaratMe.Inst.OnEndPan();
+                BaccaratPanMgr.Inst.OnEndPan();
+                if (PhotonNetwork.IsMasterClient)
+                    BaccaratBankerMgr.Inst.OnEndPan();
+                break;
+            case (int)BaccaratMessages.OnPlayerBet:
+                BaccaratPlayerMgr.Inst.OnPlayerBet(player.ActorNumber);
+                break;
+            case (int)BaccaratMessages.OnCatchedCardDistributed:
+                BaccaratPanMgr.Inst.OnCatchedCardDistributed();
+                break;
+            case (int)BaccaratMessages.OnShowingCatchedCard:
+                BaccaratPanMgr.Inst.OnShowingCatchedCard();
+                break;
+            case (int)BaccaratMessages.OnShowingVictoryArea:
+                BaccaratPanMgr.Inst.OnShowingVictoryArea();
+                break;
+            case (int)BaccaratMessages.OnPrizeAwarded:
+                if (player == PhotonNetwork.LocalPlayer)
+                {
+                    BaccaratPanMgr.Inst.OnPrizeAwarded();
+                    BaccaratMe.Inst.OnPrizeAwarded();
+                }
+                break;
+            case (int)BaccaratMessages.OnUpdateMe:
+                BaccaratPlayerMgr.Inst.OnUpdateMe(player);
+                break;
+            case (int)BaccaratMessages.OnInitUI:
+                if (PhotonNetwork.IsMasterClient)
+                    BaccaratPanMgr.Inst.StartNewPan();
+                break;
+            default:
+                break;
+        }
     }
 }
