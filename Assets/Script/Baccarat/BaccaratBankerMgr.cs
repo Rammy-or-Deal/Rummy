@@ -91,7 +91,7 @@ public class BaccaratBankerMgr : MonoBehaviour
             {
                 tmp = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
             }
-            catch { }
+            catch { continue; }
             tmp = tmp.Trim('/');
             if (tmp == "") continue;
 
