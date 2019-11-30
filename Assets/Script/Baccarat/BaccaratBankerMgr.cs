@@ -232,6 +232,8 @@ public class BaccaratBankerMgr : MonoBehaviour
         foreach (var player in PhotonNetwork.PlayerList)
         {
             string betLog = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
+            if (betLog==null)
+                continue;
             int prize = 0;
             betLog = betLog.Trim('/');
             string prize_area = "";

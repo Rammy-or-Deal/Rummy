@@ -310,7 +310,7 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
-            SceneManager.LoadScene("3_PlayBaccarat");
+            PhotonNetwork.LoadLevel("3_PlayBaccarat");
 
             string infoString = "";
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
@@ -342,7 +342,7 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
         {
-            SceneManager.LoadScene("3_PlayFortune13");
+            PhotonNetwork.LoadLevel("3_PlayFortune13");
 
             string infoString = "";
             infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
