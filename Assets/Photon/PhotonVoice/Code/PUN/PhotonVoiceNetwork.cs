@@ -165,6 +165,7 @@ namespace Photon.Voice.PUN
             }
             if (this.ConnectUsingSettings(settings))
             {
+                Debug.LogError("ConnectAndJoinRoom Setting");
                 clientCalledConnectAndJoin = true;
                 clientCalledDisconnect = false;
                 return true;
@@ -189,6 +190,7 @@ namespace Photon.Voice.PUN
                 }
                 return;
             }
+            Debug.LogError("Disconnect");
             clientCalledDisconnect = true;
             clientCalledConnectAndJoin = false;
             this.Client.Disconnect();
@@ -209,6 +211,7 @@ namespace Photon.Voice.PUN
             PhotonNetwork.NetworkingClient.StateChanged += OnPunStateChanged;
             FollowPun(); // in case this is enabled or activated late
             clientCalledConnectAndJoin = false;
+            Debug.LogError("OnEnable");
             clientCalledDisconnect = false;
         }
 
@@ -240,7 +243,8 @@ namespace Photon.Voice.PUN
             base.OnVoiceStateChanged(fromState, toState);
             if (!this.clientCalledDisconnect && toState == ClientState.Disconnected && this.Client.DisconnectedCause == DisconnectCause.DisconnectByClientLogic)
             {
-                this.clientCalledDisconnect = true;
+                Debug.LogError(toState);
+//                this.clientCalledDisconnect = true;
             }
             this.FollowPun(toState);
         }
@@ -311,6 +315,7 @@ namespace Photon.Voice.PUN
 
         private void ConnectOrJoin()
         {
+            this.Logger.LogInfo("ConnectOrJoin");
             switch (this.ClientState)
             {
                 case ClientState.PeerCreated:
@@ -372,6 +377,7 @@ namespace Photon.Voice.PUN
             }
             if (PhotonNetwork.NetworkClientState == this.ClientState)
             {
+                Debug.Log("FollowPun PhotonNetwork.InRoom:"+PhotonNetwork.InRoom);
                 if (PhotonNetwork.NetworkClientState == ClientState.Joined && this.AutoConnectAndJoin)
                 {
                     string expectedRoomName = GetVoiceRoomName();
@@ -391,8 +397,11 @@ namespace Photon.Voice.PUN
             }
             if (PhotonNetwork.InRoom)
             {
+                Debug.Log("FollowPun PhotonNetwork.InRoom:"+PhotonNetwork.InRoom);
+                Debug.Log(clientCalledConnectAndJoin+":"+AutoConnectAndJoin+":"+clientCalledDisconnect);
                 if (clientCalledConnectAndJoin || AutoConnectAndJoin && !clientCalledDisconnect)
                 {
+                    Debug.Log("FollowPun PhotonNetwork.InRoom:"+PhotonNetwork.InRoom);
                     ConnectOrJoin();
                 }
             }

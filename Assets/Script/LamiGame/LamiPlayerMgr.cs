@@ -112,7 +112,7 @@ public class LamiPlayerMgr : MonoBehaviour
         }
 
         // Send RoomUpdate Messages to all players.
-        Debug.Log("SeatString updated: " + seatString);
+//        Debug.Log("SeatString updated: " + seatString);
         Hashtable turnProps = new Hashtable
                 {
                     {Common.LAMI_MESSAGE, (int)LamiMessages.OnRoomSeatUpdate},

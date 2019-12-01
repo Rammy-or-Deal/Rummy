@@ -106,8 +106,7 @@ public class LamiGameBot
                 status
                 );
 
-
-        Debug.Log("Publish Bot:=   " + LamiPlayerMgr.Inst.getBotString());
+//        Debug.Log("Publish Bot:=   " + LamiPlayerMgr.Inst.getBotString());
         // Send Add New player Message. - OnUserEnteredRoom
         Hashtable props = new Hashtable
             {
