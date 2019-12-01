@@ -270,7 +270,7 @@ namespace Photon.Voice.PUN
                         speakerInUse = this.gameObject.AddComponent<Speaker>();
                         // get AudioSource and set spatialBlend
                         AudioSource audioSource = speakerInUse.GetComponentInChildren<AudioSource>();
-                        audioSource.spatialBlend = 1.0f;
+//                        audioSource.spatialBlend = 1.0f;
                         return true;
                     }
                 }

@@ -413,27 +413,27 @@ public class PunController : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player otherPlayer, Hashtable hashtable)
     {
         Debug.Log("OnPlayerPropertiesUpdate : " + otherPlayer.NickName);
-        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
-        {
-            if (hashtable.ContainsKey(Common.LAMI_MESSAGE))
-            {
-                LamiMgr.Inst.SendMessage((int)hashtable[Common.LAMI_MESSAGE], otherPlayer);
-            }
-        }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-        {
-            if (hashtable.ContainsKey(Common.BACCARAT_MESSAGE))
-            {
-                BaccaratGameController.Inst.SendMessage((int)hashtable[Common.BACCARAT_MESSAGE], otherPlayer);
-            }
-        }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
-        {
-            if (hashtable.ContainsKey(Common.FORTUNE_MESSAGE))
-            {
-                FortuneGameController.Inst.SendMessage((int)hashtable[Common.FORTUNE_MESSAGE], otherPlayer);
-            }
-        }
+                 if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
+                 {
+                     if (hashtable.ContainsKey(Common.LAMI_MESSAGE))
+                     {
+                         LamiMgr.Inst.SendMessage((int)hashtable[Common.LAMI_MESSAGE], otherPlayer);
+                     }
+                 }
+                 else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+                 {
+                     if (hashtable.ContainsKey(Common.BACCARAT_MESSAGE))
+                     {
+                         BaccaratGameController.Inst.SendMessage((int)hashtable[Common.BACCARAT_MESSAGE], otherPlayer);
+                     }
+                 }
+                 else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
+                 {
+                     if (hashtable.ContainsKey(Common.FORTUNE_MESSAGE))
+                     {
+                         FortuneGameController.Inst.SendMessage((int)hashtable[Common.FORTUNE_MESSAGE], otherPlayer);
+                     }
+                 }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
