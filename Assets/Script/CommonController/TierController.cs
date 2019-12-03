@@ -5,16 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class TierController : MonoBehaviour
 {
-
     public GameObject[] mTiers;
 
     public Transform userInfoPanel;
     public Transform moneyPanel;
-    
+
     private void Awake()
     {
         if (!DataController.Inst)
-            SceneManager.LoadScene("2_Lobby");
+            SceneManager.LoadScene(constantContainer.strLobby);
     }
 
     void Start()
@@ -34,7 +33,7 @@ public class TierController : MonoBehaviour
 
     public void OnClickBack()
     {
-        SceneManager.LoadScene("2_Lobby");
+        SceneManager.LoadScene(constantContainer.strLobby);
     }
 
     public void OnClickMoneyPanel()
@@ -42,4 +41,8 @@ public class TierController : MonoBehaviour
         UIController.Inst.shopDlg.gameObject.SetActive(true);
     }
 
+    public void OnClickTier(enumGameTier type)
+    {        
+        GameMgr.Inst.EnterTier(type);
+    }
 }

@@ -45,7 +45,6 @@ public class PunController : MonoBehaviourPunCallbacks
     {
         string playerName = DataController.Inst.userInfo.name;
 
-
         if (!playerName.Equals("") || !PhotonNetwork.IsConnected)
         {
             Debug.Log("!PhotonNetwork.IsConnected");
@@ -94,6 +93,12 @@ public class PunController : MonoBehaviourPunCallbacks
             CreateRoom(roomName);
         }
     }
+
+    internal void CreateOrJoinRoom(enumGameType m_gameType, enumGameTier m_gameTier)
+    {
+        throw new Exception();
+    }
+
     public void CreateBacaratRoom(BaccaratRoomInfo roomInfo)
     {
         string roomName = "baccarat_" + Random.Range(0, 100);
@@ -270,6 +275,10 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        GameMgr.Inst.roomMgr.OnJoinedRoom();
+        
+        #region Old Code
+/*
         string infoString = "";
         infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
             (int)PhotonNetwork.LocalPlayer.ActorNumber,
@@ -337,10 +346,11 @@ public class PunController : MonoBehaviourPunCallbacks
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
+        */
+        #endregion
         
-        if (PhotonNetwork.IsMasterClient)
-            PhotonNetwork.LoadLevel(gameScene);
-
+        //if (PhotonNetwork.IsMasterClient)
+        //    PhotonNetwork.LoadLevel(gameScene);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -356,9 +366,9 @@ public class PunController : MonoBehaviourPunCallbacks
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        Debug.Log("OnRoomListUpdate");
-        UpdateCachedRoomList(roomList);
+    {        
+        //UpdateCachedRoomList(roomList);
+        GameMgr.Inst.roomMgr.OnRoomListUpdate(roomList);
     }
 
     public override void OnLeftLobby()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 66738590586259832}
   - component: {fileID: 66738590586259833}
   - component: {fileID: 66738590586259838}
+  - component: {fileID: 1778155626010192444}
   m_Layer: 5
   m_Name: Tier1 (2)
   m_TagString: Untagged
@@ -120,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClickLamiTier
-        m_Mode: 3
+      - m_Target: {fileID: 1778155626010192444}
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -147,6 +148,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationName: 3
   FallbackSprite: {fileID: 21300000, guid: 95746444f4f9177489b4706452b26bc3, type: 3}
+--- !u!114 &1778155626010192444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66738590586259836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b99666fbd31f574ca14256d598e6e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tier: 2
 --- !u!1 &66738590771658123
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +174,7 @@ GameObject:
   - component: {fileID: 66738590771658119}
   - component: {fileID: 66738590771658116}
   - component: {fileID: 66738590771658117}
+  - component: {fileID: 9066622550176901257}
   m_Layer: 5
   m_Name: Tier1 (1)
   m_TagString: Untagged
@@ -267,9 +282,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClickLamiTier
-        m_Mode: 3
+      - m_Target: {fileID: 9066622550176901257}
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -294,6 +309,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationName: 2
   FallbackSprite: {fileID: 21300000, guid: 225622c408de69e49b6192240e4e4193, type: 3}
+--- !u!114 &9066622550176901257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66738590771658123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b99666fbd31f574ca14256d598e6e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tier: 1
 --- !u!1 &66738590883777341
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +335,7 @@ GameObject:
   - component: {fileID: 66738590883777342}
   - component: {fileID: 66738590883777343}
   - component: {fileID: 66738590883777336}
+  - component: {fileID: 5154687173302306099}
   m_Layer: 5
   m_Name: Tier1
   m_TagString: Untagged
@@ -414,9 +443,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClickLamiTier
-        m_Mode: 3
+      - m_Target: {fileID: 5154687173302306099}
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -441,6 +470,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationName: 1
   FallbackSprite: {fileID: 21300000, guid: 95746444f4f9177489b4706452b26bc3, type: 3}
+--- !u!114 &5154687173302306099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66738590883777341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b99666fbd31f574ca14256d598e6e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tier: 0
 --- !u!1 &66738591138273096
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +496,7 @@ GameObject:
   - component: {fileID: 66738591138273092}
   - component: {fileID: 66738591138273093}
   - component: {fileID: 66738591138273098}
+  - component: {fileID: 408173413710624354}
   m_Layer: 5
   m_Name: Tier1 (3)
   m_TagString: Untagged
@@ -561,9 +604,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClickLamiTier
-        m_Mode: 3
+      - m_Target: {fileID: 408173413710624354}
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -588,6 +631,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationName: 4
   FallbackSprite: {fileID: 21300000, guid: 95746444f4f9177489b4706452b26bc3, type: 3}
+--- !u!114 &408173413710624354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66738591138273096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b99666fbd31f574ca14256d598e6e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tier: 3
 --- !u!1 &66738591857553386
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +657,7 @@ GameObject:
   - component: {fileID: 66738591857553382}
   - component: {fileID: 66738591857553383}
   - component: {fileID: 66738591857553380}
+  - component: {fileID: 5950751050006218783}
   m_Layer: 5
   m_Name: Tier1 (5)
   m_TagString: Untagged
@@ -708,9 +765,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClickLamiTier
-        m_Mode: 3
+      - m_Target: {fileID: 5950751050006218783}
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -735,6 +792,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationName: 6
   FallbackSprite: {fileID: 21300000, guid: 95746444f4f9177489b4706452b26bc3, type: 3}
+--- !u!114 &5950751050006218783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66738591857553386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b99666fbd31f574ca14256d598e6e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tier: 5
 --- !u!1 &66738592103089265
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +818,7 @@ GameObject:
   - component: {fileID: 66738592103089261}
   - component: {fileID: 66738592103089266}
   - component: {fileID: 66738592103089267}
+  - component: {fileID: 8826692657873320709}
   m_Layer: 5
   m_Name: Tier1 (4)
   m_TagString: Untagged
@@ -855,9 +926,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClickLamiTier
-        m_Mode: 3
+      - m_Target: {fileID: 8826692657873320709}
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -882,6 +953,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationName: 5
   FallbackSprite: {fileID: 21300000, guid: 95746444f4f9177489b4706452b26bc3, type: 3}
+--- !u!114 &8826692657873320709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66738592103089265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b99666fbd31f574ca14256d598e6e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tier: 4
 --- !u!1 &66738592417030434
 GameObject:
   m_ObjectHideFlags: 0

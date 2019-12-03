@@ -6,6 +6,12 @@ using UnityEngine.SceneManagement;
 public class LamiTierController : TierController
 {
     public GameObject[] mLamiDialogs;
+    public static LamiTierController Inst;
+
+    private void Awake() {
+        if(!Inst)
+            Inst = this;
+    }
 
     // Start is called before the first frame update
     public void OnClickHeader(int type)
@@ -18,14 +24,5 @@ public class LamiTierController : TierController
         }
     }
 
-    public void OnClickLamiTier(int type)
-    {
-        Debug.Log("TierButton click:" + type + "  roomCount:" + PunController.Inst.cachedRoomList.Count);
-        int idx = (int)type;
-        if (idx < mTiers.Length)
-        {
-
-            PunController.Inst.CreateOrJoinRoom(idx);
-        }
-    }
+    
 }

@@ -234,9 +234,9 @@ public class BaccaratPanMgr : MonoBehaviour
     private void MoveDistributed_BigCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
     {
         try{
-        UIBCardBend.Inst.OnClickShowBigCard();
+            UIBCardBend.Inst.OnClickShowBigCard();
         }catch{
-            
+
         }
     }
 

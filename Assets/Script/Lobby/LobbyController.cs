@@ -23,18 +23,21 @@ public class LobbyController : MonoBehaviour
 
     public void OnClickLami()
     {
-        LoadGameScene("2_Lami");
+        //LoadGameScene("2_Lami");
+        GameMgr.Inst.LoadGameScene2(enumGameType.Lami);
     }
 
     public void OnClickBaccarat()
     {
-        LoadGameScene("2_Baccarat");
+        //LoadGameScene("2_Baccarat");
+        GameMgr.Inst.LoadGameScene2(enumGameType.Baccarat);
         //PunController.Inst.CreateOrJoinBaccaratRoom();
     }
 
     public void OnClickFortune()
     {
-        LoadGameScene("2_Fortune13");
+        //LoadGameScene("2_Fortune13");
+        GameMgr.Inst.LoadGameScene2(enumGameType.Fortune13);
     }
 
     void LoadGameScene(string scene)

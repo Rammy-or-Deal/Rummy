@@ -22,8 +22,7 @@ public class UIBCard : MonoBehaviour
         image.sprite = Resources.Load<Sprite>("Card/_black");
     }
     public void ShowImage(int num, int col)
-    {
-        
+    {        
         this.gameObject.SetActive(true);
         string colorCharacter = "";
         switch (col)

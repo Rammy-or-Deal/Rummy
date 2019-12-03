@@ -14,10 +14,9 @@ public class CommonSeat : MonoBehaviour
     public Image mUserSkillPic;
     public Text mUserName;
     public Text mUserSkillName;
-
     public string _mUserPic;
-
     public Text mCoinValue;
+    
     // Start is called before the first frame update
     void Start()
     {
