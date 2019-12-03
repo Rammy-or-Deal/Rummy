@@ -11,8 +11,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LamiUserSeat : MonoBehaviour
 {
-
-
     static public LamiUserSeat Inst;
     public bool canShow;
     public int status;

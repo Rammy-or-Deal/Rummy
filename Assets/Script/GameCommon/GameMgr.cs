@@ -31,6 +31,7 @@ public class GameMgr : MonoBehaviour
         if(!Inst)
             Inst = this;
     }
+    
 
     #endregion
     internal void LoadGameScene2(enumGameType v)
