@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIChatDialog : MonoBehaviour
 {
-
     public Text mChatView;
     public Text mSendText;
     // Start is called before the first frame update

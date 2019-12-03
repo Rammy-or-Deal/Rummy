@@ -1182,6 +1182,20 @@
               <e p="UIResultDialog.cs" t="Include" />
             </e>
           </e>
+          <e p="GameCommon" t="Include">
+            <e p="BotMgr.cs" t="Include" />
+            <e p="Constants" t="Include">
+              <e p="constantContainer.cs" t="Include" />
+              <e p="enumContainer.cs" t="Include" />
+              <e p="staticClassContainer.cs" t="Include" />
+            </e>
+            <e p="DebugMgr.cs" t="Include" />
+            <e p="GameMgr.cs" t="Include" />
+            <e p="MessageMgr.cs" t="Include" />
+            <e p="ResultMgr.cs" t="Include" />
+            <e p="RoomMgr.cs" t="Include" />
+            <e p="SceneMgr.cs" t="Include" />
+          </e>
           <e p="IBot.cs" t="Include" />
           <e p="Intro" t="Include">
             <e p="Intro.cs" t="Include" />
@@ -1210,12 +1224,16 @@
             <e p="LamiPlayerMgr.cs" t="Include" />
             <e p="LamiUser_Info.cs" t="Include" />
             <e p="LamiUserSeat.cs" t="Include" />
+            <e p="Logic" t="Include">
+              <e p="RummyGameMgr.cs" t="Include" />
+            </e>
             <e p="UI" t="Include">
               <e p="UILamiCardSelect.cs" t="Include" />
               <e p="UILamiFinish.cs" t="Include" />
               <e p="UILamiFinishCardPan.cs" t="Include" />
               <e p="UILamiFinishScorePan.cs" t="Include" />
               <e p="UILamiSelectCardList.cs" t="Include" />
+              <e p="UILamiTierButton.cs" t="Include" />
             </e>
             <e p="UIMyCardPanel.cs" t="Include" />
           </e>
