@@ -18,7 +18,7 @@ public class SceneMgr : MonoBehaviour
         
     }
 
-    internal void LoadGameScene2(enumGameType v)
+    public void LoadGameScene2(enumGameType v)
     {
          string sceneString = "";
         switch (v)

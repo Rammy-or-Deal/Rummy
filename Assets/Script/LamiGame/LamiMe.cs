@@ -45,12 +45,20 @@ public class LamiMe : MonoBehaviour
 
     public int status;
 
-    private void Awake()
+    private void Start()
     {
         if (!Inst)
+        {
             Inst = this;
+
+        }
         status = (int)LamiPlayerStatus.Init;
         availList = new List<ATTACH_CLASS>();
+        try
+        {
+            PublishMe();
+        }
+        catch { }
     }
 
     internal void PublishMe()
@@ -58,7 +66,7 @@ public class LamiMe : MonoBehaviour
         //data : 0:id, 1:name, 2:picUrl, 3:coinValue, 4:skillLevel, 5:frameId, 6:status
         //      format: id:name:picUrl:coinValue:skillLevel:frameId:status
 
-        LogMgr.Inst.Log("Publish Me Called. ", (int)LogLevels.MeLog);
+        GameMgr.Inst.Log("Publish me called.");
 
         string infoString = "";
         infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",

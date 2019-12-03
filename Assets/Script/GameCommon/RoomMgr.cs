@@ -13,12 +13,12 @@ public class RoomMgr : MonoBehaviour
     // Start is called before the first frame update
     public List<GameRoomInfo> m_roomList;
 
-    public RoomMgr()
+    private void Awake()
     {
         m_roomList = new List<GameRoomInfo>();
     }
 
-    internal void OnRoomListUpdate(List<RoomInfo> roomList)
+    public void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         m_roomList.Clear();
 
@@ -39,7 +39,7 @@ public class RoomMgr : MonoBehaviour
         GameMgr.Inst.Log("RoomListUpdate Called. RoomCount = " + roomList.Count, enumLogLevel.RoomManagementLog);
     }
 
-    internal void CreateOrJoinRoom(enumGameType m_gameType, enumGameTier m_gameTier)
+    public void CreateOrJoinRoom(enumGameType m_gameType, enumGameTier m_gameTier)
     {
         if (m_roomList.Count(x => x.m_gameType == m_gameType) == 0)
             CreateRoom(m_gameType, m_gameTier);
@@ -68,7 +68,7 @@ public class RoomMgr : MonoBehaviour
         RoomOptions options = new RoomOptions { MaxPlayers = (byte)room.m_maxPlayer };
 
         options.CustomRoomProperties = new Hashtable { { PhotonFields.RoomInfo, room.roomInfoString } };
-        options.CustomRoomPropertiesForLobby = new string[] { PhotonFields.RoomInfo};
+        options.CustomRoomPropertiesForLobby = new string[] { PhotonFields.RoomInfo };
 
         PhotonNetwork.CreateRoom(room.m_roomName, options, TypedLobby.Default);
 
@@ -96,10 +96,10 @@ public class RoomMgr : MonoBehaviour
     private int GetGameFeeOfGame(enumGameType m_gameType, enumGameTier m_gameTier)
     {
         int gameFee = 0;
-        switch(m_gameType)
+        switch (m_gameType)
         {
             case enumGameType.Lami:
-                switch(m_gameTier)
+                switch (m_gameTier)
                 {
                     case enumGameTier.LamiNewbie: gameFee = 50; break;
                     case enumGameTier.LamiBeginner: gameFee = 100; break;
@@ -114,16 +114,16 @@ public class RoomMgr : MonoBehaviour
                 gameFee = 0;
                 break;
             case enumGameType.Fortune13:
-                switch(m_gameTier)
-                    {
-                        case enumGameTier.FortuneNewbie: gameFee = 50; break;
-                        case enumGameTier.FortuneBeginner: gameFee = 100; break;
-                        case enumGameTier.FortuneVeteran: gameFee = 200; break;
-                        case enumGameTier.FortuneIntermediate: gameFee = 300; break;
-                        case enumGameTier.FortuneAdvanced: gameFee = 500; break;
-                        case enumGameTier.FortuneMaster: gameFee = 1000; break;
-                        default: gameFee = 0; break;
-                    }
+                switch (m_gameTier)
+                {
+                    case enumGameTier.FortuneNewbie: gameFee = 50; break;
+                    case enumGameTier.FortuneBeginner: gameFee = 100; break;
+                    case enumGameTier.FortuneVeteran: gameFee = 200; break;
+                    case enumGameTier.FortuneIntermediate: gameFee = 300; break;
+                    case enumGameTier.FortuneAdvanced: gameFee = 500; break;
+                    case enumGameTier.FortuneMaster: gameFee = 1000; break;
+                    default: gameFee = 0; break;
+                }
                 break;
             default:
                 gameFee = 0;
@@ -135,6 +135,11 @@ public class RoomMgr : MonoBehaviour
     internal void OnJoinedRoom()
     {
         GameMgr.Inst.Log("Joined Room.");
+        try
+        {
+            UIController.Inst.loadingDlg.gameObject.SetActive(false);
+        }
+        catch { }
         string sceneString = "";
         switch (GameMgr.Inst.m_gameType)
         {
@@ -151,7 +156,7 @@ public class RoomMgr : MonoBehaviour
                 sceneString = "";
                 break;
         }
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
             PhotonNetwork.LoadLevel(sceneString);
     }
 }

@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
 
         if (!Inst)
             Inst = this;
+        
     }
 
     private void Start()
@@ -26,8 +27,6 @@ public class GameController : MonoBehaviour
         UIController.Inst.userInfoPanel.gameObject.SetActive(false);
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
     }
-    public virtual void SendMessage(int messageId, Player p = null)
-    {
-        
-    }
+    public virtual void SendMessage(int messageId, Player p = null){}
+    
 }

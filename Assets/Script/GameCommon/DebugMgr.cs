@@ -6,10 +6,9 @@ using UnityEngine;
 public class DebugMgr : MonoBehaviour
 {
     // Start is called before the first frame update
-    static List<enumLogLevel> avail_logs;
+    List<enumLogLevel> avail_logs;
 
-    public DebugMgr()
-    {
+    private void Awake() {
         avail_logs = new List<enumLogLevel>();
 
         if (constantContainer.buildMethod == enumBuildMethod.Development_Debug || constantContainer.buildMethod == enumBuildMethod.Product_Debug)
@@ -18,7 +17,8 @@ public class DebugMgr : MonoBehaviour
             avail_logs.Add(enumLogLevel.RoomManagementLog);
         }
     }
-    internal void Log(string log, enumLogLevel level = enumLogLevel.initLog)
+    
+    public void Log(string log, enumLogLevel level = enumLogLevel.initLog)
     {
         enumGameType gameType = GameMgr.Inst.m_gameType;
         if (!avail_logs.Contains(level)) return;

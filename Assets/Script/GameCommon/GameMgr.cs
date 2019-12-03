@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-
-
 public class GameMgr : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -33,15 +31,17 @@ public class GameMgr : MonoBehaviour
         if(!Inst)
             Inst = this;
     }
+
     #endregion
     internal void LoadGameScene2(enumGameType v)
     {
-        sceneMgr.LoadGameScene2(v);     
+        Log("Load 2 Scene");
+        sceneMgr.LoadGameScene2(v);
 
         m_gameType = v;
         m_gameStatus = enumGameStatus.InGameLevelSelect;
 
-        Log("Load 2 Scene");
+        
     }
 
     public void EnterTier(enumGameTier tier)
