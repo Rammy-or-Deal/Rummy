@@ -83,7 +83,7 @@ public class LamiUserSeat : MonoBehaviour
 
         mAceValue.text = (int.Parse(mAceValue.text) + aCount) + "";
         mJokerValue.text = (int.Parse(mJokerValue.text) + jokerCount) + "";
-
+        
     }
     public LamiGameBot getBotStringFromPhoton(int botID)
     {
