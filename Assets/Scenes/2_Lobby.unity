@@ -18712,8 +18712,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 234.73, y: 47.31996}
-  m_SizeDelta: {x: 113.01, y: 43.15}
+  m_AnchoredPosition: {x: 234.5, y: 54.025}
+  m_SizeDelta: {x: 124.8, y: 43.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &530065926
 MonoBehaviour:
@@ -18758,12 +18758,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1978699072}
-        m_MethodName: 
-        m_Mode: 2
+      - m_Target: {fileID: 1978699074}
+        m_MethodName: OnClickSend
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1978699072}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -24394,7 +24394,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 6.299988, y: -0.0002746582}
-  m_SizeDelta: {x: 544.2, y: 23.553719}
+  m_SizeDelta: {x: 544.2, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &656410452
 MonoBehaviour:
@@ -43557,7 +43557,18 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1978699074}
+        m_MethodName: OnEnterSend
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.InputField+SubmitEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
@@ -47712,7 +47723,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chatDlg: {fileID: 1978699074}
-  ChannelsToJoinOnConnect: []
+  ChannelsToJoinOnConnect:
+  - Lobby
+  - Rummy
+  - Baccarat
+  - Fortune
   HistoryLengthToFetch: 0
   ChannelToggleToInstantiate: {fileID: 0}
   FriendListUiItemtoInstantiate: {fileID: 0}
@@ -77257,7 +77272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1978699073
 RectTransform:
   m_ObjectHideFlags: 0
@@ -77293,8 +77308,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputFieldChat: {fileID: 1173225435}
   CurrentChannelText: {fileID: 656410453}
-  mChatView: {fileID: 0}
-  mSendText: {fileID: 42106912}
 --- !u!222 &1978699076
 CanvasRenderer:
   m_ObjectHideFlags: 0

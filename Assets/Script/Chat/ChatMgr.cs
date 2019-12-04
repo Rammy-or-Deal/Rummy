@@ -25,15 +25,15 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
 #endif
     protected internal AppSettings chatAppSettings;
     
-    
-    public Toggle ChannelToggleToInstantiate; // set in inspector
-
-
-    public GameObject FriendListUiItemtoInstantiate;
-
     private readonly Dictionary<string, Toggle> channelToggles = new Dictionary<string, Toggle>();
 
-    private readonly Dictionary<string, FriendItem> friendListItemLUT = new Dictionary<string, FriendItem>();
+    public static ChatMgr Inst;
+
+    private void Awake()
+    {
+        Inst = this;
+    }
+
     public void Start()
     {
 
@@ -47,11 +47,11 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
         {
             Debug.LogError("You need to set the chat app ID in the PhotonServerSettings file in order to continue.");
         }
+        Connect();
     }
 
     public void Connect()
     {
-        
         this.chatClient = new ChatClient(this);
 #if !UNITY_WEBGL
         this.chatClient.UseBackgroundWorkerForSending = true;
@@ -59,8 +59,6 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
 
         this.chatClient.Connect(this.chatAppSettings.AppIdChat, "1.0",
             new Photon.Chat.AuthenticationValues(DataController.Inst.userInfo.name));
-
-        this.ChannelToggleToInstantiate.gameObject.SetActive(false);
     }
 
     /// <summary>To avoid that the Editor becomes unresponsive, disconnect all Photon connections in OnDestroy.</summary>
@@ -93,7 +91,7 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
     public int TestLength = 2048;
     private byte[] testBytes = new byte[2048];
 
-    private void SendChatMessage(string inputLine)
+    public void SendChatMessage(string inputLine)
     {
         if (string.IsNullOrEmpty(inputLine))
         {
@@ -235,12 +233,6 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
         {
             this.chatClient.Subscribe(this.ChannelsToJoinOnConnect, this.HistoryLengthToFetch);
         }
-        
-        if (this.FriendListUiItemtoInstantiate != null)
-        {
-            this.FriendListUiItemtoInstantiate.SetActive(false);
-        }
-
 
         this.chatClient.SetOnlineStatus(ChatUserStatus.Online); // You can set your online state (without a mesage).
     }
@@ -258,15 +250,7 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
 
     public void OnSubscribed(string[] channels, bool[] results)
     {
-        // in this demo, we simply send a message into each channel. This is NOT a must have!
-        foreach (string channel in channels)
-        {
-            if (this.ChannelToggleToInstantiate != null)
-            {
-                this.InstantiateChannelButton(channel);
-            }
-        }
-
+        
         Debug.Log("OnSubscribed: " + string.Join(", ", channels));
 
         /*
@@ -291,22 +275,6 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
 
         // Switch to the first newly created channel
         this.ShowChannel(channels[0]);
-    }
-
-    private void InstantiateChannelButton(string channelName)
-    {
-        if (this.channelToggles.ContainsKey(channelName))
-        {
-            Debug.Log("Skipping creation for an existing channel toggle.");
-            return;
-        }
-
-        Toggle cbtn = (Toggle) Instantiate(this.ChannelToggleToInstantiate);
-        cbtn.gameObject.SetActive(true);
-        cbtn.GetComponentInChildren<ChannelSelector>().SetChannel(channelName);
-        cbtn.transform.SetParent(this.ChannelToggleToInstantiate.transform.parent, false);
-
-        this.channelToggles.Add(channelName, cbtn);
     }
 
     public void OnUnsubscribed(string[] channels)
@@ -354,7 +322,7 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
     {
         // as the ChatClient is buffering the messages for you, this GUI doesn't need to do anything here
         // you also get messages that you sent yourself. in that case, the channelName is determinded by the target of your msg
-        this.InstantiateChannelButton(channelName);
+
 
         byte[] msgBytes = message as byte[];
         if (msgBytes != null)
@@ -379,12 +347,6 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
     public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
     {
         Debug.LogWarning("status: " + string.Format("{0} is {1}. Msg:{2}", user, status, message));
-
-        if (this.friendListItemLUT.ContainsKey(user))
-        {
-            FriendItem _friendItem = this.friendListItemLUT[user];
-            if (_friendItem != null) _friendItem.OnFriendStatusUpdate(status, gotMessage, message);
-        }
     }
 
     public void OnUserSubscribed(string channel, string user)
