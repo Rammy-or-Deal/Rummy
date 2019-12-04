@@ -125,6 +125,7 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
         if (inputLine[0].Equals('\\'))
         {
             string[] tokens = inputLine.Split(new char[] {' '}, 2);
+            Debug.Log(tokens);
             if (tokens[0].Equals("\\state"))
             {
                 int newState = 0;

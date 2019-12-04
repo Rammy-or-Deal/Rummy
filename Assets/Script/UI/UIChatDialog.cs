@@ -12,6 +12,7 @@ public class UIChatDialog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ChatMgr.Inst.ShowChannel("Lobby");
     }
 
     // Update is called once per frame
