@@ -9,21 +9,9 @@ using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
-public class LamiUserSeat : MonoBehaviour
+public class LamiUserSeat : UserSeat
 {
-
-
-    static public LamiUserSeat Inst;
-    public bool canShow;
-    public int status;
-    public Text mCardNum;
-    public Text mClockTime;
-    public Image mUserFrame;
-    public Image mUserPic;
-    public Image mUserSkillPic;
-    public Text mUserName;
-    public Text mUserSkillName;
-    public Text mCoinValue;
+    
     public Text mAceValue;
     public Text mJokerValue;
     public GameObject mClock;
@@ -36,16 +24,22 @@ public class LamiUserSeat : MonoBehaviour
     public int id;
     private bool isPlayerReady;
 
-    public bool isSeat;
-
     public bool isBot = false;
-    public int frameId;
+
     public List<Card> cardList = new List<Card>();
-
-
     internal bool isAuto;
 
-    #region UNITY
+
+    public override void SetPlayerInfo(PlayerInfo info) {
+        base.SetPlayerInfo(info);        
+
+    }
+
+
+
+    #region OLD Code
+
+
 
     public void OnEnable()
     {
@@ -54,13 +48,12 @@ public class LamiUserSeat : MonoBehaviour
 
     private void Awake()
     {
-        if (!Inst)
-            Inst = this;
+        
     }
 
     public void Start()
     {
-        mClock.SetActive(false);
+//        mClock.SetActive(false);
     }
 
     public void OnDisable()
@@ -69,8 +62,6 @@ public class LamiUserSeat : MonoBehaviour
     }
 
     #endregion
-
-
 
     #region Property
 
@@ -244,7 +235,6 @@ public class LamiUserSeat : MonoBehaviour
                     card.MyCardId = -1;
                     cardList.Add(card);
                 }
-
             }
         }
         // string ss = "CreatedCardList := ";

@@ -278,87 +278,87 @@ public class PunController : MonoBehaviourPunCallbacks
         GameMgr.Inst.roomMgr.OnJoinedRoom();
 
         #region Old Code
-            /*
-                string infoString = "";
-                infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-                    (int)PhotonNetwork.LocalPlayer.ActorNumber,
-                    DataController.Inst.userInfo.name,
-                    DataController.Inst.userInfo.pic,
-                    DataController.Inst.userInfo.coinValue,
-                    DataController.Inst.userInfo.skillLevel,
-                    DataController.Inst.userInfo.frameId,
-                    (int)LamiPlayerStatus.Init
-                );
-                string gameScene = "3_PlayLami";
+        /*
+            string infoString = "";
+            infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                (int)PhotonNetwork.LocalPlayer.ActorNumber,
+                DataController.Inst.userInfo.name,
+                DataController.Inst.userInfo.pic,
+                DataController.Inst.userInfo.coinValue,
+                DataController.Inst.userInfo.skillLevel,
+                DataController.Inst.userInfo.frameId,
+                (int)LamiPlayerStatus.Init
+            );
+            string gameScene = "3_PlayLami";
 
-                UIController.Inst.loadingDlg.gameObject.SetActive(false);
-                if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
+            UIController.Inst.loadingDlg.gameObject.SetActive(false);
+            if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
+            {
+                // Set local player's property.                    
+                Hashtable props = new Hashtable
                 {
-                    // Set local player's property.                    
-                    Hashtable props = new Hashtable
-                    {
-                        {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Init},
-                        {Common.PLAYER_INFO, infoString}
-                    };
+                    {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Init},
+                    {Common.PLAYER_INFO, infoString}
+                };
 
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-                    // Send Add New player Message. - OnUserEnteredRoom
+                PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+                // Send Add New player Message. - OnUserEnteredRoom
 
-                    props = new Hashtable
-                    {
-                        {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
-                        {Common.NEW_PLAYER_INFO, infoString},
-                        {Common.NEW_PLAYER_STATUS, (int)LamiPlayerStatus.Init}
-                    };
-
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-
-                }
-                else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+                props = new Hashtable
                 {
-                    gameScene = "3_PlayBaccarat";
-                    // Save my info to photon
-                    Hashtable props = new Hashtable
-                    {
-                        {Common.PLAYER_INFO, infoString},
-                    };
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+                    {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
+                    {Common.NEW_PLAYER_INFO, infoString},
+                    {Common.NEW_PLAYER_STATUS, (int)LamiPlayerStatus.Init}
+                };
 
-                    // Send Add New player Message. - OnUserEnteredRoom
-                    props = new Hashtable
-                    {
-                        {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnUserEnteredRoom},
-                        {Common.NEW_PLAYER_INFO, infoString},
-                    };
+                PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-
-                }
-                else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
+            }
+            else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+            {
+                gameScene = "3_PlayBaccarat";
+                // Save my info to photon
+                Hashtable props = new Hashtable
                 {
-                    gameScene = "3_PlayFortune13";
-                    // Save my info to photon
-                    Hashtable props = new Hashtable
-                    {
-                        {Common.FORTUNE_MESSAGE, (int)RoomManagementMessages.OnUserEnteredRoom_M},
-                        {Common.PLAYER_INFO, infoString},
-                        {Common.PLAYER_STATUS, (int)FortunePlayerStatus.Init}
-                    };
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-                }
-                */
+                    {Common.PLAYER_INFO, infoString},
+                };
+                PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+                // Send Add New player Message. - OnUserEnteredRoom
+                props = new Hashtable
+                {
+                    {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnUserEnteredRoom},
+                    {Common.NEW_PLAYER_INFO, infoString},
+                };
+
+                PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+
+            }
+            else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
+            {
+                gameScene = "3_PlayFortune13";
+                // Save my info to photon
+                Hashtable props = new Hashtable
+                {
+                    {Common.FORTUNE_MESSAGE, (int)RoomManagementMessages.OnUserEnteredRoom_M},
+                    {Common.PLAYER_INFO, infoString},
+                    {Common.PLAYER_STATUS, (int)FortunePlayerStatus.Init}
+                };
+                PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            }
+            */
         #endregion
 
         // if (PhotonNetwork.IsMasterClient)
         //     PhotonNetwork.LoadLevel(gameScene);
-            
+
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.Log("join room failed");
         string roomName = "rummy_" + mTierIdx.ToString();
-        CreateRoom(roomName);
+        //CreateRoom(roomName);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -368,14 +368,12 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        try
-        {
+        
             //UpdateCachedRoomList(roomList);
             GameMgr.Inst.Log("room count:=" + roomList.Count);
             if (roomList == null) return;
             GameMgr.Inst.roomMgr.OnRoomListUpdate(roomList);
-        }
-        catch{}
+        
     }
 
     public override void OnLeftLobby()
@@ -386,26 +384,17 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        Debug.Log(PhotonNetwork.NickName + "/me/Left Room");
-        PhotonNetwork.LoadLevel("2_Lobby");
-        cachedRoomList.Clear();
+        GameMgr.Inst.roomMgr.OnLeftRoom();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log(newPlayer.NickName + "   Entered");
-        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
-        {
-            //LamiGameController.Inst.NewPlayerEnteredRoom(newPlayer);
-        }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-        {
-            //BaccaratGameController.Inst.NewPlayerEnteredRoom(newPlayer);
-        }
+
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        /*
         Debug.Log(otherPlayer.NickName + "/other/left room");
 
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
@@ -417,66 +406,79 @@ public class PunController : MonoBehaviourPunCallbacks
         {
             BaccaratGameController.Inst.SendMessage((int)BaccaratMessages.OnUserLeave, otherPlayer);
         }
+        */
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
-        {
-        }
+
     }
 
-    public override void OnPlayerPropertiesUpdate(Player otherPlayer, Hashtable hashtable)
+    public override void OnPlayerPropertiesUpdate(Player player, Hashtable updatedInfo)
     {
-        Debug.Log("OnPlayerPropertiesUpdate : " + otherPlayer.NickName);
-        if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
+        /*        Debug.Log("OnPlayerPropertiesUpdate : " + player.NickName);
+                if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
+                {
+                    if (updatedInfo.ContainsKey(Common.LAMI_MESSAGE))
+                    {
+                        LamiMgr.Inst.SendMessage((int)updatedInfo[Common.LAMI_MESSAGE], player);
+                    }
+                }
+                else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+                {
+                    if (updatedInfo.ContainsKey(Common.BACCARAT_MESSAGE))
+                    {
+                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[Common.BACCARAT_MESSAGE], player);
+                    }
+                }
+                else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
+                {
+                    if (updatedInfo.ContainsKey(Common.FORTUNE_MESSAGE))
+                    {
+                        FortuneGameController.Inst.SendMessage((int)updatedInfo[Common.FORTUNE_MESSAGE], player);
+                    }
+                }
+        */
+        try
         {
-            if (hashtable.ContainsKey(Common.LAMI_MESSAGE))
-            {
-                LamiMgr.Inst.SendMessage((int)hashtable[Common.LAMI_MESSAGE], otherPlayer);
-            }
+            GameMgr.Inst.messageMgr.OnMessageArrived((int)updatedInfo[PhotonFields.GAME_MESSAGE], player);
         }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-        {
-            if (hashtable.ContainsKey(Common.BACCARAT_MESSAGE))
-            {
-                BaccaratGameController.Inst.SendMessage((int)hashtable[Common.BACCARAT_MESSAGE], otherPlayer);
-            }
-        }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
-        {
-            if (hashtable.ContainsKey(Common.FORTUNE_MESSAGE))
-            {
-                FortuneGameController.Inst.SendMessage((int)hashtable[Common.FORTUNE_MESSAGE], otherPlayer);
-            }
-        }
+        catch { }
     }
 
-    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    public override void OnRoomPropertiesUpdate(Hashtable updatedInfo)
     {
+        try
+        {
+            GameMgr.Inst.messageMgr.OnMessageArrived((int)updatedInfo[PhotonFields.GAME_MESSAGE]);
+        }
+        catch { }
+
         //Debug.Log("On Room Properties Update called.");
 
-        if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
-        {
-            if (propertiesThatChanged.ContainsKey(Common.LAMI_MESSAGE))
-            {
-                LamiMgr.Inst.SendMessage((int)propertiesThatChanged[Common.LAMI_MESSAGE]);
-            }
-        }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-        {
-            if (propertiesThatChanged.ContainsKey(Common.BACCARAT_MESSAGE))
-            {
-                BaccaratGameController.Inst.SendMessage((int)propertiesThatChanged[Common.BACCARAT_MESSAGE]);
-            }
-        }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
-        {
-            if (propertiesThatChanged.ContainsKey(Common.FORTUNE_MESSAGE))
-            {
-                FortuneGameController.Inst.SendMessage((int)propertiesThatChanged[Common.FORTUNE_MESSAGE]);
-            }
-        }
+        /*
+                if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
+                {
+                    if (updatedInfo.ContainsKey(Common.LAMI_MESSAGE))
+                    {
+                        LamiMgr.Inst.SendMessage((int)updatedInfo[Common.LAMI_MESSAGE]);
+                    }
+                }
+                else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
+                {
+                    if (updatedInfo.ContainsKey(Common.BACCARAT_MESSAGE))
+                    {
+                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[Common.BACCARAT_MESSAGE]);
+                    }
+                }
+                else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
+                {
+                    if (updatedInfo.ContainsKey(Common.FORTUNE_MESSAGE))
+                    {
+                        FortuneGameController.Inst.SendMessage((int)updatedInfo[Common.FORTUNE_MESSAGE]);
+                    }
+                }
+        */
     }
 
     #endregion

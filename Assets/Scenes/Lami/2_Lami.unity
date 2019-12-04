@@ -1827,6 +1827,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GamePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 66738592417030434, guid: 6b39808aa96309a4383497808453f735,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 66738592417030429, guid: 6b39808aa96309a4383497808453f735,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2111,6 +2116,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778155626010192444, guid: 6b39808aa96309a4383497808453f735,
+        type: 3}
+      propertyPath: m_Tier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066622550176901257, guid: 6b39808aa96309a4383497808453f735,
+        type: 3}
+      propertyPath: m_Tier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154687173302306099, guid: 6b39808aa96309a4383497808453f735,
+        type: 3}
+      propertyPath: m_Tier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 408173413710624354, guid: 6b39808aa96309a4383497808453f735,
+        type: 3}
+      propertyPath: m_Tier
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950751050006218783, guid: 6b39808aa96309a4383497808453f735,
+        type: 3}
+      propertyPath: m_Tier
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826692657873320709, guid: 6b39808aa96309a4383497808453f735,
+        type: 3}
+      propertyPath: m_Tier
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b39808aa96309a4383497808453f735, type: 3}

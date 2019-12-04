@@ -54,11 +54,11 @@ public class LamiMe : MonoBehaviour
         }
         status = (int)LamiPlayerStatus.Init;
         availList = new List<ATTACH_CLASS>();
-        try
-        {
-            PublishMe();
-        }
-        catch { }
+        // try
+        // {
+        //     PublishMe();
+        // }
+        // catch { }
     }
 
     internal void PublishMe()

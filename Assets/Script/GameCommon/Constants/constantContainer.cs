@@ -20,6 +20,13 @@ public static class constantContainer
 }
 
 public static class PhotonFields{
-    public static string RoomInfo = "RoomInfo";
+    
+    public static string GAME_MESSAGE = "Game_Message";
 
+    #region string for room management
+    public static string RoomInfo = "ROOM_INFO";
+    public static string NEW_PLAYER_INFO = "NEW_PLAYER_INFO";
+
+    public static string SEAT_STRING = "SEAT_STRING";
+    #endregion
 }

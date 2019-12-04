@@ -75,7 +75,7 @@ public class LamiLogicMgr : MonoBehaviour
         //        ShowPlayers();
         LamiCountdownTimer.Inst.StartTimer();
         isStart = false;
-        StartCoroutine(CreateBot());
+        //StartCoroutine(CreateBot());
 
     }
 
