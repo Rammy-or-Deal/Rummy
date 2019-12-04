@@ -34,20 +34,8 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
     private readonly Dictionary<string, Toggle> channelToggles = new Dictionary<string, Toggle>();
 
     private readonly Dictionary<string, FriendItem> friendListItemLUT = new Dictionary<string, FriendItem>();
-
-    public bool ShowState = true;
-    public GameObject Title;
-    public Text StateText; // set in inspector
-    public Text UserIdText; // set in inspector
-
     public void Start()
     {
-        this.UserIdText.text = "";
-        this.StateText.text = "";
-        this.StateText.gameObject.SetActive(true);
-        this.UserIdText.gameObject.SetActive(true);
-        this.Title.SetActive(true);
-        
 
 #if PHOTON_UNITY_NETWORKING
         this.chatAppSettings = PhotonNetwork.PhotonServerSettings.AppSettings;
@@ -100,16 +88,6 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
             this.chatClient
                 .Service(); // make sure to call this regularly! it limits effort internally, so calling often is ok!
         }
-
-        // check if we are missing context, which means we got kicked out to get back to the Photon Demo hub.
-        if (this.StateText == null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-
-        this.StateText.gameObject
-            .SetActive(this.ShowState); // this could be handled more elegantly, but for the demo it's ok.
     }
 
     public int TestLength = 2048;
@@ -276,8 +254,6 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
     {
         // use OnConnected() and OnDisconnected()
         // this method might become more useful in the future, when more complex states are being used.
-
-        this.StateText.text = state.ToString();
     }
 
     public void OnSubscribed(string[] channels, bool[] results)
