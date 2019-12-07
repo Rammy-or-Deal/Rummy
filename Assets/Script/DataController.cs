@@ -38,7 +38,7 @@ public class DataController : MonoBehaviour
         tierInfo = new TierInfoModel();
         tierInfo.Init();
         userInfo = new UserInfoModel();
-        userInfo.Init();
+        userInfo.Init("User");
         sysExchangeItem = new SysExchangeItemModel();
         
         DontDestroyOnLoad(this.gameObject);

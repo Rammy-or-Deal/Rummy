@@ -54,9 +54,9 @@ namespace RummyScript.Model
             frameId = 3;
         }
 
-        public void Init()
+        public void Init(string prefixName="Guest")
         {
-            name = "Guest"+"["+Random.Range(1000,9999).ToString() + "]";
+            name = prefixName+"["+Random.Range(1000,9999).ToString() + "]";
             pic = "new_avatar/avatar_" + Random.Range(1,26).ToString();
             
             coinValue = Random.Range(50000,99999);

@@ -1186,18 +1186,25 @@
             </e>
           </e>
           <e p="GameCommon" t="Include">
-            <e p="BotMgr.cs" t="Include" />
+            <e p="CommonClasses" t="Include">
+              <e p="UserSeat.cs" t="Include" />
+            </e>
             <e p="Constants" t="Include">
               <e p="constantContainer.cs" t="Include" />
               <e p="enumContainer.cs" t="Include" />
               <e p="staticClassContainer.cs" t="Include" />
             </e>
-            <e p="DebugMgr.cs" t="Include" />
-            <e p="GameMgr.cs" t="Include" />
-            <e p="MessageMgr.cs" t="Include" />
-            <e p="ResultMgr.cs" t="Include" />
-            <e p="RoomMgr.cs" t="Include" />
-            <e p="SceneMgr.cs" t="Include" />
+            <e p="MgrClasses" t="Include">
+              <e p="BotMgr.cs" t="Include" />
+              <e p="DebugMgr.cs" t="Include" />
+              <e p="GameMgr.cs" t="Include" />
+              <e p="MeMgr.cs" t="Include" />
+              <e p="MessageMgr.cs" t="Include" />
+              <e p="ResultMgr.cs" t="Include" />
+              <e p="RoomMgr.cs" t="Include" />
+              <e p="SceneMgr.cs" t="Include" />
+              <e p="SeatMgr.cs" t="Include" />
+            </e>
           </e>
           <e p="IBot.cs" t="Include" />
           <e p="Intro" t="Include">
@@ -1211,6 +1218,7 @@
           </e>
           <e p="LamiGame" t="Include">
             <e p="Lami_Card_Additional_Info.cs" t="Include" />
+            <e p="LamiBotMgr.cs" t="Include" />
             <e p="LamiCard.cs" t="Include" />
             <e p="LamiCardLine.cs" t="Include" />
             <e p="LamiCardMgr.cs" t="Include" />
@@ -1228,7 +1236,15 @@
             <e p="LamiUser_Info.cs" t="Include" />
             <e p="LamiUserSeat.cs" t="Include" />
             <e p="Logic" t="Include">
+              <e p="RummyBotMgr.cs" t="Include" />
+              <e p="RummyCardMgr.cs" t="Include" />
               <e p="RummyGameMgr.cs" t="Include" />
+              <e p="RummyMasterMgr.cs" t="Include" />
+              <e p="RummyMeMgr.cs" t="Include" />
+              <e p="RummyMessageMgr.cs" t="Include" />
+              <e p="RummyPanMgr.cs" t="Include" />
+              <e p="RummyResultMgr.cs" t="Include" />
+              <e p="RummySeatMgr.cs" t="Include" />
             </e>
             <e p="UI" t="Include">
               <e p="UILamiCardSelect.cs" t="Include" />
