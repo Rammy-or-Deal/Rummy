@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using RummyScript.Model;
+﻿using RummyScript.Model;
 using UnityEngine;
-
-
-
 
 public class DataController : MonoBehaviour
 {
@@ -55,8 +50,4 @@ public class DataController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }
