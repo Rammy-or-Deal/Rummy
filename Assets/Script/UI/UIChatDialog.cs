@@ -9,12 +9,10 @@ public class UIChatDialog : MonoBehaviour
     public InputField InputFieldChat; // set in inspector
     public Text CurrentChannelText; // set in inspector
     
-    public Text mChatView;
-    public Text mSendText;
-
     // Start is called before the first frame update
     void Start()
     {
+        ChatMgr.Inst.ShowChannel("Lobby");
     }
 
     // Update is called once per frame
@@ -26,7 +24,7 @@ public class UIChatDialog : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
         {
-            this.SendChatMessage(this.InputFieldChat.text);
+            ChatMgr.Inst.SendChatMessage(this.InputFieldChat.text);
             this.InputFieldChat.text = "";
         }
     }
@@ -35,16 +33,8 @@ public class UIChatDialog : MonoBehaviour
     {
         if (this.InputFieldChat != null)
         {
-            this.SendChatMessage(this.InputFieldChat.text);
+            ChatMgr.Inst.SendChatMessage(this.InputFieldChat.text);
             this.InputFieldChat.text = "";
-        }
-    }
-
-    private void SendChatMessage(string inputLine)
-    {
-        if (string.IsNullOrEmpty(inputLine))
-        {
-            return;
         }
     }
 
