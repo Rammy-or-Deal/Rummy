@@ -90,7 +90,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6746121673664899536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -528,7 +528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8998258118951521427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1179,7 +1179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6d6d6004cc6574e913454ec68ea3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPoint: 0
   canShow: 0
   status: 0
   mCardNum: {fileID: 6212411728641536845}
@@ -1190,6 +1189,7 @@ MonoBehaviour:
   mUserName: {fileID: 5877839854055745145}
   mUserSkillName: {fileID: 592984590453523233}
   mCoinValue: {fileID: 2155537083632369487}
+  frameId: 0
   mAceValue: {fileID: 1651227309916376546}
   mJokerValue: {fileID: 433733039731797133}
   mClock: {fileID: 472350086051171330}
@@ -1199,10 +1199,12 @@ MonoBehaviour:
   playerGiveupImage: {fileID: 2944464297502573590}
   autoOnImage: {fileID: 1333529581046628646}
   id: 0
-  isSeat: 0
   isBot: 0
-  frameId: 0
   score: 0
+  cardPoint: 0
+  aCount: 0
+  jokerCount: 0
+  AddScore: 0
 --- !u!1 &5823254543659624637
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 
 
@@ -38,6 +40,44 @@ public class GameRoomInfo{
     }
 }
 
+public class PlayerInfoContainer{
+    public List<PlayerInfo> m_playerList;
+    public string m_playerInfoListString{
+        get{
+            return string.Join(",", m_playerList.Select(x=>x.playerInfoString));
+        }
+        set{
+            var tmpList = value.Split(',');
+            foreach(var tmp in tmpList)
+            {
+                var player = new PlayerInfo();
+                player.playerInfoString = tmp;
+                m_playerList.Add(player);
+            }
+        }
+    }
+    public PlayerInfoContainer()
+    {
+        m_playerList = new List<PlayerInfo>();
+    }
+    public PlayerInfoContainer(string playerInfoListString)
+    {
+        m_playerList = new List<PlayerInfo>();
+        m_playerInfoListString = playerInfoListString;
+    }
+
+    public PlayerInfoContainer GetInfoContainerFromPhoton()
+    {
+        try{
+            string infoString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+            this.m_playerInfoListString = infoString;
+        }catch{
+            GameMgr.Inst.Log("No player list info.", enumLogLevel.staticClassLog);
+            return null;
+        }
+        return this;
+    }
+}
 public class PlayerInfo{
 
     public int m_actorNumber;
@@ -91,20 +131,23 @@ public class SeatInfo{
     public class OneSeat{
         public int m_actorNumber;
         public int m_seatNo;
+        public string m_userName;
         public string oneSeatString{
             get{
-                return string.Format("{0}:{1}", m_actorNumber, m_seatNo);
+                return string.Format("{0}:{1}:{2}", m_actorNumber, m_seatNo, m_userName);
             }
             set{
                 var tmpList = value.Split(':');
                 m_actorNumber = int.Parse(tmpList[0]);
                 m_seatNo = int.Parse(tmpList[1]);
+                m_userName = tmpList[2];
             }
         }
         public OneSeat(){}
-        public OneSeat(int actorNumber, int seatNo){
+        public OneSeat(int actorNumber, int seatNo, string userName){
             m_actorNumber = actorNumber;
             m_seatNo = seatNo;
+            m_userName = userName;
         }
     }
     public List<OneSeat> seatList;
@@ -113,9 +156,9 @@ public class SeatInfo{
     {
         seatList = new List<OneSeat>();
     }
-    public void AddOneSeat(int actorNumber, int seatNo)
+    public void AddOneSeat(int actorNumber, int seatNo, string userName)
     {
-        OneSeat seat = new OneSeat(actorNumber, seatNo);
+        OneSeat seat = new OneSeat(actorNumber, seatNo, userName);
         seatList.Add(seat);
     }
     public string seatString{
@@ -133,6 +176,83 @@ public class SeatInfo{
             }
         }
     }
+}
+
+public class Card
+{
+    public int num;
+    public int color;
+
+    public int MyCardId = -1;
+    public int virtual_num;
+    public List<Card> children;
+    public Card parent = null;
+    public byte byteValue
+    {
+        get
+        {
+            int tmp = num; if (num == 1) tmp = 14;
+            return (byte)(tmp + 16 * color);
+        }
+        set
+        {
+            color = (int)(value / 16);
+            num = (int)value % 16;
+        }
+    }
+    public string cardString
+    {
+        get
+        {
+            return num + ":" + color;
+        }
+        set
+        {
+            var tmp = value.Split(':').Select(Int32.Parse).ToArray();
+            num = tmp[0];
+            color = tmp[1];
+        }
+    }
+    public Card(int num0, int color0)
+    {
+        num = num0;
+        color = color0;
+        virtual_num = num;
+    }
+    public Card()
+    {
+
+    }
+
+
+    #region For only baccarat
+    public List<Card> Children_Set(List<Card> m_orgList)
+    {
+        children = new List<Card>();
+        foreach (var card in m_orgList.Where(x => x.MyCardId > MyCardId && x.num == num && x.num != 15).ToList())
+        {
+            var tmpCard = new Card();
+            tmpCard.num = card.num;
+            tmpCard.color = card.color;
+            tmpCard.MyCardId = card.MyCardId;
+            tmpCard.virtual_num = card.virtual_num;
+
+            tmpCard.parent = this;
+            children.Add(tmpCard);
+        }
+        return children;
+    }
+    public List<Card> Children_Flush(List<Card> m_orgList)
+    {
+        children = new List<Card>();
+        foreach (var card in m_orgList.Where(x => x.MyCardId != MyCardId && x.num == num + 1 && x.color == color && x.num != 15))
+        {
+            card.parent = this;
+            children.Add(card);
+        }
+        return children;
+    }
+    #endregion
 }
 public class staticClassContainer : MonoBehaviour
 {

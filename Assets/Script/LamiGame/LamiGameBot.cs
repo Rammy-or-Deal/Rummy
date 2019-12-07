@@ -93,61 +93,7 @@ public class LamiGameBot
             status = int.Parse(tmp[6]);
         }
     }
-    public void PublishMe()
-    {
-        string infoString = "";
-        infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-                id,
-                name,
-                pic,
-                coinValue,
-                skillLevel,
-                frameId,
-                status
-                );
-
-//        Debug.Log("Publish Bot:=   " + LamiPlayerMgr.Inst.getBotString());
-        // Send Add New player Message. - OnUserEnteredRoom
-        Hashtable props = new Hashtable
-            {
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
-                {Common.NEW_PLAYER_INFO, infoString},
-                {Common.BOT_STATUS, status},
-                {Common.IS_BOT, true},
-                {Common.BOT_LIST_STRING, LamiPlayerMgr.Inst.getBotString()}
-            };
-
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-
-        ReadyMessageSend();
-    }
-
-    async void ReadyMessageSend()
-    {
-        try
-        {
-            await Task.Delay(Random.Range(1000, 5000));
-
-            status = (int)LamiPlayerStatus.Ready;
-            Debug.Log(id + ":"+ status);
-            Debug.Log(LamiPlayerMgr.Inst.getBotString());
-
-            Debug.Log("Bot Ready:=   " + LamiPlayerMgr.Inst.getBotString());
-            Hashtable props = new Hashtable
-            {
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReady_BOT},
-                {Common.BOT_ID, id},
-                {Common.BOT_STATUS, status},
-                {Common.BOT_LIST_STRING, LamiPlayerMgr.Inst.getBotString()}
-            };
-
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        }
-        catch
-        {
-
-        }
-    }
+    
     internal void SetMyCards(string cardString)
     {
         var tmp = LamiCardMgr.ConvertCardStrToCardList(cardString);
@@ -181,7 +127,7 @@ public class LamiGameBot
 
         Hashtable gameCards = new Hashtable
         {
-            {Common.LAMI_MESSAGE, (int)LamiMessages.OnDealCard},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnDealCard},
             {Common.PLAYER_ID, id},
             {Common.REMAIN_CARD_COUNT, remainCard},
             {Common.GAME_CARD, cardStr},
@@ -260,7 +206,7 @@ public class LamiGameBot
             }
 
             Hashtable props = new Hashtable{
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnPlayerStatusChanged},
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnPlayerStatusChanged},
                 {Common.PLAYER_ID, id},
                 {Common.PLAYER_STATUS, status},
             };
@@ -279,7 +225,7 @@ public class LamiGameBot
     {
         await Task.Delay(1000);
         Hashtable props = new Hashtable{
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnPlayerStatusChanged},
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnPlayerStatusChanged},
                 {Common.PLAYER_ID, id},
                 {Common.PLAYER_STATUS, status},
             };

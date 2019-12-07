@@ -11,7 +11,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LamiUserSeat : UserSeat
 {
-    
     public Text mAceValue;
     public Text mJokerValue;
     public GameObject mClock;

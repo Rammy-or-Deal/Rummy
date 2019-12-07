@@ -16,7 +16,21 @@ public static class constantContainer
     internal static string strScene3Lami = "3_PlayLami";
     internal static string strScene3Bacccarat = "3_PlayBaccarat";
     internal static string strScene3Fortune = "3_PlayFortune13";
+    
     #endregion
+
+    #region Contants
+    public static int BotCreateTime_min = 5;
+    public static int BotCreateTime_max = 10;
+    public static string[] skillLevelList = new string[ ]{"Novice", "Expert", "Hero", "Elite", "King", "Master"} ;
+
+    #region  Constants_for_Rummy
+    public static float Rummy_BotReadyTime_min = 3;
+    public static float Rummy_BotReadyTime_max = 7;
+    public static int Rummy_MaxJokerCount = 8;
+    #endregion Constants_for_Rummy
+
+    #endregion Constants
 }
 
 public static class PhotonFields{
@@ -25,8 +39,14 @@ public static class PhotonFields{
 
     #region string for room management
     public static string RoomInfo = "ROOM_INFO";
-    public static string NEW_PLAYER_INFO = "NEW_PLAYER_INFO";
-
     public static string SEAT_STRING = "SEAT_STRING";
+    public static object PLAYER_LIST_STRING = "PLAYER_LIST_STRING";
+
+    public static object NEW_PLAYER_INFO = "NEW_PLAYER_INFO";
+    
+    #endregion
+
+    #region  string for game management
+    public static object CARD_LIST_STRING = "CARD_LIST_STRING";
     #endregion
 }

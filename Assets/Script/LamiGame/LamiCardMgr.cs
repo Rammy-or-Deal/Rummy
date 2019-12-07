@@ -9,82 +9,8 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class Card
-{
-    public int num;
-    public int color;
-
-    public int MyCardId = -1;
-    public int virtual_num;
-    public List<Card> children;
-    public Card parent = null;
-    public byte byteValue
-    {
-        get
-        {
-            int tmp = num; if (num == 1) tmp = 14;
-            return (byte)(tmp + 16 * color);
-        }
-        set
-        {
-            color = (int)(value / 16);
-            num = (int)value % 16;
-        }
-    }
-    public string cardString
-    {
-        get
-        {
-            return num + ":" + color;
-        }
-        set
-        {
-            var tmp = value.Split(':').Select(Int32.Parse).ToArray();
-            num = tmp[0];
-            color = tmp[1];
-        }
-    }
-    public Card(int num0, int color0)
-    {
-        num = num0;
-        color = color0;
-        virtual_num = num;
-    }
-    public Card()
-    {
-
-    }
 
 
-    #region For only baccarat
-    public List<Card> Children_Set(List<Card> m_orgList)
-    {
-        children = new List<Card>();
-        foreach (var card in m_orgList.Where(x => x.MyCardId > MyCardId && x.num == num && x.num != 15).ToList())
-        {
-            var tmpCard = new Card();
-            tmpCard.num = card.num;
-            tmpCard.color = card.color;
-            tmpCard.MyCardId = card.MyCardId;
-            tmpCard.virtual_num = card.virtual_num;
-
-            tmpCard.parent = this;
-            children.Add(tmpCard);
-        }
-        return children;
-    }
-    public List<Card> Children_Flush(List<Card> m_orgList)
-    {
-        children = new List<Card>();
-        foreach (var card in m_orgList.Where(x => x.MyCardId != MyCardId && x.num == num + 1 && x.color == color && x.num != 15))
-        {
-            card.parent = this;
-            children.Add(card);
-        }
-        return children;
-    }
-    #endregion
-}
 public class LamiCardMgr : MonoBehaviour
 {
     public const int JokerNum = 15;
@@ -180,7 +106,7 @@ public class LamiCardMgr : MonoBehaviour
         totalCardString = totalCardString.Trim('/');
         Hashtable props = new Hashtable()
         {
-            { Common.LAMI_MESSAGE, (int)LamiMessages.OnCardDistributed},
+            { PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnCardDistributed},
             { Common.CARD_LIST_STRING, totalCardString }
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
@@ -249,9 +175,8 @@ public class LamiCardMgr : MonoBehaviour
         }
         cardString = string.Join(",", cardList);
 
-
         Hashtable props = new Hashtable{
-            {Common.LAMI_MESSAGE, (int)LamiMessages.OnShuffleAccept},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnShuffleAccept},
             {Common.SHUFFLE_CARDS, cardString}
         };
         player.SetCustomProperties(props);

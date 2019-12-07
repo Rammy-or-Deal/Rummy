@@ -8,7 +8,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LamiMe : MonoBehaviour
+public class LamiMe : MeMgr
 {
     public bool isAuto = false;
     public Text m_timer_description;
@@ -16,7 +16,6 @@ public class LamiMe : MonoBehaviour
     public List<ATTACH_CLASS> availList;
     int nowFlush = 0;
     public static LamiMe Inst;
-
 
     public List<LamiMyCard> m_cardList = new List<LamiMyCard>(); // my cards
     List<LamiMyCard> sel_cards = new List<LamiMyCard>(); // selected cards
@@ -50,7 +49,7 @@ public class LamiMe : MonoBehaviour
         if (!Inst)
         {
             Inst = this;
-
+            PublishMe();
         }
         status = (int)LamiPlayerStatus.Init;
         availList = new List<ATTACH_CLASS>();
@@ -61,45 +60,9 @@ public class LamiMe : MonoBehaviour
         // catch { }
     }
 
-    internal void PublishMe()
+    public override void PublishMe()
     {
-        //data : 0:id, 1:name, 2:picUrl, 3:coinValue, 4:skillLevel, 5:frameId, 6:status
-        //      format: id:name:picUrl:coinValue:skillLevel:frameId:status
-
-        GameMgr.Inst.Log("Publish me called.");
-
-        string infoString = "";
-        infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-                (int)PhotonNetwork.LocalPlayer.ActorNumber,
-                DataController.Inst.userInfo.name,
-                DataController.Inst.userInfo.pic,
-                DataController.Inst.userInfo.coinValue,
-                DataController.Inst.userInfo.skillLevel,
-                DataController.Inst.userInfo.frameId,
-                status
-            );
-
-        // Set local player's property.
-        Hashtable props = new Hashtable
-            {
-                {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Init},
-                {Common.PLAYER_INFO, infoString}
-            };
-
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-        LogMgr.Inst.Log("My Info stored in photon. " + infoString, (int)LogLevels.MeLog);
-        // Send Add New player Message. - OnUserEnteredRoom
-
-        props = new Hashtable
-            {
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
-                {Common.NEW_PLAYER_INFO, infoString},
-                {Common.NEW_PLAYER_STATUS, status}
-            };
-
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
-
+        base.PublishMe();
     }
 
     internal void OnClickShuffle()
@@ -119,7 +82,7 @@ public class LamiMe : MonoBehaviour
         cardString = cardString.Trim(',');
 
         Hashtable props = new Hashtable{
-            {Common.LAMI_MESSAGE, (int)LamiMessages.OnShuffleRequest},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnShuffleRequest},
             {Common.SHUFFLE_CARDS, cardString}
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
@@ -127,13 +90,16 @@ public class LamiMe : MonoBehaviour
 
     public void SendMyStatus()
     {
-        Hashtable props = new Hashtable{
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReady},
-                {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
-                {Common.PLAYER_STATUS, status}
-            };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        // Hashtable props = new Hashtable{
+        //         {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReady},
+        //         {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
+        //         {Common.PLAYER_STATUS, status}
+        //     };
+        // PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
+        // var myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        // var info = RummyGameMgr.Inst.seatMgr.m_userList.Where(x=>x.m_playerInfo.m_actorNumber == myActorNumber).First();
+        // BotMgr.PublishIamReady(info.m_playerInfo);
     }
     public void OnReadyButtonClicked()
     {
@@ -150,7 +116,7 @@ public class LamiMe : MonoBehaviour
 
         // Set I am ready to Start
         Hashtable props = new Hashtable{
-            {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReadyToStart_M},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReadyToStart_M},
             {Common.PLAYER_STATUS, (int)LamiPlayerStatus.ReadyToStart}
         };
 
@@ -200,7 +166,6 @@ public class LamiMe : MonoBehaviour
 
         LogMgr.Inst.Log("now tip " + log, (int)LogLevels.PlayerLog2);
 
-
         LogMgr.Inst.Log("now tip turn = " + nowFlush + " / total= " + availList.Count, (int)LogLevels.PlayerLog2);
 
         nowFlush++;
@@ -220,7 +185,7 @@ public class LamiMe : MonoBehaviour
         isFirstTurn = true;
 
         LamiGameUIManager.Inst.Init_Clear();
-        foreach (var player in LamiPlayerMgr.Inst.m_playerList)
+        foreach (LamiUserSeat player in LamiPlayerMgr.Inst.m_playerList)
         {
             player.Init_Clear();
         }
@@ -302,7 +267,7 @@ public class LamiMe : MonoBehaviour
             }
 
             Hashtable props = new Hashtable{
-                {Common.LAMI_MESSAGE, (int)LamiMessages.OnPlayerStatusChanged},
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnPlayerStatusChanged},
                 {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
                 {Common.PLAYER_STATUS, status},
             };

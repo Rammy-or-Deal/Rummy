@@ -9,11 +9,17 @@ public enum enumGameStatus
     InLobby,
     InGameLevelSelect,
     InGamePlay,
+    OnGameStarted,
 }
 
 public enum enumPlayerStatus
 {
     Init,
+    #region  Enum_Rummy
+    Rummy_Ready,
+    Rummy_GiveUp,
+    Rummy_Burnt,
+    #endregion Enum_Rummy
 }
 
 public enum enumGameTier
@@ -28,9 +34,13 @@ public enum enumGameTier
 public enum enumLogLevel
 {
     initLog,
-    RoomManagementLog,
     MeLog,
-    RoomLog
+    RoomLog,
+    staticClassLog,
+    BotLog,
+    ControllerMessage,
+    RummySeatMgrLog,
+    RummyCardMgrLog
 }
 #endregion
 
@@ -48,14 +58,30 @@ public enum enumGameMessage
     #region Room Management Messages
     OnJoinSuccess,
     OnUserEnteredRoom_onlyMaster,
-    OnNewUserEnteredRoom,
-
+    OnSeatStringUpdate,
+    OnPlayerStatusChanged_Rummy,
+    
     #endregion
 
     #region Bot Management Messsages
     #endregion
 
     #region Rummy Game Messages
+    OnGameStarted_Rummy,
+    Rummy_OnCardDistributed,
+    Rummy_OnUserReadyToStart_M,
+    Rummy_OnDealCard,
+    Rummy_OnUserTurnChanged,
+    Rummy_OnPlayerStatusChanged,
+    Rummy_OnGameFinished,
+    Rummy_OnAutoPlayer,
+    Rummy_OffAutoPlayer,
+    Rummy_OnShuffleRequest,
+    Rummy_OnShuffleAccept,
+    Rummy_OnGameRestart,
+    Rummy_OnStartGame,
+    Rummy_OnUserReady,
+    Rummy_OnGameStarted,
     #endregion
 
     #region Baccarat Game Messages

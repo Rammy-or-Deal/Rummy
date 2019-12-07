@@ -59,9 +59,12 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public void LeaveGame()
     {
-        Debug.Log("leave game");
-
-        PhotonNetwork.LeaveRoom();
+        try
+        {
+            Debug.Log("leave game");
+            PhotonNetwork.LeaveRoom();
+        }
+        catch { }
     }
 
     public void CreateOrJoinRoom(int tierIdx)
@@ -306,7 +309,7 @@ public class PunController : MonoBehaviourPunCallbacks
 
                 props = new Hashtable
                 {
-                    {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserEnteredRoom_M},
+                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserEnteredRoom_M},
                     {Common.NEW_PLAYER_INFO, infoString},
                     {Common.NEW_PLAYER_STATUS, (int)LamiPlayerStatus.Init}
                 };
@@ -368,12 +371,12 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        
-            //UpdateCachedRoomList(roomList);
-            GameMgr.Inst.Log("room count:=" + roomList.Count);
-            if (roomList == null) return;
-            GameMgr.Inst.roomMgr.OnRoomListUpdate(roomList);
-        
+
+        //UpdateCachedRoomList(roomList);
+        GameMgr.Inst.Log("room count:=" + roomList.Count);
+        if (roomList == null) return;
+        GameMgr.Inst.roomMgr.OnRoomListUpdate(roomList);
+
     }
 
     public override void OnLeftLobby()
@@ -400,7 +403,7 @@ public class PunController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
         {
             //LamiGameController.Inst.OtherPlayerLeftRoom(otherPlayer);
-            LamiMgr.Inst.SendMessage((int)LamiMessages.OnUserLeave_M, otherPlayer);
+            LamiMgr.Inst.SendMessage((int)enumGameMessage.Rummy_OnUserLeave_M, otherPlayer);
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
@@ -419,9 +422,9 @@ public class PunController : MonoBehaviourPunCallbacks
         /*        Debug.Log("OnPlayerPropertiesUpdate : " + player.NickName);
                 if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
                 {
-                    if (updatedInfo.ContainsKey(Common.LAMI_MESSAGE))
+                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
                     {
-                        LamiMgr.Inst.SendMessage((int)updatedInfo[Common.LAMI_MESSAGE], player);
+                        LamiMgr.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE], player);
                     }
                 }
                 else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
@@ -452,16 +455,19 @@ public class PunController : MonoBehaviourPunCallbacks
         {
             GameMgr.Inst.messageMgr.OnMessageArrived((int)updatedInfo[PhotonFields.GAME_MESSAGE]);
         }
-        catch { }
+        catch (Exception Log)
+        {
+            Debug.Log("OnRoomPropertiesUpdate Error: " + Log.Message);
+        }
 
         //Debug.Log("On Room Properties Update called.");
 
         /*
                 if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
                 {
-                    if (updatedInfo.ContainsKey(Common.LAMI_MESSAGE))
+                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
                     {
-                        LamiMgr.Inst.SendMessage((int)updatedInfo[Common.LAMI_MESSAGE]);
+                        LamiMgr.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE]);
                     }
                 }
                 else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))

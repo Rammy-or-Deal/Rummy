@@ -41,7 +41,7 @@ public class PlayerManagement : MonoBehaviour
                 res = Common.FORTUNE_MESSAGE;
                 break;
             case Game_Identifier.Lami:
-                res = Common.LAMI_MESSAGE;
+                res = PhotonFields.GAME_MESSAGE;
                 break;
             case Game_Identifier.Baccarat:
                 res = Common.BACCARAT_MESSAGE;

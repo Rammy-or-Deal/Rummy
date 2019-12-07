@@ -48,7 +48,7 @@ public class LamiPanMgr : MonoBehaviour
     {
         //         Hashtable gameCards = new Hashtable
         // {   
-        //     {Common.LAMI_MESSAGE, (int)LamiMessages.OnDealCard},
+        //     {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnDealCard},
         //     {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
         //     {Common.REMAIN_CARD_COUNT, remainCard},
         //     {Common.GAME_CARD, cardStr},

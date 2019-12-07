@@ -20,7 +20,7 @@ public class UILamiFinish : MonoBehaviour
     public void SetData()
     {
         int index = 0;
-        foreach (var player in LamiPlayerMgr.Inst.m_playerList.OrderByDescending(x => x.score))
+        foreach (LamiUserSeat player in LamiPlayerMgr.Inst.m_playerList.OrderByDescending(x => ((LamiUserSeat)x).score))
         {
             switch (index)
             {

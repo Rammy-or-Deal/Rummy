@@ -89,16 +89,23 @@ public class LamiGameUIManager : GameUIManager
 
     public void OnReadyClick()
     {
+       
         LamiCountdownTimer.Inst.StopTimer();
         readyButton.SetActive(false);
-
+/*
         Hashtable props = new Hashtable
         {
-            {Common.LAMI_MESSAGE, (int)LamiMessages.OnUserReady},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReady},
             {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Ready},
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-        Debug.Log("ready click");
+        Debug.Log("ready click");              
+*/
+
+        var myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+        var info = GameMgr.Inst.seatMgr.m_playerList.Where(x=>x.m_playerInfo.m_actorNumber == myActorNumber).First();
+        BotMgr.PublishIamReady(info.m_playerInfo);
+
     }
     public void OnClickShuffle()
     {
@@ -246,7 +253,7 @@ public class LamiGameUIManager : GameUIManager
         autoOffBtn.SetActive(false);
 
         Hashtable table = new Hashtable{
-                    {Common.LAMI_MESSAGE, (int)LamiMessages.OffAutoPlayer},
+                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OffAutoPlayer},
                     {Common.PLAYER_ID, (int)PhotonNetwork.LocalPlayer.ActorNumber}
                 };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);

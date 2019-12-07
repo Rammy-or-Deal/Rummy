@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311912, g: 0.3807398, b: 0.3587271, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9989,6 +9989,7 @@ RectTransform:
   - {fileID: 879352019}
   - {fileID: 2096233293}
   - {fileID: 947681486}
+  - {fileID: 1282243098}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49632,6 +49633,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278991653}
   m_CullTransparentMesh: 0
+--- !u!1 &1282243097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1282243098}
+  - component: {fileID: 1282243099}
+  m_Layer: 0
+  m_Name: ChatMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1282243098
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282243097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 231322176}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1282243099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282243097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bef70e28046cc4e8f8db2c16a5d0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatDlg: {fileID: 0}
+  ChannelsToJoinOnConnect: []
+  HistoryLengthToFetch: 0
+  ChannelToggleToInstantiate: {fileID: 0}
+  FriendListUiItemtoInstantiate: {fileID: 0}
+  ShowState: 1
+  Title: {fileID: 0}
+  StateText: {fileID: 0}
+  UserIdText: {fileID: 0}
+  TestLength: 2048
 --- !u!1 &1282367405
 GameObject:
   m_ObjectHideFlags: 0
@@ -80215,6 +80274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3cd8c417c5d3a43b8122b0b7b502cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InputFieldChat: {fileID: 0}
+  CurrentChannelText: {fileID: 0}
   mChatView: {fileID: 1974370562}
   mSendText: {fileID: 42106912}
 --- !u!114 &1978699075
@@ -88418,6 +88479,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4367887661135896533, guid: f2f0a7334bb58cd468e5ca823bba9593,
+        type: 3}
+      propertyPath: m_Name
+      value: GameController
+      objectReference: {fileID: 0}
     - target: {fileID: 6350576816900655422, guid: f2f0a7334bb58cd468e5ca823bba9593,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -88522,11 +88588,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4367887661135896533, guid: f2f0a7334bb58cd468e5ca823bba9593,
-        type: 3}
-      propertyPath: m_Name
-      value: GameController
       objectReference: {fileID: 0}
     - target: {fileID: 8540268881108559116, guid: f2f0a7334bb58cd468e5ca823bba9593,
         type: 3}

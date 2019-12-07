@@ -10,17 +10,20 @@ public class RummyGameMgr : MonoBehaviour
     public RummyBotMgr botMgr;
     public RummyMasterMgr masterMgr;
     public RummyMeMgr meMgr;
-    public RummyMessageMgr messageMgr;
     public RummyPanMgr panMgr;
     public RummyResultMgr resultMgr;
     public RummySeatMgr seatMgr;
-    
+    public RummyCardMgr cardMgr;
+    internal bool isFirstTurn;
+
     void Start()
     {
         if(!Inst)
         {
             Inst = this;
+            isFirstTurn = true;
         }
+        
     }
 
     // Update is called once per frame
