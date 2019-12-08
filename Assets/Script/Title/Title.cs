@@ -44,12 +44,11 @@ public class Title : MonoBehaviour
             Debug.Log(aToken.UserId);
             // Print current access token's granted permissions
             foreach (string perm in aToken.Permissions) {
-                Debug.Log(perm);
+//                Debug.Log(perm);
             }
-
-            GetName();
-            GetPicture();
-//            SceneManager.LoadScene("2_Lobby");
+//            GetName();
+//            GetPicture();
+            SceneManager.LoadScene("2_Lobby");
         } else {
             Debug.Log("User cancelled login");
         }
@@ -57,7 +56,7 @@ public class Title : MonoBehaviour
     
     public void GetName()
     {
-        FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
+        FB.API("me?fields=name,picture.width(200).height(200)", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
         {
             if (result.ResultDictionary != null)
             {

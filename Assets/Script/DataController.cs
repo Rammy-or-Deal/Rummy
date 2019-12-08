@@ -1,5 +1,6 @@
 ﻿using RummyScript.Model;
 using UnityEngine;
+using Facebook.Unity;
 
 public class DataController : MonoBehaviour
 {
@@ -47,7 +48,27 @@ public class DataController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (FB.IsLoggedIn)
+        {
+            GetNameAndPicture();
+        }
     }
+    
+    public void GetNameAndPicture()
+    {
+        FB.API("me?fields=name,picture.width(200).height(200)", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
+        {
+            if (result.ResultDictionary != null)
+            {
+                foreach (string key in result.ResultDictionary.Keys)
+                {
+                    Debug.Log(key + " : " + result.ResultDictionary[key].ToString());
+                    if (key == "name")
+                        Debug.Log(result.ResultDictionary[key].ToString());
+                }
+            }
+        });
+    }
+
 
 }
