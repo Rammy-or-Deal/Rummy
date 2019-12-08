@@ -290,7 +290,7 @@ public class PunController : MonoBehaviourPunCallbacks
                 DataController.Inst.userInfo.coinValue,
                 DataController.Inst.userInfo.skillLevel,
                 DataController.Inst.userInfo.frameId,
-                (int)LamiPlayerStatus.Init
+                (int)enumPlayerStatus.Rummy_Init
             );
             string gameScene = "3_PlayLami";
 
@@ -300,7 +300,7 @@ public class PunController : MonoBehaviourPunCallbacks
                 // Set local player's property.                    
                 Hashtable props = new Hashtable
                 {
-                    {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Init},
+                    {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_Init},
                     {Common.PLAYER_INFO, infoString}
                 };
 
@@ -311,7 +311,7 @@ public class PunController : MonoBehaviourPunCallbacks
                 {
                     {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserEnteredRoom_M},
                     {Common.NEW_PLAYER_INFO, infoString},
-                    {Common.NEW_PLAYER_STATUS, (int)LamiPlayerStatus.Init}
+                    {Common.NEW_PLAYER_STATUS, (int)enumPlayerStatus.Rummy_Init}
                 };
 
                 PhotonNetwork.CurrentRoom.SetCustomProperties(props);

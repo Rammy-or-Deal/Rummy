@@ -41,7 +41,7 @@ public class LamiGameBot
 
     public void Init()
     {
-        status = (int)LamiPlayerStatus.Init;
+        status = (int)enumPlayerStatus.Rummy_Init;
         id = -(UnityEngine.Random.Range(1000, 9999));
         name = "Guest" + "[" + UnityEngine.Random.Range(1000, 9999).ToString() + "]";
         pic = "new_avatar/avatar_" + UnityEngine.Random.Range(1, 26).ToString();
@@ -109,7 +109,7 @@ public class LamiGameBot
 
     internal void SetMyTurn()
     {
-        //status = (int)LamiPlayerStatus.Burnt;
+        //status = (int)enumPlayerStatus.Rummy_Burnt;
         //SendMyStatus();
         if (!Init_FlashList()) return;
 
@@ -198,11 +198,11 @@ public class LamiGameBot
         {
             if (isFirstTurn)
             {
-                status = (int)LamiPlayerStatus.Burnt;
+                status = (int)enumPlayerStatus.Rummy_Burnt;
             }
             else
             {
-                status = (int)LamiPlayerStatus.GiveUp;
+                status = (int)enumPlayerStatus.Rummy_GiveUp;
             }
 
             Hashtable props = new Hashtable{

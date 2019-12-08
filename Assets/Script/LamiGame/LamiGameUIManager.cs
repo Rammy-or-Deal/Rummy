@@ -96,7 +96,7 @@ public class LamiGameUIManager : GameUIManager
         Hashtable props = new Hashtable
         {
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReady},
-            {Common.PLAYER_STATUS, (int)LamiPlayerStatus.Ready},
+            {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_Ready},
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         Debug.Log("ready click");              

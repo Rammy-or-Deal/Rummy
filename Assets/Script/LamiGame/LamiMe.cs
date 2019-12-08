@@ -51,7 +51,7 @@ public class LamiMe : MeMgr
             Inst = this;
             PublishMe();
         }
-        status = (int)LamiPlayerStatus.Init;
+        status = (int)enumPlayerStatus.Rummy_Init;
         availList = new List<ATTACH_CLASS>();
         // try
         // {
@@ -103,7 +103,7 @@ public class LamiMe : MeMgr
     }
     public void OnReadyButtonClicked()
     {
-        status = (int)LamiPlayerStatus.Ready;
+        status = (int)enumPlayerStatus.Rummy_Ready;
         SendMyStatus();
     }
 
@@ -117,7 +117,7 @@ public class LamiMe : MeMgr
         // Set I am ready to Start
         Hashtable props = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReadyToStart_M},
-            {Common.PLAYER_STATUS, (int)LamiPlayerStatus.ReadyToStart}
+            {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_ReadyToStart}
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
@@ -259,11 +259,11 @@ public class LamiMe : MeMgr
         {
             if (isFirstTurn)
             {
-                status = (int)LamiPlayerStatus.Burnt;
+                status = (int)enumPlayerStatus.Rummy_Burnt;
             }
             else
             {
-                status = (int)LamiPlayerStatus.GiveUp;
+                status = (int)enumPlayerStatus.Rummy_GiveUp;
             }
 
             Hashtable props = new Hashtable{
@@ -925,8 +925,6 @@ public class LamiMe : MeMgr
     }
     /************************* */
 
-
-
     //get selected cards are SET
     private bool IsSelSet()
     {
@@ -941,8 +939,7 @@ public class LamiMe : MeMgr
             else
             {
                 isSet = true;
-                if (first_num != Math.Abs(sel_cards[i].num)
-                ) // If first_num <> sel_cards[i] then, this line is not SET. it's FLUSH.
+                if (first_num != Math.Abs(sel_cards[i].num)) // If first_num <> sel_cards[i] then, this line is not SET. it's FLUSH.
                     isSet = false;
                 break;
             }

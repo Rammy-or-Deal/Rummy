@@ -20,7 +20,7 @@ public class SceneMgr : MonoBehaviour
 
     public void LoadGameScene2(enumGameType v)
     {
-         string sceneString = "";
+        string sceneString = "";
         switch (v)
         {
             case enumGameType.Lami:

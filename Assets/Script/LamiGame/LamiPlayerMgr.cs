@@ -33,6 +33,7 @@ public class LamiPlayerMgr : SeatMgr
     public override void OnSeatStringUpdate()
     {
         base.OnSeatStringUpdate();
+        
         if (!PhotonNetwork.IsMasterClient) return;
 
         GameMgr.Inst.Log("Check if all players are ready.", enumLogLevel.RummySeatMgrLog);
@@ -46,7 +47,6 @@ public class LamiPlayerMgr : SeatMgr
         bool isAllReady = true;
         foreach (var seat in seatNumList)
         {
-
             var user = pList.m_playerList.Where(x => x.m_actorNumber == seat.Key).First();
             if (user.m_status != enumPlayerStatus.Rummy_Ready)
             {
@@ -66,13 +66,17 @@ public class LamiPlayerMgr : SeatMgr
             GameMgr.Inst.Log("All Users are ready.", enumLogLevel.RoomLog);
 
             LamiCardMgr.Inst.GenerateCard();
-
-            /*
+            foreach(var p in pList.m_playerList)
+            {
+                p.m_status = enumPlayerStatus.Rummy_ReadyToStart;
+            }
+            
             Hashtable props = new Hashtable{
-                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnGameStarted}
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
+                {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-            */
+            
         }
     }    
 
@@ -259,13 +263,13 @@ public class LamiPlayerMgr : SeatMgr
         int first = nowTurn;
         nowTurn = (nowTurn + 1) % 4;
 
-        while ((m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.GiveUp ||
-            m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.Burnt) && first != nowTurn)
+        while ((m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_GiveUp ||
+            m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_Burnt) && first != nowTurn)
         {
             nowTurn = (nowTurn + 1) % 4;
         }
         if (first == nowTurn &&
-            (m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.GiveUp || m_playerList[GetUserSeat(nowTurn)].status == (int)LamiPlayerStatus.Burnt))
+            (m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_GiveUp || m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_Burnt))
         {
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnGameFinished},
@@ -363,7 +367,7 @@ public class LamiPlayerMgr : SeatMgr
         // Check if all players are ready.
         foreach (var p in PhotonNetwork.PlayerList)
         {
-            if ((int)p.CustomProperties[Common.PLAYER_STATUS] != (int)LamiPlayerStatus.ReadyToStart)
+            if ((int)p.CustomProperties[Common.PLAYER_STATUS] != (int)enumPlayerStatus.Rummy_ReadyToStart)
             {
                 AllReady = false;
             }
@@ -450,7 +454,7 @@ public class LamiPlayerMgr : SeatMgr
     {
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            m_playerList[i].status = (int)LamiPlayerStatus.Init;
+            m_playerList[i].status = (int)enumPlayerStatus.Rummy_Init;
             ((LamiUserSeat)m_playerList[i]).Show();
         }
     }
@@ -462,7 +466,7 @@ public class LamiPlayerMgr : SeatMgr
         {
             if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == actornumber)
             {
-                m_playerList[i].status = (int)LamiPlayerStatus.Ready;
+                m_playerList[i].status = (int)enumPlayerStatus.Rummy_Ready;
                 m_playerList[i].canShow = true;
                 ((LamiUserSeat)m_playerList[i]).Show();
                 break;
@@ -475,7 +479,7 @@ public class LamiPlayerMgr : SeatMgr
         int readyUsers = 0;
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (m_playerList[i].canShow && m_playerList[i].status == (int)LamiPlayerStatus.Ready)
+            if (m_playerList[i].canShow && m_playerList[i].status == (int)enumPlayerStatus.Rummy_Ready)
             {
                 readyUsers++;
             }

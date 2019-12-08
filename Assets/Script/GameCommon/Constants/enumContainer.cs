@@ -19,6 +19,8 @@ public enum enumPlayerStatus
     Rummy_Ready,
     Rummy_GiveUp,
     Rummy_Burnt,
+    Rummy_Init,
+    Rummy_ReadyToStart,
     #endregion Enum_Rummy
 }
 

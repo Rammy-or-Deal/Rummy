@@ -29,15 +29,50 @@ public class LamiUserSeat : UserSeat
     internal bool isAuto;
 
 
-    public override void SetPlayerInfo(PlayerInfo info) {
-        base.SetPlayerInfo(info);        
+    public override void SetPlayerInfo(PlayerInfo info)
+    {
+        base.SetPlayerInfo(info);
 
+        canShow = isSeat;
+        status = (int)info.m_status;
+        InitUI();
+        Show();
+
+/*
+        switch (info.m_status)
+        {
+            case enumPlayerStatus.Rummy_Ready:
+                playerReadyImage.gameObject.SetActive(true);
+                break;
+        }
+        */
     }
 
+    void InitUI()
+    {
+        playerReadyImage.gameObject.SetActive(false);
+        playerGiveupImage.gameObject.SetActive(false);
+        playerBurntImage.gameObject.SetActive(false);
+        autoOnImage.gameObject.SetActive(false);
 
+        if (GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted)
+        {
+            mCardNum.transform.parent.gameObject.SetActive(true);
+            mAceJokerPanel.gameObject.SetActive(true);
+            //mClock.gameObject.SetActive(true);
+            mAceValue.text = "0";
+            mJokerValue.text = "0";
+            mCardNum.text = "20";
+        }
+        else
+        {
+            mCardNum.transform.parent.gameObject.SetActive(false);
+            mAceJokerPanel.gameObject.SetActive(false);
+            mClock.gameObject.SetActive(false);
+        }
+    }
 
     #region OLD Code
-
 
 
     public void OnEnable()
@@ -47,12 +82,12 @@ public class LamiUserSeat : UserSeat
 
     private void Awake()
     {
-        
+
     }
 
     public void Start()
     {
-//        mClock.SetActive(false);
+        //        mClock.SetActive(false);
     }
 
     public void OnDisable()
@@ -73,7 +108,7 @@ public class LamiUserSeat : UserSeat
 
         mAceValue.text = (int.Parse(mAceValue.text) + aCount) + "";
         mJokerValue.text = (int.Parse(mJokerValue.text) + jokerCount) + "";
-        
+
     }
     public LamiGameBot getBotStringFromPhoton(int botID)
     {
@@ -99,7 +134,7 @@ public class LamiUserSeat : UserSeat
     }
     internal void SetProperty(int tmpActor)
     {
-        
+
         isBot = true;
         string infoString = "";
         foreach (Player p in PhotonNetwork.PlayerList)  // If this isn't a bot
@@ -120,11 +155,11 @@ public class LamiUserSeat : UserSeat
             // {
             //     if (LamiPlayerMgr.Inst.m_botList[i].id == tmpActor)
             //     {
-                    //status = LamiPlayerMgr.Inst.m_botList[i].status;
-                    var infoBot = getBotStringFromPhoton(tmpActor);
-                    if(infoBot == null) return;
-                    infoString = infoBot.getBotString();
-                    status = infoBot.status;
+            //status = LamiPlayerMgr.Inst.m_botList[i].status;
+            var infoBot = getBotStringFromPhoton(tmpActor);
+            if (infoBot == null) return;
+            infoString = infoBot.getBotString();
+            status = infoBot.status;
             //         break;
             //     }
             // }
@@ -165,21 +200,22 @@ public class LamiUserSeat : UserSeat
     public void Show()
     {
         InitStatus();
+        mCardNum.transform.parent.gameObject.SetActive(true);
         if (canShow)
         {
             gameObject.SetActive(true);
             switch (status)
             {
-                case (int)LamiPlayerStatus.Ready:
+                case (int)enumPlayerStatus.Rummy_Ready:                    
                     playerReadyImage.gameObject.SetActive(true);
                     mAceJokerPanel.gameObject.SetActive(true);
                     mJokerValue.text = "0";
                     mAceValue.text = "0";
                     break;
-                case (int)LamiPlayerStatus.GiveUp:
+                case (int)enumPlayerStatus.Rummy_GiveUp:
                     playerGiveupImage.gameObject.SetActive(true);
                     break;
-                case (int)LamiPlayerStatus.Burnt:
+                case (int)enumPlayerStatus.Rummy_Burnt:
                     playerBurntImage.gameObject.SetActive(true);
                     break;
             }
@@ -267,7 +303,7 @@ public class LamiUserSeat : UserSeat
         //     ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
         // }
 
-        cardList = cardList.OrderByDescending(x=>x.MyCardId).ToList();
+        cardList = cardList.OrderByDescending(x => x.MyCardId).ToList();
         //Debug.Log(ss);
     }
 
@@ -311,9 +347,9 @@ public class LamiUserSeat : UserSeat
     internal void Init_Clear()
     {
         isAuto = false;
-        status = (int)LamiPlayerStatus.Init;
+        status = (int)enumPlayerStatus.Rummy_Init;
         if (id < 0)
-            status = (int)LamiPlayerStatus.Ready;
+            status = (int)enumPlayerStatus.Rummy_Ready;
 
         mAceValue.text = "0";
         mJokerValue.text = "0";

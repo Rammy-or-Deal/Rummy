@@ -33,7 +33,7 @@ public class SeatMgr : MonoBehaviour
         var userListString  = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
         foreach(var seat in seatInfo.seatList)
-        {           
+        {
             var user = pList.m_playerList.Where(x=>x.m_userName == seat.m_userName).First();
             UpdateUserSeat(seat, user);
         }
