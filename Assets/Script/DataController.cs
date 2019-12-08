@@ -1,6 +1,8 @@
-﻿using RummyScript.Model;
+﻿using System.Collections;
+using RummyScript.Model;
 using UnityEngine;
 using Facebook.Unity;
+using UnityEngine.UI;
 
 public class DataController : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class DataController : MonoBehaviour
     public UserInfoModel userInfo;
     public SysExchangeItemModel sysExchangeItem;    
     public SettingModel setting;
+    public Sprite facebookSprite;
 
     void Awake()
     {
@@ -56,19 +59,35 @@ public class DataController : MonoBehaviour
     
     public void GetNameAndPicture()
     {
-        FB.API("me?fields=name,picture.width(200).height(200)", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
+        StartCoroutine(getFBPicture(AccessToken.CurrentAccessToken.UserId));
+        FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
         {
             if (result.ResultDictionary != null)
             {
                 foreach (string key in result.ResultDictionary.Keys)
                 {
-                    Debug.Log(key + " : " + result.ResultDictionary[key].ToString());
-                    if (key == "name")
-                        Debug.Log(result.ResultDictionary[key].ToString());
+                    Debug.Log(key + " : " + result.ResultDictionary[key]);
                 }
+                userInfo.name = result.ResultDictionary["name"].ToString();
+                UIController.Inst.userInfoPanel.UpdateValue();
             }
         });
     }
 
+    public IEnumerator getFBPicture(string facebookId)
+    {
+        var www = new WWW("http://graph.facebook.com/" + facebookId +
+                          "/picture?width=250&height=250&type=square&redirect=true");
+        Debug.Log("http://graph.facebook.com/" + facebookId +
+                  "/picture?width=250&height=250&type=normal&redirect=true" + "\t" + www.error);
+        yield return www;
 
+        if (www.isDone)
+        {
+            Debug.Log("waiting" + www.bytesDownloaded);
+            facebookSprite=Sprite.Create(www.texture,new Rect(0,0, www.texture.width, www.texture.width), new Vector2());
+            userInfo.sprite = facebookSprite;
+            UIController.Inst.userInfoPanel.UpdateValue();
+        }
+    }
 }

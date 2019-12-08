@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -9,6 +10,7 @@ namespace RummyScript.Model
     {
         public int id;
         public string name;
+        public Sprite sprite;
         public string pic;
         
         public string winRate;
@@ -58,6 +60,7 @@ namespace RummyScript.Model
         {
             name = prefixName+"["+Random.Range(1000,9999).ToString() + "]";
             pic = "new_avatar/avatar_" + Random.Range(1,26).ToString();
+            sprite= Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
             
             coinValue = Random.Range(50000,99999);
             leafValue = Random.Range(100,999);

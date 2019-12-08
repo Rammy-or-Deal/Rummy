@@ -28,16 +28,6 @@ public class UserSeat : MonoBehaviour
     }
 
     public PlayerInfo m_playerInfo;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public virtual void SetPlayerInfo(PlayerInfo info)
     {
