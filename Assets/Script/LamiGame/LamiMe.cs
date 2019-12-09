@@ -287,7 +287,7 @@ public class LamiMe : MeMgr
         CheckAllList("availList");
     }
 
-    private List<ATTACH_CLASS> FilterByCurrentTurn_JOKER(List<List<Card>> AllList, List<List<Card>> panList)
+    public static List<ATTACH_CLASS> FilterByCurrentTurn_JOKER(List<List<Card>> AllList, List<List<Card>> panList)
     {
         List<ATTACH_CLASS> resList = new List<ATTACH_CLASS>();
 
@@ -379,7 +379,7 @@ public class LamiMe : MeMgr
         return resList;
     }
 
-    private List<List<Card>> GetAvailableCards_Joker(List<LamiMyCard> myCurrent)
+    public static List<List<Card>> GetAvailableCards_Joker(List<LamiMyCard> myCurrent)
     {
         List<Card> m_tmpCardList = new List<Card>();
 
@@ -397,7 +397,7 @@ public class LamiMe : MeMgr
         return GetAvailableCards_Joker_With_Card(m_tmpCardList);
     }
 
-    private List<List<Card>> GetAvailableCards_Joker_With_Card(List<Card> m_tmpCardList)
+    public static List<List<Card>> GetAvailableCards_Joker_With_Card(List<Card> m_tmpCardList)
     {
 
         List<List<Card>> same_List = new List<List<Card>>();
@@ -920,6 +920,7 @@ public class LamiMe : MeMgr
             //LamiCountdownTimer.Inst.StartTurnTimer();
 
             // Get all available cards
+            GameMgr.Inst.Log("Remain Card me:=" + LamiGameUIManager.Inst.myCardPanel.myCards.Count);
             Init_FlashList();
 
             LamiGameUIManager.Inst.myCardPanel.SetPlayButtonState();

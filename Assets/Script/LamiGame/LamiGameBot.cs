@@ -41,7 +41,7 @@ public class LamiGameBot
 
     public void Init()
     {
-        
+
         status = (int)enumPlayerStatus.Rummy_Init;
         id = -(UnityEngine.Random.Range(1000, 9999));
         name = "Guest" + "[" + UnityEngine.Random.Range(1000, 9999).ToString() + "]";
@@ -94,7 +94,7 @@ public class LamiGameBot
             status = int.Parse(tmp[6]);
         }
     }
-    
+
     internal void SetMyCards(string cardString)
     {
         isFirstTurn = true;
@@ -142,6 +142,8 @@ public class LamiGameBot
         catch { }
         LogMgr.Inst.Log("Bot dealt card: " + id + " ------" + cardStr, (int)LogLevels.BotLog);
         isFirstTurn = false;
+
+       
     }
 
     private bool Init_FlashList()
@@ -172,12 +174,16 @@ public class LamiGameBot
         }
         var flushList = LamiMe.GetAvailableCards_Flush_With_Card(remained_cardList);
         var setList = LamiMe.GetAvailableCards_Set_With_Card(remained_cardList);
+        var jokerList = LamiMe.GetAvailableCards_Joker_With_Card(remained_cardList);
 
         List<ATTACH_CLASS> allFlushList = LamiMe.FilterByCurrentTurn_FLUSH(flushList, panList, isFirstTurn);
         List<ATTACH_CLASS> allSetList = new List<ATTACH_CLASS>();
+        List<ATTACH_CLASS> allJokerList = new List<ATTACH_CLASS>();
         if (!isFirstTurn)
+        {
             allSetList = LamiMe.FilterByCurrentTurn_SET(setList, panList);
-
+            allJokerList = LamiMe.FilterByCurrentTurn_JOKER(jokerList, panList);
+        }
 
         var allFlushList_nonJoker = allFlushList.Where(x => x.list.Count(y => y.num == 15) == 0).ToList();
         allFlushList_nonJoker.Sort((a, b) => b.list.Sum(x => x.virtual_num) - a.list.Sum(x => x.virtual_num));
@@ -191,10 +197,12 @@ public class LamiGameBot
         var allSetList_Joker = allSetList.Where(x => x.list.Count(y => y.num == 15) > 0).ToList();
         allSetList_Joker.Sort((a, b) => a.list.Count(x => x.num == 15) - b.list.Count(x => x.num == 15));
 
+
         availList.AddRange(allFlushList_nonJoker);
         availList.AddRange(allSetList_nonJoker);
         availList.AddRange(allFlushList_Joker);
         availList.AddRange(allSetList_Joker);
+        availList.AddRange(allJokerList);
 
         if (availList.Count == 0)
         {

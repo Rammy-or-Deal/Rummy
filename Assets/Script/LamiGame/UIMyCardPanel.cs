@@ -470,6 +470,8 @@ public class UIMyCardPanel : MonoBehaviour
         DealCards(v, list);
         RemoveSentCard(list);
         LamiGameUIManager.Inst.uiSelectCardList.Hide();
+
+        
     }
 
     private void RemoveSentCard(List<Card> list)

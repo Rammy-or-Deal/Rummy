@@ -32,19 +32,19 @@ public class LamiUserSeat : UserSeat
     public override void SetPlayerInfo(PlayerInfo info)
     {
         base.SetPlayerInfo(info);
-        
+
         canShow = isSeat;
         status = (int)info.m_status;
         Show();
 
-/*
-        switch (info.m_status)
-        {
-            case enumPlayerStatus.Rummy_Ready:
-                playerReadyImage.gameObject.SetActive(true);
-                break;
-        }
-        */
+        /*
+                switch (info.m_status)
+                {
+                    case enumPlayerStatus.Rummy_Ready:
+                        playerReadyImage.gameObject.SetActive(true);
+                        break;
+                }
+                */
     }
 
     #region OLD Code
@@ -165,15 +165,10 @@ public class LamiUserSeat : UserSeat
     }
     #endregion
 
-    void InitStatus()
+    public void InitStatus()
     {
-        
-        GameMgr.Inst.Log("PlayerID:="+m_playerInfo.m_actorNumber + ", GameStatus:=" + GameMgr.Inst.m_gameStatus);
+        GameMgr.Inst.Log("PlayerID:=" + m_playerInfo.m_actorNumber + ", GameStatus:=" + GameMgr.Inst.m_gameStatus);
 
-        playerReadyImage.gameObject.SetActive(false);
-        playerGiveupImage.gameObject.SetActive(false);
-        playerBurntImage.gameObject.SetActive(false);
-        autoOnImage.gameObject.SetActive(false);
 
         if (GameMgr.Inst.m_gameStatus == enumGameStatus.InGamePlay || GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted)
         {
@@ -190,18 +185,22 @@ public class LamiUserSeat : UserSeat
             mAceJokerPanel.gameObject.SetActive(false);
             mClock.gameObject.SetActive(false);
         }
-        
+
     }
     public void Show()
     {
-        InitStatus();
+        playerReadyImage.gameObject.SetActive(false);
+        playerGiveupImage.gameObject.SetActive(false);
+        playerBurntImage.gameObject.SetActive(false);
+        autoOnImage.gameObject.SetActive(false);
+        
         mCardNum.transform.parent.gameObject.SetActive(true);
         if (canShow)
         {
             gameObject.SetActive(true);
             switch (status)
             {
-                case (int)enumPlayerStatus.Rummy_Ready:                    
+                case (int)enumPlayerStatus.Rummy_Ready:
                     playerReadyImage.gameObject.SetActive(true);
                     mAceJokerPanel.gameObject.SetActive(true);
                     mJokerValue.text = "0";
@@ -284,7 +283,7 @@ public class LamiUserSeat : UserSeat
                 for (int i = 0; i < cardList.Count; i++)
                 {
                     if ((cardList[i].num == tmp[1] && cardList[i].color == tmp[2] && cardList[i].MyCardId == -1) ||
-                        (cardList[i].num == 15 && tmp[2] == 15 && cardList[i].MyCardId == -1))
+                        (cardList[i].num == 15 && tmp[1] == 15 && cardList[i].MyCardId == -1))
                     {
                         cardList[i].MyCardId = 1;
                         break;
@@ -347,22 +346,22 @@ public class LamiUserSeat : UserSeat
         //m_aceCount = cardList.Count(x => x.num == 1);
         m_aceCount = 0;
         bool tmpBool = true;
-        int []tmp = new int[4]{0,0,0,0};
+        int[] tmp = new int[4] { 0, 0, 0, 0 };
 
-        foreach(var card in cardList.Where(x=>x.num == 1).ToList())
+        foreach (var card in cardList.Where(x => x.num == 1).ToList())
         {
-            tmp[card.color]+=1;
+            tmp[card.color] += 1;
         }
-        for(int i = 0; i < tmp.Length; i++)
+        for (int i = 0; i < tmp.Length; i++)
         {
-            if(tmp[i] == 1)
+            if (tmp[i] == 1)
                 m_aceCount += 1;
-            if(tmp[i] >= 2)
-                m_aceCount += tmp[i]*2;
-            if(tmp[i] == 0)
-                tmpBool = false;            
+            if (tmp[i] >= 2)
+                m_aceCount += tmp[i] * 2;
+            if (tmp[i] == 0)
+                tmpBool = false;
         }
-        if(tmpBool == true)
+        if (tmpBool == true)
         {
             m_aceCount += 4;
         }

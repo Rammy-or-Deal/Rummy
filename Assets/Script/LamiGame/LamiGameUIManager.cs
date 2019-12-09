@@ -160,6 +160,7 @@ public class LamiGameUIManager : GameUIManager
         var cardList = LamiCardMgr.ConvertCardStrToCardList(cardStr);
         LogMgr.Inst.Log("User dealt card, line number:= " + lineNum, (int)LogLevels.RoomLog3);
         MessageStatus lineType = MessageStatus.Flush;
+        
         if (lineNum == -1)
         {
             curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
