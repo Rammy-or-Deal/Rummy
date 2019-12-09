@@ -229,7 +229,7 @@ public class LamiPlayerMgr : SeatMgr
             if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == actor)
             {
                 m_playerList[i].mCardNum.text = remained + "";
-                if (remained <= 3)
+                if (remained == 0)
                     isGame = true;
 
                 string[] str = cardString.Split(':');

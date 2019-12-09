@@ -152,15 +152,24 @@ public class LamiGameUIManager : GameUIManager
         //        Todo
     }
 
+
+
     public void OnDealCard(string cardStr)
     {
         Debug.Log(cardStr);
         int lineNum = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD_PAN];
 
         var cardList = LamiCardMgr.ConvertCardStrToCardList(cardStr);
+        foreach (Card card in cardList)
+        {
+            card.MyCardId = 1;
+        }
+
         LogMgr.Inst.Log("User dealt card, line number:= " + lineNum, (int)LogLevels.RoomLog3);
         MessageStatus lineType = MessageStatus.Flush;
-        
+
+        //SetCardsToOld();
+
         if (lineNum == -1)
         {
             curGameCardList = Instantiate(gameCardListPrefab, gameCardPanelPan.transform);
@@ -196,6 +205,36 @@ public class LamiGameUIManager : GameUIManager
 
         LamiEffectDialog.Inst.ShowMessage(lineType);
     }
+/*
+    private void SetCardsToOld()
+    {
+        foreach (var line in mGameCardPanelList)
+        {
+            foreach (var card in line.centerCards)
+            {
+                try
+                {
+                    card.isLast = -1;
+                    card.UpdateValue();
+                }
+                catch { }
+            }
+            foreach (var card in line.mGameCardList)
+            {
+                card.MyCardId = -1;
+            }
+            foreach (var card in line.showCards)
+            {
+                try
+                {
+                    card.isLast = -1;
+                    card.UpdateValue();
+                }
+                catch { }
+            }
+        }
+    }
+*/
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
 
