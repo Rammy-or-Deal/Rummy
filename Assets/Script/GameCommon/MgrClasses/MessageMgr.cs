@@ -26,6 +26,8 @@ public class MessageMgr : MonoBehaviour
             case enumGameMessage.OnSeatStringUpdate:
                 GameMgr.Inst.seatMgr.OnSeatStringUpdate();
                 break;
+            case enumGameMessage.OnPlayerLeftRoom:
+                break;
             default:
                 GameMgr.Inst.Log(msg + " isn't my section. go to children");
                 return false;

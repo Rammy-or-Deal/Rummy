@@ -42,6 +42,7 @@ enum LamiMessages
 }
 public class LamiMgr : GameController
 {
+    
     public override void SendMessage(int messageId, Player p = null)
     {
         Debug.Log("Message arrived");

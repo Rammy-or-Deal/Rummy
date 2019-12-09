@@ -51,6 +51,7 @@ public class LamiMe : MeMgr
             Inst = this;
             PublishMe();
         }
+        LamiCountdownTimer.Inst.StartTimer();
         status = (int)enumPlayerStatus.Rummy_Init;
         availList = new List<ATTACH_CLASS>();
         // try

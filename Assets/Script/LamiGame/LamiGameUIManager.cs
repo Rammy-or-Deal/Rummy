@@ -168,7 +168,7 @@ public class LamiGameUIManager : GameUIManager
         LogMgr.Inst.Log("User dealt card, line number:= " + lineNum, (int)LogLevels.RoomLog3);
         MessageStatus lineType = MessageStatus.Flush;
 
-        //SetCardsToOld();
+        SetCardsToOld();
 
         if (lineNum == -1)
         {
@@ -205,36 +205,20 @@ public class LamiGameUIManager : GameUIManager
 
         LamiEffectDialog.Inst.ShowMessage(lineType);
     }
-/*
+
     private void SetCardsToOld()
     {
         foreach (var line in mGameCardPanelList)
         {
-            foreach (var card in line.centerCards)
-            {
-                try
-                {
-                    card.isLast = -1;
-                    card.UpdateValue();
-                }
-                catch { }
-            }
+            
             foreach (var card in line.mGameCardList)
             {
                 card.MyCardId = -1;
             }
-            foreach (var card in line.showCards)
-            {
-                try
-                {
-                    card.isLast = -1;
-                    card.UpdateValue();
-                }
-                catch { }
-            }
+            line.ShowCards();
         }
     }
-*/
+
     public void PlayerCardUpdate(Player otherPlayer, Hashtable dealCard)
     {
 

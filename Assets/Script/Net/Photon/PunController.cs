@@ -397,6 +397,15 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        try
+        {
+            GameMgr.Inst.messageMgr.OnMessageArrived((int)enumGameMessage.OnPlayerLeftRoom, otherPlayer);
+        }
+        catch (Exception Log)
+        {
+            Debug.Log("OnRoomPropertiesUpdate Error: " + Log.Message);
+        }
+
         /*
         Debug.Log(otherPlayer.NickName + "/other/left room");
 
