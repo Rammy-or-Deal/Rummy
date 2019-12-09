@@ -30,13 +30,14 @@ public class LamiMyCard : LamiGameCard
         num = card.num;
         color = card.color;
         UpdateValue();
+        Color col = mCard.color;
+        col.a = 1f;
         if (card.MyCardId == 1)  //default:-1 , 1:disable
         {
-            Color col = mCard.color;
-            col.a = 0.5f;
-            mCard.color = col;
-            GetComponent<Image>().color = col;
+            col.a = 0.5f;    
         }
+        mCard.color = col;
+        GetComponent<Image>().color = col;
     }
     
     public void OnClick()
