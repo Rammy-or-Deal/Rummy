@@ -43,6 +43,8 @@ public class RoomMgr : MonoBehaviour
         GameMgr.Inst.Log("Rooms:=" + string.Join("/", m_roomList.Select(x => x.m_maxPlayer)), enumLogLevel.RoomLog);
     }
 
+
+
     public void CreateOrJoinRoom(enumGameType m_gameType, enumGameTier m_gameTier)
     {
         if (m_roomList.Count(x => x.m_gameType == m_gameType) == 0)
@@ -175,6 +177,17 @@ public class RoomMgr : MonoBehaviour
             PhotonNetwork.LoadLevel(sceneString);
     }
 
+    internal void CheckUsersAvailability()
+    {
+        foreach(var p in GameMgr.Inst.seatMgr.m_playerList)
+        {
+            if(PhotonNetwork.PlayerList.Count(x=>x.ActorNumber == p.m_playerInfo.m_actorNumber) == 0)
+            {
+                OnPlayerLeftRoom_onlyMaster(p.m_playerInfo.m_actorNumber);
+            }
+        }
+    }
+
     internal void OnLeftRoom()
     {
         GameMgr.Inst.Log(PhotonNetwork.NickName + "/me/Left Room");
@@ -183,7 +196,37 @@ public class RoomMgr : MonoBehaviour
 
         GameMgr.Inst.InitStatus();
     }
+    internal void OnPlayerLeftRoom_onlyMaster(int actorNumber)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
 
+        if(GameMgr.Inst.m_gameType == enumGameType.Lami && GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted) return;
+
+        PlayerInfoContainer pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+        SeatInfo seatInfo = new SeatInfo();
+        seatInfo.seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
+
+        m_currentRoom.m_playerCount--;
+        GameMgr.Inst.Log("Before user left room. pList=" + pList.m_playerInfoListString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("Before user left room. seatInfo=" + seatInfo.seatString, enumLogLevel.RoomLog);
+        var p = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
+        pList.m_playerList.Remove(p);
+        var s = seatInfo.seatList.Where(x => x.m_actorNumber == actorNumber).First();
+        seatInfo.seatList.Remove(s);
+
+        Hashtable turnProps = new Hashtable
+        {
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
+            {PhotonFields.SEAT_STRING, seatInfo.seatString},
+            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString},
+            {PhotonFields.RoomInfo, m_currentRoom.roomInfoString}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
+
+        GameMgr.Inst.Log("After user left room. pList=" + pList.m_playerInfoListString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("After user left room. seatInfo=" + seatInfo.seatString, enumLogLevel.RoomLog);
+    }
     internal void OnUserEnteredRoom_onlyMaster()
     {
         PlayerInfo newPlayer = new PlayerInfo();

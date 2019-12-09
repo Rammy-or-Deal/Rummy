@@ -32,6 +32,11 @@ public class SeatMgr : MonoBehaviour
         // Update User Seat
         var userListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
+        foreach(var seat in m_playerList)
+        {
+            seat.isSeat = false;
+        }
+
         foreach (var seat in seatInfo.seatList)
         {
             var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
@@ -45,6 +50,31 @@ public class SeatMgr : MonoBehaviour
         var seatNo = GetUserSeat(seat.m_seatNo);
         GameMgr.Inst.Log("NewUserEnteredRoom. ActorNumber=" + seat.m_actorNumber + ", seatNo=" + seatNo, enumLogLevel.RoomLog);
         m_playerList[seatNo].SetPlayerInfo(playerInfo);
+    }
+
+    public virtual void OnPlayerLeftRoom(int actorNumber)
+    {
+        GameMgr.Inst.Log(actorNumber + " is left. current gameStatus=" + GameMgr.Inst.m_gameStatus);
+        try
+        {            
+            if (GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted)
+            {
+                var player = m_playerList.Where(x => x.m_playerInfo.m_actorNumber == actorNumber).First();
+                player.status = (int)enumPlayerStatus.Rummy_GiveUp;
+            }
+            else
+            {
+                var pList = new PlayerInfoContainer();
+                pList.GetInfoContainerFromPhoton();
+                var p = pList.m_playerList.Where(x=>x.m_actorNumber == actorNumber).First();
+                pList.m_playerList.Remove(p);
+                
+            }
+        }
+        catch(Exception err)
+        {
+
+        }
     }
 
     private SeatInfo Update_seatNumList(string v)
@@ -89,7 +119,7 @@ public class SeatMgr : MonoBehaviour
         var userListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
 
-        foreach (var seat in seatInfo.seatList.Where(x=>x.m_actorNumber == playerId))
+        foreach (var seat in seatInfo.seatList.Where(x => x.m_actorNumber == playerId))
         {
             var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
             user.m_coinValue += score;

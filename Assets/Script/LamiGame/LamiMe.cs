@@ -179,12 +179,14 @@ public class LamiMe : MeMgr
 
     internal void OnGameRestart()
     {
+
         StopAllCoroutines();
         LamiCountdownTimer.Inst.StopTurnTimer();
 
         isAuto = false;
         isFirstTurn = true;
-
+        GameMgr.Inst.m_gameStatus = enumGameStatus.InGamePlay;
+        GameMgr.Inst.roomMgr.CheckUsersAvailability();
         LamiGameUIManager.Inst.Init_Clear();
         foreach (LamiUserSeat player in LamiPlayerMgr.Inst.m_playerList)
         {
@@ -194,7 +196,7 @@ public class LamiMe : MeMgr
                 player.m_playerInfo.m_status = enumPlayerStatus.Rummy_Ready;
                 BotMgr.PublishIamReady(player.m_playerInfo);
             }
-        }
+        }        
     }
 
 

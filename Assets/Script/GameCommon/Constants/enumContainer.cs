@@ -85,7 +85,7 @@ public enum enumGameMessage
     Rummy_OnUserReady,
     Rummy_OnGameStarted,
     Rummy_OnGameFinished_Game,
-    OnPlayerLeftRoom,
+    OnPlayerLeftRoom_onlyMaster,
     #endregion
 
     #region Baccarat Game Messages

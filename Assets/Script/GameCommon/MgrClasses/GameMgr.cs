@@ -23,7 +23,13 @@ public class GameMgr : MonoBehaviour
     #endregion
 
     #region Game Status Variables
-    public enumGameStatus m_gameStatus;
+    private enumGameStatus _m_gamestatus;
+    public enumGameStatus m_gameStatus{
+        get{return _m_gamestatus;}
+        set{
+            _m_gamestatus = value;
+        }
+    }
     public enumGameType m_gameType;
     public enumGameTier m_gameTier;
     public enumPlayerStatus m_playerStatus;

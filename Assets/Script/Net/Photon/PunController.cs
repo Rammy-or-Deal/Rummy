@@ -399,7 +399,7 @@ public class PunController : MonoBehaviourPunCallbacks
     {
         try
         {
-            GameMgr.Inst.messageMgr.OnMessageArrived((int)enumGameMessage.OnPlayerLeftRoom, otherPlayer);
+            GameMgr.Inst.messageMgr.OnMessageArrived((int)enumGameMessage.OnPlayerLeftRoom_onlyMaster, otherPlayer);
         }
         catch (Exception Log)
         {

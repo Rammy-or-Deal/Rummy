@@ -79,6 +79,9 @@ public class LamiPlayerMgr : SeatMgr
 
             LamiCardMgr.Inst.GenerateCard();
         }
+
+
+
         Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
     }
 
@@ -90,6 +93,8 @@ public class LamiPlayerMgr : SeatMgr
 
     internal void OnCardDistributed()
     {
+        GameMgr.Inst.m_gameStatus = enumGameStatus.OnGameStarted;
+
         CreateBotsFromPhoton();
         var cardListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
         totalCardString = cardListString;
@@ -290,6 +295,8 @@ public class LamiPlayerMgr : SeatMgr
         int first = nowTurn;
         nowTurn = (nowTurn + 1) % 4;
 
+        
+
         while ((m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_GiveUp ||
             m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_Burnt) && first != nowTurn)
         {
@@ -308,11 +315,7 @@ public class LamiPlayerMgr : SeatMgr
         }
         else
         {
-            Hashtable props = new Hashtable{
-                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserTurnChanged},
-                {Common.NOW_TURN, nowTurn}
-            };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+            SendTurnChangeMessage(nowTurn);
         }
     }
 
@@ -402,13 +405,42 @@ public class LamiPlayerMgr : SeatMgr
 
         // If all players are ready, Set the turn
         int turn = UnityEngine.Random.Range(0, 4);
+        SendTurnChangeMessage(turn);
+
+        LogMgr.Inst.Log("First Turn is determined. - " + turn, (int)LogLevels.RoomLog2);
+    }
+
+    private void SendTurnChangeMessage(int turn)
+    {
+        try{
+            StopCoroutine(rejectRoutine);
+        }catch{
+
+        }
+        
         Hashtable props = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserTurnChanged},
             {Common.NOW_TURN, turn}
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        LogMgr.Inst.Log("First Turn is determined. - " + turn, (int)LogLevels.RoomLog2);
+        rejectRoutine = StartCoroutine(AutoRejectPlayer(turn));
+    }
+    Coroutine rejectRoutine;
+    IEnumerator AutoRejectPlayer(int turn)
+    {   
+        GameMgr.Inst.Log("Will reject "+turn+" player after 32 seconds");
+        yield return new WaitForSeconds(32);
+        GameMgr.Inst.Log(turn+" player rejected");
+
+        int rejectActor = m_playerList[GetUserSeat(turn)].m_playerInfo.m_actorNumber;
+
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnPlayerStatusChanged},
+            {Common.PLAYER_ID, rejectActor},
+            {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_GiveUp},
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 
     internal void OnUserLeave_M(int actorNumber)

@@ -37,13 +37,18 @@ public class BotMgr : MonoBehaviour
             }
         }
     }
+    Coroutine creatingBotRoutine;
     public void StartCreatingBot()
     {
-        StartCoroutine(CreateBotTimer());
+        creatingBotRoutine = StartCoroutine(CreateBotTimer());
     }
     public void StopCreatingBot()
     {
-        StopCoroutine(CreateBotTimer());
+        try
+        {
+            StopCoroutine(creatingBotRoutine);
+        }
+        catch { }
     }
     public IEnumerator PublishBotReady(PlayerInfo info)
     {
@@ -68,7 +73,7 @@ public class BotMgr : MonoBehaviour
             };
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-            GameMgr.Inst.Log("New Bot Message Generated. + BotString=" + user.playerInfoString + ", status=" + (int)user.m_status+"/"+(int)enumPlayerStatus.Rummy_Ready);
+            GameMgr.Inst.Log("New Bot Message Generated. + BotString=" + user.playerInfoString + ", status=" + (int)user.m_status + "/" + (int)enumPlayerStatus.Rummy_Ready);
         }
         catch (Exception err)
         {
