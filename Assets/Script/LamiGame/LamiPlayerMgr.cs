@@ -33,7 +33,7 @@ public class LamiPlayerMgr : SeatMgr
     public override void OnSeatStringUpdate()
     {
         base.OnSeatStringUpdate();
-        
+
         if (!PhotonNetwork.IsMasterClient) return;
 
         GameMgr.Inst.Log("Check if all players are ready.", enumLogLevel.RummySeatMgrLog);
@@ -59,28 +59,34 @@ public class LamiPlayerMgr : SeatMgr
                 GameMgr.Inst.Log(user.m_userName + " is ready.", enumLogLevel.RummySeatMgrLog);
             }
         }
-        
-        
+
+
         if (isAllReady && seatNumList.Count == GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
         {
             GameMgr.Inst.Log("All Users are ready.", enumLogLevel.RoomLog);
 
-            
-            foreach(var p in pList.m_playerList)
+
+            foreach (var p in pList.m_playerList)
             {
                 p.m_status = enumPlayerStatus.Rummy_ReadyToStart;
             }
-            
+
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
                 {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
             };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);    
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
             LamiCardMgr.Inst.GenerateCard();
         }
         Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
-    }    
+    }
+
+    internal void OnGameFinished_Game()
+    {
+        LamiEffectDialog.Inst.ShowMessage(MessageStatus.Game);
+        LamiPlayerMgr.Inst.OnGameFinished();
+    }
 
     internal void OnCardDistributed()
     {
@@ -112,6 +118,10 @@ public class LamiPlayerMgr : SeatMgr
                     }
                 }
             }
+        }
+        foreach (var seat in m_playerList)
+        {
+            ((LamiUserSeat)seat).InitStatus();
         }
     }
 
@@ -190,7 +200,9 @@ public class LamiPlayerMgr : SeatMgr
         }
 
         if (!PhotonNetwork.IsMasterClient) return;
+
         TurnChange();
+
     }
     internal void OnDealCard()
     {
@@ -211,12 +223,14 @@ public class LamiPlayerMgr : SeatMgr
         UpdateRemainCards(cardString);
 
         LogMgr.Inst.Log("User Dealt card -  actor=" + actor + ", remained=" + remained + ", nowTurn=" + nowTurn, (int)LogLevels.RoomLog2);
-
+        bool isGame = false;
         for (int i = 0; i < m_playerList.Count; i++)
         {
             if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == actor)
             {
                 m_playerList[i].mCardNum.text = remained + "";
+                if (remained == 0)
+                    isGame = true;
 
                 string[] str = cardString.Split(':');
                 ((LamiUserSeat)m_playerList[i]).OnUserDealt(str[1]);
@@ -235,7 +249,20 @@ public class LamiPlayerMgr : SeatMgr
 
         if (PhotonNetwork.IsMasterClient && nowTurn >= 0)
         {
-            TurnChange();
+            if (isGame)
+            {
+                Hashtable props = new Hashtable{
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnGameFinished_Game},
+            };
+                PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+                //LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
+
+                StartCoroutine(SendRestartEvent());
+            }
+            else
+            {
+                TurnChange();
+            }
         }
     }
 
@@ -276,7 +303,6 @@ public class LamiPlayerMgr : SeatMgr
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
             //LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
-
 
             StartCoroutine(SendRestartEvent());
         }
@@ -514,10 +540,10 @@ public class LamiPlayerMgr : SeatMgr
         //LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
         pList.m_playerInfoListString = playerListString;
 
-        foreach(var player in m_playerList.Where(x=>x.m_playerInfo.m_actorNumber < 0))
+        foreach (var player in m_playerList.Where(x => x.m_playerInfo.m_actorNumber < 0))
         {
             LamiGameBot bot = new LamiGameBot();
-            var p = pList.m_playerList.Where(x=>x.m_actorNumber == player.m_playerInfo.m_actorNumber).First();
+            var p = pList.m_playerList.Where(x => x.m_actorNumber == player.m_playerInfo.m_actorNumber).First();
             GameMgr.Inst.Log("bot info:=" + p.playerInfoString, enumLogLevel.BotLog);
             bot.SetBotInfo(p.playerInfoString);
 

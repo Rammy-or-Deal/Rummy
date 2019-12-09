@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,12 +36,12 @@ public class UILamiFinishScorePan : MonoBehaviour
         int aceBonus = staticFunction_rummy.GetAceBonus(GameMgr.Inst.m_gameTier);
         int jokerBonus = staticFunction_rummy.GetJokerBonus(GameMgr.Inst.m_gameTier);
 
-        cardPoints.text = (-seat.m_point).ToString();
+        cardPoints.text = (seat.m_point).ToString();
         aceCount.text = seat.m_aceCount.ToString();
         jockerCount.text = seat.m_jokerCount.ToString();
         matchwinningTxt.text = seat.m_matchWinning.ToString();
-
-        score.text = (-seat.m_point + seat.m_matchWinning + seat.m_aceCount * aceBonus + seat.m_jokerCount*jokerBonus).ToString();
+        int m_score = -seat.m_point + seat.m_matchWinning + seat.m_aceCount * aceBonus + seat.m_jokerCount*jokerBonus;
+        score.text = m_score.ToString();
         
         string ss = "Finish Panel CreatedCardList("+seat.id+") := ";
         foreach (var card in seat.cardList)
@@ -50,5 +51,10 @@ public class UILamiFinishScorePan : MonoBehaviour
         Debug.Log(ss);
 
         cardPan.UpdateCards(seat.cardList);
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            GameMgr.Inst.seatMgr.AddGold(seat.m_playerInfo.m_actorNumber, m_score);
+        }
     }
 }

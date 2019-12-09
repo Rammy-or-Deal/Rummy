@@ -46,10 +46,9 @@ public class UILamiFinish : MonoBehaviour
                 //                 50 * (int.Parse(player.mAceValue.text) + int.Parse(player.mJokerValue.text)) - player.cardPoint * 10 - (index * 2 * 100),
                 //                 player.cardList);
             }
-
             
-
             scorePan[index].UpdateInfo(player);
+
             index++;
         }
     }

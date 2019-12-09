@@ -36,7 +36,7 @@ public class LamiLogicMgr : MessageMgr
             //         LamiPlayerMgr.Inst.OnUserLeave_M(p.ActorNumber);
             //     break;
             case enumGameMessage.Rummy_OnGameStarted:
-                GameMgr.Inst.botMgr.StopCreatingBot();                
+                GameMgr.Inst.botMgr.StopCreatingBot();
                 LamiPlayerMgr.Inst.OnStartGame();
                 isStart = true;
                 break;
@@ -59,6 +59,9 @@ public class LamiLogicMgr : MessageMgr
                 break;
             case enumGameMessage.Rummy_OnGameFinished:
                 LamiPlayerMgr.Inst.OnGameFinished();
+                break;
+            case enumGameMessage.Rummy_OnGameFinished_Game:
+                LamiPlayerMgr.Inst.OnGameFinished_Game();                
                 break;
             case enumGameMessage.Rummy_OnAutoPlayer:
                 LamiPlayerMgr.Inst.OnAutoPlayer();
