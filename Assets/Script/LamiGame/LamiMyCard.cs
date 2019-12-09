@@ -16,6 +16,10 @@ public class LamiMyCard : LamiGameCard
     
     void Start()
     {
+        Init();
+    }
+    public void Init()
+    {
         isSelected = false;
         isBeforeSelected = false;
         UpdateValue();

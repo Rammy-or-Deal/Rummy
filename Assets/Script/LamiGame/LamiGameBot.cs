@@ -41,6 +41,7 @@ public class LamiGameBot
 
     public void Init()
     {
+        
         status = (int)enumPlayerStatus.Rummy_Init;
         id = -(UnityEngine.Random.Range(1000, 9999));
         name = "Guest" + "[" + UnityEngine.Random.Range(1000, 9999).ToString() + "]";
@@ -96,6 +97,7 @@ public class LamiGameBot
     
     internal void SetMyCards(string cardString)
     {
+        isFirstTurn = true;
         var tmp = LamiCardMgr.ConvertCardStrToCardList(cardString);
         remained_cardList.Clear();
         original_cardList.Clear();

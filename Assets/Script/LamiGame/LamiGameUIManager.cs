@@ -89,21 +89,21 @@ public class LamiGameUIManager : GameUIManager
 
     public void OnReadyClick()
     {
-       
+
         LamiCountdownTimer.Inst.StopTimer();
         readyButton.SetActive(false);
-/*
-        Hashtable props = new Hashtable
-        {
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReady},
-            {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_Ready},
-        };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-        Debug.Log("ready click");              
-*/
+        /*
+                Hashtable props = new Hashtable
+                {
+                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReady},
+                    {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_Ready},
+                };
+                PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+                Debug.Log("ready click");              
+        */
 
         var myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-        var info = GameMgr.Inst.seatMgr.m_playerList.Where(x=>x.m_playerInfo.m_actorNumber == myActorNumber).First();
+        var info = GameMgr.Inst.seatMgr.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == myActorNumber).First();
         BotMgr.PublishIamReady(info.m_playerInfo);
 
     }
@@ -123,7 +123,7 @@ public class LamiGameUIManager : GameUIManager
         }
         else if (machingList.Count > 1)
         {
-            if (machingList[0].list[0].virtual_num == machingList[0].list[1].virtual_num)   // set
+            if (machingList[0].list.Count > 1 && machingList[0].list[0].virtual_num == machingList[0].list[1].virtual_num)   // set
             {
                 //myCardPanel.OnClickLine();
                 myCardPanel.OnClickCardList(0);
@@ -132,7 +132,7 @@ public class LamiGameUIManager : GameUIManager
             {
                 foreach (var list in machingList)
                 {
-                    if(list.list.Count >= 3 && list.lineNo != -1) continue;
+                    if (list.list.Count >= 3 && list.lineNo != -1) continue;
                     temp.Add(list.list);
                     matchNoList.Add(machingList.IndexOf(list));
                 }

@@ -20,28 +20,35 @@ public class UILamiFinish : MonoBehaviour
     public void SetData()
     {
         int index = 0;
-        foreach (LamiUserSeat player in LamiPlayerMgr.Inst.m_playerList.OrderByDescending(x => ((LamiUserSeat)x).score))
+
+        foreach (LamiUserSeat player in LamiPlayerMgr.Inst.m_playerList.OrderBy(x => ((LamiUserSeat)x).m_point))
         {
-            switch (index)
+            if (player.m_point == 0)    // If the player dealt all cards,
             {
-                case 0:
-                    player.AddScore = 700; break;
-                case 1:
-                    player.AddScore = -100; break;
-                case 2:
-                    player.AddScore = -200; break;
-                case 3:
-                    player.AddScore = -400; break;
+                if(index == 0)  // If this player is Game Player, 
+                {
+                    player.m_matchWinning = staticFunction_rummy.GetGameBonus(GameMgr.Inst.m_gameTier);
+                }
+                else
+                {
+                    player.m_matchWinning = -staticFunction_rummy.GetGameBonus(GameMgr.Inst.m_gameTier);
+                }
             }
+            else
+            {
+                player.m_matchWinning = staticFunction_rummy.GetWinningBonus(GameMgr.Inst.m_gameTier, index);
+
+                //LamiUserSeat seat = LamiPlayerMgr.Inst.m_playerList[i];
+                // scorePan[index].UpdateInfo(player.mUserPic.sprite, player.mUserSkillName.text,
+                //     (index + 1).ToString(),
+                //                 player.mUserName.text, (index + 1) + "", player.cardPoint,
+                //                 player.mAceValue.text, player.mJokerValue.text,
+                //                 50 * (int.Parse(player.mAceValue.text) + int.Parse(player.mJokerValue.text)) - player.cardPoint * 10 - (index * 2 * 100),
+                //                 player.cardList);
+            }
+
             
 
-            //LamiUserSeat seat = LamiPlayerMgr.Inst.m_playerList[i];
-            // scorePan[index].UpdateInfo(player.mUserPic.sprite, player.mUserSkillName.text,
-            //     (index + 1).ToString(),
-            //                 player.mUserName.text, (index + 1) + "", player.cardPoint,
-            //                 player.mAceValue.text, player.mJokerValue.text,
-            //                 50 * (int.Parse(player.mAceValue.text) + int.Parse(player.mJokerValue.text)) - player.cardPoint * 10 - (index * 2 * 100),
-            //                 player.cardList);
             scorePan[index].UpdateInfo(player);
             index++;
         }

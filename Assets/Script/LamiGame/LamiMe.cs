@@ -108,7 +108,7 @@ public class LamiMe : MeMgr
     }
 
     public void SetMyCards(string data)
-    {
+    {        
         Card[] cards = LamiCardMgr.ConvertCardStrToCardList((string)data);
 
         LamiGameUIManager.Inst.myCardPanel.InitCards(cards);
@@ -188,8 +188,15 @@ public class LamiMe : MeMgr
         foreach (LamiUserSeat player in LamiPlayerMgr.Inst.m_playerList)
         {
             player.Init_Clear();
+            if (player.m_playerInfo.m_actorNumber < 0)
+            {
+                player.m_playerInfo.m_status = enumPlayerStatus.Rummy_Ready;
+                BotMgr.PublishIamReady(player.m_playerInfo);
+            }
         }
     }
+
+
 
     internal void OnShuffleAccept()
     {
@@ -207,6 +214,8 @@ public class LamiMe : MeMgr
         Init_FlashList();
         LamiGameUIManager.Inst.playButton.interactable = false;
     }
+
+
 
     public void Init_FlashList()
     {

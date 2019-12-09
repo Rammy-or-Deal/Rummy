@@ -9,8 +9,7 @@ public class UILamiFinishCardPan : MonoBehaviour
 
     public void UpdateCards(List<Card> cards)
     {
-        try
-        {
+
             for(int i = 1; i < mCards.Count; i++)
                 Destroy(mCards[i].gameObject);
 
@@ -22,7 +21,6 @@ public class UILamiFinishCardPan : MonoBehaviour
                 newCard.UpdateFinishCard(cards[i]);
                 mCards.Add(newCard);
             }
-        }
-        catch { }
+
     }
 }

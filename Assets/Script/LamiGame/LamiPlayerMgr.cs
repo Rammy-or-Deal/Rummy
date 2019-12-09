@@ -59,13 +59,13 @@ public class LamiPlayerMgr : SeatMgr
                 GameMgr.Inst.Log(user.m_userName + " is ready.", enumLogLevel.RummySeatMgrLog);
             }
         }
-        Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
+        
         
         if (isAllReady && seatNumList.Count == GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
         {
             GameMgr.Inst.Log("All Users are ready.", enumLogLevel.RoomLog);
 
-            LamiCardMgr.Inst.GenerateCard();
+            
             foreach(var p in pList.m_playerList)
             {
                 p.m_status = enumPlayerStatus.Rummy_ReadyToStart;
@@ -75,9 +75,11 @@ public class LamiPlayerMgr : SeatMgr
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
                 {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
             };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-            
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);    
+
+            LamiCardMgr.Inst.GenerateCard();
         }
+        Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
     }    
 
     internal void OnCardDistributed()
@@ -164,8 +166,6 @@ public class LamiPlayerMgr : SeatMgr
             tmpStr += ((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber + "(" + m_playerList[i].status + "), ";
         }
         LogMgr.Inst.Log("Current String:=" + tmpStr);
-
-
 
         int player_id = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         int status = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_STATUS];
@@ -292,7 +292,7 @@ public class LamiPlayerMgr : SeatMgr
 
     IEnumerator SendRestartEvent()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         Hashtable props = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnGameRestart},
         };
@@ -510,7 +510,7 @@ public class LamiPlayerMgr : SeatMgr
     {
         PlayerInfoContainer pList = new PlayerInfoContainer();
         string playerListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
-
+        m_botList.Clear();
         //LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
         pList.m_playerInfoListString = playerListString;
 

@@ -44,11 +44,13 @@ public class UIMyCardPanel : MonoBehaviour
         }
         for (int i = 0; i < cards.Length; i++)
         {
+            myCards[i].isSelected = false;
             myCards[i].num = cards[i].num;
             myCards[i].color = cards[i].color;
             myCards[i].MyCardId = i;
             myCards[i].gameObject.SetActive(true);
             //cardEntry.UpdateValue();
+            myCards[i].Init();
         }
 
         gameObject.SetActive(true);

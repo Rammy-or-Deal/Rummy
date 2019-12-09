@@ -6,24 +6,28 @@ using Photon.Pun;
 using UnityEngine;
 
 
-public class GameRoomInfo{
-    public enumGameType m_gameType{get; set;}
-    public enumGameTier m_gameTier{get; set;}
-    public string m_roomName{get; set;}
-    public int m_gameFee{get; set;}
-    public int m_playerCount{get; set;}
-    public int m_maxPlayer{get; set;}
-    public string m_additionalString{get; set;}
+public class GameRoomInfo
+{
+    public enumGameType m_gameType { get; set; }
+    public enumGameTier m_gameTier { get; set; }
+    public string m_roomName { get; set; }
+    public int m_gameFee { get; set; }
+    public int m_playerCount { get; set; }
+    public int m_maxPlayer { get; set; }
+    public string m_additionalString { get; set; }
 
     public GameRoomInfo()
     {
-        
+
     }
-    public string roomInfoString{
-        get{
+    public string roomInfoString
+    {
+        get
+        {
             return string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}", (int)m_gameType, (int)m_gameTier, m_roomName, m_gameFee, m_playerCount, m_maxPlayer, m_additionalString);
         }
-        set{
+        set
+        {
             var tmpList = value.Split(':');
             m_gameType = (enumGameType)(int.Parse(tmpList[0]));
             m_gameTier = (enumGameTier)(int.Parse(tmpList[1]));
@@ -32,7 +36,7 @@ public class GameRoomInfo{
             m_playerCount = int.Parse(tmpList[4]);
             m_maxPlayer = int.Parse(tmpList[5]);
             m_additionalString = "";
-            for(int i = 6; i < tmpList.Length; i++)
+            for (int i = 6; i < tmpList.Length; i++)
             {
                 m_additionalString += tmpList[i];
             }
@@ -40,15 +44,19 @@ public class GameRoomInfo{
     }
 }
 
-public class PlayerInfoContainer{
+public class PlayerInfoContainer
+{
     public List<PlayerInfo> m_playerList;
-    public string m_playerInfoListString{
-        get{
-            return string.Join(",", m_playerList.Select(x=>x.playerInfoString));
+    public string m_playerInfoListString
+    {
+        get
+        {
+            return string.Join(",", m_playerList.Select(x => x.playerInfoString));
         }
-        set{
+        set
+        {
             var tmpList = value.Split(',');
-            foreach(var tmp in tmpList)
+            foreach (var tmp in tmpList)
             {
                 var player = new PlayerInfo();
                 player.playerInfoString = tmp;
@@ -68,17 +76,21 @@ public class PlayerInfoContainer{
 
     public PlayerInfoContainer GetInfoContainerFromPhoton()
     {
-        try{
+        try
+        {
             string infoString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
             this.m_playerInfoListString = infoString;
-        }catch{
+        }
+        catch
+        {
             GameMgr.Inst.Log("No player list info.", enumLogLevel.staticClassLog);
             return null;
         }
         return this;
     }
 }
-public class PlayerInfo{
+public class PlayerInfo
+{
 
     public int m_actorNumber;
     public string m_userName;
@@ -88,11 +100,13 @@ public class PlayerInfo{
     public int m_frameId;
     public enumPlayerStatus m_status;
 
-    public string playerInfoString{
-        get{
+    public string playerInfoString
+    {
+        get
+        {
             var infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
                 m_actorNumber,
-                m_userName, 
+                m_userName,
                 m_userPic,
                 m_coinValue,
                 m_skillLevel,
@@ -101,7 +115,8 @@ public class PlayerInfo{
             );
             return infoString;
         }
-        set{
+        set
+        {
             var tmpList = value.Split(':');
             m_actorNumber = int.Parse(tmpList[0]);
             m_userName = tmpList[1];
@@ -126,25 +141,31 @@ public class PlayerInfo{
         return playerInfoString;
     }
 }
-public class SeatInfo{
+public class SeatInfo
+{
 
-    public class OneSeat{
+    public class OneSeat
+    {
         public int m_actorNumber;
         public int m_seatNo;
         public string m_userName;
-        public string oneSeatString{
-            get{
+        public string oneSeatString
+        {
+            get
+            {
                 return string.Format("{0}:{1}:{2}", m_actorNumber, m_seatNo, m_userName);
             }
-            set{
+            set
+            {
                 var tmpList = value.Split(':');
                 m_actorNumber = int.Parse(tmpList[0]);
                 m_seatNo = int.Parse(tmpList[1]);
                 m_userName = tmpList[2];
             }
         }
-        public OneSeat(){}
-        public OneSeat(int actorNumber, int seatNo, string userName){
+        public OneSeat() { }
+        public OneSeat(int actorNumber, int seatNo, string userName)
+        {
             m_actorNumber = actorNumber;
             m_seatNo = seatNo;
             m_userName = userName;
@@ -161,14 +182,17 @@ public class SeatInfo{
         OneSeat seat = new OneSeat(actorNumber, seatNo, userName);
         seatList.Add(seat);
     }
-    public string seatString{
-        get{
-            return string.Join(",", seatList.Select(x=>x.oneSeatString));
+    public string seatString
+    {
+        get
+        {
+            return string.Join(",", seatList.Select(x => x.oneSeatString));
         }
-        set{
+        set
+        {
             seatList.Clear();
             var tmpList = value.Split(',');
-            foreach(var tmp in tmpList)
+            foreach (var tmp in tmpList)
             {
                 OneSeat seat = new OneSeat();
                 seat.oneSeatString = tmp;
@@ -254,17 +278,164 @@ public class Card
     }
     #endregion
 }
+
+public static class staticFunction_rummy
+{
+    public static int GetGameBonus(enumGameTier tier)
+    {
+        int bonus = 0;
+        switch (tier)
+        {
+            case enumGameTier.LamiNewbie:
+                bonus = 400;
+                break;
+            case enumGameTier.LamiBeginner:
+                bonus = 1200;
+                break;
+            case enumGameTier.LamiVeteran:
+                bonus = 4000;
+                break;
+            case enumGameTier.LamiIntermediate:
+                bonus = 10000;
+                break;
+            case enumGameTier.LamiAdvanced:
+                bonus = 20000;
+                break;
+            case enumGameTier.LamiMaster:
+                bonus = 40000;
+                break;
+        }
+        return bonus;
+    }
+
+    public static int GetWinningBonus(enumGameTier tier, int rank)
+    {
+        int bonus = 0;
+        switch (tier)
+        {
+            case enumGameTier.LamiNewbie:
+                switch (rank)
+                {
+                    case 0: bonus = 600; break;
+                    case 1: bonus = -100; break;
+                    case 2: bonus = -200; break;
+                    case 3: bonus = -300; break;
+                }
+                break;
+            case enumGameTier.LamiBeginner:
+                switch (rank)
+                {
+                    case 0: bonus = 1800; break;
+                    case 1: bonus = -300; break;
+                    case 2: bonus = -600; break;
+                    case 3: bonus = -900; break;
+                }
+                break;
+            case enumGameTier.LamiVeteran:
+                switch (rank)
+                {
+                    case 0: bonus = 6000; break;
+                    case 1: bonus = -1000; break;
+                    case 2: bonus = -2000; break;
+                    case 3: bonus = -3000; break;
+                }
+                break;
+            case enumGameTier.LamiIntermediate:
+                switch (rank)
+                {
+                    case 0: bonus = 15000; break;
+                    case 1: bonus = -2500; break;
+                    case 2: bonus = -5000; break;
+                    case 3: bonus = -7500; break;
+                }
+                break;
+            case enumGameTier.LamiAdvanced:
+                switch (rank)
+                {
+                    case 0: bonus = 30000; break;
+                    case 1: bonus = -5000; break;
+                    case 2: bonus = -10000; break;
+                    case 3: bonus = -15000; break;
+                }
+                break;
+            case enumGameTier.LamiMaster:
+                switch (rank)
+                {
+                    case 0: bonus = 60000; break;
+                    case 1: bonus = -10000; break;
+                    case 2: bonus = -20000; break;
+                    case 3: bonus = -30000; break;
+                }
+                break;
+        }
+        return bonus;
+    }
+
+    internal static int GetAceBonus(enumGameTier tier)
+    {
+        int bonus = 0;
+        switch (tier)
+        {
+            case enumGameTier.LamiNewbie:
+                bonus = 30;
+                break;
+            case enumGameTier.LamiBeginner:
+                bonus = 90;
+                break;
+            case enumGameTier.LamiVeteran:
+                bonus = 300;
+                break;
+            case enumGameTier.LamiIntermediate:
+                bonus = 750;
+                break;
+            case enumGameTier.LamiAdvanced:
+                bonus = 1500;
+                break;
+            case enumGameTier.LamiMaster:
+                bonus = 3000;
+                break;
+        }
+        return bonus;
+    }
+
+    internal static int GetJokerBonus(enumGameTier tier)
+    {
+        int bonus = 0;
+        switch (tier)
+        {
+            case enumGameTier.LamiNewbie:
+                bonus = 30;
+                break;
+            case enumGameTier.LamiBeginner:
+                bonus = 90;
+                break;
+            case enumGameTier.LamiVeteran:
+                bonus = 300;
+                break;
+            case enumGameTier.LamiIntermediate:
+                bonus = 750;
+                break;
+            case enumGameTier.LamiAdvanced:
+                bonus = 1500;
+                break;
+            case enumGameTier.LamiMaster:
+                bonus = 3000;
+                break;
+        }
+        return bonus;
+    }
+}
 public class staticClassContainer : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

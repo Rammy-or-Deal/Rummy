@@ -32,17 +32,22 @@ public class UILamiFinishScorePan : MonoBehaviour
         skill.sprite=Resources.Load<Sprite>("new_skill/skill_"+seat.mUserSkillName.text);
         username.text =seat.mUserName.text;
 
-        cardPoints.text = seat.cardPoint.ToString();
-        aceCount.text = seat.aCount.ToString();
-        jockerCount.text = seat.jokerCount.ToString();
-        score.text = (seat.score + seat.AddScore + seat.aCount * Constants.lamiAMultiply + seat.jokerCount*Constants.lamiJokerMultiply).ToString();
+        int aceBonus = staticFunction_rummy.GetAceBonus(GameMgr.Inst.m_gameTier);
+        int jokerBonus = staticFunction_rummy.GetJokerBonus(GameMgr.Inst.m_gameTier);
+
+        cardPoints.text = (-seat.m_point).ToString();
+        aceCount.text = seat.m_aceCount.ToString();
+        jockerCount.text = seat.m_jokerCount.ToString();
+        matchwinningTxt.text = seat.m_matchWinning.ToString();
+
+        score.text = (-seat.m_point + seat.m_matchWinning + seat.m_aceCount * aceBonus + seat.m_jokerCount*jokerBonus).ToString();
         
-        string ss = "CreatedCardList("+seat.id+") := ";
+        string ss = "Finish Panel CreatedCardList("+seat.id+") := ";
         foreach (var card in seat.cardList)
         {
             ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
         }
-        //Debug.Log(ss);
+        Debug.Log(ss);
 
         cardPan.UpdateCards(seat.cardList);
     }

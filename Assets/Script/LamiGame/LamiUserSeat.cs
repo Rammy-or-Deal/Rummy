@@ -32,10 +32,9 @@ public class LamiUserSeat : UserSeat
     public override void SetPlayerInfo(PlayerInfo info)
     {
         base.SetPlayerInfo(info);
-
+        
         canShow = isSeat;
         status = (int)info.m_status;
-        InitUI();
         Show();
 
 /*
@@ -46,30 +45,6 @@ public class LamiUserSeat : UserSeat
                 break;
         }
         */
-    }
-
-    void InitUI()
-    {
-        playerReadyImage.gameObject.SetActive(false);
-        playerGiveupImage.gameObject.SetActive(false);
-        playerBurntImage.gameObject.SetActive(false);
-        autoOnImage.gameObject.SetActive(false);
-
-        if (GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted)
-        {
-            mCardNum.transform.parent.gameObject.SetActive(true);
-            mAceJokerPanel.gameObject.SetActive(true);
-            //mClock.gameObject.SetActive(true);
-            mAceValue.text = "0";
-            mJokerValue.text = "0";
-            mCardNum.text = "20";
-        }
-        else
-        {
-            mCardNum.transform.parent.gameObject.SetActive(false);
-            mAceJokerPanel.gameObject.SetActive(false);
-            mClock.gameObject.SetActive(false);
-        }
     }
 
     #region OLD Code
@@ -192,10 +167,30 @@ public class LamiUserSeat : UserSeat
 
     void InitStatus()
     {
+        
+        GameMgr.Inst.Log("PlayerID:="+m_playerInfo.m_actorNumber + ", GameStatus:=" + GameMgr.Inst.m_gameStatus);
+
         playerReadyImage.gameObject.SetActive(false);
         playerGiveupImage.gameObject.SetActive(false);
         playerBurntImage.gameObject.SetActive(false);
         autoOnImage.gameObject.SetActive(false);
+
+        if (GameMgr.Inst.m_gameStatus == enumGameStatus.InGamePlay || GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted)
+        {
+            mCardNum.transform.parent.gameObject.SetActive(true);
+            mAceJokerPanel.gameObject.SetActive(true);
+            //mClock.gameObject.SetActive(true);
+            mAceValue.text = "0";
+            mJokerValue.text = "0";
+            mCardNum.text = "20";
+        }
+        else
+        {
+            mCardNum.transform.parent.gameObject.SetActive(false);
+            mAceJokerPanel.gameObject.SetActive(false);
+            mClock.gameObject.SetActive(false);
+        }
+        
     }
     public void Show()
     {
@@ -252,7 +247,7 @@ public class LamiUserSeat : UserSeat
 
     internal void cardListUpdate(string totalCardString, string totalPayString)
     {
-        //LogMgr.Inst.Log(string.Format("GameFinished. totalCardString={0}, totalPayString={1}", totalCardString, totalPayString), (int)LogLevels.LamiFinishLog);
+        GameMgr.Inst.Log(string.Format("GameFinished. totalCardString={0}, totalPayString={1}", totalCardString, totalPayString));
         //Debug.Log(string.Format("GameFinished. totalCardString={0}, totalPayString={1}", totalCardString, totalPayString));
         cardList.Clear();
         var players = totalCardString.Trim('/').Split('/');
@@ -260,7 +255,7 @@ public class LamiUserSeat : UserSeat
         {
             if (player == "") continue;
             int playerActor = int.Parse(player.Split(':')[0]);
-            if (playerActor == id)
+            if (playerActor == m_playerInfo.m_actorNumber)
             {
                 var numList = player.Split(':')[1].Split(',').Select(Int32.Parse).ToArray();
                 var colList = player.Split(':')[2].Split(',').Select(Int32.Parse).ToArray();
@@ -272,19 +267,19 @@ public class LamiUserSeat : UserSeat
                 }
             }
         }
-        // string ss = "CreatedCardList := ";
-        // foreach (var card in cardList)
-        // {
-        //     ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
-        // }
-        // Debug.Log(ss);
+        string ss = "CreatedCardList := ";
+        foreach (var card in cardList)
+        {
+            ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
+        }
+        Debug.Log(ss);
         var payItems = totalPayString.Trim('/').Split('/');
         foreach (var item in payItems)
         {
             var tmp = item.Split(':').Select(Int32.Parse).ToArray();
             //Debug.Log(string.Format("MyId={0}, payId={1}, payCard={2}:{3}", id, tmp[0], tmp[1], tmp[2]));
             if (tmp.Length == 0) continue;
-            if (tmp[0] == id)
+            if (tmp[0] == m_playerInfo.m_actorNumber)
             {
                 for (int i = 0; i < cardList.Count; i++)
                 {
@@ -297,14 +292,14 @@ public class LamiUserSeat : UserSeat
                 }
             }
         }
-        // ss = "UpdatedCardList := ";
-        // foreach (var card in cardList)
-        // {
-        //     ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
-        // }
+        ss = "UpdatedCardList := ";
+        foreach (var card in cardList)
+        {
+            ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
+        }
 
         cardList = cardList.OrderByDescending(x => x.MyCardId).ToList();
-        //Debug.Log(ss);
+        Debug.Log(ss);
     }
 
     public int score = 0;
@@ -314,11 +309,18 @@ public class LamiUserSeat : UserSeat
 
     public int AddScore = 0;
 
+
+    public int m_point = 0;
+    public int m_matchWinning = 0;
+    public int m_aceCount = 0;
+    public int m_jokerCount = 0;
+
     internal void calcScore()
     {
         // Calc Card Score
         cardPoint = cardList.Count(x => x.MyCardId != 1);
         score = 0;
+        m_point = 0;
         foreach (var card in cardList.Where(x => x.MyCardId != 1).ToList())
         {
             int addVal = 0;
@@ -337,11 +339,33 @@ public class LamiUserSeat : UserSeat
                     addVal = card.num;
                     break;
             }
+            m_point += addVal;
             score -= addVal;
             //cardPoint++;
         }
-        jokerCount = cardList.Count(x => x.num == 15);
-        aCount = cardList.Count(x => x.num == 1);
+        m_jokerCount = cardList.Count(x => x.num == 15);
+        //m_aceCount = cardList.Count(x => x.num == 1);
+        m_aceCount = 0;
+        bool tmpBool = true;
+        int []tmp = new int[4]{0,0,0,0};
+
+        foreach(var card in cardList.Where(x=>x.num == 1).ToList())
+        {
+            tmp[card.color]+=1;
+        }
+        for(int i = 0; i < tmp.Length; i++)
+        {
+            if(tmp[i] == 1)
+                m_aceCount += 1;
+            if(tmp[i] >= 2)
+                m_aceCount += tmp[i]*2;
+            if(tmp[i] == 0)
+                tmpBool = false;            
+        }
+        if(tmpBool == true)
+        {
+            m_aceCount += 4;
+        }
     }
 
     internal void Init_Clear()
