@@ -10,6 +10,7 @@ public class LamiGameCard : MonoBehaviour
     public int color;
     public int num = 0;
     public GameObject lastCardEffect;
+    private bool isLast;
     
     
     public const int JOKER_NUM = 15;
@@ -26,16 +27,14 @@ public class LamiGameCard : MonoBehaviour
             mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_15_15");
         else
             mCard.sprite = Resources.Load<Sprite>("new_card/" + "card_" + color + "_" + num);
-        
-        
+        lastCardEffect.SetActive(isLast);
     }
 
     public void UpdateCard(Card card)
     {
         num = card.num;
         color = card.color;
-        //isLast = card.MyCardId;
-        
+        isLast = (card.MyCardId==1);
         UpdateValue();
     }
 }
