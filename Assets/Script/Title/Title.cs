@@ -32,7 +32,7 @@ public class Title : MonoBehaviour
     }
     public void FaceBookBtnClick()
     {
-        var perms = new List<string>(){"public_profile", "email","user_friends"};
+        var perms = new List<string>(){"public_profile", "email"};
         FB.LogInWithReadPermissions(perms, AuthCallback);
     }
     
