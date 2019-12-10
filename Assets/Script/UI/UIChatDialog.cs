@@ -8,6 +8,8 @@ public class UIChatDialog : MonoBehaviour
 {
     public InputField InputFieldChat; // set in inspector
     public Text CurrentChannelText; // set in inspector
+    public GameObject emojiModule;
+    public GameObject messageModule;
     
     // Start is called before the first frame update
     void Start()
@@ -41,5 +43,11 @@ public class UIChatDialog : MonoBehaviour
     public void OnClose(GameObject obj)
     {
         obj.SetActive(false);
+    }
+
+    public void OnEmoji(bool isShow)
+    {
+        emojiModule.SetActive(isShow);
+        messageModule.SetActive(!isShow);
     }
 }
