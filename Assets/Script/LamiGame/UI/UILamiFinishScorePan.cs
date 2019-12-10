@@ -40,7 +40,8 @@ public class UILamiFinishScorePan : MonoBehaviour
         aceCount.text = seat.m_aceCount.ToString();
         jockerCount.text = seat.m_jokerCount.ToString();
         matchwinningTxt.text = seat.m_matchWinning.ToString();
-        int m_score = -seat.m_point + seat.m_matchWinning + seat.m_aceCount * aceBonus + seat.m_jokerCount*jokerBonus;
+        //int m_score = -seat.m_point + seat.m_matchWinning + seat.m_aceCount * aceBonus + seat.m_jokerCount*jokerBonus;
+        int m_score = seat.m_matchWinning + seat.m_aceCount * aceBonus + seat.m_jokerCount*jokerBonus;
         score.text = m_score.ToString();
         
         string ss = "Finish Panel CreatedCardList("+seat.id+") := ";
