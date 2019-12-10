@@ -27,7 +27,7 @@ public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
         Debug.Log("created: actorNumber:"+ info.photonView.OwnerActorNr);
         Debug.Log("created: actorNumber:"+ info.photonView.CreatorActorNr);
         
-        Debug.Log("created: actorNumber:"+ GetComponent<PhotonView>().ControllerActorNr));
+        Debug.Log("created: actorNumber:"+ GetComponent<PhotonView>().ControllerActorNr);
         Debug.Log("created: actorNumber:"+ GetComponent<PhotonView>().OwnerActorNr);
         Debug.Log("created: actorNumber:"+ GetComponent<PhotonView>().CreatorActorNr);
     }
