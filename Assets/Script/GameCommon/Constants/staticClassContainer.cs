@@ -287,22 +287,22 @@ public static class staticFunction_rummy
         switch (tier)
         {
             case enumGameTier.LamiNewbie:
-                bonus = 400;
-                break;
-            case enumGameTier.LamiBeginner:
                 bonus = 1200;
                 break;
+            case enumGameTier.LamiBeginner:
+                bonus = 3600;
+                break;
             case enumGameTier.LamiVeteran:
-                bonus = 4000;
+                bonus = 12000;
                 break;
             case enumGameTier.LamiIntermediate:
-                bonus = 10000;
+                bonus = 30000;
                 break;
             case enumGameTier.LamiAdvanced:
-                bonus = 20000;
+                bonus = 60000;
                 break;
             case enumGameTier.LamiMaster:
-                bonus = 40000;
+                bonus = 120000;
                 break;
         }
         return bonus;
