@@ -82,20 +82,20 @@ public class SeatMgr : MonoBehaviour
         return seatInfo;
     }
 
-    private int GetUserSeat(int no)
+    public int GetUserSeat(int actorNumber)
     {
         int seatPos;
-        if (no == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+        if (actorNumber == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
         {
             seatPos = 0;
         }
-        else if (no > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+        else if (actorNumber > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
         {
-            seatPos = no - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber];
+            seatPos = actorNumber - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber];
         }
         else
         {
-            seatPos = GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + no;
+            seatPos = GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + actorNumber;
         }
 
         return seatPos;

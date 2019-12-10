@@ -49,7 +49,10 @@ public class UIChatDialog : MonoBehaviour
 
     public void OnClickEmoji(int id)
     {
-        object[] myCustomInitData = new object[]{id};
-        PhotonNetwork.Instantiate("Prefabs/chat/emoji", Vector3.zero, Quaternion.identity, 0,myCustomInitData);        
+        if (PhotonNetwork.InRoom)
+        {
+            object[] myCustomInitData = new object[]{id};
+            PhotonNetwork.Instantiate("Prefabs/chat/emoji", Vector3.zero, Quaternion.identity, 0,myCustomInitData);    
+        }
     }
 }
