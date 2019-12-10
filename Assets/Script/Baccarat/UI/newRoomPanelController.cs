@@ -34,10 +34,14 @@ public class newRoomPanelController : MonoBehaviour
     {
         //Debug.Log("password:="+password.text);
         GetMoney();
-        roomInfo.password = password.text;
-        roomInfo.isPrivate = privacyList[1].isSelected;
+        var tmpRoom = staticFunction_Baccarat.GetBaccaratRoomInfoFromTier(GameMgr.Inst.m_gameTier);
+        tmpRoom.password = password.text;
+        tmpRoom.isPrivate = privacyList[1].isSelected;
+        tmpRoom.status = "";
 
-        PunController.Inst.CreateBacaratRoom(roomInfo);
+        GameMgr.Inst.roomMgr.CreateRoom(GameMgr.Inst.m_gameType, GameMgr.Inst.m_gameTier, tmpRoom.roomString);
+        GameMgr.Inst.Log("Current Room Info = " + tmpRoom.roomString + ", gameType="+GameMgr.Inst.m_gameType + ", gameTier="+GameMgr.Inst.m_gameTier);
+        // PunController.Inst.CreateBacaratRoom(roomInfo);
     }
 
     private void GetMoney()
@@ -49,7 +53,6 @@ public class newRoomPanelController : MonoBehaviour
         else{
             DataController.Inst.userInfo.leafValue -= roomInfo.gem;
         }
-
     }
 
     public void ShowRoom(BaccaratRoomInfo info)
