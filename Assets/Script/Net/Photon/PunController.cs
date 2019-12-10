@@ -330,7 +330,7 @@ public class PunController : MonoBehaviourPunCallbacks
                 // Send Add New player Message. - OnUserEnteredRoom
                 props = new Hashtable
                 {
-                    {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnUserEnteredRoom},
+                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnUserEnteredRoom},
                     {Common.NEW_PLAYER_INFO, infoString},
                 };
 
@@ -416,7 +416,7 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
         {
-            BaccaratGameController.Inst.SendMessage((int)BaccaratMessages.OnUserLeave, otherPlayer);
+            BaccaratGameController.Inst.SendMessage((int)enumGameMessage.Baccarat_OnUserLeave, otherPlayer);
         }
         */
     }
@@ -438,9 +438,9 @@ public class PunController : MonoBehaviourPunCallbacks
                 }
                 else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
                 {
-                    if (updatedInfo.ContainsKey(Common.BACCARAT_MESSAGE))
+                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
                     {
-                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[Common.BACCARAT_MESSAGE], player);
+                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE], player);
                     }
                 }
                 else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
@@ -481,9 +481,9 @@ public class PunController : MonoBehaviourPunCallbacks
                 }
                 else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
                 {
-                    if (updatedInfo.ContainsKey(Common.BACCARAT_MESSAGE))
+                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
                     {
-                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[Common.BACCARAT_MESSAGE]);
+                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE]);
                     }
                 }
                 else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))

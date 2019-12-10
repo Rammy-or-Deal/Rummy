@@ -46,18 +46,20 @@ public class BaccaratPanMgr : MonoBehaviour
     internal void StartNewPan()
     {
 
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            Hashtable prop = new Hashtable{
-                {Common.PLAYER_BETTING_LOG, ""},
-                {Common.NOW_BET, ""},
-            };
-            player.SetCustomProperties(prop);
-        }
+        // foreach (var player in PhotonNetwork.PlayerList)
+        // {
+        //     Hashtable prop = new Hashtable{
+        //         {Common.PLAYER_BETTING_LOG, ""},
+        //         {Common.NOW_BET, ""},
+        //     };
+        //     player.SetCustomProperties(prop);
+        // }
 
         Hashtable table = new Hashtable{
-            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnStartNewPan},
-            {Common.BACCARAT_CURRENT_TIME, Constants.BaccaratCurrentTime}
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnStartNewPan},
+            {Common.BACCARAT_CURRENT_TIME, Constants.BaccaratCurrentTime},
+            {Common.PLAYER_BETTING_LOG, ""},
+            {Common.NOW_BET, ""}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
@@ -104,15 +106,17 @@ public class BaccaratPanMgr : MonoBehaviour
             if (time >= 0)
             {
                 Hashtable table = new Hashtable{
-                    {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnPanTimeUpdate},
+                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnPanTimeUpdate},
                     {Common.BACCARAT_CURRENT_TIME, time}
                 };
                 PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+
+                GameMgr.Inst.botMgr.Deal();
             }
             else
             {
                 Hashtable table = new Hashtable{
-                    {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnEndPan},
+                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnEndPan},
                 };
                 PhotonNetwork.CurrentRoom.SetCustomProperties(table);
             }
@@ -126,7 +130,8 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal async void OnPrizeAwarded()
     {
-        var prize_area = (string)PhotonNetwork.LocalPlayer.CustomProperties[Common.BACCARAT_PRIZE_AREA];
+
+        var prize_area = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_PRIZE_AREA];
 
         message.Show("Congratulations!");
         await Task.Delay(3000);
@@ -197,13 +202,13 @@ public class BaccaratPanMgr : MonoBehaviour
         BaccaratUserSeat banker = null;
         try
         {
-            banker = BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.id == max_betting_banker).First();
+            banker =(BaccaratUserSeat) BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == max_betting_banker).First();
         }
         catch { }
         BaccaratUserSeat player = null;
         try
         {
-            player = BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.id == max_betting_player).First();
+            player =(BaccaratUserSeat) BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == max_betting_player).First();
         }
         catch { }
 
@@ -254,7 +259,7 @@ public class BaccaratPanMgr : MonoBehaviour
     {
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
         Hashtable table = new Hashtable{
-            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnShowingCatchedCard},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnShowingCatchedCard},
             {Common.BACCARAT_NOW_SHOWING_TURN, nowTurn}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);

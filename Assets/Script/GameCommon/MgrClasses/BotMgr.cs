@@ -25,15 +25,18 @@ public class BotMgr : MonoBehaviour
 
             if (PhotonNetwork.IsMasterClient)
             {
-                PlayerInfo info = GenerateNewBotInfo();
-                Hashtable props = new Hashtable{
-                    {PhotonFields.GAME_MESSAGE, enumGameMessage.OnUserEnteredRoom_onlyMaster},
-                    {PhotonFields.NEW_PLAYER_INFO, info.playerInfoString}
-                };
-                PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-                GameMgr.Inst.Log("New Bot Generated. + BotString=" + info.playerInfoString);
-                if (GameMgr.Inst.m_gameType == enumGameType.Lami)
-                    StartCoroutine(PublishBotReady(info));
+                if (GameMgr.Inst.roomMgr.m_currentRoom.m_playerCount < GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
+                {
+                    PlayerInfo info = GenerateNewBotInfo();
+                    Hashtable props = new Hashtable{
+                        {PhotonFields.GAME_MESSAGE, enumGameMessage.OnUserEnteredRoom_onlyMaster},
+                        {PhotonFields.NEW_PLAYER_INFO, info.playerInfoString}
+                    };
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+                    GameMgr.Inst.Log("New Bot Generated. + BotString=" + info.playerInfoString);
+                    if (GameMgr.Inst.m_gameType == enumGameType.Lami)
+                        StartCoroutine(PublishBotReady(info));
+                }
             }
         }
     }
@@ -96,5 +99,10 @@ public class BotMgr : MonoBehaviour
         info.m_userPic = data.pic;
 
         return info;
+    }
+
+    public virtual void Deal()
+    {
+
     }
 }

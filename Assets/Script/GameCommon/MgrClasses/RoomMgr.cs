@@ -68,6 +68,12 @@ public class RoomMgr : MonoBehaviour
         }
     }
 
+    internal void JoinRoom(string roomName)
+    {
+        m_currentRoom.roomInfoString = m_roomList.Where(x => x.m_roomName == roomName).First().roomInfoString;
+        PhotonNetwork.JoinRoom(m_currentRoom.m_roomName, null);
+    }
+
     public void CreateRoom(enumGameType m_gameType, enumGameTier m_gameTier, string additionalString = "")
     {
         GameRoomInfo room = new GameRoomInfo();

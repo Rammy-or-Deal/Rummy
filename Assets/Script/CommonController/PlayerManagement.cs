@@ -44,7 +44,7 @@ public class PlayerManagement : MonoBehaviour
                 res = PhotonFields.GAME_MESSAGE;
                 break;
             case Game_Identifier.Baccarat:
-                res = Common.BACCARAT_MESSAGE;
+                res = PhotonFields.GAME_MESSAGE;
                 break;
         }
         return res;

@@ -59,5 +59,6 @@ public class UIBRoomItem : MonoBehaviour
     public void JoinRoom()
     {        
         //PunController.Inst.JoinRoom(this.roomInfo.tableName);
+        GameMgr.Inst.roomMgr.JoinRoom(roomName);
     }
 }

@@ -28,7 +28,9 @@ public class UIBBetPan : MonoBehaviour
 
     internal void Init()
     {
+        try{
         val.gameObject.SetActive(false);
         winObj.SetActive(false);
+        }catch{}
     }
 }
