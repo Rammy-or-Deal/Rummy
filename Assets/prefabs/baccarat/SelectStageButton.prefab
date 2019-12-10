@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7618467302731076034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 28}
+  m_SizeDelta: {x: 100, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7984219950396101379
 CanvasRenderer:
@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 7984219950670766561}
   - component: {fileID: 7984219950670766564}
   - component: {fileID: 7984219950670766567}
+  - component: {fileID: 3060195646569998288}
   m_Layer: 5
   m_Name: SelectStageButton
   m_TagString: Untagged
@@ -231,6 +232,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3060195646569998288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7984219950670766560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a252968b29f2f419bdc0fd5e33d465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coverImage: {fileID: 1613797336371419371}
+  m_gameTier: 0
 --- !u!1 &8758671611838180276
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +257,7 @@ GameObject:
   - component: {fileID: 4369088492952205904}
   - component: {fileID: 8294173609648667531}
   - component: {fileID: 3494752044856085789}
-  - component: {fileID: 5403121934758341529}
+  - component: {fileID: 1385036246013577315}
   m_Layer: 0
   m_Name: button
   m_TagString: Untagged
@@ -308,7 +323,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5403121934758341529
+--- !u!114 &1385036246013577315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -351,12 +366,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 3060195646569998288}
+        m_MethodName: OnClickStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

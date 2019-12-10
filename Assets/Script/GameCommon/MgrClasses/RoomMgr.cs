@@ -68,7 +68,7 @@ public class RoomMgr : MonoBehaviour
         }
     }
 
-    public void CreateRoom(enumGameType m_gameType, enumGameTier m_gameTier)
+    public void CreateRoom(enumGameType m_gameType, enumGameTier m_gameTier, string additionalString = "")
     {
         GameRoomInfo room = new GameRoomInfo();
         room.m_gameType = m_gameType;
@@ -77,7 +77,7 @@ public class RoomMgr : MonoBehaviour
         room.m_gameFee = GetGameFeeOfGame(m_gameType, m_gameTier);
         room.m_maxPlayer = GetMaxPlayerOfGame(m_gameType, m_gameTier);
         room.m_playerCount = 0;
-        room.m_additionalString = "";
+        room.m_additionalString = additionalString;
 
         RoomOptions options = new RoomOptions();
 

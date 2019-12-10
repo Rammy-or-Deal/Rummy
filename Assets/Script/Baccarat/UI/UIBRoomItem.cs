@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class UIBRoomItem : MonoBehaviour
 {
     // Start is called before the first frame update
-    [HideInInspector] public BaccaratRoomInfo roomInfo;
-
 
     public Text UI_tableName;
     public Image UI_isPrivate;
@@ -17,8 +15,12 @@ public class UIBRoomItem : MonoBehaviour
     public Button UI_status;
     public Text UI_players;
     public Button UI_join;
-
     #region  Unity
+
+    [HideInInspector] public BaccaratRoomInfo roomInfo;
+    [HideInInspector] public string roomName;
+    [HideInInspector] public int maxPlayer;
+    [HideInInspector] public int nowPlayer;
     void Start()
     {
 
@@ -30,19 +32,32 @@ public class UIBRoomItem : MonoBehaviour
 
     }
     #endregion
-    internal void SetMe(BaccaratRoomInfo room)
+    internal void SetMe(string roomInfoString)//BaccaratRoomInfo room)
     {
-        this.roomInfo = room;
-        UI_tableName.text = roomInfo.tableName;
+
+        GameRoomInfo tmpRoom = new GameRoomInfo();
+        tmpRoom.roomInfoString = roomInfoString;
+
+        roomInfo = new BaccaratRoomInfo();
+        roomInfo.roomString = tmpRoom.m_additionalString;
+        GameMgr.Inst.Log("Newly created room info(origin):=" + roomInfoString);
+        GameMgr.Inst.Log("Newly created room info(additional):=" + tmpRoom.m_additionalString);
+        GameMgr.Inst.Log("Newly created room info(parsed):=" + roomInfo.roomString);
+
+        roomName = tmpRoom.m_roomName;
+        maxPlayer = tmpRoom.m_maxPlayer;
+        nowPlayer = tmpRoom.m_playerCount;
+
+        UI_tableName.text = roomName;
 
         UI_isPrivate.gameObject.SetActive(roomInfo.isPrivate);
         UI_minBet.text = roomInfo.minBet.ToString();
         UI_maxBet.text = roomInfo.maxBet.ToString();
-        UI_players.text = roomInfo.playersNum + " / " + roomInfo.totalPlayers;
+        UI_players.text = nowPlayer.ToString();
+        //UI_players.text = roomInfo.playersNum + " / " + roomInfo.totalPlayers;
     }
     public void JoinRoom()
-    {
-        
-        PunController.Inst.JoinRoom(this.roomInfo.tableName);
+    {        
+        //PunController.Inst.JoinRoom(this.roomInfo.tableName);
     }
 }

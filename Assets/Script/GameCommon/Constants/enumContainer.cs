@@ -28,6 +28,7 @@ public enum enumGameTier
 {
     Lobby,
     LamiNewbie, LamiBeginner, LamiVeteran, LamiIntermediate, LamiAdvanced, LamiMaster,
+    BaccaratRegular, BaccaratSilver, BaccaratGold, BaccaratPlatinum, BaccaratCreateRoom,
     FortuneNewbie, FortuneBeginner, FortuneVeteran, FortuneIntermediate, FortuneAdvanced, FortuneMaster,
 }
 #endregion

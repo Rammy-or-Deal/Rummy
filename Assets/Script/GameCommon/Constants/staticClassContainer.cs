@@ -35,11 +35,15 @@ public class GameRoomInfo
             m_gameFee = int.Parse(tmpList[3]);
             m_playerCount = int.Parse(tmpList[4]);
             m_maxPlayer = int.Parse(tmpList[5]);
+
+
             m_additionalString = "";
-            for (int i = 6; i < tmpList.Length; i++)
+            for (int i = 0; i <= 5; i++)
             {
-                m_additionalString += tmpList[i];
+                m_additionalString += tmpList[i] + ":";
             }
+            m_additionalString = value.Replace(m_additionalString, "");
+            //Debug.Log("Test for parsing. "+value.Replace(m_additionalString, ""));
         }
     }
 }
@@ -423,6 +427,46 @@ public static class staticFunction_rummy
                 break;
         }
         return bonus;
+    }
+}
+
+public static class staticFunction_Baccarat
+{
+    public static BaccaratRoomInfo GetBaccaratRoomInfoFromTier(enumGameTier tier)
+    {
+        BaccaratRoomInfo info = new BaccaratRoomInfo();
+        switch (tier)
+        {
+            case enumGameTier.BaccaratRegular:
+                info.minBet = 100;
+                info.maxBet = 12500;
+                info.totalPlayers = 9;
+                info.coin = 1500;
+                info.gem = 1;
+                break;
+            case enumGameTier.BaccaratSilver:
+                info.minBet = 1000;
+                info.maxBet = 125000;
+                info.totalPlayers = 9;
+                info.coin = 15000;
+                info.gem = 10;
+                break;
+            case enumGameTier.BaccaratGold:
+                info.minBet = 5000;
+                info.maxBet = 625000;
+                info.totalPlayers = 9;
+                info.coin = 75000;
+                info.gem = 50;
+                break;
+            case enumGameTier.BaccaratPlatinum:
+                info.minBet = 10000;
+                info.maxBet = 1250000;
+                info.totalPlayers = 9;
+                info.coin = 150000;
+                info.gem = 100;
+                break;
+        }
+        return info;
     }
 }
 public class staticClassContainer : MonoBehaviour

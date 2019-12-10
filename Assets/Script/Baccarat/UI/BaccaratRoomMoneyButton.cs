@@ -11,7 +11,7 @@ public class BaccaratRoomMoneyButton : MonoBehaviour
     public BaccaratRoomMoneyButton friend;
     void Start()
     {
-
+        UpdateMe();
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class BaccaratRoomMoneyButton : MonoBehaviour
     }
     public void OnClickedMe()
     {
-        isSelected = !isSelected;
+        isSelected = true;
         friend.isSelected = !isSelected;
         UpdateMe();
         friend.UpdateMe();
