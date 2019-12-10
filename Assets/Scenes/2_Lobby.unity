@@ -11913,7 +11913,6 @@ GameObject:
   - component: {fileID: 285494122}
   - component: {fileID: 285494121}
   - component: {fileID: 285494123}
-  - component: {fileID: 913094620144313379}
   - component: {fileID: 285494124}
   m_Layer: 5
   m_Name: cow_cry
@@ -49024,7 +49023,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 285494121}
+  m_TargetGraphic: {fileID: 1309811820}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -67929,7 +67928,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 285494121}
+  m_TargetGraphic: {fileID: 1768446615}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -85854,18 +85853,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140025855}
   m_CullTransparentMesh: 0
---- !u!114 &913094620144313379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285494119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8919f907976ba042994752731dc314a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1086084359563627541
 PrefabInstance:
   m_ObjectHideFlags: 0
