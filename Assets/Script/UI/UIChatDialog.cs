@@ -50,4 +50,9 @@ public class UIChatDialog : MonoBehaviour
         emojiModule.SetActive(isShow);
         messageModule.SetActive(!isShow);
     }
+
+    public void OnClickEmoji(int id)
+    {
+        
+    }
 }
