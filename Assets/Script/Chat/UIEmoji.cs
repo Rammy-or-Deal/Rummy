@@ -10,7 +10,7 @@ public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(Destroy());
     }
 
     public void OnPhotonInstantiate(PhotonMessageInfo info) //called before Start()
@@ -20,15 +20,13 @@ public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
         
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = Resources.Load("chat/"+animationList[id]) as RuntimeAnimatorController;
-        gameObject.transform.parent = UIController.Inst.chatDlg.transform.parent;
+        gameObject.transform.parent = GameMgr.Inst.seatMgr.GetUserSeat(GetComponent<PhotonView>().OwnerActorNr).transform;
         transform.localPosition=Vector3.zero;
-        
-        Debug.Log("created: actorNumber:"+ info.photonView.ControllerActorNr);
-        Debug.Log("created: actorNumber:"+ info.photonView.OwnerActorNr);
-        Debug.Log("created: actorNumber:"+ info.photonView.CreatorActorNr);
-        
-        Debug.Log("created: actorNumber:"+ GetComponent<PhotonView>().ControllerActorNr);
-        Debug.Log("created: actorNumber:"+ GetComponent<PhotonView>().OwnerActorNr);
-        Debug.Log("created: actorNumber:"+ GetComponent<PhotonView>().CreatorActorNr);
+    }
+
+    IEnumerator Destroy()
+    {
+        yield return new WaitForSeconds(3);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

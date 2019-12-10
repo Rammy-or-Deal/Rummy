@@ -36,7 +36,7 @@ public class SeatMgr : MonoBehaviour
 
     private void UpdateUserSeat(SeatInfo.OneSeat seat, PlayerInfo playerInfo)
     {
-        var seatNo = GetUserSeat(seat.m_seatNo);
+        var seatNo = GetUserSeatPos(seat.m_seatNo);
         GameMgr.Inst.Log("NewUserEnteredRoom. ActorNumber=" + seat.m_actorNumber + ", seatNo=" + seatNo, enumLogLevel.RoomLog);
         m_playerList[seatNo].SetPlayerInfo(playerInfo);
     }
@@ -82,7 +82,12 @@ public class SeatMgr : MonoBehaviour
         return seatInfo;
     }
 
-    public int GetUserSeat(int actorNumber)
+    public UserSeat GetUserSeat(int actorNumber)
+    {
+        return m_playerList[GetUserSeatPos(actorNumber)];
+    }
+
+    private int GetUserSeatPos(int actorNumber)
     {
         int seatPos;
         if (actorNumber == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
