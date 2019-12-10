@@ -10,18 +10,18 @@ public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Destroy());
+        
     }
 
     public void OnPhotonInstantiate(PhotonMessageInfo info) //called before Start()
     {
         object[] instantiationData = info.photonView.InstantiationData;
         int id = (int) instantiationData[0];
-        
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = Resources.Load("chat/"+animationList[id]) as RuntimeAnimatorController;
         gameObject.transform.parent = GameMgr.Inst.seatMgr.GetUserSeat(GetComponent<PhotonView>().OwnerActorNr).transform;
         transform.localPosition=Vector3.zero;
+        StartCoroutine(Destroy());
     }
 
     IEnumerator Destroy()
