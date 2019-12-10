@@ -7,20 +7,9 @@ using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class SeatMgr : MonoBehaviour
 {
-    // Start is called before the first frame update
     public List<UserSeat> m_playerList;
     [HideInInspector] public Dictionary<int, int> seatNumList;
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     public virtual void OnSeatStringUpdate()
     {
         GameMgr.Inst.Log("SeatMgr->OnSeatStringUpdate() is called.", enumLogLevel.RoomLog);

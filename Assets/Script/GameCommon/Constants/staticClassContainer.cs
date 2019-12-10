@@ -143,7 +143,6 @@ public class PlayerInfo
 }
 public class SeatInfo
 {
-
     public class OneSeat
     {
         public int m_actorNumber;

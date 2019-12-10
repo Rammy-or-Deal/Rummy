@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Chat;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,6 @@ public class UIChatDialog : MonoBehaviour
     void Start()
     {
         ChatMgr.Inst.ShowChannel("Lobby");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void OnEnterSend()
@@ -53,6 +49,7 @@ public class UIChatDialog : MonoBehaviour
 
     public void OnClickEmoji(int id)
     {
-        
+        object[] myCustomInitData = new object[]{id};
+        PhotonNetwork.Instantiate("Prefabs/chat/emoji", Vector3.zero, Quaternion.identity, 0,myCustomInitData);        
     }
 }

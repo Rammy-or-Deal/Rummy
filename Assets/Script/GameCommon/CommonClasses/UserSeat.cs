@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class UserSeat : MonoBehaviour
 {
-    // Start is called before the first frame update
     public bool canShow;
     public int status;
     public Text mCardNum;
