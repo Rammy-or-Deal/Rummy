@@ -23,6 +23,8 @@ public class UILamiFinish : MonoBehaviour
 
         foreach (LamiUserSeat player in LamiPlayerMgr.Inst.m_playerList.OrderBy(x => ((LamiUserSeat)x).m_point))
         {
+            player.m_aceScore = 0;
+            player.m_jokerScore = 0;
             if (player.m_point == 0)    // If the player dealt all cards,
             {
                 if(index == 0)  // If this player is Game Player, 
@@ -46,7 +48,13 @@ public class UILamiFinish : MonoBehaviour
                 //                 50 * (int.Parse(player.mAceValue.text) + int.Parse(player.mJokerValue.text)) - player.cardPoint * 10 - (index * 2 * 100),
                 //                 player.cardList);
             }
-            
+
+            foreach(LamiUserSeat p in LamiPlayerMgr.Inst.m_playerList)
+            {
+                player.m_aceScore += player.m_aceCount - p.m_aceCount;
+                player.m_jokerScore += player.m_jokerCount - p.m_jokerCount;
+            }
+
             scorePan[index].UpdateInfo(player);
 
             index++;

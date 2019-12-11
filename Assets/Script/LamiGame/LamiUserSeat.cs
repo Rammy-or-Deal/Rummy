@@ -313,6 +313,8 @@ public class LamiUserSeat : UserSeat
     public int m_matchWinning = 0;
     public int m_aceCount = 0;
     public int m_jokerCount = 0;
+    public int m_aceScore = 0;
+    public int m_jokerScore = 0;
 
     internal void calcScore()
     {
