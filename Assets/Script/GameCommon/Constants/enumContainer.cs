@@ -87,6 +87,16 @@ public enum enumGameMessage
     Rummy_OnGameStarted,
     Rummy_OnGameFinished_Game,
     OnPlayerLeftRoom_onlyMaster,
+    Baccarat_OnStartNewPan,
+    Baccarat_OnPanTimeUpdate,
+    Baccarat_OnEndPan,
+    Baccarat_OnPlayerBet,
+    Baccarat_OnCatchedCardDistributed,
+    Baccarat_OnShowingCatchedCard,
+    Baccarat_OnShowingVictoryArea,
+    Baccarat_OnPrizeAwarded,
+    Baccarat_OnUpdateMe,
+    Baccarat_OnInitUI,
     #endregion
 
     #region Baccarat Game Messages

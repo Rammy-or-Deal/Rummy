@@ -8,7 +8,7 @@ public class LamiBotMgr : BotMgr
     void Start()
     {
         GameMgr.Inst.botMgr = this;
-        base.CreateBot();        
+        base.CreateBot();
     }
 
     // Update is called once per frame

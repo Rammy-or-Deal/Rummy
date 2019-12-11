@@ -11,21 +11,15 @@ using RummyScript.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaccaratUserSeat : MonoBehaviour
+public class BaccaratUserSeat : UserSeat
 {
     //user info
-    public Image mUserFrame;
-    public Image mUserPic;
-    public Image mUserSkillPic;
-    public Text mUserName;
-    public Text mUserSkillName;
-    public Text mCoinValue;
+
     //seat state
     public Image firstImage;
     public GameObject userBack;
     //
     public int id = -1;
-    public bool isSeat = false;
     public int type;
 
     public Transform[] cardPos;
@@ -59,6 +53,12 @@ public class BaccaratUserSeat : MonoBehaviour
         ShowMe();
     }
 
+    public override void SetPlayerInfo(PlayerInfo info)
+    {
+        base.SetPlayerInfo(info);
+       
+    }
+
     internal void OnUserLeave()
     {
         id = -1;
@@ -80,15 +80,13 @@ public class BaccaratUserSeat : MonoBehaviour
         mCoinValue.text = userInfo.coinValue.ToString();
     }
 
-    internal void OnPlayerBet()
+    public int OnPlayerBet()
     {
         try
         {
-            Player player = PhotonNetwork.PlayerList.Where(p => p.ActorNumber == id).First();
+            string betString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_BET];
 
-            string betString = (string)player.CustomProperties[Common.NOW_BET];
-
-            LogMgr.Inst.Log(player.ActorNumber+"st PlayerLog:=" + (string)player.CustomProperties[Common.PLAYER_BETTING_LOG], (int)LogLevels.PlayerLog1);
+            //LogMgr.Inst.Log(player.ActorNumber+"st PlayerLog:=" + (string)player.CustomProperties[Common.PLAYER_BETTING_LOG], (int)LogLevels.PlayerLog1);
 
             int moneyId = int.Parse(betString.Split(':')[0]);
             int areaId = int.Parse(betString.Split(':')[1]);
@@ -96,9 +94,12 @@ public class BaccaratUserSeat : MonoBehaviour
             var x = this.gameObject.transform.position.x;
             var y = this.gameObject.transform.position.y;
 
-            BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);
+            BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);            
+
+            return BaccaratBankerMgr.Inst.getCoinValue(moneyId);
         }
-        catch { return; }
+        catch { return 0; }
+        
     }
 
     // public void LeftRoom() // the number of left user

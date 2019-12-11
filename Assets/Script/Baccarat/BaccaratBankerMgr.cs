@@ -66,7 +66,7 @@ public class BaccaratBankerMgr : MonoBehaviour
         int max_betting_player = GetMaxBettingPlayer(false);
 
         Hashtable table = new Hashtable{
-            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnCatchedCardDistributed},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnCatchedCardDistributed},
             {Common.BACCARAT_CATCHED_CARD_BANKER, bankerCard.cardString},
             {Common.BACCARAT_CATCHED_CARD_PLAYER, playerCard.cardString},
             {Common.BACCARAT_MAX_BETTING_PLAYER_BANKER, max_betting_banker},
@@ -93,7 +93,7 @@ public class BaccaratBankerMgr : MonoBehaviour
                 tmp = tmp.Trim('/');
             }
             catch { continue; }
-            
+
             if (tmp == "") continue;
 
             var list = tmp.Split('/').ToList();
@@ -158,22 +158,29 @@ public class BaccaratBankerMgr : MonoBehaviour
 
     internal void CalcResult()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameMgr.Inst.Log("Wait for new game.");
+            StartCoroutine(StartGame());
+        }
         var victoryArea = CalcVictoryArea();
         CalcUserPrize(victoryArea);
 
-        StartCoroutine(StartGame());
+        
     }
     IEnumerator StartGame()
     {
         yield return new WaitForSeconds(10.0f);
+
+        GameMgr.Inst.Log("New Game Start Message sent");
         Hashtable table = new Hashtable{
-            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnInitUI}
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnInitUI}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
 
         // yield return new WaitForSeconds(2.0f);
         // table = new Hashtable{
-        //     {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnStartNewPan}
+        //     {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnStartNewPan}
         // };
         // PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
@@ -200,14 +207,13 @@ public class BaccaratBankerMgr : MonoBehaviour
         info.status = info.status.Trim(',');
 
         Hashtable table = new Hashtable{
-            {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnShowingVictoryArea},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnShowingVictoryArea},
             {Common.BACCARAT_VICTORY_AREA, areaString},
             {Common.AdditionalRoomProperty, info.roomString}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
 
         //Common.AdditionalRoomProperty
-
 
         return victoryArea;
     }
@@ -229,10 +235,13 @@ public class BaccaratBankerMgr : MonoBehaviour
     }
     void CalcUserPrize(List<int> victoryArea)
     {
-        foreach (var player in PhotonNetwork.PlayerList)
+        string betLog = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_BETTING_LOG];
+        PlayerInfoContainer pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+
+        foreach (var player in GameMgr.Inst.seatMgr.m_playerList)
         {
-            string betLog = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
-            if (betLog==null)
+            if (betLog == null)
                 continue;
             int prize = 0;
             betLog = betLog.Trim('/');
@@ -259,11 +268,11 @@ public class BaccaratBankerMgr : MonoBehaviour
                         break;
                 }
 
-                var betList = betLog.Split('/');
+                var betList = betLog.Split('/').Where(x => int.Parse(x.Split(':')[0]) == player.m_playerInfo.m_actorNumber);
                 int moneySum = 0;
                 try
                 {
-                    moneySum = betList.Where(x => int.Parse(x.Split(':')[1]) == area).Sum(x => getCoinValue(int.Parse(x.Split(':')[0])));
+                    moneySum = betList.Where(x => int.Parse(x.Split(':')[2]) == area).Sum(x => getCoinValue(int.Parse(x.Split(':')[1])));
                 }
                 catch { }
                 prize += moneySum * prizeTimes;
@@ -273,17 +282,26 @@ public class BaccaratBankerMgr : MonoBehaviour
                 }
             }
             prize_area = prize_area.Trim(',');
+            pList.m_playerList.Where(x => x.m_actorNumber == player.m_playerInfo.m_actorNumber).First().m_coinValue += prize;
 
+            GameMgr.Inst.Log(player.m_playerInfo.m_actorNumber + " is Win. Sending Prize = " + prize);
             if (prize > 0)
             {
                 Hashtable table = new Hashtable{
-                    {Common.BACCARAT_MESSAGE, (int)BaccaratMessages.OnPrizeAwarded},
+                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnPrizeAwarded},
+                    {Common.PLAYER_ID, player.m_playerInfo.m_actorNumber},
                     {Common.BACCARAT_PRIZE, prize},
                     {Common.BACCARAT_PRIZE_AREA, prize_area}
                 };
-                player.SetCustomProperties(table);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(table);
             }
         }
+
+        Hashtable props = new Hashtable{
+                {PhotonFields.GAME_MESSAGE, enumGameMessage.OnSeatStringUpdate},
+                {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+            };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 }
 
