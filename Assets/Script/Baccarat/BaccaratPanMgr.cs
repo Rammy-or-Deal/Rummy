@@ -170,7 +170,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal void OnPlayerBet(Vector3 originPos, int moneyId, int areaId)
     {
-        LogMgr.Inst.Log(string.Format("Player Bet. moneyId={0}, areaId={1}", moneyId, areaId), (int)LogLevels.PanLog);
+//        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", moneyId, areaId), (int)LogLevels.PanLog);
         betPanel.OnPlayerBet(originPos, moneyId, areaId);
     }
 
