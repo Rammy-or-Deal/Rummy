@@ -84,26 +84,24 @@ public class SeatMgr : MonoBehaviour
 
     public UserSeat GetUserSeat(int actorNumber)
     {
-        Debug.Log("actorNumber:"+actorNumber);
-        return m_playerList[GetUserSeatPos(actorNumber)];
+        return m_playerList[GetUserSeatPos(seatNumList[actorNumber])];
     }
 
-    private int GetUserSeatPos(int actorNumber)
+    private int GetUserSeatPos(int id)
     {
         int seatPos;
-        if (actorNumber == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+        if (id == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
         {
             seatPos = 0;
         }
-        else if (actorNumber > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
+        else if (id > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
         {
-            seatPos = actorNumber - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber];
+            seatPos = id - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber];
         }
         else
         {
-            seatPos = GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + actorNumber;
+            seatPos = GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + id;
         }
-        Debug.Log("seatPos:"+seatPos);
         return seatPos;
     }
 

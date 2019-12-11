@@ -31,6 +31,7 @@ public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
 
     private void OnEnable()
     {
-        StartCoroutine(Destroy());
+        if (GetComponent<PhotonView>().IsMine)
+            StartCoroutine(Destroy());
     }
 }
