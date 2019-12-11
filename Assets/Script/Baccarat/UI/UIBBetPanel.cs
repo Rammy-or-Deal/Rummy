@@ -60,8 +60,6 @@ public class UIBBetPanel : MonoBehaviour
         {
             pan.Init();
         }
-
-        Debug.LogError(coinCnt);
         for (int i = 0; i <= coinCnt; i++)
         {
             coinList[i].gameObject.SetActive(false);

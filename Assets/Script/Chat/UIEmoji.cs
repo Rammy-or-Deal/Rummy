@@ -21,6 +21,8 @@ public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
         animator.runtimeAnimatorController = Resources.Load("chat/"+animationList[id]) as RuntimeAnimatorController;
         gameObject.transform.SetParent(GameMgr.Inst.seatMgr.GetUserSeat(GetComponent<PhotonView>().OwnerActorNr).transform);
         transform.localPosition=Vector3.zero;
+        transform.localScale=Vector3.one;
+        transform.localRotation = Quaternion.identity;
     }
 
     IEnumerator Destroy()
