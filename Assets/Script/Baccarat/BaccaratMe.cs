@@ -133,11 +133,9 @@ public class BaccaratMe : MeMgr
 
         int moneyId = int.Parse(betString.Split(':')[0]);
         int areaId = int.Parse(betString.Split(':')[1]);
-
-        var x = UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position.x;
-        var y = UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position.y;
+        
         DataController.Inst.userInfo.coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
-        BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);
+        BaccaratPanMgr.Inst.OnPlayerBet(UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position, moneyId, areaId);
         canDeal = true;
 
         return BaccaratBankerMgr.Inst.getCoinValue(moneyId);

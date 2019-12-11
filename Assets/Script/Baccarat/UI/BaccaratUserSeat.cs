@@ -90,11 +90,8 @@ public class BaccaratUserSeat : UserSeat
 
             int moneyId = int.Parse(betString.Split(':')[0]);
             int areaId = int.Parse(betString.Split(':')[1]);
-
-            var x = this.gameObject.transform.position.x;
-            var y = this.gameObject.transform.position.y;
-
-            BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);            
+            
+            BaccaratPanMgr.Inst.OnPlayerBet(gameObject.transform.position, moneyId, areaId);            
 
             return BaccaratBankerMgr.Inst.getCoinValue(moneyId);
         }

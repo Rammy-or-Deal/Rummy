@@ -31,11 +31,11 @@ public class UIBBetPanel : MonoBehaviour
         }
     }
 
-    public void OnPlayerBet(float x, float y, int moneyId, int areaId) //x,y: original position 
+    public void OnPlayerBet(Vector3 originPos, int moneyId, int areaId) //x,y: original position 
     {
         coinCnt++;
         Image coinObj = coinList[coinCnt];
-        coinObj.transform.position = new Vector3(x, y, 0);
+        coinObj.transform.position = originPos;
 //        coinObj.transform.SetParent(panels[areaId]);
         coinObj.sprite = Resources.Load<Sprite>("baccarat/" + coinSpriteNames[moneyId]);
         coinObj.name = "coin" + coinCnt;

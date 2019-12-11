@@ -168,10 +168,10 @@ public class BaccaratPanMgr : MonoBehaviour
         StartCoroutine(WaitFor1Second());
     }
 
-    internal void OnPlayerBet(float x, float y, int moneyId, int areaId)
+    internal void OnPlayerBet(Vector3 originPos, int moneyId, int areaId)
     {
-        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", x, y, moneyId, areaId), (int)LogLevels.PanLog);
-        betPanel.OnPlayerBet(x, y, moneyId, areaId);
+        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", moneyId, areaId), (int)LogLevels.PanLog);
+        betPanel.OnPlayerBet(originPos, moneyId, areaId);
     }
 
     internal void OnCatchedCardDistributed()
