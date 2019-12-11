@@ -129,7 +129,7 @@ public class BaccaratMe : MeMgr
 
         string betString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_BET];
 
-        LogMgr.Inst.Log("MyLog:=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_BETTING_LOG], (int)LogLevels.PlayerLog1);
+        GameMgr.Inst.Log("MyLog:=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_BETTING_LOG], enumLogLevel.BaccaratLogicLog);
 
         int moneyId = int.Parse(betString.Split(':')[0]);
         int areaId = int.Parse(betString.Split(':')[1]);
