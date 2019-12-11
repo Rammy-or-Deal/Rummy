@@ -395,14 +395,14 @@ public class PunController : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
 
-        try
-        {
+        // try
+        // {
             GameMgr.Inst.messageMgr.OnMessageArrived((int)enumGameMessage.OnPlayerLeftRoom_onlyMaster, otherPlayer);
-        }
-        catch (Exception Log)
-        {
-            Debug.LogError("OnPlayerLeftRoom Error: " + Log.Message);
-        }
+        // }
+        // catch (Exception Log)
+        // {
+        //     Debug.LogError("OnPlayerLeftRoom Error: " + Log.Message);
+        // }
 
 
     }
@@ -414,34 +414,34 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player player, Hashtable updatedInfo)
     {
-        try
-        {
+        // try
+        // {
             object value;
             if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
             {
                 GameMgr.Inst.messageMgr.OnMessageArrived((int)value, player);
             }
-        }
-        catch (Exception Log)
-        {
-            Debug.LogError("OnPlayerPropertiesUpdate Error: " + Log.Message);
-        }
+        // }
+        // catch (Exception Log)
+        // {
+        //     Debug.LogError("OnPlayerPropertiesUpdate Error: " + Log.Message);
+        // }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable updatedInfo)
     {
-        try
-        {
+        // try
+        // {
             object value;
             if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
             {
                 GameMgr.Inst.messageMgr.OnMessageArrived((int)value);
             }
-        }
-        catch (Exception Log)
-        {
-            Debug.LogError("OnRoomPropertiesUpdate Error: " + Log.Message);
-        }
+        // }
+        // catch (Exception Log)
+        // {
+        //     Debug.LogError("OnRoomPropertiesUpdate Error: " + Log.Message);
+        // }
     }
 
     #endregion
