@@ -52,7 +52,8 @@ public class UIChatDialog : MonoBehaviour
         if (PhotonNetwork.InRoom)
         {
             object[] myCustomInitData = new object[]{id};
-            PhotonNetwork.Instantiate("Prefabs/chat/emoji", Vector3.zero, Quaternion.identity, 0,myCustomInitData);    
+            PhotonNetwork.Instantiate("Prefabs/chat/emoji", Vector3.zero, Quaternion.identity, 0,myCustomInitData);
+            gameObject.SetActive(false);
         }
     }
 }

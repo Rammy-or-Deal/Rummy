@@ -84,6 +84,7 @@ public class SeatMgr : MonoBehaviour
 
     public UserSeat GetUserSeat(int actorNumber)
     {
+        Debug.Log("actorNumber:"+actorNumber);
         return m_playerList[GetUserSeatPos(actorNumber)];
     }
 
@@ -102,7 +103,7 @@ public class SeatMgr : MonoBehaviour
         {
             seatPos = GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + actorNumber;
         }
-
+        Debug.Log("seatPos:"+seatPos);
         return seatPos;
     }
 
