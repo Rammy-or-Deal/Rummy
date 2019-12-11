@@ -59,12 +59,6 @@ public class BaccaratMe : MeMgr
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     // internal void PublishMe()
     // {
     //     LogMgr.Inst.Log("Publish me called.", (int)LogLevels.MeLog_Baccarat);
