@@ -59,12 +59,9 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public void LeaveGame()
     {
-        try
-        {
-            Debug.Log("leave game");
-            PhotonNetwork.LeaveRoom();
-        }
-        catch { }
+        Debug.Log("leave game");
+        PhotonNetwork.LeaveRoom();
+
     }
 
     public void CreateOrJoinRoom(int tierIdx)
@@ -397,6 +394,7 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+
         try
         {
             GameMgr.Inst.messageMgr.OnMessageArrived((int)enumGameMessage.OnPlayerLeftRoom_onlyMaster, otherPlayer);
@@ -406,7 +404,7 @@ public class PunController : MonoBehaviourPunCallbacks
             Debug.LogError("OnPlayerLeftRoom Error: " + Log.Message);
         }
 
-        
+
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -415,10 +413,14 @@ public class PunController : MonoBehaviourPunCallbacks
     }
 
     public override void OnPlayerPropertiesUpdate(Player player, Hashtable updatedInfo)
-    {       
+    {
         try
         {
-            GameMgr.Inst.messageMgr.OnMessageArrived((int)updatedInfo[PhotonFields.GAME_MESSAGE], player);
+            object value;
+            if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
+            {
+                GameMgr.Inst.messageMgr.OnMessageArrived((int)value, player);
+            }
         }
         catch (Exception Log)
         {
@@ -430,7 +432,11 @@ public class PunController : MonoBehaviourPunCallbacks
     {
         try
         {
-            GameMgr.Inst.messageMgr.OnMessageArrived((int)updatedInfo[PhotonFields.GAME_MESSAGE]);
+            object value;
+            if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
+            {
+                GameMgr.Inst.messageMgr.OnMessageArrived((int)value);
+            }
         }
         catch (Exception Log)
         {
