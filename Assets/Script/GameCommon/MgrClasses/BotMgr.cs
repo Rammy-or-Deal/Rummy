@@ -45,6 +45,17 @@ public class BotMgr : MonoBehaviour
     {
         creatingBotRoutine = StartCoroutine(CreateBotTimer());
     }
+
+    public virtual void RejectThisBot(UserSeat bot)
+    {
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnPlayerLeftRoom_onlyMaster_bot},
+            {Common.PLAYER_ID, bot.m_playerInfo.m_actorNumber}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        ///OnPlayerLeftRoom_onlyMaster_bot
+    }
+
     public void StopCreatingBot()
     {
         try

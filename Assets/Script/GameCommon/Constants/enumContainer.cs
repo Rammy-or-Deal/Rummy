@@ -97,6 +97,7 @@ public enum enumGameMessage
     Baccarat_OnPrizeAwarded,
     Baccarat_OnUpdateMe,
     Baccarat_OnInitUI,
+    OnPlayerLeftRoom_onlyMaster_bot,
     #endregion
 
     #region Baccarat Game Messages

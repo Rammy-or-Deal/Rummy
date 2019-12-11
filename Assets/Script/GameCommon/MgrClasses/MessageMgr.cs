@@ -29,8 +29,15 @@ public class MessageMgr : MonoBehaviour
             case enumGameMessage.OnPlayerLeftRoom_onlyMaster:
                 GameMgr.Inst.roomMgr.OnPlayerLeftRoom_onlyMaster(p.ActorNumber);
                 break;
+            case enumGameMessage.OnPlayerLeftRoom_onlyMaster_bot:
+                try
+                {
+                    GameMgr.Inst.roomMgr.OnPlayerLeftRoom_onlyMaster((int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID]);
+                }
+                catch { }
+                break;
             default:
-                GameMgr.Inst.Log(msg + " isn't my section. go to children");                
+                GameMgr.Inst.Log(msg + " isn't my section. go to children");
                 return false;
         }
         return true;

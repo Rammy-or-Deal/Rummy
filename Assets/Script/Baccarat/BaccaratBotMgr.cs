@@ -5,6 +5,8 @@ using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System;
+
 public class BaccaratBotMgr : BotMgr
 {
     // Start is called before the first frame update
@@ -34,14 +36,27 @@ public class BaccaratBotMgr : BotMgr
                 int moneyId = Random.Range(0, 5);
                 int areaId = Random.Range(0, 6);
 
-                if (bot.m_playerInfo.m_coinValue < BaccaratBankerMgr.Inst.getCoinValue(moneyId)) continue;
+                if (bot.m_playerInfo.m_coinValue < BaccaratBankerMgr.Inst.getCoinValue(moneyId)){                    
+                    
+                    if(Random.Range(0.0f, 1.0f) > 0.7)
+                    {
+                        RejectThisBot(bot);
+                    }
+                    continue;
+                } 
 
                 bot.m_playerInfo.m_coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
 
-                BaccaratMe.Bet(moneyId, areaId, bot.m_playerInfo.m_actorNumber);
+                BaccaratMe.Bet(moneyId, areaId, bot.m_playerInfo.m_actorNumber);                
             }
         }
         catch { }
 
+    }
+
+    public override void RejectThisBot(UserSeat bot)
+    {
+        base.RejectThisBot(bot);
+        //OnPlayerLeftRoom_onlyMaster_bot
     }
 }
