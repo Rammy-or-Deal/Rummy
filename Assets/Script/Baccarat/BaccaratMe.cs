@@ -56,7 +56,6 @@ public class BaccaratMe : MeMgr
             {Common.PLAYER_BETTING_LOG, log}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
-
     }
 
     // Update is called once per frame
@@ -143,7 +142,7 @@ public class BaccaratMe : MeMgr
 
         var x = UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position.x;
         var y = UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position.y;
-
+        DataController.Inst.userInfo.coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
         BaccaratPanMgr.Inst.OnPlayerBet(x, y, moneyId, areaId);
         canDeal = true;
 
@@ -153,7 +152,6 @@ public class BaccaratMe : MeMgr
     internal void OnEndPan()
     {
         isPanStarted = false;
-
     }
 
     internal void OnStartNewPan()

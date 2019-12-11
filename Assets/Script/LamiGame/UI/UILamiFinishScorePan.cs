@@ -49,8 +49,7 @@ public class UILamiFinishScorePan : MonoBehaviour
         {
             ss += string.Format("{0}:{1}/{2}, ", card.num, card.color, card.MyCardId);
         }
-        Debug.Log(ss);
-        
+        Debug.Log(ss);        
 
         cardPan.UpdateCards(seat.cardList);
 

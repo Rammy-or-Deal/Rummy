@@ -62,8 +62,20 @@ public class BaccaratBankerMgr : MonoBehaviour
         playerCard.CardList.Clear();
         var limit = MakeRandomCard();
 
-        int max_betting_banker = GetMaxBettingPlayer(true);
-        int max_betting_player = GetMaxBettingPlayer(false);
+        int dealtMoney_banker = 0;
+        int dealtMoney_player = 0;
+        int max_betting_banker = GetMaxBettingPlayer(true, ref dealtMoney_banker);
+        int max_betting_player = GetMaxBettingPlayer(false, ref dealtMoney_player);
+        if(max_betting_banker == max_betting_player)
+        {
+            if(dealtMoney_banker > dealtMoney_player)
+            {
+                max_betting_player = -1;
+            }else
+            {
+                max_betting_banker = -1;
+            }
+        }
 
         Hashtable table = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnCatchedCardDistributed},
@@ -76,7 +88,7 @@ public class BaccaratBankerMgr : MonoBehaviour
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
 
     }
-    int GetMaxBettingPlayer(bool isBanker)
+    int GetMaxBettingPlayer(bool isBanker, ref int money)
     {
         int res = -1;
         var moneySum = 0;
@@ -84,28 +96,30 @@ public class BaccaratBankerMgr : MonoBehaviour
         if (!isBanker)
             area = Constants.BaccaratPlayerArea;
 
-        foreach (var player in PhotonNetwork.PlayerList)
+        string dealLogString = "";
+        try
         {
-            var tmp = "";
+            dealLogString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_BETTING_LOG];
+        }
+        catch { }
+        dealLogString = dealLogString.Trim('/');
+        if (dealLogString == "") return -1;
+        var list = dealLogString.Split('/').ToList();
+        foreach (var player in GameMgr.Inst.seatMgr.m_playerList)
+        {
+            int sum = 0;
             try
             {
-                tmp = (string)player.CustomProperties[Common.PLAYER_BETTING_LOG];
-                tmp = tmp.Trim('/');
+                sum = list.Where(x => int.Parse(x.Split(':')[2]) == area && int.Parse(x.Split(':')[0]) == player.m_playerInfo.m_actorNumber).Sum(x => BaccaratBankerMgr.Inst.getCoinValue(int.Parse(x.Split(':')[1])));
             }
-            catch { continue; }
-
-            if (tmp == "") continue;
-
-            var list = tmp.Split('/').ToList();
-            var sum = 0;
-            sum = list.Where(x => int.Parse(x.Split(':')[1]) == area).Sum(x => int.Parse(x.Split(':')[0]));
+            catch { }
             if (moneySum < sum)
             {
-                res = player.ActorNumber;
+                res = player.m_playerInfo.m_actorNumber;
                 moneySum = sum;
             }
         }
-
+        money = moneySum;
         return res;
     }
 
@@ -166,7 +180,7 @@ public class BaccaratBankerMgr : MonoBehaviour
         var victoryArea = CalcVictoryArea();
         CalcUserPrize(victoryArea);
 
-        
+
     }
     IEnumerator StartGame()
     {

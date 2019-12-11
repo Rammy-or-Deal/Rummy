@@ -403,22 +403,10 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         catch (Exception Log)
         {
-            Debug.Log("OnRoomPropertiesUpdate Error: " + Log.Message);
+            Debug.LogError("OnPlayerLeftRoom Error: " + Log.Message);
         }
 
-        /*
-        Debug.Log(otherPlayer.NickName + "/other/left room");
-
-        if (PhotonNetwork.CurrentRoom.Name.Contains("rummy"))
-        {
-            //LamiGameController.Inst.OtherPlayerLeftRoom(otherPlayer);
-            LamiMgr.Inst.SendMessage((int)enumGameMessage.Rummy_OnUserLeave_M, otherPlayer);
-        }
-        else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-        {
-            BaccaratGameController.Inst.SendMessage((int)enumGameMessage.Baccarat_OnUserLeave, otherPlayer);
-        }
-        */
+        
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -427,35 +415,15 @@ public class PunController : MonoBehaviourPunCallbacks
     }
 
     public override void OnPlayerPropertiesUpdate(Player player, Hashtable updatedInfo)
-    {
-        /*        Debug.Log("OnPlayerPropertiesUpdate : " + player.NickName);
-                if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
-                {
-                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
-                    {
-                        LamiMgr.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE], player);
-                    }
-                }
-                else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-                {
-                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
-                    {
-                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE], player);
-                    }
-                }
-                else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
-                {
-                    if (updatedInfo.ContainsKey(Common.FORTUNE_MESSAGE))
-                    {
-                        FortuneGameController.Inst.SendMessage((int)updatedInfo[Common.FORTUNE_MESSAGE], player);
-                    }
-                }
-        */
+    {       
         try
         {
             GameMgr.Inst.messageMgr.OnMessageArrived((int)updatedInfo[PhotonFields.GAME_MESSAGE], player);
         }
-        catch { }
+        catch (Exception Log)
+        {
+            Debug.LogError("OnPlayerPropertiesUpdate Error: " + Log.Message);
+        }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable updatedInfo)
@@ -466,34 +434,8 @@ public class PunController : MonoBehaviourPunCallbacks
         }
         catch (Exception Log)
         {
-            Debug.Log("OnRoomPropertiesUpdate Error: " + Log.Message);
+            Debug.LogError("OnRoomPropertiesUpdate Error: " + Log.Message);
         }
-
-        //Debug.Log("On Room Properties Update called.");
-
-        /*
-                if (PhotonNetwork.CurrentRoom.Name.Contains("Lami"))
-                {
-                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
-                    {
-                        LamiMgr.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE]);
-                    }
-                }
-                else if (PhotonNetwork.CurrentRoom.Name.Contains("baccarat"))
-                {
-                    if (updatedInfo.ContainsKey(PhotonFields.GAME_MESSAGE))
-                    {
-                        BaccaratGameController.Inst.SendMessage((int)updatedInfo[PhotonFields.GAME_MESSAGE]);
-                    }
-                }
-                else if (PhotonNetwork.CurrentRoom.Name.Contains("fortune"))
-                {
-                    if (updatedInfo.ContainsKey(Common.FORTUNE_MESSAGE))
-                    {
-                        FortuneGameController.Inst.SendMessage((int)updatedInfo[Common.FORTUNE_MESSAGE]);
-                    }
-                }
-        */
     }
 
     #endregion
