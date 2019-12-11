@@ -29,7 +29,10 @@ public class BaccaratRoomController : MonoBehaviour
     void Start()
     {
         if (!Inst)
+        {
             Inst = this;
+            GameMgr.Inst.m_gameTier = enumGameTier.BaccaratRegular;
+        }
         //GameMgr.Inst.Log("Now room info:=" + string.Join(",  ", GameMgr.Inst.roomMgr.m_roomList.Select(x=>x.roomInfoString)));
     }
 

@@ -32,13 +32,13 @@ public class BaccaratBotMgr : BotMgr
             if (GameMgr.Inst.seatMgr.m_playerList.Count(x => x.m_playerInfo.m_actorNumber < 0) == 0) return;
             foreach (var bot in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.m_playerInfo.m_actorNumber < 0))
             {
-                if (Random.Range(0.0f, 1.0f) > 0.7) continue;
+                if (Random.Range(0.0f, 1.0f) > 0.3) continue;
                 int moneyId = Random.Range(0, 5);
                 int areaId = Random.Range(0, 6);
 
                 if (bot.m_playerInfo.m_coinValue < BaccaratBankerMgr.Inst.getCoinValue(moneyId)){                    
                     
-                    if(Random.Range(0.0f, 1.0f) > 0.7)
+                    if(Random.Range(0.0f, 1.0f) > 0.5)
                     {
                         RejectThisBot(bot);
                     }

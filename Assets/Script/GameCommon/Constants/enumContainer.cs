@@ -43,7 +43,8 @@ public enum enumLogLevel
     BotLog,
     ControllerMessage,
     RummySeatMgrLog,
-    RummyCardMgrLog
+    RummyCardMgrLog,
+    BaccaratLogicLog
 }
 #endregion
 
