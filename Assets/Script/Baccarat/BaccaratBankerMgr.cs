@@ -256,69 +256,76 @@ public class BaccaratBankerMgr : MonoBehaviour
 
         GameMgr.Inst.Log("playerListString:=" + pList.m_playerInfoListString, enumLogLevel.BaccaratLogicLog);
 
-        foreach (var player in GameMgr.Inst.seatMgr.m_playerList.Where(x=>x.m_playerInfo != null))
+        foreach (var player in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.m_playerInfo != null))
         {
-            if (betLog == null)
-                continue;
-            int prize = 0;
-            betLog = betLog.Trim('/');
-            string prize_area = "";
-            foreach (var area in victoryArea)
-            {   
-                int prizeTimes = 1;
-                switch (area)
-                {
-                    case Constants.BaccaratPlayerArea:
-                        prizeTimes = Constants.BaccaratPlayerArea_prize;
-                        break;
-                    case Constants.BaccaratBankerArea:
-                        prizeTimes = Constants.BaccaratBankerArea_prize;
-                        break;
-                    case Constants.BaccaratDrawArea:
-                        prizeTimes = Constants.BaccaratDrawArea_prize;
-                        break;
-                    case Constants.BaccaratPPArea:
-                        prizeTimes = Constants.BaccaratPPArea_prize;
-                        break;
-                    case Constants.BaccaratBPArea:
-                        prizeTimes = Constants.BaccaratBPArea_prize;
-                        break;
-                }
-
-                var betList = betLog.Split('/').Where(x => int.Parse(x.Split(':')[0]) == player.m_playerInfo.m_actorNumber);
-                int moneySum = 0;
-                try
-                {
-                    moneySum = betList.Where(x => int.Parse(x.Split(':')[2]) == area).Sum(x => getCoinValue(int.Parse(x.Split(':')[1])));
-                }
-                catch { }
-                prize += moneySum * prizeTimes;
-                if (moneySum > 0)
-                {
-                    prize_area += area + ":" + moneySum + ",";
-                }
-            }
-            // prize_area = prize_area.Trim(',');
-            // try
-            // {
-            GameMgr.Inst.Log("now Player String:=" + player.m_playerInfo.playerInfoString, enumLogLevel.BaccaratLogicLog);
-            pList.m_playerList.Where(x => x.m_actorNumber == player.m_playerInfo.m_actorNumber).First().m_coinValue += prize;
-            // }
-            // catch (Exception err)
-            // {
-            //     GameMgr.Inst.Log(err.Message);
-            // }
-
-            GameMgr.Inst.Log(player.m_playerInfo.m_actorNumber + " is Win. Sending Prize = " + prize);
-            if (prize > 0)
+            try
             {
-                Hashtable table = new Hashtable{
+                if (betLog == null)
+                    continue;
+                int prize = 0;
+                betLog = betLog.Trim('/');
+                string prize_area = "";
+                foreach (var area in victoryArea)
+                {
+                    int prizeTimes = 1;
+                    switch (area)
+                    {
+                        case Constants.BaccaratPlayerArea:
+                            prizeTimes = Constants.BaccaratPlayerArea_prize;
+                            break;
+                        case Constants.BaccaratBankerArea:
+                            prizeTimes = Constants.BaccaratBankerArea_prize;
+                            break;
+                        case Constants.BaccaratDrawArea:
+                            prizeTimes = Constants.BaccaratDrawArea_prize;
+                            break;
+                        case Constants.BaccaratPPArea:
+                            prizeTimes = Constants.BaccaratPPArea_prize;
+                            break;
+                        case Constants.BaccaratBPArea:
+                            prizeTimes = Constants.BaccaratBPArea_prize;
+                            break;
+                    }
+
+                    var betList = betLog.Split('/').Where(x => int.Parse(x.Split(':')[0]) == player.m_playerInfo.m_actorNumber);
+                    int moneySum = 0;
+                    try
+                    {
+                        moneySum = betList.Where(x => int.Parse(x.Split(':')[2]) == area).Sum(x => getCoinValue(int.Parse(x.Split(':')[1])));
+                    }
+                    catch { }
+                    prize += moneySum * prizeTimes;
+                    if (moneySum > 0)
+                    {
+                        prize_area += area + ":" + moneySum + ",";
+                    }
+                }
+                // prize_area = prize_area.Trim(',');
+                // try
+                // {
+                GameMgr.Inst.Log("now Player String:=" + player.m_playerInfo.playerInfoString, enumLogLevel.BaccaratLogicLog);
+                pList.m_playerList.Where(x => x.m_actorNumber == player.m_playerInfo.m_actorNumber).First().m_coinValue += prize;
+                // }
+                // catch (Exception err)
+                // {
+                //     GameMgr.Inst.Log(err.Message);
+                // }
+
+                GameMgr.Inst.Log(player.m_playerInfo.m_actorNumber + " is Win. Sending Prize = " + prize);
+                if (prize > 0)
+                {
+                    Hashtable table = new Hashtable{
                     {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnPrizeAwarded},
                     {Common.PLAYER_ID, player.m_playerInfo.m_actorNumber},
                     {Common.BACCARAT_PRIZE, prize},
                     {Common.BACCARAT_PRIZE_AREA, prize_area}
                 };
-                PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(table);
+                }
+            }
+            catch (Exception err)
+            {
+                GameMgr.Inst.Log("error in Calc Prize: " + err.Message);                
             }
         }
 
