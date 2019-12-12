@@ -70,7 +70,7 @@ public class RoomMgr : MonoBehaviour
 
     public bool JoinRoom(string roomName)
     {
-        if (m_roomList.Count(x => x.m_roomName == roomName) < 0)
+        if (m_roomList.Count(x => x.m_roomName == roomName) > 0)
         {
             m_currentRoom.roomInfoString = m_roomList.Where(x => x.m_roomName == roomName).First().roomInfoString;
             PhotonNetwork.JoinRoom(m_currentRoom.m_roomName, null);
