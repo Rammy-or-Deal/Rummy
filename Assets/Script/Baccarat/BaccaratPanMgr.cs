@@ -298,7 +298,7 @@ public class BaccaratPanMgr : MonoBehaviour
             ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
             nowTurn = (int)BaccaratShowingCard_NowTurn.Banker;
         }
-
+        else
         if (nowTurn == (int)BaccaratShowingCard_NowTurn.Banker)
         {
             if (playerCard.CardList.Count > 2)
@@ -316,7 +316,7 @@ public class BaccaratPanMgr : MonoBehaviour
                 BaccaratBankerMgr.Inst.CalcResult();
             }
         }
-
+        else
         if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player_additional)
         {
             nowTurn = (int)BaccaratShowingCard_NowTurn.Banker_additional;
@@ -329,6 +329,10 @@ public class BaccaratPanMgr : MonoBehaviour
             {
                 BaccaratBankerMgr.Inst.CalcResult();
             }
+        }
+        else
+        {
+            BaccaratBankerMgr.Inst.CalcResult();
         }
     }
 
