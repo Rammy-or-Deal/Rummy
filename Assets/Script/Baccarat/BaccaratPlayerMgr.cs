@@ -131,6 +131,7 @@ public class BaccaratPlayerMgr : SeatMgr
         betLog = betLog.Trim('/');
         var pList = new PlayerInfoContainer();
         pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        try{
         var p = pList.m_playerList.Where(x=>x.m_actorNumber == actorNumber).First();
         p.m_coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
 
@@ -141,6 +142,9 @@ public class BaccaratPlayerMgr : SeatMgr
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }catch(Exception err){
+            GameMgr.Inst.Log("Add Betting Log Error." + err.Message);
+        }
     }
 
     // internal void OnUserLeave(Player player)

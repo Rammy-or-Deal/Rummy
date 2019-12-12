@@ -31,7 +31,7 @@ public class BaccaratBotMgr : BotMgr
         if (GameMgr.Inst.seatMgr.m_playerList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber < 0 ) == 0) return;
         foreach (var bot in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber < 0))
         {
-            //if (Random.Range(0.0f, 1.0f) > 0.7) continue;
+            if (Random.Range(0.0f, 1.0f) > 0.7) continue;
             int moneyId = Random.Range(0, 5);
             int areaId = Random.Range(0, 6);
 
