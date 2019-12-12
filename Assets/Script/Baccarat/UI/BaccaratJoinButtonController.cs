@@ -21,8 +21,8 @@ public class BaccaratJoinButtonController : MonoBehaviour, IPointerDownHandler, 
     public void OnPointerDown(PointerEventData eventData)
     {
         buttonPressed = true;
-        Debug.Log("Left Hold. status=" + parent.roomInfo.status);
-        UIBHistory.Inst.ParseStatusString(parent.roomInfo.status);
+        Debug.Log("Left Hold. status=" + parent.baccaratRoomInfo.status);
+        UIBHistory.Inst.ParseStatusString(parent.baccaratRoomInfo.status);
         iTween.MoveTo(UIBHistory.Inst.gameObject, this.gameObject.transform.position, 0);
         UIBHistory.Inst.gameObject.SetActive(true);
         

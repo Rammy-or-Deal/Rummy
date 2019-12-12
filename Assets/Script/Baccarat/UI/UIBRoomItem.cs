@@ -17,12 +17,12 @@ public class UIBRoomItem : MonoBehaviour
     public Button UI_join;
     #region  Unity
 
-    [HideInInspector] public BaccaratRoomInfo roomInfo;
+    [HideInInspector] public BaccaratRoomInfo baccaratRoomInfo = null;
     [HideInInspector] public string roomName;
     [HideInInspector] public int maxPlayer;
     [HideInInspector] public int nowPlayer;
 
-    [HideInInspector]GameRoomInfo tmpRoom = null;
+    [HideInInspector]public GameRoomInfo commonRoomInfo = null;
     void Start()
     {
 
@@ -36,37 +36,41 @@ public class UIBRoomItem : MonoBehaviour
     #endregion
     internal void SetMe(string roomInfoString)//BaccaratRoomInfo room)
     {
-        if(tmpRoom == null)
-            tmpRoom = new GameRoomInfo();
+        if(commonRoomInfo == null)
+            commonRoomInfo = new GameRoomInfo();
+        if(baccaratRoomInfo == null)
+            baccaratRoomInfo = new BaccaratRoomInfo();    
         
-        tmpRoom.roomInfoString = roomInfoString;
-
-        roomInfo = new BaccaratRoomInfo();
-        roomInfo.roomString = tmpRoom.m_additionalString;
+        commonRoomInfo.roomInfoString = roomInfoString;        
+        baccaratRoomInfo.roomString = commonRoomInfo.m_additionalString;
         GameMgr.Inst.Log("Newly created room info(origin):=" + roomInfoString);
-        GameMgr.Inst.Log("Newly created room info(additional):=" + tmpRoom.m_additionalString);
-        GameMgr.Inst.Log("Newly created room info(parsed):=" + roomInfo.roomString);
+        GameMgr.Inst.Log("Newly created room info(additional):=" + commonRoomInfo.m_additionalString);
+        GameMgr.Inst.Log("Newly created room info(parsed):=" + baccaratRoomInfo.roomString);
 
-        roomName = tmpRoom.m_roomName;
-        maxPlayer = tmpRoom.m_maxPlayer;
-        nowPlayer = tmpRoom.m_playerCount;
+        roomName = commonRoomInfo.m_roomName;
+        maxPlayer = commonRoomInfo.m_maxPlayer;
+        nowPlayer = commonRoomInfo.m_playerCount;
 
         UI_tableName.text = roomName;
 
-        UI_isPrivate.gameObject.SetActive(roomInfo.isPrivate);
-        UI_minBet.text = roomInfo.minBet.ToString();
-        UI_maxBet.text = roomInfo.maxBet.ToString();
+        UI_isPrivate.gameObject.SetActive(baccaratRoomInfo.isPrivate);
+        UI_minBet.text = baccaratRoomInfo.minBet.ToString();
+        UI_maxBet.text = baccaratRoomInfo.maxBet.ToString();
         UI_players.text = nowPlayer.ToString();
         //UI_players.text = roomInfo.playersNum + " / " + roomInfo.totalPlayers;
     }
     public void JoinRoom()
     {        
-        GameMgr.Inst.Log("Try to join room. roomInfo=" + tmpRoom.roomInfoString);
-
-        if(!GameMgr.Inst.roomMgr.JoinRoom(roomName))    // If there's no room, Create room based on roomInfo
+        GameMgr.Inst.Log("Try to join room. roomInfo=" + commonRoomInfo.roomInfoString);
+        
+        if(baccaratRoomInfo.isPrivate)
+        {
+            UIBPasswordVerificationDlg.Inst.CheckPassword(commonRoomInfo.roomInfoString);
+        }
+        else if(!GameMgr.Inst.roomMgr.JoinRoom(roomName))    // If there's no room, Create room based on roomInfo
         {
             GameMgr.Inst.Log("There's no room. So I should create a new room");
-            GameMgr.Inst.roomMgr.CreateRoom_basedRoomInfo(tmpRoom);
+            GameMgr.Inst.roomMgr.CreateRoom_basedRoomInfo(commonRoomInfo);
         }
     }
 }
