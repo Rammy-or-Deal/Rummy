@@ -273,8 +273,9 @@ public class BaccaratPanMgr : MonoBehaviour
     internal void OnShowingCatchedCard()
     {
         //BACCARAT_NOW_SHOWING_TURN
+        
         int nowTurn = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_NOW_SHOWING_TURN];
-
+        GameMgr.Inst.Log("Now showing Card="+(BaccaratShowingCard_NowTurn)nowTurn);
         // Here, we can add the code to make the users can open the card. player is depended on 
         // {Common.BACCARAT_MAX_BETTING_PLAYER_BANKER, max_betting_banker},
         // {Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER, max_betting_player},        
@@ -295,8 +296,8 @@ public class BaccaratPanMgr : MonoBehaviour
 
         if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player)
         {
-            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
             nowTurn = (int)BaccaratShowingCard_NowTurn.Banker;
+            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
         }
         else
         if (nowTurn == (int)BaccaratShowingCard_NowTurn.Banker)
@@ -339,6 +340,9 @@ public class BaccaratPanMgr : MonoBehaviour
     private void ShowingCatchedCard(int nowTurn)
     {
         LogMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
+
+        if(playerCard.CardList.Count == 0) return;
+        if(bankerCard.CardList.Count == 0) return;
 
         switch (nowTurn)
         {

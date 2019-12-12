@@ -26,13 +26,17 @@ public class existingRoomPanelController : MonoBehaviour
     {
 
         roomInfoList.Clear();
+
+        ShowDefaultRoom(GameMgr.Inst.m_gameTier);
+
         GameMgr.Inst.Log("Fit room count:=" + GameMgr.Inst.roomMgr.m_roomList.Count(x => x.m_gameType == GameMgr.Inst.m_gameType && x.m_gameTier == GameMgr.Inst.m_gameTier));
-        foreach (var room in GameMgr.Inst.roomMgr.m_roomList.Where(x => x.m_gameType == GameMgr.Inst.m_gameType && x.m_gameTier == GameMgr.Inst.m_gameTier))
+        foreach (var room in GameMgr.Inst.roomMgr.m_roomList.Where(x => x.m_gameType == GameMgr.Inst.m_gameType
+                                                                        && x.m_gameTier == GameMgr.Inst.m_gameTier
+                                                                        && !x.m_roomName.Contains(constantContainer.defaultRoomPrefix)))
         {
             roomInfoList.Add(room.roomInfoString);
             GameMgr.Inst.Log("Room Info:=" + room.roomInfoString);
         }
-
 
         foreach (var uiRoom in roomList)
         {
@@ -47,6 +51,41 @@ public class existingRoomPanelController : MonoBehaviour
             AddNewRoom(item);
         }
         GameMgr.Inst.Log("Updated Showing room Count:=" + roomList.Count);
+    }
+
+    private void ShowDefaultRoom(enumGameTier m_gameTier)
+    {
+        // Create a default room.
+        int roomCount = constantContainer.BaccaratDefaultRoomCount;
+        string defaultRoomPrefix = constantContainer.defaultRoomPrefix;
+        defaultRoomPrefix += m_gameTier;
+
+        for (int i = 1; i <= roomCount; i++)
+        {
+            var tblName = defaultRoomPrefix + i;
+            string roomInfoString = "";
+            if (GameMgr.Inst.roomMgr.m_roomList.Count(x => x.m_roomName == tblName) > 0)
+            {
+                var room = GameMgr.Inst.roomMgr.m_roomList.Where(x => x.m_roomName == tblName).First();
+                roomInfoString = room.roomInfoString;
+                GameMgr.Inst.Log("Room Info:=" + room.roomInfoString);
+            }
+            else
+            {
+                GameRoomInfo tmpRoom = new GameRoomInfo();
+                tmpRoom.m_gameType = GameMgr.Inst.m_gameType;
+                tmpRoom.m_gameTier = GameMgr.Inst.m_gameTier;
+                tmpRoom.m_gameFee = GameMgr.Inst.roomMgr.GetGameFeeOfGame(GameMgr.Inst.m_gameType, GameMgr.Inst.m_gameTier);;
+                tmpRoom.m_maxPlayer = GameMgr.Inst.roomMgr.GetMaxPlayerOfGame(GameMgr.Inst.m_gameType, GameMgr.Inst.m_gameTier);
+                tmpRoom.m_playerCount = 0;
+                tmpRoom.m_roomName = tblName;
+
+                var baccaratRoom = staticFunction_Baccarat.GetBaccaratRoomInfoFromTier(GameMgr.Inst.m_gameTier);
+                tmpRoom.m_additionalString = baccaratRoom.roomString;
+                roomInfoString = tmpRoom.roomInfoString;
+            }
+            roomInfoList.Add(roomInfoString);
+        }
     }
 
     // Update is called once per frame

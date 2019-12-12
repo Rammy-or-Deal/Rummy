@@ -30,6 +30,12 @@ public static class constantContainer
     public static int Rummy_MaxJokerCount = 8;
     #endregion Constants_for_Rummy
 
+    #region  Constants_for_Baccarat
+    public static int BaccaratDefaultRoomCount = 4;
+    internal static string defaultRoomPrefix = "dTable_";
+
+    #endregion Constants_for_Baccarat
+
     #endregion Constants
 }
 

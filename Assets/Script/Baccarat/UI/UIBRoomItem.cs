@@ -21,6 +21,8 @@ public class UIBRoomItem : MonoBehaviour
     [HideInInspector] public string roomName;
     [HideInInspector] public int maxPlayer;
     [HideInInspector] public int nowPlayer;
+
+    [HideInInspector]GameRoomInfo tmpRoom = null;
     void Start()
     {
 
@@ -34,8 +36,9 @@ public class UIBRoomItem : MonoBehaviour
     #endregion
     internal void SetMe(string roomInfoString)//BaccaratRoomInfo room)
     {
-
-        GameRoomInfo tmpRoom = new GameRoomInfo();
+        if(tmpRoom == null)
+            tmpRoom = new GameRoomInfo();
+        
         tmpRoom.roomInfoString = roomInfoString;
 
         roomInfo = new BaccaratRoomInfo();
@@ -59,6 +62,9 @@ public class UIBRoomItem : MonoBehaviour
     public void JoinRoom()
     {        
         //PunController.Inst.JoinRoom(this.roomInfo.tableName);
-        GameMgr.Inst.roomMgr.JoinRoom(roomName);
+        if(!GameMgr.Inst.roomMgr.JoinRoom(roomName))    // If there's no room, Create room based on roomInfo
+        {
+            GameMgr.Inst.roomMgr.CreateRoom_basedRoomInfo(tmpRoom);
+        }
     }
 }

@@ -68,12 +68,43 @@ public class RoomMgr : MonoBehaviour
         }
     }
 
-    internal void JoinRoom(string roomName)
+    public bool JoinRoom(string roomName)
     {
-        m_currentRoom.roomInfoString = m_roomList.Where(x => x.m_roomName == roomName).First().roomInfoString;
-        PhotonNetwork.JoinRoom(m_currentRoom.m_roomName, null);
+        if (m_roomList.Count(x => x.m_roomName == roomName) < 0)
+        {
+            m_currentRoom.roomInfoString = m_roomList.Where(x => x.m_roomName == roomName).First().roomInfoString;
+            PhotonNetwork.JoinRoom(m_currentRoom.m_roomName, null);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+    public void CreateRoom_basedRoomInfo(GameRoomInfo tmp_roomInfo)
+    {
+        GameRoomInfo room = new GameRoomInfo();
+        room.m_gameType = tmp_roomInfo.m_gameType;
+        room.m_gameTier = tmp_roomInfo.m_gameTier;
+        room.m_roomName = tmp_roomInfo.m_roomName;
+        room.m_gameFee = tmp_roomInfo.m_gameFee;
+        room.m_maxPlayer = tmp_roomInfo.m_maxPlayer;
+        room.m_playerCount = tmp_roomInfo.m_playerCount;
 
+        room.m_additionalString = tmp_roomInfo.m_additionalString;
+
+        RoomOptions options = new RoomOptions();
+
+        options.MaxPlayers = (byte)room.m_maxPlayer;
+        options.CustomRoomProperties = new Hashtable { { PhotonFields.RoomInfo, room.roomInfoString } };
+        options.CustomRoomPropertiesForLobby = new string[1] { PhotonFields.RoomInfo };
+
+        m_currentRoom.roomInfoString = room.roomInfoString;
+        PhotonNetwork.CreateRoom(room.m_roomName, options, TypedLobby.Default);
+
+        GameMgr.Inst.Log("room created " + room.m_roomName, enumLogLevel.RoomLog);
+
+    }
     public void CreateRoom(enumGameType m_gameType, enumGameTier m_gameTier, string additionalString = "")
     {
         GameRoomInfo room = new GameRoomInfo();
@@ -98,7 +129,7 @@ public class RoomMgr : MonoBehaviour
 
     }
 
-    private int GetMaxPlayerOfGame(enumGameType m_gameType, enumGameTier m_gameTier)
+    public int GetMaxPlayerOfGame(enumGameType m_gameType, enumGameTier m_gameTier)
     {
         int maxPlayers = 0;
         switch (m_gameType)
@@ -116,7 +147,7 @@ public class RoomMgr : MonoBehaviour
         return maxPlayers;
     }
 
-    private int GetGameFeeOfGame(enumGameType m_gameType, enumGameTier m_gameTier)
+    public int GetGameFeeOfGame(enumGameType m_gameType, enumGameTier m_gameTier)
     {
         int gameFee = 0;
         switch (m_gameType)
@@ -185,9 +216,9 @@ public class RoomMgr : MonoBehaviour
 
     internal void CheckUsersAvailability()
     {
-        foreach(var p in GameMgr.Inst.seatMgr.m_playerList)
+        foreach (var p in GameMgr.Inst.seatMgr.m_playerList)
         {
-            if(PhotonNetwork.PlayerList.Count(x=>x.ActorNumber == p.m_playerInfo.m_actorNumber) == 0)
+            if (PhotonNetwork.PlayerList.Count(x => x.ActorNumber == p.m_playerInfo.m_actorNumber) == 0)
             {
                 OnPlayerLeftRoom_onlyMaster(p.m_playerInfo.m_actorNumber);
             }
@@ -206,7 +237,7 @@ public class RoomMgr : MonoBehaviour
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        if(GameMgr.Inst.m_gameType == enumGameType.Lami && GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted) return;
+        if (GameMgr.Inst.m_gameType == enumGameType.Lami && GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted) return;
 
         PlayerInfoContainer pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();

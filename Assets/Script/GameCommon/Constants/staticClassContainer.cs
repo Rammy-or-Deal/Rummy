@@ -20,6 +20,7 @@ public class GameRoomInfo
     {
 
     }
+
     public string roomInfoString
     {
         get
