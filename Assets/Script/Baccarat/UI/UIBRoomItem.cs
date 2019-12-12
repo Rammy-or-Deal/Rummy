@@ -61,9 +61,11 @@ public class UIBRoomItem : MonoBehaviour
     }
     public void JoinRoom()
     {        
-        //PunController.Inst.JoinRoom(this.roomInfo.tableName);
+        GameMgr.Inst.Log("Try to join room. roomInfo=" + tmpRoom.roomInfoString);
+
         if(!GameMgr.Inst.roomMgr.JoinRoom(roomName))    // If there's no room, Create room based on roomInfo
         {
+            GameMgr.Inst.Log("There's no room. So I should create a new room");
             GameMgr.Inst.roomMgr.CreateRoom_basedRoomInfo(tmpRoom);
         }
     }
