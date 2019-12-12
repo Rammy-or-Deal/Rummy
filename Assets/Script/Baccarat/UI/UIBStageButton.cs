@@ -29,7 +29,8 @@ public class UIBStageButton : MonoBehaviour
     }
     public void OnClickStage()
     {
-        GameMgr.Inst.m_gameTier = m_gameTier;
+        if (m_gameTier != enumGameTier.BaccaratCreateRoom)
+            GameMgr.Inst.m_gameTier = m_gameTier;
         parent.OnClickStage(m_gameTier, isOnlyView);
     }
 }

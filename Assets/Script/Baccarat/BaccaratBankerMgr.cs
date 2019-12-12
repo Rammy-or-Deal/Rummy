@@ -66,12 +66,13 @@ public class BaccaratBankerMgr : MonoBehaviour
         int dealtMoney_player = 0;
         int max_betting_banker = GetMaxBettingPlayer(true, ref dealtMoney_banker);
         int max_betting_player = GetMaxBettingPlayer(false, ref dealtMoney_player);
-        if(max_betting_banker == max_betting_player)
+        if (max_betting_banker == max_betting_player)
         {
-            if(dealtMoney_banker > dealtMoney_player)
+            if (dealtMoney_banker > dealtMoney_player)
             {
                 max_betting_player = -1;
-            }else
+            }
+            else
             {
                 max_betting_banker = -1;
             }
@@ -253,7 +254,9 @@ public class BaccaratBankerMgr : MonoBehaviour
         PlayerInfoContainer pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
 
-        foreach (var player in GameMgr.Inst.seatMgr.m_playerList)
+        GameMgr.Inst.Log("playerListString:=" + pList.m_playerInfoListString, enumLogLevel.BaccaratLogicLog);
+
+        foreach (var player in GameMgr.Inst.seatMgr.m_playerList.Where(x=>x.m_playerInfo != null))
         {
             if (betLog == null)
                 continue;
@@ -261,7 +264,7 @@ public class BaccaratBankerMgr : MonoBehaviour
             betLog = betLog.Trim('/');
             string prize_area = "";
             foreach (var area in victoryArea)
-            {
+            {   
                 int prizeTimes = 1;
                 switch (area)
                 {
@@ -295,8 +298,16 @@ public class BaccaratBankerMgr : MonoBehaviour
                     prize_area += area + ":" + moneySum + ",";
                 }
             }
-            prize_area = prize_area.Trim(',');
+            // prize_area = prize_area.Trim(',');
+            // try
+            // {
+            GameMgr.Inst.Log("now Player String:=" + player.m_playerInfo.playerInfoString, enumLogLevel.BaccaratLogicLog);
             pList.m_playerList.Where(x => x.m_actorNumber == player.m_playerInfo.m_actorNumber).First().m_coinValue += prize;
+            // }
+            // catch (Exception err)
+            // {
+            //     GameMgr.Inst.Log(err.Message);
+            // }
 
             GameMgr.Inst.Log(player.m_playerInfo.m_actorNumber + " is Win. Sending Prize = " + prize);
             if (prize > 0)

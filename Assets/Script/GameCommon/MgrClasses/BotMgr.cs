@@ -25,7 +25,9 @@ public class BotMgr : MonoBehaviour
 
             if (PhotonNetwork.IsMasterClient)
             {
-                if (GameMgr.Inst.roomMgr.m_currentRoom.m_playerCount < GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
+                if ((GameMgr.Inst.m_gameType != enumGameType.Baccarat && GameMgr.Inst.roomMgr.m_currentRoom.m_playerCount < GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
+                 || (GameMgr.Inst.m_gameType == enumGameType.Baccarat && GameMgr.Inst.seatMgr.m_playerList.Count(x=>x.m_playerInfo != null && x.m_playerInfo.m_actorNumber < 0) < 2)
+                )
                 {
                     PlayerInfo info = GenerateNewBotInfo();
                     Hashtable props = new Hashtable{

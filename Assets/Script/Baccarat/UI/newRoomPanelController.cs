@@ -34,6 +34,8 @@ public class newRoomPanelController : MonoBehaviour
     {
         //Debug.Log("password:="+password.text);
         GetMoney();
+
+        GameMgr.Inst.Log("Current Game Tier = " + GameMgr.Inst.m_gameTier);
         var tmpRoom = staticFunction_Baccarat.GetBaccaratRoomInfoFromTier(GameMgr.Inst.m_gameTier);
         tmpRoom.password = password.text;
         tmpRoom.isPrivate = privacyList[1].isSelected;

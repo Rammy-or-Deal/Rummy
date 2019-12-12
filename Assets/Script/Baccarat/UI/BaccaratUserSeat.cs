@@ -80,17 +80,10 @@ public class BaccaratUserSeat : UserSeat
         mCoinValue.text = userInfo.coinValue.ToString();
     }
 
-    public int OnPlayerBet()
+    public int OnPlayerBet(int moneyId, int areaId)
     {
         try
         {
-            string betString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_BET];
-
-            //LogMgr.Inst.Log(player.ActorNumber+"st PlayerLog:=" + (string)player.CustomProperties[Common.PLAYER_BETTING_LOG], (int)LogLevels.PlayerLog1);
-
-            int moneyId = int.Parse(betString.Split(':')[0]);
-            int areaId = int.Parse(betString.Split(':')[1]);
-            
             BaccaratPanMgr.Inst.OnPlayerBet(gameObject.transform.position, moneyId, areaId);            
 
             return BaccaratBankerMgr.Inst.getCoinValue(moneyId);

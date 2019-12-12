@@ -8,5 +8,7 @@ using UnityEngine.SceneManagement;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class BaccaratGameController : GameController
 {
-    
+    private void Start() {
+        
+    }
 }

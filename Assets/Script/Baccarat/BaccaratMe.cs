@@ -33,65 +33,41 @@ public class BaccaratMe : MeMgr
         if (DataController.Inst.userInfo.coinValue < BaccaratBankerMgr.Inst.getCoinValue(moneyId)) return;
 
         //DataController.Inst.userInfo.coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
-        //UpdateMe();
-        
+        //UpdateMyCoin(DataController.Inst.userInfo.coinValue);
+                
         Bet(moneyId, areaId, PhotonNetwork.LocalPlayer.ActorNumber);
 
         canDeal = false;
     }
 
+    private void UpdateMyCoin()
+    {
+        int coinValue = 0;
+        var pList = new PlayerInfoContainer();
+        pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        coinValue = (int)pList.m_playerList.Where(x=>x.m_actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).First().m_coinValue;
+        var mySeat = GameMgr.Inst.seatMgr.m_playerList[0];
+        mySeat.mCoinValue.text = coinValue.ToString();
+        DataController.Inst.userInfo.coinValue = coinValue;
+    }
+
     public static void Bet(int moneyId, int areaId, int actorNumber)
     {
-        string log = "";
-        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(Common.PLAYER_BETTING_LOG, out object _log))
-        {
-            log = (string)_log;
-        }
-        log += "/" + actorNumber + ":" + moneyId + ":" + areaId;
+        // string log = "";
+        // if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(Common.PLAYER_BETTING_LOG, out object _log))
+        // {
+        //     log = (string)_log;
+        // }
+        // log += "/" + actorNumber + ":" + moneyId + ":" + areaId;
 
         Hashtable table = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnPlayerBet},
             {Common.PLAYER_ID, actorNumber},
             {Common.NOW_BET, moneyId + ":" + areaId},
-            {Common.PLAYER_BETTING_LOG, log}
+            // {Common.PLAYER_BETTING_LOG, log}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(table);
     }
-
-    // internal void PublishMe()
-    // {
-    //     LogMgr.Inst.Log("Publish me called.", (int)LogLevels.MeLog_Baccarat);
-    //     string infoString = "";
-    //     infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-    //             (int)PhotonNetwork.LocalPlayer.ActorNumber,
-    //             DataController.Inst.userInfo.name,
-    //             DataController.Inst.userInfo.pic,
-    //             DataController.Inst.userInfo.coinValue,
-    //             DataController.Inst.userInfo.skillLevel,
-    //             DataController.Inst.userInfo.frameId,
-    //             type
-    //         );
-
-    //     // Save my info to photon
-    //     Hashtable props = new Hashtable
-    //         {
-    //             {Common.PLAYER_INFO, infoString},
-    //         };
-    //     PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-
-    //     // Send Add New player Message. - OnUserEnteredRoom
-    //     props = new Hashtable
-    //         {
-    //             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnUserEnteredRoom},
-    //             {Common.NEW_PLAYER_INFO, infoString},
-    //         };
-
-    //     PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-
-    //     //BaccaratPlayerMgr.Inst.m_playerList[0].SetMe(infoString);
-
-    //     LogMgr.Inst.Log("Tell I am entered. " + infoString, (int)LogLevels.RoomLog1);
-    // }
 
     internal void OnPrizeAwarded()
     {
@@ -101,42 +77,14 @@ public class BaccaratMe : MeMgr
         //UpdateMe();
     }
 
-    private void UpdateMe()
-    {
-        LogMgr.Inst.Log("Publish me called.", (int)LogLevels.MeLog_Baccarat);
-        string infoString = "";
-        infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
-                (int)PhotonNetwork.LocalPlayer.ActorNumber,
-                DataController.Inst.userInfo.name,
-                DataController.Inst.userInfo.pic,
-                DataController.Inst.userInfo.coinValue,
-                DataController.Inst.userInfo.skillLevel,
-                DataController.Inst.userInfo.frameId,
-                type
-            );
+    
 
-        // Save my info to photon
-        Hashtable props = new Hashtable
-            {
-                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnUpdateMe},
-                {Common.PLAYER_INFO, infoString},
-            };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-    }
-
-    internal int OnPlayerBet()
-    {
-
-        string betString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_BET];
-
-        GameMgr.Inst.Log("MyLog:=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_BETTING_LOG], enumLogLevel.BaccaratLogicLog);
-
-        int moneyId = int.Parse(betString.Split(':')[0]);
-        int areaId = int.Parse(betString.Split(':')[1]);
-        
-        DataController.Inst.userInfo.coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
+    internal int OnPlayerBet(int moneyId, int areaId)
+    {       
+        //DataController.Inst.userInfo.coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
         BaccaratPanMgr.Inst.OnPlayerBet(UIBBetBtnList.Inst.btns[moneyId].gameObject.transform.position, moneyId, areaId);
         canDeal = true;
+        UpdateMyCoin();
 
         return BaccaratBankerMgr.Inst.getCoinValue(moneyId);
     }

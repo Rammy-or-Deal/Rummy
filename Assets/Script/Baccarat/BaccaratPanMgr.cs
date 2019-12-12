@@ -136,6 +136,8 @@ public class BaccaratPanMgr : MonoBehaviour
         message.Show("Congratulations!");
         await Task.Delay(3000);
         message.Hide();
+        GameMgr.Inst.Log("Prize Area:=" + prize_area, enumLogLevel.BaccaratLogicLog);
+        prize_area = prize_area.Trim(',');
         foreach (var area in prize_area.Split(','))
         {
             var areaId = int.Parse(area.Split(':')[0]);

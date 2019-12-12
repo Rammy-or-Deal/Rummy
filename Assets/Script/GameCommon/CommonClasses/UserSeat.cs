@@ -26,7 +26,7 @@ public class UserSeat : MonoBehaviour
         }
     }
 
-    public PlayerInfo m_playerInfo;
+    public PlayerInfo m_playerInfo = null;
 
     public virtual void SetPlayerInfo(PlayerInfo info)
     {

@@ -11,7 +11,7 @@ public class UIBBetPanel : MonoBehaviour
     public UIBBetPan[] pans;
     public Image coinImg;
     List<Image> coinList = new List<Image>();
-    private string[] coinSpriteNames = new string[] {"simbol_100", "simbol_500", "simbol_1000", "simbol_10000"};
+    private string[] coinSpriteNames = new string[] { "simbol_100", "simbol_500", "simbol_1000", "simbol_10000" };
     private const int diff = 40;
     private int coinCnt = -1;
 
@@ -56,14 +56,21 @@ public class UIBBetPanel : MonoBehaviour
 
     internal void Init()
     {
-        foreach (var pan in pans)
+        try
         {
-            pan.Init();
+            foreach (var pan in pans)
+            {
+                pan.Init();
+            }
+            for (int i = 0; i <= coinCnt; i++)
+            {
+                coinList[i].gameObject.SetActive(false);
+            }
+            coinCnt = -1;
         }
-        for (int i = 0; i <= coinCnt; i++)
+        catch
         {
-            coinList[i].gameObject.SetActive(false);
+            GameMgr.Inst.Log("There's an error in UIBBetPanel->Init()");
         }
-        coinCnt = -1;
     }
 }

@@ -9,25 +9,33 @@ public class SeatMgr : MonoBehaviour
 {
     public List<UserSeat> m_playerList;
     [HideInInspector] public Dictionary<int, int> seatNumList;
-    
+
     public virtual void OnSeatStringUpdate()
     {
         GameMgr.Inst.Log("SeatMgr->OnSeatStringUpdate() is called.", enumLogLevel.RoomLog);
 
+        GameMgr.Inst.Log("seatString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING], enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("playerString=" + (string)(string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING], enumLogLevel.RoomLog);
+
         // Update seatNumList variable
         var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);
-        GameMgr.Inst.Log("seatNumList=" + string.Join(", ", seatNumList), enumLogLevel.RoomLog);
+        
 
         // Update User Seat
-        var userListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
-        PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
-        foreach(var seat in m_playerList)
+        PlayerInfoContainer pList = new PlayerInfoContainer();
+        string infoString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        pList.m_playerInfoListString = infoString;
+
+        GameMgr.Inst.Log("seatList=" + seatInfo.seatString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("playerNumList=" + pList.m_playerInfoListString, enumLogLevel.RoomLog);
+        foreach (var player in m_playerList)
         {
-            seat.isSeat = false;
+            player.isSeat = false;
         }
 
         foreach (var seat in seatInfo.seatList)
         {
+            GameMgr.Inst.Log("now Seat:=" + seat.oneSeatString, enumLogLevel.RoomLog);
             var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
             UpdateUserSeat(seat, user);
         }
@@ -45,7 +53,7 @@ public class SeatMgr : MonoBehaviour
     {
         GameMgr.Inst.Log(actorNumber + " is left. current gameStatus=" + GameMgr.Inst.m_gameStatus);
         try
-        {            
+        {
             if (GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted)
             {
                 var player = m_playerList.Where(x => x.m_playerInfo.m_actorNumber == actorNumber).First();
@@ -55,12 +63,12 @@ public class SeatMgr : MonoBehaviour
             {
                 var pList = new PlayerInfoContainer();
                 pList.GetInfoContainerFromPhoton();
-                var p = pList.m_playerList.Where(x=>x.m_actorNumber == actorNumber).First();
+                var p = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
                 pList.m_playerList.Remove(p);
-                
+
             }
         }
-        catch(Exception err)
+        catch (Exception err)
         {
 
         }
@@ -69,7 +77,7 @@ public class SeatMgr : MonoBehaviour
     private SeatInfo Update_seatNumList(string v)
     {
         if (seatNumList == null) seatNumList = new Dictionary<int, int>();
-        GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, enumLogLevel.RoomLog);
+        //GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, enumLogLevel.RoomLog);
         seatNumList.Clear();
         SeatInfo seatInfo = new SeatInfo();
         seatInfo.seatString = v;
@@ -78,7 +86,7 @@ public class SeatMgr : MonoBehaviour
         {
             seatNumList.Add(seat.m_actorNumber, seat.m_seatNo);
         }
-        GameMgr.Inst.Log("SeatMgr->Update_seatNumList() Result:" + string.Join(", ", seatInfo.seatList.Select(x => x.oneSeatString)), enumLogLevel.RoomLog);
+       // GameMgr.Inst.Log("SeatMgr->Update_seatNumList() Result:" + string.Join(", ", seatInfo.seatList.Select(x => x.oneSeatString)), enumLogLevel.RoomLog);
         return seatInfo;
     }
 
@@ -112,10 +120,9 @@ public class SeatMgr : MonoBehaviour
         var userListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
 
-        foreach (var seat in seatInfo.seatList.Where(x => x.m_actorNumber == playerId))
+        foreach (var user in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == playerId))
         {
-            var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
-            user.m_coinValue += score;
+            user.m_playerInfo.m_coinValue += score;
         }
 
         Hashtable turnProps = new Hashtable

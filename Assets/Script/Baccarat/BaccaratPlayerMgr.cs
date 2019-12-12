@@ -70,40 +70,77 @@ public class BaccaratPlayerMgr : SeatMgr
     internal void OnPlayerBet()
     {
         int actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        string betString = "";
+        try
+        {
+            betString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_BET];
+        }
+        catch { }
+        if(betString == "") return;
+
+        int moneyId = int.Parse(betString.Split(':')[0]);
+        int areaId = int.Parse(betString.Split(':')[1]);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            AddBettingLog(actorNumber, moneyId, areaId);
+        }
+
+
         int dealtCoin = 0;
         if (actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
         {
-            dealtCoin = BaccaratMe.Inst.OnPlayerBet();
+            dealtCoin = BaccaratMe.Inst.OnPlayerBet(moneyId, areaId);
         }
         else
         {
             try
             {
                 var p = (BaccaratUserSeat)m_playerList.Where(x => x.m_playerInfo.m_actorNumber == actorNumber).First();
-                dealtCoin = p.OnPlayerBet();
+                dealtCoin = p.OnPlayerBet(moneyId, areaId);
             }
             catch { }
         }
 
-        if(!PhotonNetwork.IsMasterClient || dealtCoin == 0) return;
 
-        PlayerInfoContainer pList = new PlayerInfoContainer();
-        pList.GetInfoContainerFromPhoton();
-        try
-        {
-            var user = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
-            user.m_coinValue -= dealtCoin;
-            Hashtable props = new Hashtable{
-                {PhotonFields.GAME_MESSAGE, enumGameMessage.OnSeatStringUpdate},
-                {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
-            };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        }
-        catch (Exception err)
-        {
-            GameMgr.Inst.Log("Game Player List infomation isn't correct. Error= " + err.Message, enumLogLevel.BotLog);
-        }
 
+        /*
+                PlayerInfoContainer pList = new PlayerInfoContainer();
+                pList.GetInfoContainerFromPhoton();
+                try
+                {
+                    var user = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
+                    user.m_coinValue -= dealtCoin;
+                    Hashtable props = new Hashtable{
+                        {PhotonFields.GAME_MESSAGE, enumGameMessage.OnSeatStringUpdate},
+                        {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+                    };
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+                }
+                catch (Exception err)
+                {
+                    GameMgr.Inst.Log("Game Player List infomation isn't correct. Error= " + err.Message, enumLogLevel.BotLog);
+                }
+        */
+    }
+
+    private void AddBettingLog(int actorNumber, int moneyId, int areaId)
+    {
+        string betLog = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_BETTING_LOG];
+        betLog += "/" + actorNumber + ":" + moneyId + ":" + areaId;
+        betLog = betLog.Trim('/');
+        var pList = new PlayerInfoContainer();
+        pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        var p = pList.m_playerList.Where(x=>x.m_actorNumber == actorNumber).First();
+        p.m_coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
+
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, -1},
+            {Common.PLAYER_BETTING_LOG, betLog},
+            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 
     // internal void OnUserLeave(Player player)
