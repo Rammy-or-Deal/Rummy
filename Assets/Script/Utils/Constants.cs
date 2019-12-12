@@ -27,7 +27,11 @@ public enum BaccaratShowingCard_NowTurn
     Player2 = 2, 
     Banker2 = 3, 
     Player3 = 4, 
-    Banker3 = 5
+    Banker3 = 5,
+    Player = 6,
+    Banker = 7,
+    Player_additional = 8,
+    Banker_additional = 9
 }
 
 public enum BaccaratMessages
@@ -93,7 +97,7 @@ public static class Constants
     public const int BaccaratBPArea_prize = 11;
     
 
-    public static float BaccaratShowingCard_waitTime = 1;
+    public static float BaccaratShowingCard_waitTime = 3;
 
     public static float BaccaratDistributionTime = 2.0f;
 

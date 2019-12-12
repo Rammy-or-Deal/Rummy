@@ -49,6 +49,8 @@ public class BaccaratMe : MeMgr
         var mySeat = GameMgr.Inst.seatMgr.m_playerList[0];
         mySeat.mCoinValue.text = coinValue.ToString();
         DataController.Inst.userInfo.coinValue = coinValue;
+
+        
     }
 
     public static void Bet(int moneyId, int areaId, int actorNumber)

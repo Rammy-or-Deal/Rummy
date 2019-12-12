@@ -96,7 +96,7 @@ public class BaccaratPanMgr : MonoBehaviour
         }
         catch
         {
-            
+
         }
         m_panTime.text = time + "";
         yield return new WaitForSeconds(1.0f);
@@ -172,7 +172,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal void OnPlayerBet(Vector3 originPos, int moneyId, int areaId)
     {
-//        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", moneyId, areaId), (int)LogLevels.PanLog);
+        //        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", moneyId, areaId), (int)LogLevels.PanLog);
         betPanel.OnPlayerBet(originPos, moneyId, areaId);
     }
 
@@ -194,7 +194,7 @@ public class BaccaratPanMgr : MonoBehaviour
         // {Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER, max_betting_player},
 
         if (!PhotonNetwork.IsMasterClient) return;
-        ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player1));
+        ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player));
     }
 
 
@@ -204,13 +204,13 @@ public class BaccaratPanMgr : MonoBehaviour
         BaccaratUserSeat banker = null;
         try
         {
-            banker =(BaccaratUserSeat) BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == max_betting_banker).First();
+            banker = (BaccaratUserSeat)BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == max_betting_banker).First();
         }
         catch { }
         BaccaratUserSeat player = null;
         try
         {
-            player =(BaccaratUserSeat) BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == max_betting_player).First();
+            player = (BaccaratUserSeat)BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == max_betting_player).First();
         }
         catch { }
 
@@ -240,9 +240,12 @@ public class BaccaratPanMgr : MonoBehaviour
 
     private void MoveDistributed_BigCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
     {
-        try{
+        try
+        {
             UIBCardBend.Inst.OnClickShowBigCard();
-        }catch{
+        }
+        catch
+        {
 
         }
     }
@@ -287,36 +290,74 @@ public class BaccaratPanMgr : MonoBehaviour
         }
         catch { }
 
-        nowTurn++;
+        //nowTurn++;
         LogMgr.Inst.Log("New Card command Created. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
 
-        if (nowTurn > (int)BaccaratShowingCard_NowTurn.Banker2)
-        {
-            if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player3)
-                if (playerCard.CardList.Count > 2)
-                    ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
-                else
-                    nowTurn++;
-
-            if (nowTurn == (int)BaccaratShowingCard_NowTurn.Banker3)
-                if (bankerCard.CardList.Count > 2)
-                    ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
-                else
-                    BaccaratBankerMgr.Inst.CalcResult();
-
-            if (nowTurn > (int)BaccaratShowingCard_NowTurn.Banker3)
-                BaccaratBankerMgr.Inst.CalcResult();
-        }
-        else
+        if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player)
         {
             ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+            nowTurn = (int)BaccaratShowingCard_NowTurn.Banker;
         }
-        //if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player3 && playerCard.CardList.Count > 2)
+
+        if (nowTurn == (int)BaccaratShowingCard_NowTurn.Banker)
+        {
+            if (playerCard.CardList.Count > 2)
+            {
+                nowTurn = (int)BaccaratShowingCard_NowTurn.Player_additional;
+                ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+            }
+            else if (bankerCard.CardList.Count > 2)
+            {
+                nowTurn = (int)BaccaratShowingCard_NowTurn.Banker_additional;
+                ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+            }
+            else
+            {
+                BaccaratBankerMgr.Inst.CalcResult();
+            }
+        }
+
+        if (nowTurn == (int)BaccaratShowingCard_NowTurn.Player_additional)
+        {
+            nowTurn = (int)BaccaratShowingCard_NowTurn.Banker_additional;
+            if (bankerCard.CardList.Count > 2)
+            {
+                nowTurn = (int)BaccaratShowingCard_NowTurn.Banker_additional;
+                ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+            }
+            else
+            {
+                BaccaratBankerMgr.Inst.CalcResult();
+            }
+        }
     }
 
     private void ShowingCatchedCard(int nowTurn)
     {
         LogMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
+
+        switch (nowTurn)
+        {
+            case (int)BaccaratShowingCard_NowTurn.Player:
+                cardPanel.leftCards[0].ShowImage(playerCard.CardList[0].num, playerCard.CardList[0].color);
+                cardPanel.leftCards[1].ShowImage(playerCard.CardList[1].num, playerCard.CardList[1].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Banker:
+                cardPanel.rightCards[0].ShowImage(bankerCard.CardList[0].num, bankerCard.CardList[0].color);
+                cardPanel.rightCards[1].ShowImage(bankerCard.CardList[1].num, bankerCard.CardList[1].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Player_additional:
+                if (playerCard.CardList.Count > 2)
+                    cardPanel.leftCards[2].ShowImage(playerCard.CardList[2].num, playerCard.CardList[2].color);
+                break;
+            case (int)BaccaratShowingCard_NowTurn.Banker_additional:
+                if (bankerCard.CardList.Count > 2)
+                    cardPanel.rightCards[2].ShowImage(bankerCard.CardList[2].num, bankerCard.CardList[2].color);
+                break;
+        }
+
+        #region Card step by step   ------ not used
+        /*
         switch (nowTurn)
         {
             case (int)BaccaratShowingCard_NowTurn.Player1:
@@ -340,7 +381,8 @@ public class BaccaratPanMgr : MonoBehaviour
                     cardPanel.rightCards[2].ShowImage(bankerCard.CardList[2].num, bankerCard.CardList[2].color);
                 break;
         }
-
+        */
+        #endregion
     }
 
     private void InitTeamCard()
