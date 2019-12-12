@@ -32,7 +32,9 @@ public class BaccaratRoomController : MonoBehaviour
         {
             Inst = this;
             GameMgr.Inst.m_gameTier = enumGameTier.BaccaratRegular;
-         
+            
+            UIBPasswordVerificationDlg.Inst.gameObject.SetActive(false);
+
             BaccaratRoomController.Inst.OnClickRoomViewDialog((int)enumGameTier.BaccaratRegular);
             BaccaratRoomController.Inst.CreateBaccaratRoom_Type((int)enumGameTier.BaccaratRegular);
         }
@@ -62,7 +64,7 @@ public class BaccaratRoomController : MonoBehaviour
 
     private void ShowRoomList()
     {
-        
+
         //existingRoomPanel
         existingRoomPanel.ShowRoomList();
     }
