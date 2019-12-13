@@ -34,7 +34,7 @@ public class FortunePanMgr : MonoBehaviour
         foreach (FortuneUserSeat player in playerList)
         {
             int status = 0;
-
+            if(player.isSeat == false) continue;
             try
             {
                 status = (int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == player.m_playerInfo.m_actorNumber).First().CustomProperties[Common.PLAYER_STATUS];

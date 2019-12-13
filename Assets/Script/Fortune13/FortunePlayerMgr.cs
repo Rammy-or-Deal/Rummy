@@ -108,8 +108,10 @@ public class FortunePlayerMgr : SeatMgr
 
         foreach (var player in seatList)
         {
+            if(player.isSeat == false) continue;
             string cardString = "";
             cardString = string.Join(",", cardList[seatList.IndexOf(player)].Select(x => x.cardString));
+            
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnCardDistributed},
                 {Common.PLAYER_ID, player.m_playerInfo.m_actorNumber},
