@@ -22,7 +22,7 @@ public class UIBPasswordVerificationDlg : MonoBehaviour
                 baccaratRoomInfo = new BaccaratRoomInfo();
         }
         //MakeWrongPasswordEffect();
-        Shake();
+        //Shake();
     }
 
     #region  Try_Effect
@@ -32,16 +32,14 @@ public class UIBPasswordVerificationDlg : MonoBehaviour
     float dx = 1;
     void Update()
     {
+        temp_shake_intensity -= 1;
+        if (temp_shake_intensity % 2 == 0) return;
 
         if (temp_shake_intensity > 0)
         {
-
             Vector3 tra = new Vector3(dx, 0, 0);
-
-            temp_shake_intensity -= 1;
-
-            if (temp_shake_intensity % 2 == 0)
-                transform.position = originPosition + tra * 5;
+            
+            transform.position = originPosition + tra * 5;
             dx = -dx;
         }
     }
