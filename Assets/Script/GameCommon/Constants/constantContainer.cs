@@ -36,6 +36,8 @@ public static class constantContainer
 
     public static int FortuneChangingTime = 30;
 
+    public static int FortuneMinimumPlayer = 2;
+
     #endregion Constants_for_Baccarat
 
     #endregion Constants
