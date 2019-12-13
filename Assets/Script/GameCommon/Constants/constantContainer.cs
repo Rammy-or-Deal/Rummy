@@ -34,6 +34,8 @@ public static class constantContainer
     public static int BaccaratDefaultRoomCount = 4;
     internal static string defaultRoomPrefix = "dTable_";
 
+    public static int FortuneChangingTime = 30;
+
     #endregion Constants_for_Baccarat
 
     #endregion Constants

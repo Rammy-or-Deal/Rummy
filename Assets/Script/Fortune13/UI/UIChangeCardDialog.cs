@@ -117,36 +117,9 @@ public class UIChangeCardDialog : MonoBehaviour
         }
         return cardList;
     }
-    Coroutine countdownTimerRoutine;
-    internal void StartTimer()
-    {
-        countdownTimerRoutine = StartCoroutine(CountTime(Constants.FortuneWaitTimeForPlay));
-    }
-
-    IEnumerator CountTime(int waitTime)
-    {
-        mClockText.text = waitTime.ToString();
-        while (waitTime > 0)
-        {
-            yield return new WaitForSeconds(1.0f);
-            waitTime--;
-            mClockText.text = waitTime.ToString();
-        }
-        SendMyCards();
-    }
-
-    private void SendMyCards()
-    {
-        try
-        {
-            StopCoroutine(countdownTimerRoutine);
-        }
-        catch
-        {
-
-        }
-
-        FortuneMe.Inst.SetMyProperty((int)FortunePlayerStatus.dealtCard);
+    public void SendMyCards()
+    {    
+        FortuneMe.Inst.SetMyProperty((int)enumPlayerStatus.Fortune_dealtCard);
 
         var frontList = getCardList(frontCards);
         var middleList = getCardList(middleCards);
@@ -154,7 +127,7 @@ public class UIChangeCardDialog : MonoBehaviour
 
 
         Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnPlayerDealCard},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnPlayerDealCard},
             {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
             {Common.FORTUNE_PLAYER_FRONT_CARD, string.Join(",", frontList.Select(x=>x.cardString))},
             {Common.FORTUNE_PLAYER_MIDDLE_CARD, string.Join(",", middleList.Select(x=>x.cardString))},

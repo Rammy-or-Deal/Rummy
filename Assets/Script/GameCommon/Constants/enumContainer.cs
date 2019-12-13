@@ -21,6 +21,12 @@ public enum enumPlayerStatus
     Rummy_Burnt,
     Rummy_Init,
     Rummy_ReadyToStart,
+    Fortune_dealtCard,
+    Fortune_Ready,
+    Fortune_OnChanging,
+    Fortune_canStart,
+    Fortune_Init,
+    Init_Ready,
     #endregion Enum_Rummy
 }
 
@@ -99,6 +105,14 @@ public enum enumGameMessage
     Baccarat_OnUpdateMe,
     Baccarat_OnInitUI,
     OnPlayerLeftRoom_onlyMaster_bot,
+    Fortune_OnCardDistributed,
+    Fortune_OnUserReady,
+    Fortune_OnGameStarted,
+    Fortune_OnPlayerDealCard,
+    Fortune_OnOpenCard,
+    Fortune_OnFinishedGame,
+    Fortune_InitReady,
+    Fortune_OnTickTimer,
     #endregion
 
     #region Baccarat Game Messages

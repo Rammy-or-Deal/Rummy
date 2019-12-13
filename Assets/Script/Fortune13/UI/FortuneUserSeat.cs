@@ -7,7 +7,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FortuneUserSeat : CommonSeat
+public class FortuneUserSeat : UserSeat
 {
 
     //cards
@@ -38,19 +38,6 @@ public class FortuneUserSeat : CommonSeat
 
 
     #region UNITY
-
-    public void Start()
-    {
-
-        mUserPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
-        mUserName.text = DataController.Inst.userInfo.name;
-        mCoinValue.text = DataController.Inst.userInfo.coinValue.ToString();
-        mUserSkillName.text = DataController.Inst.userInfo.skillLevel;
-        mCoinValue.text = DataController.Inst.userInfo.coinValue.ToString();
-
-        MyObject = this.gameObject;
-    }
-
 
     public void LeftRoom() // the number of left user
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,6 +77,12 @@ public class LogMgr : MonoBehaviour
             LogMgr.Inst.Log(header + "   " + tmp + "-----", loglevel);
         }
     }
+
+    internal void Log(object p)
+    {
+        throw new NotImplementedException();
+    }
+
     public void ShowLog(List<Card> list, string header = "", int loglevel = (int)LogLevels.SpecialLog)
     {
         string tmp = "";

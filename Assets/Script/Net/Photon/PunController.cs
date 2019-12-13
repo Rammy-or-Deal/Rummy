@@ -340,9 +340,9 @@ public class PunController : MonoBehaviourPunCallbacks
                 // Save my info to photon
                 Hashtable props = new Hashtable
                 {
-                    {Common.FORTUNE_MESSAGE, (int)RoomManagementMessages.OnUserEnteredRoom_M},
+                    {enumGameMessage.Fortune_, (int)RoomManagementMessages.OnUserEnteredRoom_M},
                     {Common.PLAYER_INFO, infoString},
-                    {Common.PLAYER_STATUS, (int)FortunePlayerStatus.Init}
+                    {Common.PLAYER_STATUS, (int)enumPlayerStatus.Fortune_Init}
                 };
                 PhotonNetwork.LocalPlayer.SetCustomProperties(props);
             }

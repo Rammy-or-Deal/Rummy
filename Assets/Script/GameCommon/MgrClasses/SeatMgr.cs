@@ -18,8 +18,7 @@ public class SeatMgr : MonoBehaviour
         GameMgr.Inst.Log("playerString=" + (string)(string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING], enumLogLevel.RoomLog);
 
         // Update seatNumList variable
-        var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);
-        
+        var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);        
 
         // Update User Seat
         PlayerInfoContainer pList = new PlayerInfoContainer();
@@ -39,8 +38,19 @@ public class SeatMgr : MonoBehaviour
             var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
             UpdateUserSeat(seat, user);
         }
+
+        #region Code for Fortune
+        if(!PhotonNetwork.IsMasterClient) return;
+        if(m_playerList.Count(x=>x.isSeat == false) > 0) return;
+
+        StartFortuneGame();
+        #endregion
     }
 
+    public virtual void StartFortuneGame()
+    {
+        
+    }
 
     private void UpdateUserSeat(SeatInfo.OneSeat seat, PlayerInfo playerInfo)
     {

@@ -40,4 +40,5 @@ public class MeMgr : MonoBehaviour
         GameMgr.Inst.Log("Tell I am entered. " + infoString, enumLogLevel.MeLog);
         GameMgr.Inst.Log("This room info :=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.RoomInfo]);
     }
+
 }

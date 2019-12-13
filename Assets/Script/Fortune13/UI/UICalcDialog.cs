@@ -67,7 +67,7 @@ public class UICalcDialog : MonoBehaviour
         for (int i = 0; i < m_playerList.Count; i++)
         {
             
-            LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_playerList[i].IsSeat);
+            LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_playerList[i].isSeat);
 
             m_calc_player[i].Init(m_playerList[i]);
         }

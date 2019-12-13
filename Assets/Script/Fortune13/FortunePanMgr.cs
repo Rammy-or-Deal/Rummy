@@ -28,20 +28,20 @@ public class FortunePanMgr : MonoBehaviour
         var actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         if (actorNumber != PhotonNetwork.LocalPlayer.ActorNumber) return;
 
-        var playerList = FortunePlayMgr.Inst.m_playerList;
+        var playerList = FortunePlayerMgr.Inst.m_playerList;
         centerCard.SetActive(true);
         LogMgr.Inst.Log("PanMgr OnCardDistributed called");
-        foreach (var player in playerList)
+        foreach (FortuneUserSeat player in playerList)
         {
             int status = 0;
 
             try
             {
-                status = (int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == player.actorNumber).First().CustomProperties[Common.PLAYER_STATUS];
+                status = (int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == player.m_playerInfo.m_actorNumber).First().CustomProperties[Common.PLAYER_STATUS];
             }
             catch { }
 
-            if (status == (int)FortunePlayerStatus.canStart || player.actorNumber < 0)
+            if (status == (int)enumPlayerStatus.Fortune_canStart || player.m_playerInfo.m_actorNumber < 0)
             {
                 player.InitCards();
                 player.moveDealCard(centerCard.transform.position);
@@ -52,10 +52,11 @@ public class FortunePanMgr : MonoBehaviour
 
     internal async void OnOpenCard()
     {
-        if ((int)PhotonNetwork.LocalPlayer.CustomProperties[Common.PLAYER_STATUS] != (int)FortunePlayerStatus.dealtCard) return;
+        /*
+        if ((int)PhotonNetwork.LocalPlayer.CustomProperties[Common.PLAYER_STATUS] != (int)enumPlayerStatus.Fortune_dealtCard) return;
 
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
-        var playerList = FortunePlayMgr.Inst.m_playerList;
+        var playerList = FortunePlayerMgr.Inst.m_playerList;
         LogMgr.Inst.Log("OnOpenCard is called. playerCount=" + playerList.Count);
 
         if (lineNo == 2)
@@ -68,7 +69,7 @@ public class FortunePanMgr : MonoBehaviour
         await Task.Delay(1000);
 
         // Showing card
-        foreach (var user in FortunePlayMgr.Inst.userCardList)
+        foreach (var user in FortunePlayerMgr.Inst.userCardList)
         {
             try
             {
@@ -106,6 +107,20 @@ public class FortunePanMgr : MonoBehaviour
             FortuneUIController.Inst.resultDlg.SetProperty(FortuneUIController.Inst.calcDlg);
             
             FortuneUIController.Inst.resultDlg.ShowResult();
+        }
+        */
+    }
+
+    internal void OnTickTimer()
+    {
+        //mClockText.text = waitTime.ToString();
+        int remainTime = 0;
+        remainTime = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_REMAIN_TIME];
+        FortuneUIController.Inst.changeDlg.mClockText.text = remainTime.ToString();
+
+        if(remainTime == 0)
+        {
+            FortuneUIController.Inst.changeDlg.SendMyCards();
         }
     }
 

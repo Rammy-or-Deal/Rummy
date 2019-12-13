@@ -18,6 +18,6 @@ public class UIFortuneTierButton : MonoBehaviour
     }
     public void OnClick()
     {
-        
+        FortuneTierController.Inst.OnClickTier(m_Tier);
     }
 }

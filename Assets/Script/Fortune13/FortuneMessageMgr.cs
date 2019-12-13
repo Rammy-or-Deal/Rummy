@@ -20,7 +20,7 @@ public enum FortuneGameStatus
     CardDealt = 2,
 
 }
-public class FortuneMessageMgr : MonoBehaviour
+public class FortuneMessageMgr : MessageMgr
 {
     public static FortuneMessageMgr Inst;
     // Start is called before the first frame update
@@ -30,9 +30,9 @@ public class FortuneMessageMgr : MonoBehaviour
         if (!Inst)
         {
             Inst = this;
-            RoomMessageManagement.Inst.GameID = Game_Identifier.Fortune13;
             nowGameStatus = FortuneGameStatus.Init;
         }
+        GameMgr.Inst.messageMgr = this;
     }
 
     // Update is called once per frame
@@ -41,45 +41,58 @@ public class FortuneMessageMgr : MonoBehaviour
 
     }
 
-    public void OnMessageArrived(int messageId, Player p = null)
+    public override bool OnMessageArrived(int message, Player player = null)
     {
-        try
+        if (base.OnMessageArrived(message, player)) return true;
+
+        enumGameMessage msg = (enumGameMessage)message;
+
+        switch (msg)
         {
-            Debug.Log((FortuneMessages)messageId + " is Called.");
-        }
-        catch { }
-        switch (messageId)
-        {
-            case (int)RoomManagementMessages.OnUserSit: // This function is used only one time - start time.
+            /*
+            case RoomManagementMessages.OnUserSit: // This function is used only one time - start time.
                 if (PhotonNetwork.IsMasterClient)
-                    FortunePlayMgr.Inst.OnUserSit();        // set status to canStart
+                    FortunePlayerMgr.Inst.OnUserSit();        // set status to canStart
                 break;
-            case (int)FortuneMessages.OnCardDistributed:
+            
+            case enumGameMessage.Fortune_InitReady:
+                if(PhotonNetwork.IsMasterClient)
+                {
+                    FortunePlayerMgr.Inst.Fortune_InitReady();
+                }
+                break;
+            */  
+            case enumGameMessage.Fortune_OnCardDistributed:
                 FortuneMe.Inst.OnCardDistributed();         // set status to Ready
                 FortunePanMgr.Inst.OnCardDistributed();
                 break;
-            case (int)FortuneMessages.OnUserReady:
+            case enumGameMessage.Fortune_OnUserReady:
                 if (PhotonNetwork.IsMasterClient)
-                    FortunePlayMgr.Inst.OnUserReady();
+                    FortunePlayerMgr.Inst.OnUserReady();
                 break;
-            case (int)FortuneMessages.OnGameStarted:
+            case enumGameMessage.Fortune_OnGameStarted:
                 nowGameStatus = FortuneGameStatus.GameStarted;  // started
                 FortuneMe.Inst.OnGameStarted();           // set status to OnChanging
                 break;
-            case (int)FortuneMessages.OnPlayerDealCard:
-                FortunePlayMgr.Inst.OnPlayerDealCard();
+            case enumGameMessage.Fortune_OnTickTimer:
+                FortunePanMgr.Inst.OnTickTimer();
+                if(PhotonNetwork.IsMasterClient)
+                    FortunePlayerMgr.Inst.OnTickTimer();
                 break;
-            case (int)FortuneMessages.OnOpenCard:
+            case enumGameMessage.Fortune_OnPlayerDealCard:
+                FortunePlayerMgr.Inst.OnPlayerDealCard();
+                break;
+            case enumGameMessage.Fortune_OnOpenCard:
                 FortunePanMgr.Inst.OnOpenCard();
-                FortunePlayMgr.Inst.OnOpenCard();
+                FortunePlayerMgr.Inst.OnOpenCard();
                 break;
-            case (int)FortuneMessages.OnFinishedGame:
+            case enumGameMessage.Fortune_OnFinishedGame:
                 if (PhotonNetwork.IsMasterClient)
-                    FortunePlayMgr.Inst.OnFinishedGame();
+                    FortunePlayerMgr.Inst.OnFinishedGame();
                 break;
             default:
-                RoomMessageManagement.Inst.OnMessageArrived(messageId, p);
-                break;
+                return false;
         }
+        return true;
     }
 }

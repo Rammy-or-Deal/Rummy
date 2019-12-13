@@ -39,24 +39,20 @@ public enum Lucky
     Three_Flushes,
 }
 
-public class FortunePlayMgr : MonoBehaviour
+public class FortunePlayerMgr : SeatMgr
 {
     // Start is called before the first frame update
-    public static FortunePlayMgr Inst;
-    [HideInInspector]
-    public List<FortuneUserSeat> m_playerList;
+    public static FortunePlayerMgr Inst;
+
     [HideInInspector] bool isFirst;
     void Start()
     {
+
         if (!Inst)
         {
-            List<FortuneUserSeat> m_playerList = new List<FortuneUserSeat>();
             Inst = this;
-            foreach (var seat in PlayerManagement.Inst.m_playerList)
-            {
-                m_playerList.Add((FortuneUserSeat)seat);
-            }
         }
+        GameMgr.Inst.seatMgr = this;
         isFirst = true;
     }
 
@@ -66,8 +62,17 @@ public class FortunePlayMgr : MonoBehaviour
 
     }
 
+
+    public override void StartFortuneGame()
+    {
+        base.StartFortuneGame();
+
+        DistributeCards();
+    }
+
     internal void OnUserSit()
     {
+        /*
         if (!isFirst) return;
 
         var seatList = PlayerManagement.Inst.getSeatList();
@@ -77,25 +82,40 @@ public class FortunePlayMgr : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
         SetAllPlayersStatus((int)FortunePlayerStatus.canStart);
         DistributeCards();
-
+        */
     }
+
 
     private void DistributeCards()
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
         List<List<Card>> cardList = generateRandomCards();
-        var seatList = PlayerManagement.Inst.getSeatList();
+        //var seatList = PlayerManagement.Inst.getSeatList();
+
+        var seatList = GameMgr.Inst.seatMgr.m_playerList;
         string missionString = new FortuneMissionCard().CreateMissionString();
-        foreach (var seat in seatList.Where(x => x.status == (int)FortunePlayerStatus.canStart))
+
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            if (seatList.Count(x => x.m_playerInfo.m_actorNumber == player.ActorNumber) == 0) continue;
+            Hashtable props = new Hashtable{
+                {PhotonFields.GAME_MESSAGE, -1},
+                {Common.PLAYER_STATUS, (int)enumPlayerStatus.Fortune_canStart}
+            };
+            player.SetCustomProperties(props);
+        }
+
+        foreach (var player in seatList)
         {
             string cardString = "";
-            cardString = string.Join(",", cardList[seatList.IndexOf(seat)].Select(x => x.cardString));
+            cardString = string.Join(",", cardList[seatList.IndexOf(player)].Select(x => x.cardString));
             Hashtable props = new Hashtable{
-                {Common.FORTUNE_MESSAGE, FortuneMessages.OnCardDistributed},
-                {Common.PLAYER_ID, seat.actorNumber},
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnCardDistributed},
+                {Common.PLAYER_ID, player.m_playerInfo.m_actorNumber},
                 {Common.CARD_LIST_STRING, string.Join(",", cardString)},
-                {Common.FORTUNE_MISSION_CARD, missionString}
+                {Common.FORTUNE_MISSION_CARD, missionString},
+                {Common.FORTUNE_REMAIN_TIME, constantContainer.FortuneChangingTime+1},
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
@@ -176,7 +196,7 @@ public class FortunePlayMgr : MonoBehaviour
     private void SendPlayersCardToAll(int lineNo)
     {
         Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnOpenCard},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnOpenCard},
             {Common.FORTUNE_OPEN_CARD_LINE, lineNo}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
@@ -198,7 +218,41 @@ public class FortunePlayMgr : MonoBehaviour
         }
 
         Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnGameStarted},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnGameStarted},
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        OnTickTimer();
+    }
+    Coroutine m_checkingTimer;
+    public void OnTickTimer()
+    {
+        try
+        {
+            StopCoroutine(m_checkingTimer);
+        }
+        catch { }
+
+        var remainTime = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_REMAIN_TIME];
+        remainTime--;
+        if (remainTime > 0)
+            m_checkingTimer = StartCoroutine(TickTime(remainTime));
+        else
+        {
+            SendGameOverMessage();
+        }
+    }
+
+    private void SendGameOverMessage()
+    {
+        
+    }
+
+    IEnumerator TickTime(int remainTime)
+    {
+        yield return new WaitForSeconds(1);
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnTickTimer},
+            {Common.FORTUNE_REMAIN_TIME, remainTime}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
@@ -237,6 +291,7 @@ public class FortunePlayMgr : MonoBehaviour
 
     private void SetAllPlayersStatus(int status)
     {
+        /*
         var seatList = PlayerManagement.Inst.getSeatList();
         foreach (var seat in seatList)
         {
@@ -244,7 +299,7 @@ public class FortunePlayMgr : MonoBehaviour
         }
         var seatString = string.Join(",", seatList.Select(x => x.seatString));
         Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
+            {PhotonFields.GAME_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
             {Common.SEAT_STRING, seatString},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
@@ -256,6 +311,7 @@ public class FortunePlayMgr : MonoBehaviour
         {
             player.SetCustomProperties(props);
         }
+        */
     }
 }
 public class FortuneUserCardList

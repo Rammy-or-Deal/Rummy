@@ -76,12 +76,12 @@ public class UIFCalcPlayer : MonoBehaviour
     {
         try
         {
-            if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.actorNumber).First().CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.Init)
+            if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.m_playerInfo.m_actorNumber).First().CustomProperties[Common.PLAYER_STATUS] == (int)enumPlayerStatus.Fortune_Init)
                 IsSeat = false;
             else
-                IsSeat = seat.IsSeat;
+                IsSeat = seat.isSeat;
                 
-            actorNumber = seat.actorNumber;
+            actorNumber = seat.m_playerInfo.m_actorNumber;
             coinText.text = "";
             cardText.text = "";
             totalCoin = 0;

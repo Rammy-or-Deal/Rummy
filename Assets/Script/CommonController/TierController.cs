@@ -10,14 +10,11 @@ public class TierController : MonoBehaviour
     public Transform userInfoPanel;
     public Transform moneyPanel;
 
-    private void Awake()
-    {
-        if (!DataController.Inst)
-            SceneManager.LoadScene(constantContainer.strLobby);
-    }
 
     void Start()
     {
+        if (!DataController.Inst)
+            SceneManager.LoadScene(constantContainer.strLobby);
         try
         {
             UIController.Inst.loadingDlg.gameObject.SetActive(false);

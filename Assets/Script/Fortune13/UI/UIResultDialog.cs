@@ -49,7 +49,7 @@ public class UIResultDialog : MonoBehaviour
 
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_playerList[i].IsSeat);
+            LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_playerList[i].isSeat);
             players[i].Init(m_playerList[i]);
         }
 
@@ -102,7 +102,7 @@ public class UIResultDialog : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             Hashtable props = new Hashtable{
-            {Common.FORTUNE_MESSAGE, (int)FortuneMessages.OnFinishedGame}
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnFinishedGame}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }

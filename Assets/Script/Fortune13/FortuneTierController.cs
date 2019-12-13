@@ -6,7 +6,12 @@ using UnityEngine.SceneManagement;
 public class FortuneTierController : TierController
 {
     public UIReadyDialog readyDlg;
-    
+    public static FortuneTierController Inst;
+    private void Awake() {
+        
+        if(!Inst)   
+            Inst = this;
+    }
     public void OnClickFortuneTier(int type)
     {      
         readyDlg.mTierPic.sprite = Resources.Load<Sprite>("new_skill/skill_" + (type + 1).ToString());
