@@ -54,7 +54,7 @@ public class UICalcDialog : MonoBehaviour
         catch { }
     }
 
-    internal void Init(List<FortuneUserSeat> m_playerList)
+    internal void Init(List<UserSeat> m_playerList)
     {
         m_FrontText.text = "";
         m_MiddleText.text = "";

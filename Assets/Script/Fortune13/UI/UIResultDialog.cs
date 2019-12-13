@@ -39,7 +39,7 @@ public class UIResultDialog : MonoBehaviour
         catch { }
         this.gameObject.SetActive(false);
     }
-    internal void Init(List<FortuneUserSeat> m_playerList)
+    internal void Init(List<UserSeat> m_playerList)
     {
         frontTxt.text = "";
         middleTxt.text = "";

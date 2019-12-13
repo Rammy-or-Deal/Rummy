@@ -52,7 +52,7 @@ public class FortunePanMgr : MonoBehaviour
 
     internal async void OnOpenCard()
     {
-        /*
+        
         if ((int)PhotonNetwork.LocalPlayer.CustomProperties[Common.PLAYER_STATUS] != (int)enumPlayerStatus.Fortune_dealtCard) return;
 
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
@@ -73,7 +73,7 @@ public class FortunePanMgr : MonoBehaviour
         {
             try
             {
-                var seat = playerList.Where(x => x.actorNumber == user.actorNumber).First();
+                var seat = (FortuneUserSeat)playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == user.actorNumber).First();
                 List<Card> showList = new List<Card>();
                 switch (lineNo)
                 {
@@ -108,7 +108,7 @@ public class FortunePanMgr : MonoBehaviour
             
             FortuneUIController.Inst.resultDlg.ShowResult();
         }
-        */
+        
     }
 
     internal void OnTickTimer()

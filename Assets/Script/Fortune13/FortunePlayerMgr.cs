@@ -236,7 +236,7 @@ public class FortunePlayerMgr : SeatMgr
 
         var remainTime = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_REMAIN_TIME];
         remainTime--;
-        if (remainTime > 0)
+        if (remainTime >= 0)
             m_checkingTimer = StartCoroutine(TickTime(remainTime));
         else
         {

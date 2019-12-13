@@ -30,8 +30,9 @@ public class UIFResultPlayer : MonoBehaviour
 
     }
 
-    internal void Init(FortuneUserSeat seat)
+    internal void Init(UserSeat _seat)
     {
+        var seat = (FortuneUserSeat)_seat;
         try{
         if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.m_playerInfo.m_actorNumber).First().CustomProperties[Common.PLAYER_STATUS] == (int)enumPlayerStatus.Fortune_Init)
             IsSeat = false;

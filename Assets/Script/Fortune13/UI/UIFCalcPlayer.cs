@@ -72,8 +72,8 @@ public class UIFCalcPlayer : MonoBehaviour
         CoinImage = this.gameObject.transform.parent.parent.GetComponentsInChildren<Image>(true).Where(x => x.gameObject.name == "CenterCoin").First().gameObject;
     }
 
-    internal void Init(FortuneUserSeat seat)
-    {
+    internal void Init(UserSeat seat)
+    {        
         try
         {
             if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.m_playerInfo.m_actorNumber).First().CustomProperties[Common.PLAYER_STATUS] == (int)enumPlayerStatus.Fortune_Init)
