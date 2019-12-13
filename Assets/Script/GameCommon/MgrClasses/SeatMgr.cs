@@ -42,7 +42,7 @@ public class SeatMgr : MonoBehaviour
         #region Code for Fortune
         if(!PhotonNetwork.IsMasterClient) return;
         //if(m_playerList.Count(x=>x.isSeat == false) > 0) return;
-        if(m_playerList.Count >= constantContainer.FortuneMinimumPlayer)
+        if(pList.m_playerList.Count >= constantContainer.FortuneMinimumPlayer)
             StartFortuneGame();
         #endregion
     }

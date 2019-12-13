@@ -98,7 +98,7 @@ public class FortunePlayerMgr : SeatMgr
 
         foreach (var player in PhotonNetwork.PlayerList)
         {
-            if (seatList.Count(x => x.m_playerInfo.m_actorNumber == player.ActorNumber) == 0) continue;
+            if (seatList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == player.ActorNumber) == 0) continue;
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, -1},
                 {Common.PLAYER_STATUS, (int)enumPlayerStatus.Fortune_canStart}
