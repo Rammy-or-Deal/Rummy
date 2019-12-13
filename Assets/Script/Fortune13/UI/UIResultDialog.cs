@@ -49,6 +49,7 @@ public class UIResultDialog : MonoBehaviour
 
         for (int i = 0; i < m_playerList.Count; i++)
         {
+            if(m_playerList[i].isSeat == false) continue;
             LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_playerList[i].isSeat);
             players[i].Init(m_playerList[i]);
         }
