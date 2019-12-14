@@ -101,5 +101,7 @@ public class Common : MonoBehaviour
     public static object FORTUNE_OPEN_CARD_LINE = "FORTUNE_OPEN_CARD_LINE";
 
     public static object FORTUNE_REMAIN_TIME = "FORTUNE_TIMER";
+
+    public static object FORTUNE_DOUBLED_LIST { get; internal set; }
     #endregion
 }

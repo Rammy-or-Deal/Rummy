@@ -27,6 +27,7 @@ public enum enumPlayerStatus
     Fortune_canStart,
     Fortune_Init,
     Init_Ready,
+    Fortune_Doubled,
     #endregion Enum_Rummy
 }
 
@@ -113,6 +114,7 @@ public enum enumGameMessage
     Fortune_OnFinishedGame,
     Fortune_InitReady,
     Fortune_OnTickTimer,
+    Fortune_DoubleDownRequest,
     #endregion
 
     #region Baccarat Game Messages

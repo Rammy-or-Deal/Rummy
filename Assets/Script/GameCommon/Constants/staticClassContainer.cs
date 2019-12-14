@@ -469,6 +469,7 @@ public static class staticFunction_Baccarat
         return info;
     }
 }
+
 public class staticClassContainer : MonoBehaviour
 {
     // Start is called before the first frame update

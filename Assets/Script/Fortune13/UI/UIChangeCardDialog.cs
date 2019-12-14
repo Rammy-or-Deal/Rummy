@@ -41,13 +41,36 @@ public class UIChangeCardDialog : MonoBehaviour
             handMissions[i].gameObject.SetActive(false);
     }
 
-    public void OnTipClick()
+    public void OnExchangeClick()
     {
-
+        for (int i = 0; i < middleCards.Length; i++)
+        {
+            var card = middleCards[i].GetValue();
+            middleCards[i].SetValue(backCards[i].GetValue());
+            backCards[i].SetValue(card);
+        }
+        UpdateHandSuitString();
     }
     public void OnDoubleDownClick()
     {
+        DoubleDownRequest();
+    }
 
+    private void DoubleDownRequest()
+    {
+        var pList = new PlayerInfoContainer();
+        pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        if(pList.m_playerList.Count(x=>x.m_status == enumPlayerStatus.Fortune_Doubled) > 0)
+        {
+            return;
+        }
+
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_DoubleDownRequest},
+            {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        SendMyCards();
     }
 
     public void OnConfirmClick()
@@ -105,7 +128,7 @@ public class UIChangeCardDialog : MonoBehaviour
             backText.color = Color.red;
             SetCardGroupColor(0, false);
             SetCardGroupColor(1, false);
-            SetCardGroupColor(2 , false);
+            SetCardGroupColor(2, false);
         }
     }
     List<Card> getCardList(FortuneCard[] cards)
@@ -118,7 +141,7 @@ public class UIChangeCardDialog : MonoBehaviour
         return cardList;
     }
     public void SendMyCards()
-    {    
+    {
         FortuneMe.Inst.SetMyProperty((int)enumPlayerStatus.Fortune_dealtCard);
 
         var frontList = getCardList(frontCards);

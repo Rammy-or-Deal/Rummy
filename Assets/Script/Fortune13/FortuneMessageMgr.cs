@@ -79,6 +79,10 @@ public class FortuneMessageMgr : MessageMgr
                 if(PhotonNetwork.IsMasterClient)
                     FortunePlayerMgr.Inst.OnTickTimer();
                 break;
+            case enumGameMessage.Fortune_DoubleDownRequest:
+                if(PhotonNetwork.IsMasterClient)
+                    FortunePlayerMgr.Inst.OnDoubleRequest();
+                break;
             case enumGameMessage.Fortune_OnPlayerDealCard:
                 FortunePlayerMgr.Inst.OnPlayerDealCard();
                 break;

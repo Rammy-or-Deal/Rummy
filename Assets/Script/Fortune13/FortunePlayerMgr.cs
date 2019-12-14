@@ -108,10 +108,10 @@ public class FortunePlayerMgr : SeatMgr
 
         foreach (var player in seatList)
         {
-            if(player.isSeat == false) continue;
+            if (player.isSeat == false) continue;
             string cardString = "";
             cardString = string.Join(",", cardList[seatList.IndexOf(player)].Select(x => x.cardString));
-            
+
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnCardDistributed},
                 {Common.PLAYER_ID, player.m_playerInfo.m_actorNumber},
@@ -121,6 +121,24 @@ public class FortunePlayerMgr : SeatMgr
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
+    }
+
+    internal void OnDoubleRequest()
+    {
+        var pList = new PlayerInfoContainer();
+        pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        var actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        try
+        {
+            var player = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
+            player.m_status = enumPlayerStatus.Fortune_Doubled;
+        }
+        catch { }
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, -1},
+            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 
     internal void OnFinishedGame()
@@ -246,7 +264,7 @@ public class FortunePlayerMgr : SeatMgr
 
     private void SendGameOverMessage()
     {
-        
+
     }
 
     IEnumerator TickTime(int remainTime)
