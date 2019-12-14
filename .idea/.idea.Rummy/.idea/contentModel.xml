@@ -1191,15 +1191,6 @@
             <e p="UIEmoji.cs" t="Include" />
           </e>
           <e p="Common.cs" t="Include" />
-          <e p="CommonController" t="Include">
-            <e p="CommonSeat.cs" t="Include" />
-            <e p="GameController.cs" t="Include" />
-            <e p="PlayerManagement.cs" t="Include" />
-            <e p="RoomManagement.cs" t="Include" />
-            <e p="RoomMessageManagement.cs" t="Include" />
-            <e p="TierController.cs" t="Include" />
-            <e p="VoiceController.cs" t="Include" />
-          </e>
           <e p="DataController.cs" t="Include" />
           <e p="Fortune13" t="Include">
             <e p="FortuneCard.cs" t="Include" />
@@ -1208,7 +1199,7 @@
             <e p="FortuneMe.cs" t="Include" />
             <e p="FortuneMessageMgr.cs" t="Include" />
             <e p="FortunePanMgr.cs" t="Include" />
-            <e p="FortunePlayMgr.cs" t="Include" />
+            <e p="FortunePlayerMgr.cs" t="Include" />
             <e p="FortuneRuleMgr.cs" t="Include" />
             <e p="FortuneTierController.cs" t="Include" />
             <e p="UI" t="Include">
@@ -1219,7 +1210,9 @@
               <e p="UICardPanelMgr.cs" t="Include" />
               <e p="UIChangeCardDialog.cs" t="Include" />
               <e p="UIFCalcPlayer.cs" t="Include" />
+              <e p="UIFortuneTierButton.cs" t="Include" />
               <e p="UIFResultPlayer.cs" t="Include" />
+              <e p="UIReadyButton.cs" t="Include" />
               <e p="UIReadyDialog.cs" t="Include" />
               <e p="UIResultDialog.cs" t="Include" />
             </e>
@@ -1227,6 +1220,11 @@
           <e p="GameCommon" t="Include">
             <e p="CommonClasses" t="Include">
               <e p="UserSeat.cs" t="Include" />
+            </e>
+            <e p="CommonController" t="Include">
+              <e p="GameController.cs" t="Include" />
+              <e p="TierController.cs" t="Include" />
+              <e p="VoiceController.cs" t="Include" />
             </e>
             <e p="Constants" t="Include">
               <e p="constantContainer.cs" t="Include" />
@@ -1243,6 +1241,9 @@
               <e p="RoomMgr.cs" t="Include" />
               <e p="SceneMgr.cs" t="Include" />
               <e p="SeatMgr.cs" t="Include" />
+            </e>
+            <e p="UI" t="Include">
+              <e p="GameUIController.cs" t="Include" />
             </e>
           </e>
           <e p="IBot.cs" t="Include" />
