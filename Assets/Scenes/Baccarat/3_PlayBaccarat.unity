@@ -3501,9 +3501,9 @@ MonoBehaviour:
   bend:
   - {fileID: 1537206845}
   - {fileID: 2095827809}
-  card:
-  - {fileID: 1709740701}
-  - {fileID: 1182595732}
+  cards:
+  - {fileID: 1709740704}
+  - {fileID: 1182595735}
   id: 0
   isClicked: 0
   bigCamPos: {fileID: 1335871975}
@@ -17324,6 +17324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
+  material: {fileID: 0}
+  isFlipped: 0
 --- !u!65 &1182595736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17335,7 +17337,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4, y: 1.61, z: 0.0010000003}
+  m_Size: {x: 1.6, y: 1.96, z: 0.01}
   m_Center: {x: -2.512487e-17, y: 0.00000005960466, z: 0.00050000014}
 --- !u!23 &1182595737
 MeshRenderer:
@@ -34324,6 +34326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  material: {fileID: 0}
+  isFlipped: 0
 --- !u!65 &1709740705
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34335,7 +34339,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4, y: 1.61, z: 0.0010000003}
+  m_Size: {x: 1.6, y: 2.05, z: 0.01}
   m_Center: {x: -2.512487e-17, y: 0.00000005960466, z: 0.00050000014}
 --- !u!23 &1709740706
 MeshRenderer:

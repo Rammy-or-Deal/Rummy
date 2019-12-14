@@ -10,7 +10,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     // Start is called before the first frame update
     public Vector3 lastPoint;
     public Transform[] bend;
-    public Transform[] card;
+    public UIBCardModel[] cards;
     public int id;
     public bool isClicked;
     private float damping = 10;
@@ -18,7 +18,8 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
 
     public Transform bigCamPos;
     public Transform originCamPos;
-
+    
+    [HideInInspector]
     public PhotonView photonView;
     
     void Start()
@@ -71,9 +72,16 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
                         
                         Vector3 relativePos = hit.point-lastPoint;
                         float dis = relativePos.magnitude;
-                        if (dis<0.2)
+                        if (dis<0.15)
                             break;
 //                        Debug.Log(dis);
+                        UIBCardModel card= hit.collider.GetComponent<UIBCardModel>();
+                        if ((!card || (card && card.id!=id)) && dis>0.5)  //turn Card
+                        {
+                            TouchEnd();
+                            cards[id].FlipOver();
+                            return;
+                        }
                         bend[id].position = hit.point;
 //                        Debug.Log(hit.point);
                         // the second argument, upwards, defaults to Vector3.up
@@ -86,12 +94,17 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             case TouchPhase.Ended:
                 if (isClicked)
                 {
-                    bend[id].localPosition = new Vector3(2,0,0);
-                    bend[id].localRotation=new Quaternion(0,0,0,0);
-                    isClicked = false;
+                    TouchEnd();
                 }
                 break;
         }
+    }
+
+    void TouchEnd()
+    {
+        bend[id].localPosition = new Vector3(2,0,0);
+        bend[id].localRotation=new Quaternion(0,0,0,0);
+        isClicked = false;
     }
 
     public void ShowBigCard(bool isBigShow)
