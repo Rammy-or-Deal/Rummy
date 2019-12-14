@@ -22,11 +22,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
     public Button playButton;
     public Button arrangeButton;
     public Button shuffleButton;
-    public GameObject settingDlg;
     public UILamiFinish finishDlg;
-    //Menu
-    public GameObject mMenuPanel;
-
     //Game
     public GameObject firstImg;
 
@@ -55,7 +51,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
     private void Start()
     {
         NewMethod();
-
         //alert dlg example
         //UIAlertDialog.Inst.Show(Game_Identifier.Lami, OnYesDlg, "WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?", 3);
     }
@@ -89,7 +84,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
     public void OnReadyClick()
     {
-
         LamiCountdownTimer.Inst.StopTimer();
         readyButton.SetActive(false);
         /*
@@ -239,35 +233,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
             LamiGameUIManager.Inst.myCardPanel.myCards[i].SetUpdate();
         }
         LamiMe.Inst.Init_FlashList();
-    }
-
-    public void OnClickChat()
-    {
-        Debug.Log("chat clicked ");
-        UIController.Inst.chatDlg.gameObject.SetActive(true);
-    }
-
-    public void OnClickMenu()
-    {
-        bool active = mMenuPanel.activeSelf == true ? false : true;
-        mMenuPanel.SetActive(active);
-    }
-
-    public void OnExitClick()
-    {
-        Debug.Log("Exit clicked");
-        //        PunController.Inst.LeaveGame();
-        finishDlg.gameObject.SetActive(true);
-    }
-
-    public void OnHelpClick()
-    {
-        UIController.Inst.noticeDlg.gameObject.SetActive(true);
-    }
-
-    public void OnSettingClick()
-    {
-        settingDlg.SetActive(true);
     }
 
     public void OnClickAutoOffBtn()

@@ -4,17 +4,15 @@ using Photon.Voice.PUN;
 
 public class GameUIController : MonoBehaviour
 {
+    public static GameUIController Inst;
     //Menu
     public GameObject mMenuPanel;
     public GameObject settingDlg;
     
-
-    public void OnClickBettingArea(int id) // Id=0,1,2,3,4
+    void Awake()
     {
-//        LogMgr.Inst.Log("Clicked Betting Area. id="+id, (int)LogLevels.PlayerLog1);
-
-        if(UIBBetBtnList.Inst.selectedId == -1) return;
-        BaccaratMe.Inst.OnClickBettingArea(UIBBetBtnList.Inst.selectedId, id);
+        if (!Inst)
+            Inst = this;
     }
 
     public void OnClickMenu()
@@ -41,7 +39,6 @@ public class GameUIController : MonoBehaviour
     }
     public void OnClickChat()
     {
-        Debug.Log("chat clicked ");
         UIController.Inst.chatDlg.gameObject.SetActive(true);
     }
     
