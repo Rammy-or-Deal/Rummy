@@ -44,12 +44,14 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
     void Awake()
     {
+        base.Awake();
         if (!Inst)
             Inst = this;
     }
 
-    private void Start()
+    protected void Start()
     {
+        base.Start();
         NewMethod();
         //alert dlg example
         //UIAlertDialog.Inst.Show(Game_Identifier.Lami, OnYesDlg, "WOULD YOU LIKE TO SHUFFLE 3 CARDS RANDOMLY ?", 3);

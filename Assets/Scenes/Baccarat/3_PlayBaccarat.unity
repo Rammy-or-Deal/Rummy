@@ -11620,7 +11620,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1253410376}
-  - component: {fileID: 1253410375}
   - component: {fileID: 1253410377}
   - component: {fileID: 1253410383}
   - component: {fileID: 1253410382}
@@ -11635,18 +11634,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1253410375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253410374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f0183657943bbc4097e2d42ff99d6b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1253410376
 Transform:
   m_ObjectHideFlags: 0
@@ -11675,8 +11662,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMenuPanel: {fileID: 1032242594}
   settingDlg: {fileID: 800958249}
-  mMenuPanel: {fileID: 1032242594}
-  settingDlg: {fileID: 800958249}
+  bendCardBlankBtn: {fileID: 0}
+  camera: {fileID: 0}
 --- !u!114 &1253410378
 MonoBehaviour:
   m_ObjectHideFlags: 0

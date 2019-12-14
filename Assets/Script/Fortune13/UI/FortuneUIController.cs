@@ -14,6 +14,7 @@ public class FortuneUIController : GameUIController
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         if(!Inst)
             Inst = this;
         StartCoroutine(Init());

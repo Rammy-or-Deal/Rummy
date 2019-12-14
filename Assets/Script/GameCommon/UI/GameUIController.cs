@@ -1,6 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 using Photon.Voice.PUN;
+using UnityEngine.SceneManagement;
 
 public class GameUIController : MonoBehaviour
 {
@@ -9,11 +10,24 @@ public class GameUIController : MonoBehaviour
     public GameObject mMenuPanel;
     public GameObject settingDlg;
     
-    void Awake()
+    public void Awake()
     {
+        if (!DataController.Inst)
+            SceneManager.LoadScene("2_Lobby");
+
         if (!Inst)
             Inst = this;
     }
+    
+    protected void Start()
+    {
+        // Create Voice View Component  when joined Room.
+        PhotonNetwork.Instantiate("Prefabs/VoiceView", Vector3.zero, Quaternion.identity, 0);
+        
+        UIController.Inst.userInfoPanel.gameObject.SetActive(false);
+        UIController.Inst.moneyPanel.gameObject.SetActive(false);
+    }
+    
     public void OnClickMenu()
     {
         bool active = mMenuPanel.activeSelf == true ? false : true;

@@ -101,6 +101,5 @@ public class UIBCardBend : MonoBehaviour
             iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
         else
             BaccaratUIController.Inst.camera.transform.localPosition=new Vector3(0,0,0);
-            
     }
 }

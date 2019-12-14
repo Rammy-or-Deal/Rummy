@@ -10,8 +10,9 @@ public class BaccaratUIController : GameUIController
     public GameObject bendCardBlankBtn;
     public GameObject camera;
     
-    void Awake()
+    public void Awake()
     {
+        base.Awake();
         if (!Inst)
             Inst = this;
     }
