@@ -17,6 +17,12 @@ public class BaccaratUIController : GameUIController
             Inst = this;
     }
 
+    private void Start()
+    {
+        base.Start();
+        PhotonNetwork.InstantiateSceneObject("baccarat/CardBend", Vector3.zero, Quaternion.identity, 0);
+    }
+
     public void OnClickBettingArea(int id) // Id=0,1,2,3,4
     {
 //        LogMgr.Inst.Log("Clicked Betting Area. id="+id, (int)LogLevels.PlayerLog1);

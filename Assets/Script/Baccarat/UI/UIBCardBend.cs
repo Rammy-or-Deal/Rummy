@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
-public class UIBCardBend : MonoBehaviour
+public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
 {
     // Start is called before the first frame update
     public Vector3 lastPoint;
@@ -17,11 +19,12 @@ public class UIBCardBend : MonoBehaviour
     public Transform bigCamPos;
     public Transform originCamPos;
 
-    private bool isBigShow;
+    public PhotonView photonView;
     
     void Start()
     {
         Inst = this;
+        photonView = GetComponent<PhotonView>();
     }
     
     void Update () {
@@ -91,15 +94,43 @@ public class UIBCardBend : MonoBehaviour
         }
     }
 
-    public void OnClickShowBigCard()
+    public void ShowBigCard(bool isBigShow)
     {
         float time = 0.5f;
-        isBigShow = !isBigShow;
         gameObject.SetActive(isBigShow);
         BaccaratUIController.Inst.bendCardBlankBtn.SetActive(isBigShow);
         if (isBigShow)
             iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
         else
             BaccaratUIController.Inst.camera.transform.localPosition=new Vector3(0,0,0);
+    }
+
+    public void ShowBigCard(Transform[] destination_cardPos)
+    {
+        if (!photonView.IsMine) { photonView.RequestOwnership(); }
+
+        StartCoroutine(ShowCard(destination_cardPos));
+    }
+    
+    IEnumerator ShowCard(Transform[] destination_cardPos)
+    {
+        yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
+        transform.position = destination_cardPos[0].position;
+        ShowBigCard(true);
+    }
+
+
+    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    {
+        Debug.LogError("OnOwnershipRequest");
+        Debug.Log("OnOwnershipRequest(): Player " + requestingPlayer + " requests ownership of: " + targetView + ".");
+        throw new System.NotImplementedException();
+    }
+
+    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+    {
+        Debug.LogError("OnOwnershipTransfered");
+        Debug.Log("OnOwnershipTransfered(): Player " + previousOwner + " requests ownership of: " + targetView + ".");
+        throw new System.NotImplementedException();
     }
 }

@@ -240,22 +240,15 @@ public class BaccaratPanMgr : MonoBehaviour
 
     private void MoveDistributed_BigCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
     {
-        try
-        {
-            UIBCardBend.Inst.OnClickShowBigCard();
-        }
-        catch
-        {
-
-        }
+        UIBCardBend.Inst.ShowBigCard(destination_cardPos);
     }
-
+    
     private void MoveDistributed_SmallCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
     {
         Vector3 position;
-        position = destination_cardPos[0].gameObject.transform.position;
+        position = destination_cardPos[0].position;
         iTween.MoveTo(originCards[0].gameObject, position, time);
-        position = destination_cardPos[1].gameObject.transform.position;
+        position = destination_cardPos[1].position;
         iTween.MoveTo(originCards[1].gameObject, position, time);
     }
 
