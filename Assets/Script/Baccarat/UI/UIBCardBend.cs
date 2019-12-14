@@ -14,8 +14,6 @@ public class UIBCardBend : MonoBehaviour
     private float damping = 10;
     public static UIBCardBend Inst;
 
-    public GameObject bankBtn;
-    public GameObject camera;
     public Transform bigCamPos;
     public Transform originCamPos;
 
@@ -98,11 +96,11 @@ public class UIBCardBend : MonoBehaviour
         float time = 0.5f;
         isBigShow = !isBigShow;
         gameObject.SetActive(isBigShow);
-        bankBtn.SetActive(isBigShow);
+        BaccaratUIController.Inst.bendCardBlankBtn.SetActive(isBigShow);
         if (isBigShow)
-            iTween.MoveTo(camera, bigCamPos.position, time);
+            iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
         else
-            camera.transform.localPosition=new Vector3(0,0,0);
+            BaccaratUIController.Inst.camera.transform.localPosition=new Vector3(0,0,0);
             
     }
 }

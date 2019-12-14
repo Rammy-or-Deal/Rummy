@@ -14,7 +14,6 @@ public class GameUIController : MonoBehaviour
         if (!Inst)
             Inst = this;
     }
-
     public void OnClickMenu()
     {
         bool active = mMenuPanel.activeSelf == true ? false : true;
