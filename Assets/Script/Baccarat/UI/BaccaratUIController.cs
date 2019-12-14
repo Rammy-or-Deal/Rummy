@@ -4,18 +4,8 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BaccaratUIController : MonoBehaviour
+public class BaccaratUIController : GameUIController
 {
-    //Menu
-    public GameObject mMenuPanel;
-    public GameObject settingDlg;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void OnClickBettingArea(int id) // Id=0,1,2,3,4
     {
 //        LogMgr.Inst.Log("Clicked Betting Area. id="+id, (int)LogLevels.PlayerLog1);

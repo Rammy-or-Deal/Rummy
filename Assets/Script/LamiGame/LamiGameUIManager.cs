@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class LamiGameUIManager : GameUIManager
+    public class LamiGameUIManager : GameUIController
 {
     public static LamiGameUIManager Inst;
 
