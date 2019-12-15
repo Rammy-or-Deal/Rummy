@@ -125,6 +125,8 @@ public class FortunePlayerMgr : SeatMgr
 
     internal void OnDoubleRequest()
     {
+        UpdatePlayerCardList();
+
         var pList = new PlayerInfoContainer();
         pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         var actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
@@ -183,34 +185,51 @@ public class FortunePlayerMgr : SeatMgr
     internal void OnPlayerDealCard()
     {
         //var seatList = PlayerManagement.Inst.getSeatList();
-
+        int actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         // Store Usercards
+
+        UpdatePlayerCardList();
+        
+
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        // Change player type
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+        var p = pList.m_playerList.Where(x=>x.m_actorNumber == actorNumber).First();
+        p.m_status = enumPlayerStatus.Fortune_dealtCard;
+
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, -1},
+            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+
+        //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
+        foreach (var player in pList.m_playerList)
+        {
+            LogMgr.Inst.Log("Player(" + player.m_actorNumber + ")'s status=" + player.m_status);
+            if (player.m_status == enumPlayerStatus.Fortune_OnChanging)
+                return;
+        }
+
+        // If all users dealt card.
+        SendPlayersCardToAll(2);
+    }
+
+    private void UpdatePlayerCardList()
+    {
         FortuneUserCardList newUser = new FortuneUserCardList();
         newUser.actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         newUser.frontCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_FRONT_CARD]);
         newUser.middleCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_MIDDLE_CARD]);
         newUser.backCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_BACK_CARD]);
 
-        if (userCardList.Count(x => x.actorNumber == newUser.actorNumber) == 0)
+        foreach (var p in userCardList.Where(x => x.actorNumber == newUser.actorNumber))
         {
-            userCardList.Add(newUser);
+            userCardList.Remove(p);
         }
-
-        if (!PhotonNetwork.IsMasterClient) return;
-        //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            try
-            {
-                LogMgr.Inst.Log("Player(" + player.ActorNumber + ")'s status=" + ((FortunePlayerStatus)((int)player.CustomProperties[Common.PLAYER_STATUS])));
-                if ((int)player.CustomProperties[Common.PLAYER_STATUS] == (int)FortunePlayerStatus.OnChanging)
-                    return;
-            }
-            catch { continue; }
-        }
-
-        // If all users dealt card.
-        SendPlayersCardToAll(2);
+        userCardList.Add(newUser);
     }
 
     private void SendPlayersCardToAll(int lineNo)
