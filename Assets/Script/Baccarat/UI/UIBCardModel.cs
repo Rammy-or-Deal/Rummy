@@ -20,4 +20,10 @@ public class UIBCardModel : MonoBehaviour
         isFlipped = true;
         transform.localRotation= Quaternion.Euler(90,-180,0);
     }
+    
+    public void FlipOn()
+    {
+        isFlipped = false;
+        transform.localRotation= Quaternion.Euler(-90,-180,0);
+    }
 }

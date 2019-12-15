@@ -121,13 +121,14 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     public void ShowBigCard(Transform[] destination_cardPos)
     {
         if (!photonView.IsMine) { photonView.RequestOwnership(); }
-
         StartCoroutine(ShowCard(destination_cardPos));
     }
     
     IEnumerator ShowCard(Transform[] destination_cardPos)
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
+        for (int i=0;i<cards.Length;i++)
+            cards[id].FlipOn();
         transform.position = destination_cardPos[0].position;
         ShowBigCard(true);
     }
