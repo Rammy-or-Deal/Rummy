@@ -52,7 +52,7 @@ public class FortuneMessageMgr : MessageMgr
             /*
             case RoomManagementMessages.OnUserSit: // This function is used only one time - start time.
                 if (PhotonNetwork.IsMasterClient)
-                    FortunePlayerMgr.Inst.OnUserSit();        // set status to canStart
+                    FortunePlayerMgr.Inst.OnUserSit();       
                 break;
             
             case enumGameMessage.Fortune_InitReady:
@@ -80,17 +80,15 @@ public class FortuneMessageMgr : MessageMgr
                     FortunePlayerMgr.Inst.OnTickTimer();
                 break;
             case enumGameMessage.Fortune_DoubleDownRequest:
-                if(PhotonNetwork.IsMasterClient)
-                    FortunePlayerMgr.Inst.OnDoubleRequest();
+                FortunePlayerMgr.Inst.OnPlayerDealCard(enumPlayerStatus.Fortune_Doubled);
                 break;
             case enumGameMessage.Fortune_OnPlayerDealCard:
-                FortunePlayerMgr.Inst.OnPlayerDealCard();
+                FortunePlayerMgr.Inst.OnPlayerDealCard(enumPlayerStatus.Fortune_dealtCard);
                 break;
             case enumGameMessage.Fortune_OnOpenCard:
                 FortunePanMgr.Inst.OnOpenCard();
                 FortunePlayerMgr.Inst.OnOpenCard();
-                break;
-                
+                break;                
             case enumGameMessage.Fortune_OnFinishedGame:
                 if (PhotonNetwork.IsMasterClient)
                     FortunePlayerMgr.Inst.OnFinishedGame();

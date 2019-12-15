@@ -21,6 +21,7 @@ public class FortuneMe : MeMgr
             mission = new FortuneMissionCard();
 
             GameMgr.Inst.meMgr = this;
+            GameMgr.Inst.m_gameStatus = enumGameStatus.InGamePlay;
             PublishMe();
         }
     }
@@ -39,7 +40,8 @@ public class FortuneMe : MeMgr
     }
 
     internal async void OnCardDistributed()
-    {
+    {        
+
         var actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         // if(PhotonNetwork.IsMasterClient)
         // {
@@ -47,10 +49,12 @@ public class FortuneMe : MeMgr
         // }
         
         if (actorNumber != PhotonNetwork.LocalPlayer.ActorNumber) return;
+        GameMgr.Inst.m_gameStatus = enumGameStatus.OnGameStarted;
 
         cardList.Clear();
         var cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
         LogMgr.Inst.Log("Card Received. cardString=" + cardString, (int)LogLevels.PlayerLog1);
+
         foreach (var str in cardString.Split(','))
         {
             Card card = new Card();
@@ -76,11 +80,12 @@ public class FortuneMe : MeMgr
         {
             LogMgr.Inst.Log("My status(" + PhotonNetwork.LocalPlayer.ActorNumber + ") is changed: " + (int)enumPlayerStatus.Fortune_Ready);
             GameMgr.Inst.seatMgr.m_playerList[0].m_playerInfo.m_status = enumPlayerStatus.Fortune_Ready;
+
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnUserReady},
-                {Common.PLAYER_STATUS, (int)enumPlayerStatus.Fortune_Ready}
+                {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber}
             };
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
         catch { }
         
@@ -100,8 +105,9 @@ public class FortuneMe : MeMgr
 
     internal void OnGameStarted()
     {
-        if((int)PhotonNetwork.LocalPlayer.CustomProperties[Common.PLAYER_STATUS] != (int)enumPlayerStatus.Fortune_Ready) 
-            return;
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+        if(pList.m_playerList.Where(x=>x.m_actorNumber == (int)PhotonNetwork.LocalPlayer.ActorNumber).First().m_status != enumPlayerStatus.Fortune_OnChanging) return;
             
         LogMgr.Inst.Log("Game Started Message received.");
         FortunePlayerMgr.Inst.userCardList.Clear();
@@ -115,9 +121,11 @@ public class FortuneMe : MeMgr
             changeDlg.myCards[i].SetValue(cardList[i]);
         }
         changeDlg.UpdateHandSuitString();
-        SetMyProperty((int)enumPlayerStatus.Fortune_OnChanging);
+        //SetMyProperty((int)enumPlayerStatus.Fortune_OnChanging);
 
         //changeDlg.StartTimer();
+        if(PhotonNetwork.IsMasterClient)
+            FortunePlayerMgr.Inst.OnTickTimer();
     }
 
 

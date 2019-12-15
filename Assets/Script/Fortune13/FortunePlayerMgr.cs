@@ -88,7 +88,10 @@ public class FortunePlayerMgr : SeatMgr
 
     private void DistributeCards()
     {
+        if (GameMgr.Inst.m_gameStatus != enumGameStatus.InGamePlay) return;
         if (!PhotonNetwork.IsMasterClient) return;
+        GameMgr.Inst.m_gameStatus = enumGameStatus.OnGameStarted;
+
 
         List<List<Card>> cardList = generateRandomCards();
         //var seatList = PlayerManagement.Inst.getSeatList();
@@ -96,44 +99,38 @@ public class FortunePlayerMgr : SeatMgr
         var seatList = GameMgr.Inst.seatMgr.m_playerList;
         string missionString = new FortuneMissionCard().CreateMissionString();
 
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            if (seatList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == player.ActorNumber) == 0) continue;
-            Hashtable props = new Hashtable{
-                {PhotonFields.GAME_MESSAGE, -1},
-                {Common.PLAYER_STATUS, (int)enumPlayerStatus.Fortune_canStart}
-            };
-            player.SetCustomProperties(props);
-        }
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
 
-        foreach (var player in seatList)
+        foreach (var player in pList.m_playerList)
         {
-            if (player.isSeat == false) continue;
+            player.m_status = enumPlayerStatus.Fortune_ReceivedCard;
+
             string cardString = "";
-            cardString = string.Join(",", cardList[seatList.IndexOf(player)].Select(x => x.cardString));
+            cardString = string.Join(",", cardList[pList.m_playerList.IndexOf(player)].Select(x => x.cardString));
 
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnCardDistributed},
-                {Common.PLAYER_ID, player.m_playerInfo.m_actorNumber},
+                {Common.PLAYER_ID, player.m_actorNumber},
                 {Common.CARD_LIST_STRING, string.Join(",", cardString)},
                 {Common.FORTUNE_MISSION_CARD, missionString},
                 {Common.FORTUNE_REMAIN_TIME, constantContainer.FortuneChangingTime+1},
+                {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
+
     }
 
-    internal void OnDoubleRequest()
+    private void ChangePlayerStatus(int actorNumber, enumPlayerStatus status)
     {
-        UpdatePlayerCardList();
-
         var pList = new PlayerInfoContainer();
         pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
-        var actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        
         try
         {
             var player = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
-            player.m_status = enumPlayerStatus.Fortune_Doubled;
+            player.m_status = status;
         }
         catch { }
         Hashtable props = new Hashtable{
@@ -182,39 +179,31 @@ public class FortunePlayerMgr : SeatMgr
     }
 
     public List<FortuneUserCardList> userCardList = new List<FortuneUserCardList>();
-    internal void OnPlayerDealCard()
+    internal void OnPlayerDealCard(enumPlayerStatus playerStatus)
     {
         //var seatList = PlayerManagement.Inst.getSeatList();
         int actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         // Store Usercards
 
         UpdatePlayerCardList();
-        
 
         if (!PhotonNetwork.IsMasterClient) return;
+        ChangePlayerStatus(actorNumber, playerStatus);
+        //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
+        if (CheckAllPlayerDealCard())
+            SendPlayersCardToAll(2);
+    }
 
-        // Change player type
+    private bool CheckAllPlayerDealCard()
+    {
+        bool res = true;
         var pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
-        var p = pList.m_playerList.Where(x=>x.m_actorNumber == actorNumber).First();
-        p.m_status = enumPlayerStatus.Fortune_dealtCard;
 
-        Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, -1},
-            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
-        };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        if (pList.m_playerList.Count(x => x.m_status == enumPlayerStatus.Fortune_OnChanging) > 0)
+            res = false;
 
-        //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
-        foreach (var player in pList.m_playerList)
-        {
-            LogMgr.Inst.Log("Player(" + player.m_actorNumber + ")'s status=" + player.m_status);
-            if (player.m_status == enumPlayerStatus.Fortune_OnChanging)
-                return;
-        }
-
-        // If all users dealt card.
-        SendPlayersCardToAll(2);
+        return res;
     }
 
     private void UpdatePlayerCardList()
@@ -246,21 +235,35 @@ public class FortunePlayerMgr : SeatMgr
         //var seatList = PlayerManagement.Inst.getSeatList();
         //if (PhotonNetwork.PlayerList.Count(x => x.status == (int)FortunePlayerStatus.canStart) > 0) return;
 
-        foreach (var player in PhotonNetwork.PlayerList)
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+        int actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+
+        foreach (var player in pList.m_playerList.Where(x => x.m_actorNumber == actorNumber))
         {
-            try
-            {
-                var status = (int)player.CustomProperties[Common.PLAYER_STATUS];
-                if (status == (int)FortunePlayerStatus.canStart) return;
-            }
-            catch { continue; }
+            player.m_status = enumPlayerStatus.Fortune_Ready;
         }
 
         Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnGameStarted},
+            {PhotonFields.GAME_MESSAGE, -1},
+            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        OnTickTimer();
+
+        if (pList.m_playerList.Count(x => x.m_status == enumPlayerStatus.Fortune_ReceivedCard) == 0)
+        {
+            foreach (var player in pList.m_playerList.Where(x => x.m_status == enumPlayerStatus.Fortune_Ready))
+            {
+                player.m_status = enumPlayerStatus.Fortune_OnChanging;
+            }
+
+            props = new Hashtable{
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnGameStarted},
+                {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+
+        }
     }
     Coroutine m_checkingTimer;
     public void OnTickTimer()
