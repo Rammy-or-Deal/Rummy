@@ -41,7 +41,6 @@ public class FortuneMe : MeMgr
 
     internal async void OnCardDistributed()
     {        
-
         var actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         // if(PhotonNetwork.IsMasterClient)
         // {

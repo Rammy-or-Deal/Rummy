@@ -33,22 +33,13 @@ public class FortunePanMgr : MonoBehaviour
 
         var playerList = FortunePlayerMgr.Inst.m_playerList;
         centerCard.SetActive(true);
-        LogMgr.Inst.Log("PanMgr OnCardDistributed called");
+        GameMgr.Inst.Log("PanMgr OnCardDistributed called");
         foreach (FortuneUserSeat player in playerList)
-        {
-            int status = 0;
+        {            
             if(player.isSeat == false) continue;
-            try
-            {
-                status = (int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == player.m_playerInfo.m_actorNumber).First().CustomProperties[Common.PLAYER_STATUS];
-            }
-            catch { }
 
-            if (status == (int)enumPlayerStatus.Fortune_canStart || player.m_playerInfo.m_actorNumber < 0)
-            {
-                player.InitCards();
-                player.moveDealCard(centerCard.transform.position);
-            }
+            player.InitCards();
+            player.moveDealCard(centerCard.transform.position);
         }
         centerCard.SetActive(false);
     }
@@ -59,7 +50,7 @@ public class FortunePanMgr : MonoBehaviour
 
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         var playerList = FortunePlayerMgr.Inst.m_playerList;
-        LogMgr.Inst.Log("OnOpenCard is called. playerCount=" + playerList.Count);
+        GameMgr.Inst.Log("OnOpenCard is called. playerCount=" + playerList.Count);
 
         if (lineNo == 2)
         {
@@ -68,7 +59,7 @@ public class FortunePanMgr : MonoBehaviour
         }
 
         FortuneUIController.Inst.calcDlg.showLineLabel(lineNo);
-        await Task.Delay(1000);
+//        await Task.Delay(1000);
 
         // Showing card
         foreach (var user in FortunePlayerMgr.Inst.userCardList)

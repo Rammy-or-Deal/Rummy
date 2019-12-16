@@ -141,8 +141,7 @@ public class FortunePlayerMgr : SeatMgr
     }
 
     internal void OnFinishedGame()
-    {
-        GameMgr.Inst.m_gameStatus = enumGameStatus.InGamePlay;
+    {        
         FortunePanMgr.Inst.OnInitCard();
         StartCoroutine(WaitForRestart(Constants.fortuneWaitTimeForRestart));
     }
@@ -152,6 +151,7 @@ public class FortunePlayerMgr : SeatMgr
         yield return new WaitForSeconds(fortuneWaitTimeForRestart);
         if (PhotonNetwork.IsMasterClient)
         {
+            GameMgr.Inst.m_gameStatus = enumGameStatus.InGamePlay;
             SetAllPlayersStatus((int)FortunePlayerStatus.Init);
             DistributeCards();
         }
@@ -341,7 +341,6 @@ public class FortunePlayerMgr : SeatMgr
 
     private void SetAllPlayersStatus(enumPlayerStatus status)
     {
-
         var pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
         foreach (var player in pList.m_playerList)

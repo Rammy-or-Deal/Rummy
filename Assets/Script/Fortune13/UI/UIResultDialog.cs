@@ -103,7 +103,7 @@ public class UIResultDialog : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnFinishedGame}
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnFinishedGame}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
