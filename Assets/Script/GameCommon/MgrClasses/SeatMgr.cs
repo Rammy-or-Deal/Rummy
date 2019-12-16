@@ -18,7 +18,7 @@ public class SeatMgr : MonoBehaviour
         GameMgr.Inst.Log("playerString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING], enumLogLevel.RoomLog);
 
         // Update seatNumList variable
-        var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);        
+        var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);
 
         // Update User Seat
         PlayerInfoContainer pList = new PlayerInfoContainer();
@@ -34,22 +34,26 @@ public class SeatMgr : MonoBehaviour
 
         foreach (var seat in seatInfo.seatList)
         {
-            GameMgr.Inst.Log("now Seat:=" + seat.oneSeatString, enumLogLevel.RoomLog);
-            var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
-            UpdateUserSeat(seat, user);
+            try
+            {
+                GameMgr.Inst.Log("now Seat:=" + seat.oneSeatString, enumLogLevel.RoomLog);
+                var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
+                UpdateUserSeat(seat, user);
+            }
+            catch { }
         }
 
         #region Code for Fortune
-        if(!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         //if(m_playerList.Count(x=>x.isSeat == false) > 0) return;
-        if(pList.m_playerList.Count >= constantContainer.FortuneMinimumPlayer && GameMgr.Inst.m_gameStatus == enumGameStatus.InGamePlay)
+        if (pList.m_playerList.Count >= constantContainer.FortuneMinimumPlayer && GameMgr.Inst.m_gameStatus == enumGameStatus.InGamePlay)
             StartFortuneGame();
         #endregion
     }
 
     public virtual void StartFortuneGame()
     {
-        
+
     }
 
     private void UpdateUserSeat(SeatInfo.OneSeat seat, PlayerInfo playerInfo)
@@ -75,7 +79,7 @@ public class SeatMgr : MonoBehaviour
                 pList.GetInfoContainerFromPhoton();
                 var p = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
                 pList.m_playerList.Remove(p);
-                
+
             }
         }
         catch (Exception err)
@@ -96,7 +100,7 @@ public class SeatMgr : MonoBehaviour
         {
             seatNumList.Add(seat.m_actorNumber, seat.m_seatNo);
         }
-       // GameMgr.Inst.Log("SeatMgr->Update_seatNumList() Result:" + string.Join(", ", seatInfo.seatList.Select(x => x.oneSeatString)), enumLogLevel.RoomLog);
+        // GameMgr.Inst.Log("SeatMgr->Update_seatNumList() Result:" + string.Join(", ", seatInfo.seatList.Select(x => x.oneSeatString)), enumLogLevel.RoomLog);
         return seatInfo;
     }
 
@@ -130,7 +134,7 @@ public class SeatMgr : MonoBehaviour
         PlayerInfoContainer pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
 
-        foreach(var player in pList.m_playerList)
+        foreach (var player in pList.m_playerList)
         {
             player.m_coinValue += score;
         }

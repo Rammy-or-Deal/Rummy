@@ -60,7 +60,6 @@ public class UICalcDialog : MonoBehaviour
         m_MiddleText.text = "";
         m_BackText.text = "";
         m_TotalText.text = "";
-        
         m_CardLineText.text = "";
         LogMgr.Inst.Log("Calc Dialog Init is called. cardLineText=" + m_CardLineText.text);
         LogMgr.Inst.Log("Calc Dialog Init is called. playerCount=" + m_playerList.Count);
@@ -135,8 +134,7 @@ public class UICalcDialog : MonoBehaviour
                 //if (srcPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber || tarPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
                 srcPlayer.SendCoin(tarPlayer, 100);
             }
-        }      
-
+        }
 
         await Task.Delay(2000);
         int curCoin = m_calc_player[0].Coin;
@@ -148,8 +146,7 @@ public class UICalcDialog : MonoBehaviour
         {
             case 0:
                 m_FrontText.text = string.Format("Front\t: {0}", curCoin);
-                m_TotalText.text = string.Format("Total \t: {0}", myCoin);                
-
+                m_TotalText.text = string.Format("Total \t: {0}", myCoin);
                 break;
             case 1:
                 m_MiddleText.text = string.Format("Middle\t: {0}", curCoin);

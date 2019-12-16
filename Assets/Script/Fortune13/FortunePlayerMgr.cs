@@ -66,10 +66,12 @@ public class FortunePlayerMgr : SeatMgr
     public override void StartFortuneGame()
     {
         base.StartFortuneGame();
-        try{
+        try
+        {
             StopCoroutine(restartRoutine);
             StopAllCoroutines();
-        }catch{}
+        }
+        catch { }
         DistributeCards();
     }
 
@@ -144,7 +146,7 @@ public class FortunePlayerMgr : SeatMgr
     }
     Coroutine restartRoutine;
     internal void OnFinishedGame()
-    {        
+    {
         FortunePanMgr.Inst.OnInitCard();
         restartRoutine = StartCoroutine(WaitForRestart(Constants.fortuneWaitTimeForRestart));
     }
@@ -225,12 +227,14 @@ public class FortunePlayerMgr : SeatMgr
         newUser.middleCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_MIDDLE_CARD]);
         newUser.backCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_BACK_CARD]);
 
-        try{
-        foreach (var p in userCardList.Where(x => x.actorNumber == newUser.actorNumber))
+        try
         {
-            userCardList.Remove(p);
+            foreach (var p in userCardList.Where(x => x.actorNumber == newUser.actorNumber))
+            {
+                userCardList.Remove(p);
+            }
         }
-        }catch{}
+        catch { }
         userCardList.Add(newUser);
     }
 
@@ -309,7 +313,11 @@ public class FortunePlayerMgr : SeatMgr
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnTickTimer},
             {Common.FORTUNE_REMAIN_TIME, remainTime}
         };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        try
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        }
+        catch { }
     }
 
     private List<List<Card>> generateRandomCards()
