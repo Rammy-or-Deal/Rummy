@@ -32,14 +32,16 @@ public class UIFResultPlayer : MonoBehaviour
 
     internal void Init(UserSeat _seat)
     {
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
         var seat = (FortuneUserSeat)_seat;
         try
         {
-            if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.m_playerInfo.m_actorNumber).First()
-                                                        .CustomProperties[Common.PLAYER_STATUS] == (int)enumPlayerStatus.Fortune_Init)
-                IsSeat = false;
-            else
+            if (pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_dealtCard ||
+                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Doubled)
                 IsSeat = seat.isSeat;
+            else
+                IsSeat = false;
         }
         catch { IsSeat = false; }
 

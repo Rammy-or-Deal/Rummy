@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 33997601}
   - component: {fileID: 33997602}
   - component: {fileID: 33997595}
+  - component: {fileID: 33997592}
   m_Layer: 5
   m_Name: FortuneGameController
   m_TagString: Untagged
@@ -142,6 +143,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &33997592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33997591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d75e00979732ae14bb4ce12953ca6c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &33997593
 RectTransform:
   m_ObjectHideFlags: 0

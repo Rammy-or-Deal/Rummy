@@ -113,7 +113,7 @@ public class FortunePanMgr : MonoBehaviour
 
         if(remainTime == 0)
         {
-            FortuneUIController.Inst.changeDlg.SendMyCards();
+            FortuneUIController.Inst.changeDlg.SendMyCards(enumPlayerStatus.Fortune_dealtCard);
         }
     }
 

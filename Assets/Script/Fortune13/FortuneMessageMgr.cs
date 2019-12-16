@@ -64,6 +64,7 @@ public class FortuneMessageMgr : MessageMgr
                 */
             case enumGameMessage.Fortune_OnCardDistributed:
                 FortuneMe.Inst.OnCardDistributed();         // set status to Ready
+                FortuneBotMgr.Inst.OnCardDistributed();
                 FortunePanMgr.Inst.OnCardDistributed();
                 break;
             case enumGameMessage.Fortune_OnUserReady:
@@ -72,6 +73,7 @@ public class FortuneMessageMgr : MessageMgr
                 break;
             case enumGameMessage.Fortune_OnGameStarted:
                 nowGameStatus = FortuneGameStatus.GameStarted;  // started
+                FortuneBotMgr.Inst.OnGameStarted();
                 FortuneMe.Inst.OnGameStarted();           // set status to OnChanging
                 break;
             case enumGameMessage.Fortune_OnTickTimer:

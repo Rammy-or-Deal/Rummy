@@ -74,13 +74,16 @@ public class UIFCalcPlayer : MonoBehaviour
 
     internal void Init(UserSeat seat)
     {        
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
         try
         {
-            if ((int)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == seat.m_playerInfo.m_actorNumber).First().CustomProperties[Common.PLAYER_STATUS] == (int)enumPlayerStatus.Fortune_Init)
-                IsSeat = false;
-            else
+            if (pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_dealtCard ||
+                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Doubled)
                 IsSeat = seat.isSeat;
-                
+            else
+                IsSeat = false;
+
             actorNumber = seat.m_playerInfo.m_actorNumber;
             coinText.text = "";
             cardText.text = "";
@@ -89,7 +92,6 @@ public class UIFCalcPlayer : MonoBehaviour
         catch
         {
             IsSeat = false;
-
         }
     }
 

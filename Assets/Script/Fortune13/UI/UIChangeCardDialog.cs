@@ -65,17 +65,12 @@ public class UIChangeCardDialog : MonoBehaviour
             return;
         }
 
-        Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_DoubleDownRequest},
-            {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber}
-        };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        SendMyCards();
+        SendMyCards(enumPlayerStatus.Fortune_Doubled);
     }
 
     public void OnConfirmClick()
     {
-        SendMyCards();
+        SendMyCards(enumPlayerStatus.Fortune_dealtCard);
     }
 
     internal void SetMission(FortuneMissionCard mission)
@@ -140,17 +135,22 @@ public class UIChangeCardDialog : MonoBehaviour
         }
         return cardList;
     }
-    public void SendMyCards()
+    public void SendMyCards(enumPlayerStatus status)
     {
-        FortuneMe.Inst.SetMyProperty((int)enumPlayerStatus.Fortune_dealtCard);
+        FortuneMe.Inst.SetMyProperty((int)status);
 
         var frontList = getCardList(frontCards);
         var middleList = getCardList(middleCards);
         var backList = getCardList(backCards);
 
+        int msgId = (int)enumGameMessage.Fortune_OnPlayerDealCard;
+
+        if(status == enumPlayerStatus.Fortune_Doubled)
+            msgId = (int)enumGameMessage.Fortune_DoubleDownRequest;
+
 
         Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnPlayerDealCard},
+            {PhotonFields.GAME_MESSAGE, msgId},
             {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
             {Common.FORTUNE_PLAYER_FRONT_CARD, string.Join(",", frontList.Select(x=>x.cardString))},
             {Common.FORTUNE_PLAYER_MIDDLE_CARD, string.Join(",", middleList.Select(x=>x.cardString))},
