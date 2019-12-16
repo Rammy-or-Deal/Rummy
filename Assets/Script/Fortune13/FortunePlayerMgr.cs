@@ -160,6 +160,7 @@ public class FortunePlayerMgr : SeatMgr
         if (lineNo < 0)
         {
             CalcResult();
+            
         }
         else
         {
@@ -336,27 +337,20 @@ public class FortunePlayerMgr : SeatMgr
 
     private void SetAllPlayersStatus(int status)
     {
-        /*
-        var seatList = PlayerManagement.Inst.getSeatList();
-        foreach (var seat in seatList)
+        
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+        foreach(var player in pList.m_playerList)
         {
-            seat.status = status;
+            player.m_status = enumPlayerStatus.Fortune_Init;
         }
-        var seatString = string.Join(",", seatList.Select(x => x.seatString));
+
         Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, RoomManagementMessages.OnRoomSeatUpdate},
-            {Common.SEAT_STRING, seatString},
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
+            {Common.SEAT_STRING, pList.m_playerInfoListString},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-
-        props = new Hashtable{
-            {Common.PLAYER_STATUS, status}
-        };
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            player.SetCustomProperties(props);
-        }
-        */
+        
     }
 }
 public class FortuneUserCardList

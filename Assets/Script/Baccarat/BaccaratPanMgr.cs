@@ -218,32 +218,33 @@ public class BaccaratPanMgr : MonoBehaviour
 
         if (banker != null)
         {
-            MoveDistributed_SmallCards(cardPanel.leftCards, banker.cardPos, Constants.BaccaratDistributionTime);
+            
+            MoveDistributed_SmallCards(cardPanel.leftCards, bankerCard.CardList[0], bankerCard.CardList[1], banker.cardPos, Constants.BaccaratDistributionTime);
 
             if (max_betting_banker == PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                MoveDistributed_BigCards(cardPanel.leftCards, banker.cardPos, Constants.BaccaratDistributionTime);
+                MoveDistributed_BigCards(cardPanel.leftCards, bankerCard.CardList[0], bankerCard.CardList[1], banker.cardPos, Constants.BaccaratDistributionTime);
             }
         }
 
         // move cards to player's seat.
         if (player != null)
         {
-            MoveDistributed_SmallCards(cardPanel.rightCards, player.cardPos, Constants.BaccaratDistributionTime);
+            MoveDistributed_SmallCards(cardPanel.rightCards, bankerCard.CardList[0], bankerCard.CardList[1], player.cardPos, Constants.BaccaratDistributionTime);
 
             if (max_betting_banker == PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                MoveDistributed_BigCards(cardPanel.leftCards, banker.cardPos, Constants.BaccaratDistributionTime);
+                MoveDistributed_BigCards(cardPanel.leftCards, bankerCard.CardList[0], bankerCard.CardList[1], banker.cardPos, Constants.BaccaratDistributionTime);
             }
         }
     }
 
-    private void MoveDistributed_BigCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
+    private void MoveDistributed_BigCards(UIBCard[] originCards, BaccaratCard card1, BaccaratCard card2, Transform[] destination_cardPos, float time)
     {
         UIBCardBend.Inst.ShowBigCard(destination_cardPos);
     }
     
-    private void MoveDistributed_SmallCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
+    private void MoveDistributed_SmallCards(UIBCard[] originCards, BaccaratCard card1, BaccaratCard card2, Transform[] destination_cardPos, float time)
     {
         Vector3 position;
         position = destination_cardPos[0].position;
