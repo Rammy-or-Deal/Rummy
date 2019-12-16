@@ -352,7 +352,7 @@ public class FortunePlayerMgr : SeatMgr
 
         Hashtable props = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
-            {Common.SEAT_STRING, pList.m_playerInfoListString},
+            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
