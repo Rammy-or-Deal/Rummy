@@ -15,7 +15,7 @@ public class SeatMgr : MonoBehaviour
         GameMgr.Inst.Log("SeatMgr->OnSeatStringUpdate() is called.", enumLogLevel.RoomLog);
 
         GameMgr.Inst.Log("seatString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING], enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("playerString=" + (string)(string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING], enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("playerString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING], enumLogLevel.RoomLog);
 
         // Update seatNumList variable
         var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);        
@@ -87,7 +87,7 @@ public class SeatMgr : MonoBehaviour
     private SeatInfo Update_seatNumList(string v)
     {
         if (seatNumList == null) seatNumList = new Dictionary<int, int>();
-        //GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, enumLogLevel.RoomLog);
         seatNumList.Clear();
         SeatInfo seatInfo = new SeatInfo();
         seatInfo.seatString = v;
@@ -125,6 +125,7 @@ public class SeatMgr : MonoBehaviour
 
     public virtual void AddGold(int playerId, int score)
     {
+        GameMgr.Inst.Log("AddGold, seatString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);
         // Update User Seat
         PlayerInfoContainer pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();

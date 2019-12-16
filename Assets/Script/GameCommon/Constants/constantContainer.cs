@@ -49,7 +49,7 @@ public static class PhotonFields{
 
     #region string for room management
     public static string RoomInfo = "ROOM_INFO";
-    public static string SEAT_STRING = "SEAT_STRING";
+    public static string SEAT_STRING = "SEAT_STRING_NEW";
     public static object PLAYER_LIST_STRING = "PLAYER_LIST_STRING";
 
     public static object NEW_PLAYER_INFO = "NEW_PLAYER_INFO";
