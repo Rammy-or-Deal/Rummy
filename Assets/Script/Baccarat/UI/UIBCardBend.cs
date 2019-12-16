@@ -80,6 +80,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
                         {
                             TouchEnd();
                             cards[id].FlipOver();
+                            //BaccaratPanMgr.Inst.OnClickDistributedCard();
                             return;
                         }
                         bend[id].position = hit.point;

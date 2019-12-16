@@ -244,6 +244,11 @@ public class BaccaratPanMgr : MonoBehaviour
         UIBCardBend.Inst.ShowBigCard(destination_cardPos);
     }
     
+    public void OnClickDistributedCard()
+    {
+        
+    }
+
     private void MoveDistributed_SmallCards(UIBCard[] originCards, BaccaratCard card1, BaccaratCard card2, Transform[] destination_cardPos, float time)
     {
         Vector3 position;
