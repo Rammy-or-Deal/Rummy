@@ -222,10 +222,12 @@ public class FortunePlayerMgr : SeatMgr
         newUser.middleCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_MIDDLE_CARD]);
         newUser.backCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_BACK_CARD]);
 
+        try{
         foreach (var p in userCardList.Where(x => x.actorNumber == newUser.actorNumber))
         {
             userCardList.Remove(p);
         }
+        }catch{}
         userCardList.Add(newUser);
     }
 
