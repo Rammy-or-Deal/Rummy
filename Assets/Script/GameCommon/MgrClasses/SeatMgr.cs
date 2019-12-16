@@ -75,7 +75,7 @@ public class SeatMgr : MonoBehaviour
                 pList.GetInfoContainerFromPhoton();
                 var p = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
                 pList.m_playerList.Remove(p);
-
+                
             }
         }
         catch (Exception err)

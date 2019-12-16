@@ -66,7 +66,10 @@ public class FortunePlayerMgr : SeatMgr
     public override void StartFortuneGame()
     {
         base.StartFortuneGame();
-
+        try{
+            StopCoroutine(restartRoutine);
+            StopAllCoroutines();
+        }catch{}
         DistributeCards();
     }
 
@@ -139,11 +142,11 @@ public class FortunePlayerMgr : SeatMgr
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
-
+    Coroutine restartRoutine;
     internal void OnFinishedGame()
     {        
         FortunePanMgr.Inst.OnInitCard();
-        StartCoroutine(WaitForRestart(Constants.fortuneWaitTimeForRestart));
+        restartRoutine = StartCoroutine(WaitForRestart(Constants.fortuneWaitTimeForRestart));
     }
 
     IEnumerator WaitForRestart(float fortuneWaitTimeForRestart)

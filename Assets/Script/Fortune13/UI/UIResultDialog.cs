@@ -108,6 +108,6 @@ public class UIResultDialog : MonoBehaviour
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
 
-        exitEvent = StartCoroutine(ShowTimeForExit(7));
+        exitEvent = StartCoroutine(ShowTimeForExit(Constants.FortuneWaitTimeForLeave));
     }
 }

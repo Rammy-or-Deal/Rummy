@@ -107,5 +107,7 @@ public static class Constants
     internal static float fortuneWaitTimeForRestart = 10.0f;
     internal static int lamiJokerMultiply = 50;
     internal static int lamiAMultiply = 50;
+
+    public static int FortuneWaitTimeForLeave = 10;
     #endregion
 }
