@@ -191,7 +191,10 @@ public class FortunePlayerMgr : SeatMgr
         ChangePlayerStatus(actorNumber, playerStatus);
         //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
         if (CheckAllPlayerDealCard())
+        {
+            StopCoroutine(m_checkingTimer);
             SendPlayersCardToAll(2);
+        }
     }
 
     private bool CheckAllPlayerDealCard()

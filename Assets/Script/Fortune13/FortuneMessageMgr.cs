@@ -88,7 +88,7 @@ public class FortuneMessageMgr : MessageMgr
             case enumGameMessage.Fortune_OnOpenCard:
                 FortunePanMgr.Inst.OnOpenCard();
                 FortunePlayerMgr.Inst.OnOpenCard();
-                break;                
+                break;
             case enumGameMessage.Fortune_OnFinishedGame:
                 if (PhotonNetwork.IsMasterClient)
                     FortunePlayerMgr.Inst.OnFinishedGame();
