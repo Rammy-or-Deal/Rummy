@@ -15,7 +15,7 @@ public class UIBCardPanel : MonoBehaviour
     {
         
     }
-
+  
     internal void Init()
     {
         foreach(var card in leftCards)
