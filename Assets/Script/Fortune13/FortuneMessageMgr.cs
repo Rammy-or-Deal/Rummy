@@ -54,14 +54,14 @@ public class FortuneMessageMgr : MessageMgr
                 if (PhotonNetwork.IsMasterClient)
                     FortunePlayerMgr.Inst.OnUserSit();       
                 break;
-            
+
             case enumGameMessage.Fortune_InitReady:
                 if(PhotonNetwork.IsMasterClient)
                 {
-                    FortunePlayerMgr.Inst.Fortune_InitReady();
+                    FortunePlayerMgr.Inst.InitReady();
                 }
                 break;
-            */  
+                */
             case enumGameMessage.Fortune_OnCardDistributed:
                 FortuneMe.Inst.OnCardDistributed();         // set status to Ready
                 FortunePanMgr.Inst.OnCardDistributed();
@@ -90,8 +90,7 @@ public class FortuneMessageMgr : MessageMgr
                 FortunePlayerMgr.Inst.OnOpenCard();
                 break;
             case enumGameMessage.Fortune_OnFinishedGame:
-                if (PhotonNetwork.IsMasterClient)
-                    FortunePlayerMgr.Inst.OnFinishedGame();
+                FortunePlayerMgr.Inst.OnFinishedGame();
                 break;
             default:
                 return false;

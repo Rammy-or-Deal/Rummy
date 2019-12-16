@@ -126,7 +126,7 @@ public class FortunePlayerMgr : SeatMgr
     {
         var pList = new PlayerInfoContainer();
         pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
-        
+
         try
         {
             var player = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
@@ -142,14 +142,19 @@ public class FortunePlayerMgr : SeatMgr
 
     internal void OnFinishedGame()
     {
+        GameMgr.Inst.m_gameStatus = enumGameStatus.InGamePlay;
+        FortunePanMgr.Inst.OnInitCard();
         StartCoroutine(WaitForRestart(Constants.fortuneWaitTimeForRestart));
     }
 
     IEnumerator WaitForRestart(float fortuneWaitTimeForRestart)
     {
         yield return new WaitForSeconds(fortuneWaitTimeForRestart);
-        SetAllPlayersStatus((int)FortunePlayerStatus.canStart);
-        DistributeCards();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SetAllPlayersStatus((int)FortunePlayerStatus.Init);
+            DistributeCards();
+        }
     }
 
     internal void OnOpenCard()
@@ -160,7 +165,6 @@ public class FortunePlayerMgr : SeatMgr
         if (lineNo < 0)
         {
             CalcResult();
-            
         }
         else
         {
@@ -335,14 +339,14 @@ public class FortunePlayerMgr : SeatMgr
         return res;
     }
 
-    private void SetAllPlayersStatus(int status)
+    private void SetAllPlayersStatus(enumPlayerStatus status)
     {
-        
+
         var pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
-        foreach(var player in pList.m_playerList)
+        foreach (var player in pList.m_playerList)
         {
-            player.m_status = enumPlayerStatus.Fortune_Init;
+            player.m_status = status;
         }
 
         Hashtable props = new Hashtable{
@@ -350,7 +354,7 @@ public class FortunePlayerMgr : SeatMgr
             {Common.SEAT_STRING, pList.m_playerInfoListString},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        
+
     }
 }
 public class FortuneUserCardList

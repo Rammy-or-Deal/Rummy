@@ -82,7 +82,7 @@ public class UIResultDialog : MonoBehaviour
             totalTxt.text = "Total :" + (m_calc_player[0].totalCoin);
             totalTxt.color = Color.red;
         }
-
+        GameMgr.Inst.seatMgr.AddGold(PhotonNetwork.LocalPlayer.ActorNumber, m_calc_player[0].totalCoin);
     }
 
     Coroutine exitEvent;
@@ -107,6 +107,7 @@ public class UIResultDialog : MonoBehaviour
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
+
         exitEvent = StartCoroutine(ShowTimeForExit(7));
     }
 }

@@ -21,7 +21,10 @@ public class FortunePanMgr : MonoBehaviour
 
     public void OnInitCard()
     {
-
+        foreach(FortuneUserSeat seat in GameMgr.Inst.seatMgr.m_playerList)
+        {
+            seat.InitCards();
+        }
     }
     public void OnCardDistributed()
     {
