@@ -125,15 +125,19 @@ public class SeatMgr : MonoBehaviour
 
     public virtual void AddGold(int playerId, int score)
     {
-        var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);
         // Update User Seat
-        var userListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
-        PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
+        PlayerInfoContainer pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
 
-        foreach (var user in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == playerId))
+        foreach(var player in pList.m_playerList)
         {
-            user.m_playerInfo.m_coinValue += score;
+            player.m_coinValue += score;
         }
+
+        // foreach (var user in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == playerId))
+        // {
+        //     user.m_playerInfo.m_coinValue += score;
+        // }
 
         Hashtable turnProps = new Hashtable
         {
