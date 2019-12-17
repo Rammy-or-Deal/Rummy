@@ -97,7 +97,14 @@ public class FortuneBotMgr : BotMgr
                 Card card = new Card(tmpList[i].num, tmpList[i].color);
                 if (tmpList[i].num == 14) card.num = 1;
                 backList.Add(card);
-                bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num && x.color == card.color).First());
+                try
+                {
+                    bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num && x.color == card.color).First());
+                }
+                catch
+                {
+                    bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num).First());
+                }
             }
 
             #endregion
@@ -117,7 +124,14 @@ public class FortuneBotMgr : BotMgr
                 Card card = new Card(tmpList[i].num, tmpList[i].color);
                 if (tmpList[i].num == 14) card.num = 1;
                 middleList.Add(card);
-                bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num && x.color == card.color).First());
+                try
+                {
+                    bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num && x.color == card.color).First());
+                }
+                catch
+                {
+                    bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num).First());
+                }
             }
 
             #endregion
@@ -128,7 +142,7 @@ public class FortuneBotMgr : BotMgr
                 Card card = new Card(bot.cardList[i].num, bot.cardList[i].color);
                 frontList.Add(card);
             }
- 
+
             #endregion
 
             GameMgr.Inst.Log("tmpList backList:=" + string.Join(", ", backList.Select(x => x.cardString)));
