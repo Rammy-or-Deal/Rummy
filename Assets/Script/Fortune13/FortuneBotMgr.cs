@@ -75,12 +75,12 @@ public class FortuneBotMgr : BotMgr
 
     internal void OnGameStarted()
     {
+
         foreach (var bot in botList)
         {
             var backList = new List<Card>();
             var frontList = new List<Card>();
             var middleList = new List<Card>();
-
 
             #region Making backList
             var tmpList = new List<Card>();
@@ -89,36 +89,52 @@ public class FortuneBotMgr : BotMgr
                 Card card = new Card(bot.cardList[i].num, bot.cardList[i].color);
                 tmpList.Add(card);
             }
+            GameMgr.Inst.Log("tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
             FortuneRuleMgr.GetCardType(tmpList, ref tmpList);
+            GameMgr.Inst.Log("sorted tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
             for (int i = 0; i < 5; i++)
             {
                 Card card = new Card(tmpList[i].num, tmpList[i].color);
+                if (tmpList[i].num == 14) card.num = 1;
                 backList.Add(card);
+                bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num && x.color == card.color).First());
             }
+
             #endregion
 
             #region Making middleList
-            var tmpList1 = new List<Card>();
-            for (int i = 5; i < tmpList.Count; i++)
+            tmpList.Clear();
+            for (int i = 0; i < bot.cardList.Count; i++)
             {
-                Card card = new Card(tmpList[i].num, tmpList[i].color);
-                tmpList1.Add(card);
+                Card card = new Card(bot.cardList[i].num, bot.cardList[i].color);
+                tmpList.Add(card);
             }
-            FortuneRuleMgr.GetCardType(tmpList1, ref tmpList1);
+            GameMgr.Inst.Log("tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
+            FortuneRuleMgr.GetCardType(tmpList, ref tmpList);
+            GameMgr.Inst.Log("sorted tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
             for (int i = 0; i < 5; i++)
             {
-                Card card = new Card(tmpList1[i].num, tmpList1[i].color);
+                Card card = new Card(tmpList[i].num, tmpList[i].color);
+                if (tmpList[i].num == 14) card.num = 1;
                 middleList.Add(card);
+                bot.cardList.Remove(bot.cardList.Where(x => x.num == card.num && x.color == card.color).First());
             }
-            #endregion
 
+            #endregion
+            GameMgr.Inst.Log("last tmpList:=" + string.Join(", ", bot.cardList.Select(x => x.cardString)));
             #region Making frontList
-            for (int i = 5; i < tmpList1.Count; i++)
+            for (int i = 0; i < bot.cardList.Count; i++)
             {
-                Card card = new Card(tmpList1[i].num, tmpList1[i].color);
+                Card card = new Card(bot.cardList[i].num, bot.cardList[i].color);
                 frontList.Add(card);
             }
+ 
             #endregion
+
+            GameMgr.Inst.Log("tmpList backList:=" + string.Join(", ", backList.Select(x => x.cardString)));
+            GameMgr.Inst.Log("tmpList middleList:=" + string.Join(", ", middleList.Select(x => x.cardString)));
+            GameMgr.Inst.Log("tmpList frontList:=" + string.Join(", ", frontList.Select(x => x.cardString)));
+
 
             if (PhotonNetwork.IsMasterClient)
             {

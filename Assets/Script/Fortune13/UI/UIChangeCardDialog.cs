@@ -60,7 +60,7 @@ public class UIChangeCardDialog : MonoBehaviour
     {
         var pList = new PlayerInfoContainer();
         pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
-        if(pList.m_playerList.Count(x=>x.m_status == enumPlayerStatus.Fortune_Doubled) > 0)
+        if (pList.m_playerList.Count(x => x.m_status == enumPlayerStatus.Fortune_Doubled) > 0)
         {
             return;
         }
@@ -145,7 +145,7 @@ public class UIChangeCardDialog : MonoBehaviour
 
         int msgId = (int)enumGameMessage.Fortune_OnPlayerDealCard;
 
-        if(status == enumPlayerStatus.Fortune_Doubled)
+        if (status == enumPlayerStatus.Fortune_Doubled)
             msgId = (int)enumGameMessage.Fortune_DoubleDownRequest;
 
 
@@ -164,5 +164,86 @@ public class UIChangeCardDialog : MonoBehaviour
     public void SetCardGroupColor(int id, bool flag)
     {
         cardGroups[id].color = flag ? new Color32(43, 43, 43, 255) : new Color32(255, 42, 42, 255);
+    }
+
+    public void OnSortButton()
+    {
+
+        var backList = new List<Card>();
+        var frontList = new List<Card>();
+        var middleList = new List<Card>();
+
+        var cardList = new List<Card>();
+        foreach (var c in myCards)
+        {
+            var card = new Card();
+            card.num = c.num;
+            card.color = c.color;
+            cardList.Add(card);
+        }
+
+        #region Making backList
+        var tmpList = new List<Card>();
+        for (int i = 0; i < cardList.Count; i++)
+        {
+            Card card = new Card(cardList[i].num, cardList[i].color);
+            tmpList.Add(card);
+        }
+        GameMgr.Inst.Log("tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
+        FortuneRuleMgr.GetCardType(tmpList, ref tmpList);
+        GameMgr.Inst.Log("sorted tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
+        for (int i = 0; i < 5; i++)
+        {
+            Card card = new Card(tmpList[i].num, tmpList[i].color);
+            if (tmpList[i].num == 14) card.num = 1;
+            backList.Add(card);
+            cardList.Remove(cardList.Where(x => x.num ==card.num && x.color ==card.color).First());
+        }
+
+        for (int i = 0; i < backList.Count; i++)
+        {
+            backCards[i].SetValue(backList[i]);
+        }
+
+        #endregion
+
+        #region Making middleList
+        tmpList.Clear();
+        for (int i = 0; i < cardList.Count; i++)
+        {
+            Card card = new Card(cardList[i].num, cardList[i].color);
+            tmpList.Add(card);
+        }
+        GameMgr.Inst.Log("tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
+        FortuneRuleMgr.GetCardType(tmpList, ref tmpList);
+        GameMgr.Inst.Log("sorted tmpList:=" + string.Join(", ", tmpList.Select(x => x.cardString)));
+        for (int i = 0; i < 5; i++)
+        {
+            Card card = new Card(tmpList[i].num, tmpList[i].color);
+            if (tmpList[i].num == 14) card.num = 1;
+            middleList.Add(card);
+            cardList.Remove(cardList.Where(x => x.num == card.num && x.color == card.color).First());
+        }
+        for (int i = 0; i < middleList.Count; i++)
+        {
+            middleCards[i].SetValue(middleList[i]);
+        }
+        #endregion
+        GameMgr.Inst.Log("last tmpList:=" + string.Join(", ", cardList.Select(x => x.cardString)));
+        #region Making frontList
+        for (int i = 0; i < cardList.Count; i++)
+        {
+            Card card = new Card(cardList[i].num, cardList[i].color);
+            frontList.Add(card);
+        }
+        for (int i = 0; i < frontList.Count; i++)
+        {
+            frontCards[i].SetValue(frontList[i]);
+        }
+        #endregion
+
+        GameMgr.Inst.Log("tmpList backList:=" + string.Join(", ", backList.Select(x => x.cardString)));
+        GameMgr.Inst.Log("tmpList middleList:=" + string.Join(", ", middleList.Select(x => x.cardString)));
+        GameMgr.Inst.Log("tmpList frontList:=" + string.Join(", ", frontList.Select(x => x.cardString)));
     }
 }
