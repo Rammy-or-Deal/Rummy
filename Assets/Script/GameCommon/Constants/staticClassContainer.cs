@@ -470,6 +470,40 @@ public static class staticFunction_Baccarat
     }
 }
 
+
+
+public static class staticFunction_Fortune
+{
+    public static int GetBasePrice(enumGameTier tier)
+    {
+        int bonus = 0;
+        switch (tier)
+        {
+            case enumGameTier.FortuneNewbie:
+                bonus = 100;
+                break;
+            case enumGameTier.FortuneBeginner:
+                bonus = 200;
+                break;
+            case enumGameTier.FortuneVeteran:
+                bonus = 500;
+                break;
+            case enumGameTier.FortuneIntermediate:
+                bonus = 1000;
+                break;
+            case enumGameTier.FortuneAdvanced:
+                bonus = 5000;
+                break;
+            case enumGameTier.FortuneMaster:
+                bonus = 10000;
+                break;
+        }
+        return bonus;
+    }
+
+}
+
+
 public class staticClassContainer : MonoBehaviour
 {
     // Start is called before the first frame update

@@ -48,7 +48,7 @@ public class UICalcDialog : MonoBehaviour
     internal void ShowCards(FortuneUserCardList user, List<Card> showList)
     {
         try
-        {
+        {            
             m_calc_player.Where(x => x.actorNumber == user.actorNumber).First().ShowCards(showList);
         }
         catch { }
@@ -123,7 +123,7 @@ public class UICalcDialog : MonoBehaviour
         foreach (var player in m_calc_player.Where(x => x.IsSeat == true))
         {
             player.Coin = 0;
-            player.SetCardType();
+            player.SetCardType(lineNo);
         }
         //UIFCalcPlayer
 
@@ -132,7 +132,24 @@ public class UICalcDialog : MonoBehaviour
             foreach (var tarPlayer in m_calc_player.Where(x => x.IsSeat == true && x.Score > srcPlayer.Score))
             {
                 //if (srcPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber || tarPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
-                srcPlayer.SendCoin(tarPlayer, 100);
+                int basePrice = staticFunction_Fortune.GetBasePrice(GameMgr.Inst.m_gameTier);
+                int price = 0;
+                if(srcPlayer.isDoubled) price += basePrice * 2;
+                if(tarPlayer.isDoubled) price += basePrice * 2;
+                if(tarPlayer.isMissioned && !srcPlayer.isMissioned)
+                {
+                    price += basePrice * tarPlayer.mission.missionPrice;
+                }
+                if(tarPlayer.specialBonus > 0)
+                {
+                    price += basePrice * tarPlayer.specialBonus;
+                }
+                if(price == 0)
+                {
+                    price = basePrice;
+                }
+
+                srcPlayer.SendCoin(tarPlayer, price);
             }
         }
 

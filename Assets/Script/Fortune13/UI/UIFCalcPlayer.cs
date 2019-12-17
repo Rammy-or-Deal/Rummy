@@ -15,10 +15,21 @@ public class UIFCalcPlayer : MonoBehaviour
     public Text coinText;
     public Text cardText;
     public int actorNumber;
-
+    public GameObject badArrangeText;
     public GameObject CoinImage;
-
+    public Text specialText;
     public int Score;
+
+    [HideInInspector]
+    public bool isBadArranged
+    {
+        get { return badArrangeText.activeSelf; }
+        set { badArrangeText.SetActive(value); }
+    }
+    [HideInInspector] public bool isDoubled;
+    [HideInInspector] public bool isMissioned;
+    [HideInInspector] public int specialBonus;
+    [HideInInspector] public FortuneMissionCard mission;
 
     [HideInInspector]
     public bool IsSeat
@@ -64,30 +75,43 @@ public class UIFCalcPlayer : MonoBehaviour
     {
         var cards = GetComponentsInChildren<FortuneCard>();
         cardList = new List<FortuneCard>();
+        mission = new FortuneMissionCard();
         foreach (var card in cards)
         {
             cardList.Add(card);
         }
-
         CoinImage = this.gameObject.transform.parent.parent.GetComponentsInChildren<Image>(true).Where(x => x.gameObject.name == "CenterCoin").First().gameObject;
     }
 
     internal void Init(UserSeat seat)
-    {        
+    {
         var pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
+        isBadArranged = false;
+        isMissioned = false;
+        isDoubled = false;
         try
         {
-            if (pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_dealtCard ||
-                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Doubled)
+            var myInfo = pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First();
+            if (myInfo.m_status == enumPlayerStatus.Fortune_dealtCard ||
+                    myInfo.m_status == enumPlayerStatus.Fortune_Doubled)
                 IsSeat = seat.isSeat;
             else
                 IsSeat = false;
 
             actorNumber = seat.m_playerInfo.m_actorNumber;
+            CheckIfBadArranged();
+            isDoubled = false;
+            if (myInfo.m_status == enumPlayerStatus.Fortune_Doubled)
+                isDoubled = true;
+
+
             coinText.text = "";
             cardText.text = "";
             totalCoin = 0;
+
+            string missionString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_MISSION_CARD];
+            mission.missionString = missionString;
         }
         catch
         {
@@ -95,8 +119,29 @@ public class UIFCalcPlayer : MonoBehaviour
         }
     }
 
+    private void CheckIfBadArranged()
+    {
+        //FortunePlayerMgr.Inst.cardList[0].
+        isBadArranged = false;
+        FortuneUserCardList player = FortunePlayerMgr.Inst.userCardList.Where(x => x.actorNumber == actorNumber).First();
+
+        var backType = FortuneRuleMgr.GetCardType(player.backCard, ref player.backCard);
+        var middleType = FortuneRuleMgr.GetCardType(player.middleCard, ref player.middleCard);
+        var frontType = FortuneRuleMgr.GetCardType(player.frontCard, ref player.frontCard);
+
+        var backScore = FortuneRuleMgr.GetScore(player.backCard, backType);
+        var middleScore = FortuneRuleMgr.GetScore(player.middleCard, middleType);
+        var frontScore = FortuneRuleMgr.GetScore(player.frontCard, frontType);
+
+        if (backScore < middleScore || middleScore < frontScore)
+        {
+            isBadArranged = true;
+        }
+    }
+
     internal void ShowCards(List<Card> showList)
     {
+
         foreach (var card in cardList)
             card.gameObject.SetActive(false);
 
@@ -154,7 +199,7 @@ public class UIFCalcPlayer : MonoBehaviour
         }
     }
 
-    internal void SetCardType()
+    internal void SetCardType(int lineNo)
     {
         List<Card> cards = new List<Card>();
         foreach (var card in cardList.Where(x => x.gameObject.activeSelf == true))
@@ -164,5 +209,52 @@ public class UIFCalcPlayer : MonoBehaviour
         var type = FortuneRuleMgr.GetCardType(cards, ref cards);
         Score = FortuneRuleMgr.GetScore(cards, type);
         cardText.text = FortuneRuleMgr.GetCardTypeString(type);
+
+        if(isBadArranged)
+            Score = 0;
+
+        if(Score == 0)
+            cardText.text = "";
+
+        isMissioned = false;
+        if(lineNo == mission.missionLine)
+        {
+            HandSuit missionSuit = (HandSuit)mission.missionNo;
+            if(type == (HandSuit)mission.missionNo)
+            {
+                isMissioned = true;
+            }
+        }
+        
+        specialBonus = 0;
+        specialText.text = "";
+        if(!isBadArranged)        
+            CheckIfSpecialCard(lineNo, type);
+    }
+
+    private void CheckIfSpecialCard(int lineNo, HandSuit type)
+    {
+        specialBonus = 0;
+        switch(lineNo)
+        {
+            case 2:
+                if(type == HandSuit.Royal_Flush)    specialBonus = 6;
+                if(type == HandSuit.Straight_Flush) specialBonus = 4;
+                if(type == HandSuit.Four_Of_A_Kind) specialBonus = 3;
+                break;
+            case 1:
+                if(type == HandSuit.Full_House)     specialBonus = 3;
+                if(type == HandSuit.Four_Of_A_Kind) specialBonus = 4;
+                if(type == HandSuit.Straight_Flush) specialBonus = 5;
+                if(type == HandSuit.Royal_Flush)    specialBonus = 6;
+                break;
+            case 0:
+                if(type == HandSuit.Triple)         specialBonus = 2;
+                break;
+        }
+        if(specialBonus > 0)
+        {
+            specialText.text = type + " X " + specialBonus;
+        }
     }
 }

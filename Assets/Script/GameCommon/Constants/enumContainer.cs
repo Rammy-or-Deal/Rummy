@@ -29,6 +29,7 @@ public enum enumPlayerStatus
     Init_Ready,
     Fortune_Doubled,
     Fortune_ReceivedCard,
+    Fortune_BadArranged,
     #endregion Enum_Rummy
 }
 

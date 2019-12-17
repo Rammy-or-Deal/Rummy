@@ -55,6 +55,7 @@ public class FortuneUserSeat : UserSeat
 
     internal void ShowCards(int lineNo, List<Card> showList)
     {
+        
         switch (lineNo)
         {
             case 0:

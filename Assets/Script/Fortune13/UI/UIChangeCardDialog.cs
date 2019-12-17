@@ -58,12 +58,12 @@ public class UIChangeCardDialog : MonoBehaviour
 
     private void DoubleDownRequest()
     {
-        var pList = new PlayerInfoContainer();
-        pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
-        if (pList.m_playerList.Count(x => x.m_status == enumPlayerStatus.Fortune_Doubled) > 0)
-        {
-            return;
-        }
+        // var pList = new PlayerInfoContainer();
+        // pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        // if (pList.m_playerList.Count(x => x.m_status == enumPlayerStatus.Fortune_Doubled) > 0)
+        // {
+        //     return;
+        // }
 
         SendMyCards(enumPlayerStatus.Fortune_Doubled);
     }

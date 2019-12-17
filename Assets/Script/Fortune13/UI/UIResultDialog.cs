@@ -94,8 +94,8 @@ public class UIResultDialog : MonoBehaviour
             RestartMessageText.text = string.Format("Will leave in {0}sec", waitTime);
             waitTime--;
         }
-        OnRestartBtn();
-        //OnCloseBtn();
+        //OnRestartBtn();
+        OnCloseBtn();
     }
 
     internal void ShowResult()

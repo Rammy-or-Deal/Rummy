@@ -65,13 +65,12 @@ public class FortunePlayerMgr : SeatMgr
 
     public override void StartFortuneGame()
     {
-        base.StartFortuneGame();
-        try
-        {
-            StopCoroutine(restartRoutine);
-            StopAllCoroutines();
-        }
-        catch { }
+
+        FortuneUIController.Inst.calcDlg.StopAllCoroutines();
+        FortuneUIController.Inst.resultDlg.StopAllCoroutines();
+        FortuneUIController.Inst.changeDlg.StopAllCoroutines();
+        StopAllCoroutines();
+
         DistributeCards();
     }
 
@@ -203,7 +202,39 @@ public class FortunePlayerMgr : SeatMgr
         if (CheckAllPlayerDealCard())
         {
             StopCoroutine(m_checkingTimer);
+            //CheckBadArrangedPlayer();
             SendPlayersCardToAll(2);
+        }
+    }
+
+    private void CheckBadArrangedPlayer()
+    {
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+        bool isBadFound = false;
+        foreach (var player in userCardList)
+        {
+            var backType = FortuneRuleMgr.GetCardType(player.backCard, ref player.backCard);
+            var middleType = FortuneRuleMgr.GetCardType(player.middleCard, ref player.middleCard);
+            var frontType = FortuneRuleMgr.GetCardType(player.frontCard, ref player.frontCard);
+
+            var backScore = FortuneRuleMgr.GetScore(player.backCard, backType);
+            var middleScore = FortuneRuleMgr.GetScore(player.middleCard, middleType);
+            var frontScore = FortuneRuleMgr.GetScore(player.frontCard, frontType);
+
+            if (backScore < middleScore || middleScore < frontScore)
+            {
+                pList.m_playerList.Where(x => x.m_actorNumber == player.actorNumber).First().m_status = enumPlayerStatus.Fortune_BadArranged;
+                isBadFound = true;
+            }
+        }
+        if (isBadFound)
+        {
+            Hashtable props = new Hashtable{
+                {PhotonFields.GAME_MESSAGE, -1},
+                {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
 
@@ -405,11 +436,12 @@ public class FortuneMissionCard
     public int missionNo;
     public int missionLine;
     public int missionPrice;
+    private int[] bonusList = new int[4] { 2, 3, 4, 6 };
     public string CreateMissionString()
     {
         missionNo = Random.Range(0, Enum.GetNames(typeof(HandSuit)).Length - 1);
         missionLine = Random.Range(0, 3);
-        missionPrice = Random.Range(2, 4);
+        missionPrice = bonusList[Random.Range(0, bonusList.Length)];
         if (missionLine == 0)
         {
             while ((missionNo == (int)HandSuit.Two_Pair) || (missionNo > (int)HandSuit.Triple))
