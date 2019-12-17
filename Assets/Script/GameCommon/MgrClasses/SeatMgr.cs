@@ -130,25 +130,30 @@ public class SeatMgr : MonoBehaviour
     public virtual void AddGold(int playerId, int score)
     {
         GameMgr.Inst.Log("AddGold, seatString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);
+        GameMgr.Inst.Log("AddGold, actor=" + playerId + ", gold=" + score);
         // Update User Seat
         PlayerInfoContainer pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
 
-        foreach (var player in pList.m_playerList)
+        if (pList.m_playerList.Count(x => x.m_actorNumber == playerId) > 0)
         {
-            player.m_coinValue += score;
+            foreach (var player in pList.m_playerList.Where(x => x.m_actorNumber == playerId))
+            {
+                player.m_coinValue += score;
+            }
+            GameMgr.Inst.Log("PlayerListString(after result)=" + pList.m_playerInfoListString);
+
+
+            Hashtable turnProps = new Hashtable
+            {
+                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
+                {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString},
+            };
+            PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
         }
-
-        // foreach (var user in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == playerId))
-        // {
-        //     user.m_playerInfo.m_coinValue += score;
-        // }
-
-        Hashtable turnProps = new Hashtable
+        else
         {
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
-            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString},
-        };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
+
+        }
     }
 }

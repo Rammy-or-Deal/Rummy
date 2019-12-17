@@ -67,5 +67,9 @@ public class UIFResultPlayer : MonoBehaviour
             resultText.text = uIFCalcPlayer.totalCoin.ToString();
         else
             resultText.text = (uIFCalcPlayer.totalCoin * 0.9).ToString();
+
+        if(uIFCalcPlayer.totalCoin == 0) resultText.color = Color.white;
+        if(uIFCalcPlayer.totalCoin > 0) resultText.color = Color.green;
+        if(uIFCalcPlayer.totalCoin < 0) resultText.color = Color.red;
     }
 }

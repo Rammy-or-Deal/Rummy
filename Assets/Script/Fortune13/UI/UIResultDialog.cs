@@ -62,8 +62,10 @@ public class UIResultDialog : MonoBehaviour
 
         for (int i = 0; i < m_calc_player.Count; i++)
         {
-            LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_calc_player[i].IsSeat);
+            GameMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_calc_player[i].IsSeat);
             players[i].SetProperty(m_calc_player[i]);
+            if(PhotonNetwork.IsMasterClient)
+                GameMgr.Inst.seatMgr.AddGold(m_calc_player[i].actorNumber, m_calc_player[i].totalCoin);
         }
 
         frontTxt.text = calcDlg.m_FrontText.text;
@@ -82,7 +84,7 @@ public class UIResultDialog : MonoBehaviour
             totalTxt.text = "Total :" + (m_calc_player[0].totalCoin);
             totalTxt.color = Color.red;
         }
-        GameMgr.Inst.seatMgr.AddGold(PhotonNetwork.LocalPlayer.ActorNumber, m_calc_player[0].totalCoin);
+        
     }
 
     Coroutine exitEvent;
