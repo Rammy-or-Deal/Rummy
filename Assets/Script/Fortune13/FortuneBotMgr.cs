@@ -77,33 +77,48 @@ public class FortuneBotMgr : BotMgr
     {
         foreach (var bot in botList)
         {
-            var tmp = bot.cardList.OrderBy(x => x.num).ToList();
+            var backList = new List<Card>();
             var frontList = new List<Card>();
             var middleList = new List<Card>();
-            var backList = new List<Card>();
-            for (int i = 0; i < tmp.Count; i++)
-            {
-                var card = new Card(tmp[i].num, tmp[i].color);
-                if (i <= 2)
-                {
-                    frontList.Add(card);
-                }
-                else if (i <= 7)
-                {
-                    middleList.Add(card);
-                }
-                else
-                {
-                    backList.Add(card);
-                }
-            }
-            var frontType = FortuneRuleMgr.GetCardType(frontList, ref frontList);
-            var middleType = FortuneRuleMgr.GetCardType(middleList, ref middleList);
-            var backType = FortuneRuleMgr.GetCardType(backList, ref backList);
 
-            var frontScore = FortuneRuleMgr.GetScore(frontList, frontType);
-            var middleScore = FortuneRuleMgr.GetScore(middleList, middleType);
-            var backScore = FortuneRuleMgr.GetScore(backList, backType);
+
+            #region Making backList
+            var tmpList = new List<Card>();
+            for (int i = 0; i < bot.cardList.Count; i++)
+            {
+                Card card = new Card(bot.cardList[i].num, bot.cardList[i].color);
+                tmpList.Add(card);
+            }
+            FortuneRuleMgr.GetCardType(tmpList, ref tmpList);
+            for (int i = 0; i < 5; i++)
+            {
+                Card card = new Card(tmpList[i].num, tmpList[i].color);
+                backList.Add(card);
+            }
+            #endregion
+
+            #region Making middleList
+            var tmpList1 = new List<Card>();
+            for (int i = 5; i < tmpList.Count; i++)
+            {
+                Card card = new Card(tmpList[i].num, tmpList[i].color);
+                tmpList1.Add(card);
+            }
+            FortuneRuleMgr.GetCardType(tmpList1, ref tmpList1);
+            for (int i = 0; i < 5; i++)
+            {
+                Card card = new Card(tmpList1[i].num, tmpList1[i].color);
+                middleList.Add(card);
+            }
+            #endregion
+
+            #region Making frontList
+            for (int i = 5; i < tmpList1.Count; i++)
+            {
+                Card card = new Card(tmpList1[i].num, tmpList1[i].color);
+                frontList.Add(card);
+            }
+            #endregion
 
             if (PhotonNetwork.IsMasterClient)
             {

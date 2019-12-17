@@ -22,12 +22,13 @@ public class BotMgr : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds((float)Random.Range(constantContainer.BotCreateTime_min, constantContainer.BotCreateTime_max));
-
+            var pList = new PlayerInfoContainer();
+            pList.GetInfoContainerFromPhoton();
             if (PhotonNetwork.IsMasterClient)
             {
                 //if ((GameMgr.Inst.m_gameType != enumGameType.Baccarat && GameMgr.Inst.roomMgr.m_currentRoom.m_playerCount < GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
                 if ((GameMgr.Inst.m_gameType != enumGameType.Baccarat && GameMgr.Inst.roomMgr.m_currentRoom.m_playerCount < GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
-                 || (GameMgr.Inst.m_gameType == enumGameType.Baccarat && GameMgr.Inst.seatMgr.m_playerList.Count(x=>x.m_playerInfo != null && x.m_playerInfo.m_actorNumber < 0) < 2)
+                 || (GameMgr.Inst.m_gameType == enumGameType.Baccarat && pList.m_playerList.Count(x=>x.m_actorNumber < 0) < 2)
                 )
                 {
                     PlayerInfo info = GenerateNewBotInfo();
