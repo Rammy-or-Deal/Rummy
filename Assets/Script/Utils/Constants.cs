@@ -110,4 +110,6 @@ public static class Constants
 
     public static int FortuneWaitTimeForLeave = 10;
     #endregion
+
+    public static readonly string[] EmojiAnimations = { "cow_cry","cow_pray","cow_taunt"};
 }

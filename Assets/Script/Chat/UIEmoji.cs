@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
 {
-    private string[] animationList = {"cow_cry","cow_pray","cow_taunt"};
+    
     Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
         object[] instantiationData = info.photonView.InstantiationData;
         int id = (int) instantiationData[0];
         animator = gameObject.GetComponent<Animator>();
-        animator.runtimeAnimatorController = Resources.Load("chat/"+animationList[id]) as RuntimeAnimatorController;
+        animator.runtimeAnimatorController = Resources.Load("chat/"+Constants.EmojiAnimations[id]) as RuntimeAnimatorController;
         gameObject.transform.SetParent(GameMgr.Inst.seatMgr.GetUserSeat(GetComponent<PhotonView>().OwnerActorNr).transform);
         transform.localPosition=Vector3.zero;
         transform.localScale=Vector3.one;
