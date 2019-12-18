@@ -58,7 +58,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
                     UIBCardModel card= hit.collider.GetComponent<UIBCardModel>();
                     if (card && !card.isFlipped)
                     {
-                        Debug.Log(hit.point+card.id.ToString());
+//                        Debug.Log(hit.point+card.id.ToString());
                         id = card.id;
                         lastPoint = hit.point;
                         isClicked = true;
@@ -126,7 +126,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         if (isBigShow)
         {
             for (int i=0;i<cards.Length;i++)
-                cards[id].FlipOn();
+                cards[i].FlipOn();
             float time = 0.5f;
             flippedCnt = 0;
             iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
