@@ -14,6 +14,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     public int id;
     public bool isClicked;
     private float damping = 10;
+    private int flippedCnt = 0;
     public static UIBCardBend Inst;
 
     public Transform bigCamPos;
@@ -55,7 +56,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(touchPosition), out hit, 100))
                 {
                     UIBCardModel card= hit.collider.GetComponent<UIBCardModel>();
-                    if (card)
+                    if (card && !card.isFlipped)
                     {
                         Debug.Log(hit.point+card.id.ToString());
                         id = card.id;
@@ -78,9 +79,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
                         UIBCardModel card= hit.collider.GetComponent<UIBCardModel>();
                         if ((!card || (card && card.id!=id)) && dis>0.5)  //turn Card
                         {
-                            TouchEnd();
-                            cards[id].FlipOver();
-                            //BaccaratPanMgr.Inst.OnClickDistributedCard();
+                            FlipCard();
                             return;
                         }
                         bend[id].position = hit.point;
@@ -108,15 +107,34 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         isClicked = false;
     }
 
+    void FlipCard()
+    {
+        TouchEnd();
+        cards[id].FlipOver();
+        flippedCnt++;
+        if (flippedCnt == 2)
+        {
+            BaccaratPanMgr.Inst.OnClickDistributedCard();
+            ShowBigCard(false);
+        }
+    }
+
     public void ShowBigCard(bool isBigShow)
     {
-        float time = 0.5f;
-        gameObject.SetActive(isBigShow);
+//        gameObject.SetActive(isBigShow);
         BaccaratUIController.Inst.bendCardBlankBtn.SetActive(isBigShow);
         if (isBigShow)
+        {
+            for (int i=0;i<cards.Length;i++)
+                cards[id].FlipOn();
+            float time = 0.5f;
             iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
+        }
         else
+        {
             BaccaratUIController.Inst.camera.transform.localPosition=new Vector3(0,0,0);
+            transform.position = new Vector3(0,0,0);
+        }
     }
 
     public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2)
@@ -130,8 +148,6 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     IEnumerator ShowCard(Transform[] destination_cardPos)
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
-        for (int i=0;i<cards.Length;i++)
-            cards[id].FlipOn();
         transform.position = destination_cardPos[0].position;
         ShowBigCard(true);
     }
