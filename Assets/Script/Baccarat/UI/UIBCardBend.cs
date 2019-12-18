@@ -21,7 +21,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     
     [HideInInspector]
     public PhotonView photonView;
-    
+   
     void Start()
     {
         Inst = this;
@@ -119,7 +119,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             BaccaratUIController.Inst.camera.transform.localPosition=new Vector3(0,0,0);
     }
 
-    public void ShowBigCard(Transform[] destination_cardPos)
+    public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2)
     {
         if (!photonView.IsMine) { photonView.RequestOwnership(); }
         StartCoroutine(ShowCard(destination_cardPos));

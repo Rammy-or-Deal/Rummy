@@ -126,7 +126,7 @@ public class BaccaratPanMgr : MonoBehaviour
     internal void OnInitUI()
     {
 
-    }
+    }    
 
     internal async void OnPrizeAwarded()
     {
@@ -241,7 +241,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
     private void MoveDistributed_BigCards(UIBCard[] originCards, BaccaratCard card1, BaccaratCard card2, Transform[] destination_cardPos, float time)
     {
-        UIBCardBend.Inst.ShowBigCard(destination_cardPos);
+        UIBCardBend.Inst.ShowBigCard(destination_cardPos, card1, card2);
     }
     
     public void OnClickDistributedCard()
