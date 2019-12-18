@@ -128,6 +128,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             for (int i=0;i<cards.Length;i++)
                 cards[id].FlipOn();
             float time = 0.5f;
+            flippedCnt = 0;
             iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
         }
         else
@@ -150,6 +151,8 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
         transform.position = destination_cardPos[0].position;
         ShowBigCard(true);
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        ShowBigCard(false);
     }
 
 

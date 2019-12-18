@@ -232,7 +232,7 @@ public class BaccaratPanMgr : MonoBehaviour
         {
             MoveDistributed_SmallCards(cardPanel.rightCards, bankerCard.CardList[0], bankerCard.CardList[1], player.cardPos, Constants.BaccaratDistributionTime);
 
-            if (max_betting_banker == PhotonNetwork.LocalPlayer.ActorNumber)
+            if (max_betting_player == PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 MoveDistributed_BigCards(cardPanel.leftCards, bankerCard.CardList[0], bankerCard.CardList[1], banker.cardPos, Constants.BaccaratDistributionTime);
             }
