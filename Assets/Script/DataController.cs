@@ -69,6 +69,7 @@ public class DataController : MonoBehaviour
                     Debug.Log(key + " : " + result.ResultDictionary[key]);
                 }
                 userInfo.name = result.ResultDictionary["name"].ToString();
+                ChatMgr.Inst.chatClient.UserId = userInfo.name;
                 UIController.Inst.userInfoPanel.UpdateValue();
             }
         });
