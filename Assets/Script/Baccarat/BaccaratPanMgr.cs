@@ -87,6 +87,8 @@ public class BaccaratPanMgr : MonoBehaviour
         StartCoroutine(WaitFor1Second());
     }
 
+
+
     public IEnumerator WaitFor1Second()
     {
         int time = -100;
@@ -128,13 +130,13 @@ public class BaccaratPanMgr : MonoBehaviour
 
     }
 
-    internal  void OnPrizeAwarded()
+    internal void OnPrizeAwarded()
     {
         message.Show("Congratulations!");
         StartCoroutine(SetPrize());
     }
 
-    IEnumerator  SetPrize()
+    IEnumerator SetPrize()
     {
         yield return new WaitForSeconds(3);
         var prize_area = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_PRIZE_AREA];
@@ -182,30 +184,82 @@ public class BaccaratPanMgr : MonoBehaviour
     internal void OnCatchedCardDistributed()
     {
         InitTeamCard();
-
-        bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
-        playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
-        var max_betting_banker = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
-        var max_betting_player = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
-
-        MoveDistributedCardToPlayer(max_betting_banker, max_betting_player);
-
-        LogMgr.Inst.Log("Card Distributed. banker:=" + bankerCard.cardString + ",  player:=" + playerCard.cardString, (int)LogLevels.PlayerLog1);
-
-        // Here, we can add the code to make the users can open the card. player is depended on 
-        // {Common.BACCARAT_MAX_BETTING_PLAYER_BANKER, max_betting_banker},
-        // {Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER, max_betting_player},
-
         if (!PhotonNetwork.IsMasterClient) return;
-        ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player));
+        SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnPlayerCardDistribute);
     }
 
-
-
-    private void MoveDistributedCardToPlayer(int max_betting_banker, int max_betting_player)
+    private void SendPlayersToDistributeCard(int msg)
     {
-        AddAnimationForDistributedCard(max_betting_banker, bankerCard.CardList[0], bankerCard.CardList[1]);
-        AddAnimationForDistributedCard(max_betting_player, playerCard.CardList[0], playerCard.CardList[1]);        
+        Hashtable props;
+        props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, msg}
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+    }
+    public void BaccaratAdditionalCardDistribute()
+    {
+        ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
+
+        int nowTurn;
+        if (playerCard.CardList.Count > 2)
+        {
+            nowTurn = (int)BaccaratShowingCard_NowTurn.Player_additional;
+            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+        }
+        else if (bankerCard.CardList.Count > 2)
+        {
+            nowTurn = (int)BaccaratShowingCard_NowTurn.Banker_additional;
+            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+        }
+        else
+        {
+            BaccaratBankerMgr.Inst.CalcResult();
+        }
+    }
+    internal void Baccarat_OnCardDistribute(bool v)
+    {
+        if (v == true)
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
+
+        MoveDistributedCardToPlayer(v);
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        if (v == false)
+            StartCoroutine(sendBankerCard());
+
+        if (v == true)
+            StartCoroutine(sendAdditionalCard());
+
+        // LogMgr.Inst.Log("Card Distributed. banker:=" + bankerCard.cardString + ",  player:=" + playerCard.cardString, (int)LogLevels.PlayerLog1);
+
+        //ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player));
+    }
+    IEnumerator sendAdditionalCard()
+    {
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        SendPlayersToDistributeCard((int)enumGameMessage.BaccaratAdditionalCardDistribute);
+    }
+    IEnumerator sendBankerCard()
+    {
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnBankerCardDistribute);
+    }
+
+    private void MoveDistributedCardToPlayer(bool isBanker)
+    {
+        if (isBanker)
+        {
+            bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
+            var max_betting_banker = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
+            AddAnimationForDistributedCard(max_betting_banker, bankerCard.CardList[0], bankerCard.CardList[1]);
+        }
+        else
+        {
+            playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
+            var max_betting_player = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
+            AddAnimationForDistributedCard(max_betting_player, playerCard.CardList[0], playerCard.CardList[1]);
+        }
     }
 
     private void AddAnimationForDistributedCard(int max_better, BaccaratCard card1, BaccaratCard card2)
@@ -247,7 +301,7 @@ public class BaccaratPanMgr : MonoBehaviour
     Coroutine ShowingCardRoutine;
     IEnumerator ShowingCard(int nowTurn)
     {
-        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime/2);
         Hashtable table = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnShowingCatchedCard},
             {Common.BACCARAT_NOW_SHOWING_TURN, nowTurn}
