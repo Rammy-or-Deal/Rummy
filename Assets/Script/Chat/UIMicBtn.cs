@@ -1,10 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Voice.PUN;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UIMicBtn : MonoBehaviour, IPointerClickHandler
 {
+    public GameObject muteImage;
+    
+    public void OnPointerDown()
+    {
+        Debug.Log("OnPointerDown");
+        PhotonVoiceNetwork.Instance.PrimaryRecorder.TransmitEnabled = true;
+    }
+    
+    public void OnPointerUp()
+    {
+        Debug.Log("OnPointerUp");
+        PhotonVoiceNetwork.Instance.PrimaryRecorder.TransmitEnabled = false;
+    }
+    
     // Start is called before the first frame update
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -24,12 +40,11 @@ public class UIMicBtn : MonoBehaviour, IPointerClickHandler
 
     void OnDoubleClick()
     {
-        Debug.LogError("Double Clicked");
         
     }
     
     void OnMultiClick()
     {
-        Debug.Log("MultiClick Clicked");
+        
     }
 }

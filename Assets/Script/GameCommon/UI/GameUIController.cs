@@ -51,4 +51,8 @@ public class GameUIController : MonoBehaviour
     {
         settingDlg.SetActive(true);
     }
+    public void OnClickChat()
+    {
+        UIController.Inst.chatDlg.gameObject.SetActive(true);
+    }
 }
