@@ -8,7 +8,6 @@ public class LobbyController : MonoBehaviour
 {
     public Transform userInfoPanel;
     public Transform moneyPanel;
-    public GameObject uiFriendMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +47,6 @@ public class LobbyController : MonoBehaviour
 
     public void OnClikBack()
     {
-        Debug.Log("back pressed");
         SceneManager.LoadScene("1_Title");
     }
     public void OnClickLobbyBottomBtn(int type)
@@ -65,9 +63,6 @@ public class LobbyController : MonoBehaviour
                 break;
             case 2:
                 UIController.Inst.chatDlg.gameObject.SetActive(true);
-                break;
-            case 3:
-                OnClickFriend(uiFriendMenu);
                 break;
             case 4:
                 UIController.Inst.rewardDlg.gameObject.SetActive(true);
@@ -98,10 +93,4 @@ public class LobbyController : MonoBehaviour
     {
         UIController.Inst.shopDlg.gameObject.SetActive(true);
     }
-
-    public void OnClickFriend(GameObject obj)
-    {
-        obj.SetActive(true);
-    }
-
 }

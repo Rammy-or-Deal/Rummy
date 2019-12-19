@@ -11,11 +11,17 @@ public class UIChatDialog : MonoBehaviour
     public Text CurrentChannelText; // set in inspector
     public GameObject emojiModule;
     public GameObject messageModule;
+    public UIEmojiBtn _emojiBtn;
     
     // Start is called before the first frame update
     void Start()
     {
         ChatMgr.Inst.ShowChannel("Lobby");
+        for (int i = 1; i < Constants.EmojiAnimations.Length; i++)
+        {
+            UIEmojiBtn btn= Instantiate(_emojiBtn, emojiModule.transform);
+            btn.SetAnimator(i);
+        }
     }
 
     public void OnEnterSend()
@@ -45,15 +51,5 @@ public class UIChatDialog : MonoBehaviour
     {
         emojiModule.SetActive(isShow);
         messageModule.SetActive(!isShow);
-    }
-
-    public void OnClickEmoji(int id)
-    {
-        if (PhotonNetwork.InRoom)
-        {
-            object[] myCustomInitData = new object[]{id};
-            PhotonNetwork.Instantiate("Prefabs/chat/emoji", Vector3.zero, Quaternion.identity, 0,myCustomInitData);
-            gameObject.SetActive(false);
-        }
     }
 }

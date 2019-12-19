@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class UIEmoji : MonoBehaviour, IPunInstantiateMagicCallback
 {
-    
     Animator animator;
     // Start is called before the first frame update
     void Start()
