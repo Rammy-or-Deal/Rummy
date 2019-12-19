@@ -184,6 +184,9 @@ public class BaccaratPanMgr : MonoBehaviour
     internal void OnCatchedCardDistributed()
     {
         InitTeamCard();
+        bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
+        playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
+
         if (!PhotonNetwork.IsMasterClient) return;
         SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnPlayerCardDistribute);
     }
@@ -259,13 +262,11 @@ public class BaccaratPanMgr : MonoBehaviour
     {
         if (isBanker)
         {
-            bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
             var max_betting_banker = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
             AddAnimationForDistributedCard(max_betting_banker, bankerCard.CardList[0], bankerCard.CardList[1]);
         }
         else
         {
-            playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
             var max_betting_player = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
             AddAnimationForDistributedCard(max_betting_player, playerCard.CardList[0], playerCard.CardList[1]);
         }

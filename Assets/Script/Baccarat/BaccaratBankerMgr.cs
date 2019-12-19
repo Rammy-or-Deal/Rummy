@@ -180,8 +180,6 @@ public class BaccaratBankerMgr : MonoBehaviour
         }
         var victoryArea = CalcVictoryArea();
         CalcUserPrize(victoryArea);
-
-
     }
     IEnumerator StartGame()
     {
