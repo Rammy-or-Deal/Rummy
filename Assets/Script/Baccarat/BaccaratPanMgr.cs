@@ -263,16 +263,16 @@ public class BaccaratPanMgr : MonoBehaviour
         if (isBanker)
         {
             var max_betting_banker = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
-            AddAnimationForDistributedCard(max_betting_banker, bankerCard.CardList[0], bankerCard.CardList[1]);
+            AddAnimationForDistributedCard(cardPanel.rightCards ,max_betting_banker, bankerCard.CardList[0], bankerCard.CardList[1]);
         }
         else
         {
             var max_betting_player = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
-            AddAnimationForDistributedCard(max_betting_player, playerCard.CardList[0], playerCard.CardList[1]);
+            AddAnimationForDistributedCard(cardPanel.leftCards, max_betting_player, playerCard.CardList[0], playerCard.CardList[1]);
         }
     }
 
-    private void AddAnimationForDistributedCard(int max_better, BaccaratCard card1, BaccaratCard card2)
+    private void AddAnimationForDistributedCard(UIBCard[] orgCards, int max_better, BaccaratCard card1, BaccaratCard card2)
     {
         BaccaratUserSeat player = null;
         if (BaccaratPlayerMgr.Inst.m_playerList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better) > 0)
@@ -280,11 +280,11 @@ public class BaccaratPanMgr : MonoBehaviour
 
         if (player != null)
         {
-            MoveDistributed_SmallCards(cardPanel.leftCards, card1, card2, player.cardPos, Constants.BaccaratDistributionTime);
+            MoveDistributed_SmallCards(orgCards, card1, card2, player.cardPos, Constants.BaccaratDistributionTime);
 
             if (max_better == PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                MoveDistributed_BigCards(cardPanel.leftCards, card1, card2, player.cardPos, Constants.BaccaratDistributionTime);
+                MoveDistributed_BigCards(orgCards, card1, card2, player.cardPos, Constants.BaccaratDistributionTime);
             }
         }
     }
