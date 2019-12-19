@@ -35,8 +35,17 @@ public class UIFResultPlayer : MonoBehaviour
         var pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
         var seat = (FortuneUserSeat)_seat;
-        
-        IsSeat = seat.isSeat;
+        try
+        {
+            if (pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_dealtCard ||
+                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Doubled ||
+                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Lucky ||
+                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_OnChanging)
+                IsSeat = seat.isSeat;
+            else
+                IsSeat = false;
+        }
+        catch { IsSeat = false; }
 
         actorNumber = seat.m_playerInfo.m_actorNumber;
 

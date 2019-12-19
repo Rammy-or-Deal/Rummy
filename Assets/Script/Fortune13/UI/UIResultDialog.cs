@@ -62,7 +62,7 @@ public class UIResultDialog : MonoBehaviour
         var m_calc_player = calcDlg.m_calc_player;
 
         int luckyCoin = AddLuckyBonus(calcDlg);
-        if (luckyCoin > 0)
+        if (luckyCoin != 0)
         {
             luckyTxt.gameObject.SetActive(true);
             luckyTxt.text = luckyCoin.ToString();
@@ -73,9 +73,9 @@ public class UIResultDialog : MonoBehaviour
         }
 
         for (int i = 0; i < m_calc_player.Count; i++)
-        {
-            GameMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_calc_player[i].IsSeat);
+        {            
             players[i].SetProperty(m_calc_player[i]);
+            GameMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_calc_player[i].IsSeat+", gold="+m_calc_player[i].totalCoin, enumLogLevel.FortuneLuckyLog);
             if (PhotonNetwork.IsMasterClient)
                 GameMgr.Inst.seatMgr.AddGold(m_calc_player[i].actorNumber, m_calc_player[i].totalCoin);
         }
@@ -113,8 +113,10 @@ public class UIResultDialog : MonoBehaviour
             if (m_lucky_player.Count(x => x.actorNumber == player.m_actorNumber) == 0) continue;
             var uiCalcPlayer = m_calc_player.Where(x => x.actorNumber == player.m_actorNumber).First();
             var uiLuckyPlayer = m_lucky_player.Where(x => x.actorNumber == player.m_actorNumber).First();
-            uiCalcPlayer.totalCoin += int.Parse(uiLuckyPlayer.resultText.text);
-
+            GameMgr.Inst.Log("Origianl Coin actor="+player.m_actorNumber+", coin:=" + uiCalcPlayer.totalCoin, enumLogLevel.FortuneLuckyLog);
+            uiCalcPlayer.totalCoin += int.Parse(uiLuckyPlayer.resultText.text);            
+            GameMgr.Inst.Log("Penalty from Lucky. actor="+player.m_actorNumber+", penalty:=" + int.Parse(uiLuckyPlayer.resultText.text), enumLogLevel.FortuneLuckyLog);
+            GameMgr.Inst.Log("Result Coin actor="+player.m_actorNumber+", coin:=" + uiCalcPlayer.totalCoin, enumLogLevel.FortuneLuckyLog);
             if (player.m_actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 myCoin = int.Parse(uiLuckyPlayer.resultText.text);
