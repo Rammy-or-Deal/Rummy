@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UIMicBtn : MonoBehaviour, IPointerClickHandler
 {
     public GameObject muteImage;
+    private bool isMuted;
     
     public void OnPointerDown()
     {
@@ -40,7 +41,9 @@ public class UIMicBtn : MonoBehaviour, IPointerClickHandler
 
     void OnDoubleClick()
     {
-        
+        isMuted = !isMuted;
+        AudioListener.volume = isMuted ? 0 : 1;
+        muteImage.SetActive(isMuted);
     }
     
     void OnMultiClick()
