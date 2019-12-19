@@ -201,21 +201,30 @@ public class BaccaratPanMgr : MonoBehaviour
     {
         ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
 
-        int nowTurn;
-        if (playerCard.CardList.Count > 2)
+        if (playerCard.CardList.Count > 2 || bankerCard.CardList.Count > 2)
         {
-            nowTurn = (int)BaccaratShowingCard_NowTurn.Player_additional;
-            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
-        }
-        else if (bankerCard.CardList.Count > 2)
-        {
-            nowTurn = (int)BaccaratShowingCard_NowTurn.Banker_additional;
-            ShowingCardRoutine = StartCoroutine(ShowingCard(nowTurn));
+            StartCoroutine(ShowingAdditionalCard());
         }
         else
         {
             BaccaratBankerMgr.Inst.CalcResult();
         }
+    }
+    IEnumerator ShowingAdditionalCard()
+    {
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
+
+        if (playerCard.CardList.Count > 2)
+        {
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
+            yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
+        }
+        if (playerCard.CardList.Count > 2)
+        {
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
+            yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
+        }
+        BaccaratBankerMgr.Inst.CalcResult();
     }
     internal void Baccarat_OnCardDistribute(bool v)
     {
@@ -301,7 +310,7 @@ public class BaccaratPanMgr : MonoBehaviour
     Coroutine ShowingCardRoutine;
     IEnumerator ShowingCard(int nowTurn)
     {
-        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime/2);
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
         Hashtable table = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Baccarat_OnShowingCatchedCard},
             {Common.BACCARAT_NOW_SHOWING_TURN, nowTurn}
