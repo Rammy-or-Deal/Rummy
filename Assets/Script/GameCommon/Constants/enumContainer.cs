@@ -30,6 +30,7 @@ public enum enumPlayerStatus
     Fortune_Doubled,
     Fortune_ReceivedCard,
     Fortune_BadArranged,
+    Fortune_Lucky,
     #endregion Enum_Rummy
 }
 
@@ -117,6 +118,8 @@ public enum enumGameMessage
     Fortune_InitReady,
     Fortune_OnTickTimer,
     Fortune_DoubleDownRequest,
+    Fortune_Lucky,
+    Fortune_OnShowLuckResult,
     #endregion
 
     #region Baccarat Game Messages

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
@@ -37,9 +38,9 @@ public static class FortuneRuleMgr
     public static int GetScore(List<Card> list, HandSuit type)
     {
         int score = 0;
-        score += ((int)type+1) * 2000;
+        score += ((int)type + 1) * 2000;
         score += list[0].num * 100;
-        score += (4-list[0].color)*10;
+        score += (4 - list[0].color) * 10;
 
         return score;
     }
@@ -50,8 +51,231 @@ public static class FortuneRuleMgr
         res = res.Replace('_', ' ');
         return res;
     }
+
+    internal static Lucky CheckIfLuckyCards(List<Card> frontList, List<Card> middleList, List<Card> backList)
+    {
+        List<LuckChecker.LuckyCard> front = new List<LuckChecker.LuckyCard>();
+        List<LuckChecker.LuckyCard> middle = new List<LuckChecker.LuckyCard>();
+        List<LuckChecker.LuckyCard> back = new List<LuckChecker.LuckyCard>();
+        front = ArrayCopy(frontList);
+        middle = ArrayCopy(middleList);
+        back = ArrayCopy(backList);
+
+        LuckChecker checker = new LuckChecker(front, middle, back);
+        return checker.CheckIfLuckyCards();
+    }
+
+    private static List<LuckChecker.LuckyCard> ArrayCopy(List<Card> list)
+    {
+        List<LuckChecker.LuckyCard> res = new List<LuckChecker.LuckyCard>();
+        foreach (var tmp in list)
+        {
+            LuckChecker.LuckyCard card = new LuckChecker.LuckyCard(tmp.num, tmp.color);
+            res.Add(card);
+        }
+        return res;
+    }
 }
 
+#region  Luck Checker
+public class LuckChecker
+{
+    public class LuckyCard
+    {
+        public int num;
+        public int color;
+        public LuckyCard() { }
+        public LuckyCard(int _num, int _color)
+        {
+            num = _num;
+            color = _color;
+        }
+    }
+
+    List<LuckyCard> frontList;
+    List<LuckyCard> middleList;
+    List<LuckyCard> backList;
+    List<LuckyCard> totalList = new List<LuckyCard>();
+    int[] totalCardArray = new int[13];
+
+    public LuckChecker()
+    {
+
+    }
+
+    public LuckChecker(List<LuckyCard> front, List<LuckyCard> middle, List<LuckyCard> back)
+    {
+        frontList = front;
+        middleList = middle;
+        backList = back;
+        AddList(frontList, ref totalList);
+        AddList(middleList, ref totalList);
+        AddList(backList, ref totalList);
+
+        totalCardArray = makeArray(totalList);
+    }
+    private void AddList(List<LuckyCard> subList, ref List<LuckyCard> totalList)
+    {
+        foreach (var tmp in subList)
+        {
+            LuckyCard card = new LuckyCard(tmp.num, tmp.color);
+            totalList.Add(card);
+        }
+    }
+
+    internal Lucky CheckIfLuckyCards()
+    {
+        Lucky res = Lucky.None;
+
+        if (isGrandDragon(totalList)) return Lucky.Grand_Dragon;
+        if (isDragon(totalCardArray)) return Lucky.Dragon;
+        if (isTwelveRoyals(totalCardArray)) return Lucky.Twelve_Royals;
+        if (isThree_Straight_Flushes(frontList, middleList, backList)) return Lucky.Three_Straight_Flushes;
+        if (isThree_4_Of_A_Kind(totalCardArray)) return Lucky.Three_4_Of_A_Kind;
+        if (isAll_Small(totalList)) return Lucky.All_Small;
+        if (isAll_Big(totalList)) return Lucky.All_Big;
+        if (isSame_Colour(totalList)) return Lucky.Same_Colour;
+        if (isFour_Triples(totalCardArray)) return Lucky.Four_Triples;
+        if (isFive_Pair_Plus_Triple(totalCardArray)) return Lucky.Five_Pair_Plus_Triple;
+        if (isSix_Pairs(totalCardArray)) return Lucky.Six_Pairs;
+        if (isThree_Straights(frontList, middleList, backList)) return Lucky.Three_Straights;
+        if (isThree_Flushes(frontList, middleList, backList)) return Lucky.Three_Flushes;
+        return res;
+    }
+
+    private bool isThree_Flushes(List<LuckyCard> frontList, List<LuckyCard> middleList, List<LuckyCard> backList)
+    {
+        if (!isFlush(frontList)) return false;
+        if (!isFlush(middleList)) return false;
+        if (!isFlush(backList)) return false;
+        return true;
+    }
+
+    private bool isThree_Straights(List<LuckyCard> frontList, List<LuckyCard> middleList, List<LuckyCard> backList)
+    {
+        if (!isStraights(frontList)) return false;
+        if (!isStraights(middleList)) return false;
+        if (!isStraights(backList)) return false;
+
+        return true;
+    }
+
+    private bool isStraights(List<LuckyCard> list)
+    {
+        list.Sort((x, y) => x.num - y.num);
+        bool res = true;
+
+        for (int i = 0; i < list.Count - 1; i++)
+        {
+            if (list[i].num + 1 != list[i + 1].num)
+            {
+                res = false;
+                break;
+            }
+        }
+        if (res == false && list[0].num == 1 && list[list.Count - 1].num == 13)
+        {
+            res = true;
+            for (int i = 1; i < list.Count - 1; i++)
+            {
+                if (list[i].num + 1 != list[i + 1].num)
+                {
+                    res = false;
+                    break;
+                }
+            }
+        }
+
+
+        return res;
+    }
+    private bool isFlush(List<LuckyCard> list)
+    {
+        return list.Count(x => x.color != list[0].color) == 0;
+    }
+    private bool isSix_Pairs(int[] cards)
+    {
+        return cards.Count(x => x == 2) == 6;
+    }
+
+    private bool isFive_Pair_Plus_Triple(int[] cards)
+    {
+        if (cards.Count(x => x == 2) == 5 && cards.Count(x => x == 3) == 1)
+            return true;
+        return false;
+    }
+
+    private bool isFour_Triples(int[] cards)
+    {
+        return cards.Count(x => x == 3) >= 3;
+    }
+
+    private bool isSame_Colour(List<LuckyCard> totalList)
+    {
+        if (totalList.Count(x => x.color % 2 == 0) == totalList.Count ||
+            totalList.Count(x => x.color % 2 == 1) == totalList.Count)
+            return true;
+        return false;
+    }
+
+    private bool isAll_Big(List<LuckyCard> totalList)
+    {
+        return totalList.Count(x => x.num >= 8 || x.num == 1) == totalList.Count;
+    }
+
+    private bool isAll_Small(List<LuckyCard> totalList)
+    {
+        return totalList.Count(x => x.num <= 8 && x.num > 1) == totalList.Count;
+    }
+
+    private bool isThree_4_Of_A_Kind(int[] cards)
+    {
+        return cards.Count(x => x == 4) >= 3;
+    }
+
+    private bool isThree_Straight_Flushes(List<LuckyCard> frontList, List<LuckyCard> middleList, List<LuckyCard> backList)
+    {
+        bool res = true;
+        if (!isGrandDragon(frontList)) return false;
+        if (!isGrandDragon(middleList)) return false;
+        if (!isGrandDragon(backList)) return false;
+        return res;
+    }
+
+    private bool isTwelveRoyals(int[] cards)
+    {
+        for (int i = 1; i <= 9; i++)
+        {
+            if (cards[i] > 0) return false;
+        }
+        return true;
+    }
+
+    private int[] makeArray(List<LuckyCard> list)
+    {
+        int[] _cards = new int[13];
+        foreach (var tmp in list)
+        {
+            _cards[tmp.num - 1]++;
+        }
+        return _cards;
+    }
+
+    private bool isDragon(int[] cards)
+    {
+        return cards.Count(x => x > 1) == 0;
+    }
+
+    private bool isGrandDragon(List<LuckyCard> list)
+    {
+        list.Sort((x, y) => x.num - y.num);
+        bool res = true;
+        if (!isStraights(list)) return false;
+        if (!isFlush(list)) return false;
+        return res;
+    }
+}
+#endregion
 
 /// <summary>
 /// 16진수로

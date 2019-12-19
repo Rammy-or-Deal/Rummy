@@ -24,6 +24,7 @@ public enum HandSuit
 }
 public enum Lucky
 {
+    None,
     Grand_Dragon,
     Dragon,
     Twelve_Royals,
@@ -124,6 +125,41 @@ public class FortunePlayerMgr : SeatMgr
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
 
+    }
+
+    internal void OnLucky(Player p)
+    {
+        var pList = new PlayerInfoContainer();
+        pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        if (pList.m_playerList.Count(x => x.m_status == enumPlayerStatus.Fortune_Lucky) > 0) return;
+
+        StopAllCoroutines();
+        FortuneUIController.Inst.changeDlg.StopAllCoroutines();
+
+        int actorNumber = p.ActorNumber;
+        Lucky lucky = (Lucky)p.CustomProperties[Common.LUCKY_NAME];
+
+        GameMgr.Inst.Log("LUCKY:= " + actorNumber + " : " + lucky);
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First().m_status = enumPlayerStatus.Fortune_Lucky;
+
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, -1},
+            {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        StartCoroutine(ShowGoldenResult());
+    }
+
+    IEnumerator ShowGoldenResult()
+    {
+        yield return new WaitForSeconds(3);
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnShowLuckResult},
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
 
     private void ChangePlayerStatus(int actorNumber, enumPlayerStatus status)

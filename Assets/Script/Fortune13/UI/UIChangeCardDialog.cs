@@ -80,9 +80,12 @@ public class UIChangeCardDialog : MonoBehaviour
 
     internal void UpdateHandSuitString()
     {
+        
         var frontList = getCardList(frontCards);
         var middleList = getCardList(middleCards);
         var backList = getCardList(backCards);
+
+        if(CheckIfLuckyCards(frontList, middleList, backList)) return;
 
         List<Card> resList = new List<Card>();
         frontText.color = Color.green;
@@ -108,7 +111,7 @@ public class UIChangeCardDialog : MonoBehaviour
 
         LogMgr.Inst.Log("score=(front,middle,back) : " + frontScore + ", " + middleScore + ", " + backScore, (int)LogLevels.PlayerLog1);
         // Compare front and middle
-        if (frontScore > middleScore)
+        if (frontScore > middleScore || middleScore > backScore)
         {
             frontText.color = Color.red;
             middleText.color = Color.red;
@@ -116,16 +119,24 @@ public class UIChangeCardDialog : MonoBehaviour
 
             SetCardGroupColor(0, false);
             SetCardGroupColor(1, false);
-        }
-        if (middleScore > backScore)
-        {
-            middleText.color = Color.red;
-            backText.color = Color.red;
-            SetCardGroupColor(0, false);
-            SetCardGroupColor(1, false);
             SetCardGroupColor(2, false);
         }
+        
     }
+
+    private bool CheckIfLuckyCards(List<Card> frontList, List<Card> middleList, List<Card> backList)
+    {
+        var luck = FortuneRuleMgr.CheckIfLuckyCards(frontList, middleList, backList);
+        if(luck == Lucky.None)
+            return false;               
+        Hashtable props = new Hashtable{
+            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_Lucky},
+            {Common.LUCKY_NAME, luck}
+        };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        return true;
+    }
+
     List<Card> getCardList(FortuneCard[] cards)
     {
         List<Card> cardList = new List<Card>();

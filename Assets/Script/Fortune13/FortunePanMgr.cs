@@ -104,6 +104,26 @@ public class FortunePanMgr : MonoBehaviour
         
     }
 
+    internal void OnShowLuckResult()
+    {
+        FortuneUIController.Inst.luckyAlert.gameObject.SetActive(false);
+
+        var pList = new PlayerInfoContainer();
+        pList.GetInfoContainerFromPhoton();
+
+        int luckyActor = pList.m_playerList.Where(x=>x.m_status == enumPlayerStatus.Fortune_Lucky).First().m_actorNumber;
+        FortuneUIController.Inst.luckyDlg.players[0].Init(GameMgr.Inst.seatMgr.m_playerList.Where(x=>x.isSeat == true && x.m_playerInfo.m_actorNumber == luckyActor).First());
+
+        
+        FortuneUIController.Inst.luckyDlg.gameObject.SetActive(true);
+    }
+
+    internal void OnLucky()
+    {
+        FortuneUIController.Inst.changeDlg.gameObject.SetActive(false);
+        FortuneUIController.Inst.luckyAlert.gameObject.SetActive(true);
+    }
+
     internal void OnTickTimer()
     {
         //mClockText.text = waitTime.ToString();

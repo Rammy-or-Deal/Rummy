@@ -93,7 +93,7 @@ public class LamiCardMgr : MonoBehaviour
 
     public void SendCardsToPlayers()
     {
-        string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
         var tmp = seatString.Split(',');
         string totalCardString = "";
         for (int i = 0; i < tmp.Length; i++)

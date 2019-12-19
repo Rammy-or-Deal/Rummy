@@ -10,7 +10,9 @@ public class FortuneUIController : GameUIController
     public UIResultDialog resultDlg;
     public UICalcDialog calcDlg;
     public UIChangeCardDialog changeDlg;
-    
+    public UILuckyDialog luckyDlg;
+    public UILuckyAlert luckyAlert;
+
     // Start is called before the first frame update
     void Start()
     {

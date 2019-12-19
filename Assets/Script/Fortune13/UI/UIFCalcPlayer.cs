@@ -105,7 +105,6 @@ public class UIFCalcPlayer : MonoBehaviour
             if (myInfo.m_status == enumPlayerStatus.Fortune_Doubled)
                 isDoubled = true;
 
-
             coinText.text = "";
             cardText.text = "";
             totalCoin = 0;

@@ -80,28 +80,29 @@ public class Common : MonoBehaviour
     public static string BACCARAT_PRIZE = "BACCARAT_PRIZE";
     public static string BACCARAT_PRIZE_AREA = "BACCARAT_PRIZE_AREA";
 
-    
+
     #endregion
     public static string AdditionalRoomProperty = "AdditionalRoomProperty";
     public static string AdditionalRoomType = "AdditionalRoomType";
 
     public static string BaccaratRoomPlayers = "BaccaratRoomPlayers";
 
-#region  Fortune
+    #region  Fortune
     public static string FORTUNE_MESSAGE = "FORTUNE_MESSAGE";
 
-    public static object NEW_BOT_INFO = "NEW_BOT_INFO";
+    public static string NEW_BOT_INFO = "NEW_BOT_INFO";
 
-    public static object FORTUNE_MISSION_CARD = "FORTUNE_MISSION_CARD";
+    public static string FORTUNE_MISSION_CARD = "FORTUNE_MISSION_CARD";
 
-    public static object FORTUNE_PLAYER_FRONT_CARD = "FORTUNE_PLAYER_FRONT_CARD";
-    public static object FORTUNE_PLAYER_MIDDLE_CARD = "FORTUNE_PLAYER_MIDDLE_CARD";
-    public static object FORTUNE_PLAYER_BACK_CARD = "FORTUNE_PLAYER_BACK_CARD";
+    public static string FORTUNE_PLAYER_FRONT_CARD = "FORTUNE_PLAYER_FRONT_CARD";
+    public static string FORTUNE_PLAYER_MIDDLE_CARD = "FORTUNE_PLAYER_MIDDLE_CARD";
+    public static string FORTUNE_PLAYER_BACK_CARD = "FORTUNE_PLAYER_BACK_CARD";
 
-    public static object FORTUNE_OPEN_CARD_LINE = "FORTUNE_OPEN_CARD_LINE";
+    public static string FORTUNE_OPEN_CARD_LINE = "FORTUNE_OPEN_CARD_LINE";
 
-    public static object FORTUNE_REMAIN_TIME = "FORTUNE_TIMER";
+    public static string FORTUNE_REMAIN_TIME = "FORTUNE_TIMER";
 
-    public static object FORTUNE_DOUBLED_LIST { get; internal set; }
+    public static string FORTUNE_DOUBLED_LIST = "FORTUNE_DOUBLED_LIST";
+    public static string LUCKY_NAME = "LUCKY_NAME";
     #endregion
 }

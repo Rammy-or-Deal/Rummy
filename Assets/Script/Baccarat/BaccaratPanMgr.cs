@@ -130,14 +130,8 @@ public class BaccaratPanMgr : MonoBehaviour
 
     internal  void OnPrizeAwarded()
     {
-
-        
-
         message.Show("Congratulations!");
-        
         StartCoroutine(SetPrize());
-
-        
     }
 
     IEnumerator  SetPrize()

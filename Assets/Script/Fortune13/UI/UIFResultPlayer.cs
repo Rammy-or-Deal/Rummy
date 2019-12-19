@@ -30,7 +30,7 @@ public class UIFResultPlayer : MonoBehaviour
 
     }
 
-    internal void Init(UserSeat _seat)
+    public void Init(UserSeat _seat)
     {
         var pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
@@ -61,7 +61,7 @@ public class UIFResultPlayer : MonoBehaviour
             backCards[i].SetValue(seat.backCards[i].GetValue());
     }
 
-    internal void SetProperty(UIFCalcPlayer uIFCalcPlayer)
+    public virtual void SetProperty(UIFCalcPlayer uIFCalcPlayer)
     {
         if (uIFCalcPlayer.totalCoin < 0)
             resultText.text = uIFCalcPlayer.totalCoin.ToString();

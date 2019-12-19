@@ -173,7 +173,7 @@ public class LamiPlayerMgr : SeatMgr
 
     internal void OnPlayerStatusChanged()
     {
-        string seat_string = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        string seat_string = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
         LogMgr.Inst.Log("Seat String:=" + seat_string);
         string tmpStr = "";
         for (int i = 0; i < m_playerList.Count; i++)
@@ -475,7 +475,7 @@ public class LamiPlayerMgr : SeatMgr
     {
         //OnBotInfoChanged();
 
-        string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
+        string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
 
         //LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
         //Debug.Log("OnRoomSeatUpdate: " + seatString);
