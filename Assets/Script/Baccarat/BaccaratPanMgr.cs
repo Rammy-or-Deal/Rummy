@@ -205,7 +205,7 @@ public class BaccaratPanMgr : MonoBehaviour
         ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
 
         if (playerCard.CardList.Count > 2 || bankerCard.CardList.Count > 2)
-        {
+        {            
             StartCoroutine(ShowingAdditionalCard());
         }
         else
