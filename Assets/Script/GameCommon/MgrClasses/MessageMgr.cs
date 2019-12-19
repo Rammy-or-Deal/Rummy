@@ -10,7 +10,7 @@ public class MessageMgr : MonoBehaviour
     // Start is called before the first frame update
     public virtual bool OnMessageArrived(int message, Player p = null)
     {
-        GameMgr.Inst.Log("Message Arrived(parent): " + (enumGameMessage)message);
+        GameMgr.Inst.Log("Message Arrived(parent): " + (enumGameMessage)message, enumLogLevel.FortuneLuckyLog);
 
         enumGameMessage msg = (enumGameMessage)message;
 

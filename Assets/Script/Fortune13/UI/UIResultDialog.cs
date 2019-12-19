@@ -65,7 +65,7 @@ public class UIResultDialog : MonoBehaviour
         if (luckyCoin != 0)
         {
             luckyTxt.gameObject.SetActive(true);
-            luckyTxt.text = luckyCoin.ToString();
+            luckyTxt.text =  "Lucky :" + luckyCoin.ToString();
         }
         else
         {

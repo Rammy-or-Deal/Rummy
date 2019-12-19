@@ -103,7 +103,7 @@ public class FortunePlayerMgr : SeatMgr
         GameMgr.Inst.Log("Generated Card", enumLogLevel.FortuneLuckyLog);
         for (int i = 0; i < cardList.Count; i++)
         {
-            GameMgr.Inst.Log(i+" - " + string.Join(",", cardList[i].Select(x=>x.cardString)), enumLogLevel.FortuneLuckyLog);
+            GameMgr.Inst.Log(i + " - " + string.Join(",", cardList[i].Select(x => x.cardString)), enumLogLevel.FortuneLuckyLog);
         }
 
         //var seatList = PlayerManagement.Inst.getSeatList();
@@ -193,15 +193,11 @@ public class FortunePlayerMgr : SeatMgr
     {
         var pList = new PlayerInfoContainer();
         pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        var player = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
+        if (player.m_status == enumPlayerStatus.Fortune_Lucky) return;
+        if (player.m_status == enumPlayerStatus.Fortune_Doubled) return;
+        player.m_status = status;
 
-        try
-        {
-            var player = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
-            if (player.m_status == enumPlayerStatus.Fortune_Lucky) return;
-            if (player.m_status == enumPlayerStatus.Fortune_Doubled) return;
-            player.m_status = status;
-        }
-        catch { }
         Hashtable props = new Hashtable{
             {PhotonFields.GAME_MESSAGE, -1},
             {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
@@ -228,6 +224,7 @@ public class FortunePlayerMgr : SeatMgr
 
     internal void OnOpenCard()
     {
+        isAllChecked = false;
         if (!PhotonNetwork.IsMasterClient) return;
         int lineNo = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_OPEN_CARD_LINE];
         lineNo--;
@@ -253,8 +250,10 @@ public class FortunePlayerMgr : SeatMgr
     }
 
     public List<FortuneUserCardList> userCardList = new List<FortuneUserCardList>();
+    bool isAllChecked = false;
     internal void OnPlayerDealCard(enumPlayerStatus playerStatus)
     {
+        if(isAllChecked) return;
         //var seatList = PlayerManagement.Inst.getSeatList();
         int actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         // Store Usercards
@@ -266,8 +265,10 @@ public class FortunePlayerMgr : SeatMgr
         //if (seatList.Count(x => x.status == (int)FortunePlayerStatus.OnChanging) > 0) return;
         if (CheckAllPlayerDealCard())
         {
-            StopCoroutine(m_checkingTimer);
+            isAllChecked = true;
+            StopCoroutine(m_checkingTimer);            
             //CheckBadArrangedPlayer();
+            GameMgr.Inst.Log("Call to open card because all players are checekd", enumLogLevel.FortuneLuckyLog);
             SendPlayersCardToAll(2);
         }
     }
