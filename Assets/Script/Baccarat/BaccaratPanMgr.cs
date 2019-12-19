@@ -232,7 +232,7 @@ public class BaccaratPanMgr : MonoBehaviour
     internal void Baccarat_OnCardDistribute(bool v)
     {
         if (v == true)
-            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
 
         MoveDistributedCardToPlayer(v);
 
