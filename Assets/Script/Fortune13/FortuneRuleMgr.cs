@@ -22,7 +22,7 @@ public static class FortuneRuleMgr
             m_Cards.Add(new Card(list[i].num, list[i].color).byteValue);
             cardListString += list[i].num + ":" + list[i].color + ",";
         }
-        Debug.Log(cardListString);
+        // Debug.Log(cardListString);
         byte[] resCard = new byte[m_Cards.Count];
         var t = cardData.GetScore(m_Cards.ToArray(), ref resCard);
 

@@ -157,7 +157,7 @@ public class UIChangeCardDialog : MonoBehaviour
     }
     public void SendMyCards(enumPlayerStatus status)
     {
-        FortuneMe.Inst.SetMyProperty((int)status);
+        FortuneMe.Inst.SetMyProperty((int)status);        
 
         var frontList = getCardList(frontCards);
         var middleList = getCardList(middleCards);

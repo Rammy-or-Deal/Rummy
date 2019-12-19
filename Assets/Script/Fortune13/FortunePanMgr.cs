@@ -122,7 +122,7 @@ public class FortunePanMgr : MonoBehaviour
         penalty = penalty * staticFunction_Fortune.GetBasePrice(GameMgr.Inst.m_gameTier);
         int luckyBonus = 0;
         
-        foreach (var player in pList.m_playerList.Where(x=>x.m_status == enumPlayerStatus.Fortune_dealtCard || x.m_status == enumPlayerStatus.Fortune_Doubled))
+        foreach (var player in pList.m_playerList.Where(x=>x.m_status == enumPlayerStatus.Fortune_dealtCard || x.m_status == enumPlayerStatus.Fortune_Doubled || x.m_status == enumPlayerStatus.Fortune_OnChanging))
         {
             var seat = GameMgr.Inst.seatMgr.m_playerList.Where(x=>x.isSeat == true && x.m_playerInfo.m_actorNumber == player.m_actorNumber).First();
             FortuneUIController.Inst.luckyDlg.players[index].Init(seat);
@@ -130,11 +130,12 @@ public class FortunePanMgr : MonoBehaviour
             luckyBonus += penalty;
             index++;
             GameMgr.Inst.Log("otherActor=" + player.m_actorNumber + ", totalPenalty="+luckyBonus, enumLogLevel.FortuneLuckyLog);
-
-            GameMgr.Inst.Log("card=" + FortunePlayerMgr.Inst.userCardList.Where(x=>x.actorNumber == player.m_actorNumber).First().stringForLog, enumLogLevel.FortuneLuckyLog);             
+            //GameMgr.Inst.Log("card=" + FortunePlayerMgr.Inst.userCardList.Where(x=>x.actorNumber == player.m_actorNumber).First().stringForLog, enumLogLevel.FortuneLuckyLog);             
         }
+
         ShowLuckyPlayerCard();
-        FortuneUIController.Inst.luckyDlg.players[0].SetLuckyScore((int)(luckyBonus * 0.9));
+        FortuneUIController.Inst.luckyDlg.players[0].SetLuckyScore(luckyBonus);
+        FortuneUIController.Inst.luckyDlg.luckyText.text = luckName + "";
         FortuneUIController.Inst.luckyDlg.gameObject.SetActive(true);
     }
 
