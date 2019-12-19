@@ -1056,11 +1056,14 @@ namespace Photon.Chat
 
         private void HandlePrivateMessageEvent(EventData eventData)
         {
-            //Console.WriteLine(SupportClass.DictionaryToString(eventData.Parameters));
+            Console.WriteLine(SupportClass.DictionaryToString(eventData.Parameters));
+            
 
             object message = (object)eventData.Parameters[(byte)ChatParameterCode.Message];
             string sender = (string)eventData.Parameters[(byte)ChatParameterCode.Sender];
+            Console.WriteLine(sender);
             int msgId = (int)eventData.Parameters[ChatParameterCode.MsgId];
+            
 
             string channelName;
             if (this.UserId != null && this.UserId.Equals(sender))
