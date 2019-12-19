@@ -98,7 +98,7 @@ public class FortunePlayerMgr : SeatMgr
         GameMgr.Inst.m_gameStatus = enumGameStatus.OnGameStarted;
 
 
-        List<List<Card>> cardList = generateRandomCards(true);
+        List<List<Card>> cardList = generateRandomCards(false);
 
         GameMgr.Inst.Log("Generated Card", enumLogLevel.FortuneLuckyLog);
         for (int i = 0; i < cardList.Count; i++)
