@@ -275,7 +275,7 @@ public class BaccaratPanMgr : MonoBehaviour
     {
         BaccaratUserSeat player = null;
         if (BaccaratPlayerMgr.Inst.m_playerList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better) > 0)
-            player = (BaccaratUserSeat)BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == max_better).First();
+            player = (BaccaratUserSeat)BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better).First();
 
         if (player != null)
         {
