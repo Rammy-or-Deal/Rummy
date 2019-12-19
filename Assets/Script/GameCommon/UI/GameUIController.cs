@@ -1,6 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 using Photon.Voice.PUN;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameUIController : MonoBehaviour
@@ -49,21 +50,5 @@ public class GameUIController : MonoBehaviour
     public void OnSettingClick()
     {
         settingDlg.SetActive(true);
-    }
-    public void OnClickChat()
-    {
-        UIController.Inst.chatDlg.gameObject.SetActive(true);
-    }
-    
-    public void OnPointerDown()
-    {
-        Debug.Log("OnPointerDown");
-        PhotonVoiceNetwork.Instance.PrimaryRecorder.TransmitEnabled = true;
-    }
-    
-    public void OnPointerUp()
-    {
-        Debug.Log("OnPointerUp");
-        PhotonVoiceNetwork.Instance.PrimaryRecorder.TransmitEnabled = false;
     }
 }
