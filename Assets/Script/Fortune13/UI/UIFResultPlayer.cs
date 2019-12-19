@@ -38,7 +38,8 @@ public class UIFResultPlayer : MonoBehaviour
         try
         {
             if (pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_dealtCard ||
-                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Doubled)
+                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Doubled ||
+                    pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First().m_status == enumPlayerStatus.Fortune_Lucky)
                 IsSeat = seat.isSeat;
             else
                 IsSeat = false;
@@ -68,8 +69,45 @@ public class UIFResultPlayer : MonoBehaviour
         else
             resultText.text = (uIFCalcPlayer.totalCoin * 0.9).ToString();
 
-        if(uIFCalcPlayer.totalCoin == 0) resultText.color = Color.white;
-        if(uIFCalcPlayer.totalCoin > 0) resultText.color = Color.green;
-        if(uIFCalcPlayer.totalCoin < 0) resultText.color = Color.red;
+        changeTextColorByScore(resultText);
+        
+    }
+
+    private void changeTextColorByScore(Text resultText)
+    {
+        if(int.Parse(resultText.text) == 0) resultText.color = Color.white;
+        if(int.Parse(resultText.text) > 0) resultText.color = Color.green;
+        if(int.Parse(resultText.text) < 0) resultText.color = Color.red;
+    }
+
+    public void SetLuckyScore(int score)
+    {
+        resultText.text = score.ToString();
+        changeTextColorByScore(resultText);
+    }
+
+    internal void ShowCards(int lineNo, List<Card> showList)
+    {
+        switch (lineNo)
+        {
+            case 0:
+                for (int i = 0; i < showList.Count; i++)
+                {
+                    frontCards[i].SetValue(showList[i]);
+                }
+                break;
+            case 1:
+                for (int i = 0; i < showList.Count; i++)
+                {
+                    middleCards[i].SetValue(showList[i]);
+                }
+                break;
+            case 2:
+                for (int i = 0; i < showList.Count; i++)
+                {
+                    backCards[i].SetValue(showList[i]);
+                }
+                break;
+        }
     }
 }

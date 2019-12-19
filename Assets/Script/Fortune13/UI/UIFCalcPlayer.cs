@@ -28,6 +28,7 @@ public class UIFCalcPlayer : MonoBehaviour
     }
     [HideInInspector] public bool isDoubled;
     [HideInInspector] public bool isMissioned;
+    [HideInInspector] public bool isLucky;
     [HideInInspector] public int specialBonus;
     [HideInInspector] public FortuneMissionCard mission;
 
@@ -90,11 +91,13 @@ public class UIFCalcPlayer : MonoBehaviour
         isBadArranged = false;
         isMissioned = false;
         isDoubled = false;
+        isLucky = false;
         try
         {
             var myInfo = pList.m_playerList.Where(x => x.m_actorNumber == seat.m_playerInfo.m_actorNumber).First();
             if (myInfo.m_status == enumPlayerStatus.Fortune_dealtCard ||
-                    myInfo.m_status == enumPlayerStatus.Fortune_Doubled)
+                    myInfo.m_status == enumPlayerStatus.Fortune_Doubled ||
+                    myInfo.m_status == enumPlayerStatus.Fortune_Lucky)
                 IsSeat = seat.isSeat;
             else
                 IsSeat = false;
@@ -104,6 +107,8 @@ public class UIFCalcPlayer : MonoBehaviour
             isDoubled = false;
             if (myInfo.m_status == enumPlayerStatus.Fortune_Doubled)
                 isDoubled = true;
+            if (myInfo.m_status == enumPlayerStatus.Fortune_Lucky)
+                isLucky = true;                
 
             coinText.text = "";
             cardText.text = "";

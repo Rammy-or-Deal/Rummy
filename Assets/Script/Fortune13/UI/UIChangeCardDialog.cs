@@ -78,14 +78,17 @@ public class UIChangeCardDialog : MonoBehaviour
         handMissions[mission.missionLine].SetMission(mission);
     }
 
-    internal void UpdateHandSuitString()
+    internal void UpdateHandSuitString(bool isFirst = false)
     {
         
         var frontList = getCardList(frontCards);
         var middleList = getCardList(middleCards);
         var backList = getCardList(backCards);
 
-        if(CheckIfLuckyCards(frontList, middleList, backList)) return;
+        if(!isFirst)
+            if(CheckIfLuckyCards(frontList, middleList, backList)) return;
+
+        isFirst = false;
 
         List<Card> resList = new List<Card>();
         frontText.color = Color.green;
@@ -126,14 +129,20 @@ public class UIChangeCardDialog : MonoBehaviour
 
     private bool CheckIfLuckyCards(List<Card> frontList, List<Card> middleList, List<Card> backList)
     {
-        var luck = FortuneRuleMgr.CheckIfLuckyCards(frontList, middleList, backList);
+        var luck = FortuneRuleMgr.CheckIfLuckyCards(frontList, middleList, backList);        
         if(luck == Lucky.None)
             return false;               
         Hashtable props = new Hashtable{
             {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_Lucky},
+            {Common.FORTUNE_PLAYER_FRONT_CARD, string.Join(",", frontList.Select(x=>x.cardString))},
+            {Common.FORTUNE_PLAYER_MIDDLE_CARD, string.Join(",", middleList.Select(x=>x.cardString))},
+            {Common.FORTUNE_PLAYER_BACK_CARD, string.Join(",", backList.Select(x=>x.cardString))},
             {Common.LUCKY_NAME, luck}
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+        GameMgr.Inst.Log("Lucky card met:" + luck);
+
         return true;
     }
 

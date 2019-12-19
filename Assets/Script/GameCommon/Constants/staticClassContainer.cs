@@ -52,6 +52,12 @@ public class GameRoomInfo
 public class PlayerInfoContainer
 {
     public List<PlayerInfo> m_playerList;
+    public string stringForLog{
+        get{
+            return string.Join(",", m_playerList.Select(x => x.stringForLog));
+        }
+        set{}
+    }
     public string m_playerInfoListString
     {
         get
@@ -105,6 +111,22 @@ public class PlayerInfo
     public int m_frameId;
     public enumPlayerStatus m_status;
 
+    public string stringForLog
+    {
+        get{
+            var infoString = string.Format("{0}:{1}:{2}:{3}:{4}:{5}:{6}",
+                m_actorNumber,
+                m_userName,
+                m_userPic,
+                m_coinValue,
+                m_skillLevel,
+                m_frameId,
+                m_status
+            );
+            return infoString;
+        }
+        set{}
+    }
     public string playerInfoString
     {
         get
@@ -501,6 +523,63 @@ public static class staticFunction_Fortune
         return bonus;
     }
 
+    internal static int GetPenaltyFromLucky(Lucky luckName)
+    {
+        int res = 0;
+        switch (luckName)
+        {
+            case Lucky.Grand_Dragon: res = 60; break;
+            case Lucky.Dragon: res = 50; break;
+            case Lucky.Twelve_Royals: res = 40; break;
+            case Lucky.Three_Straight_Flushes: res = 35; break;
+            case Lucky.Three_4_Of_A_Kind: res = 35; break;
+            case Lucky.All_Small: res = 30; break;
+            case Lucky.All_Big: res = 30; break;
+            case Lucky.Same_Colour: res = 25; break;
+            case Lucky.Four_Triples: res = 25; break;
+            case Lucky.Five_Pair_Plus_Triple: res = 20; break;
+            case Lucky.Six_Pairs: res = 15; break;
+            case Lucky.Three_Straights: res = 15; break;
+            case Lucky.Three_Flushes: res = 10; break;
+            default:
+                res = 0;
+                break;
+        }
+        return res;
+    }
+
+
+    internal static List<Card> GetLuckyList(int luckyNo)
+    {
+        List<List<Card>> luckyList = new List<List<Card>>();
+
+        List<Card> list = new List<Card>();
+        list.Add(new Card(1, 0)); list.Add(new Card(2, 0)); list.Add(new Card(3, 0));
+        list.Add(new Card(4, 0)); list.Add(new Card(5, 0)); list.Add(new Card(6, 0)); list.Add(new Card(7, 0)); list.Add(new Card(8, 0));
+        list.Add(new Card(9, 0)); list.Add(new Card(10, 0)); list.Add(new Card(11, 0)); list.Add(new Card(12, 0)); list.Add(new Card(13, 0));
+        luckyList.Add(list);
+
+        list = new List<Card>();
+        list.Add(new Card(1, 0)); list.Add(new Card(2, 0)); list.Add(new Card(3, 2));
+        list.Add(new Card(4, 0)); list.Add(new Card(5, 2)); list.Add(new Card(6, 3)); list.Add(new Card(7, 0)); list.Add(new Card(8, 0));
+        list.Add(new Card(9, 1)); list.Add(new Card(10, 3)); list.Add(new Card(11, 2)); list.Add(new Card(12, 0)); list.Add(new Card(13, 1));
+        luckyList.Add(list);
+
+        list = new List<Card>();
+        list.Add(new Card(11, 0)); list.Add(new Card(11, 1)); list.Add(new Card(1, 0));
+        list.Add(new Card(12, 0)); list.Add(new Card(12, 1)); list.Add(new Card(12, 2)); list.Add(new Card(11, 2)); list.Add(new Card(11, 3));
+        list.Add(new Card(13, 0)); list.Add(new Card(13, 1)); list.Add(new Card(13, 2)); list.Add(new Card(13, 3)); list.Add(new Card(12, 3));
+        luckyList.Add(list);
+
+        try
+        {
+            return luckyList[luckyNo];
+        }
+        catch
+        {
+            return luckyList[luckyList.Count-1];
+        }
+    }
 }
 
 

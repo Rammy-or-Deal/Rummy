@@ -54,7 +54,8 @@ public enum enumLogLevel
     ControllerMessage,
     RummySeatMgrLog,
     RummyCardMgrLog,
-    BaccaratLogicLog
+    BaccaratLogicLog,
+    FortuneLuckyLog,
 }
 #endregion
 

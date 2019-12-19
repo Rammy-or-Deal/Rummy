@@ -127,9 +127,9 @@ public class UICalcDialog : MonoBehaviour
         }
         //UIFCalcPlayer
 
-        foreach (var srcPlayer in m_calc_player.Where(x => x.IsSeat == true))
+        foreach (var srcPlayer in m_calc_player.Where(x => x.IsSeat == true && x.isLucky != true))
         {
-            foreach (var tarPlayer in m_calc_player.Where(x => x.IsSeat == true && x.Score > srcPlayer.Score))
+            foreach (var tarPlayer in m_calc_player.Where(x => x.IsSeat == true && x.Score > srcPlayer.Score && x.isLucky != true))
             {
                 //if (srcPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber || tarPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
                 int basePrice = staticFunction_Fortune.GetBasePrice(GameMgr.Inst.m_gameTier);

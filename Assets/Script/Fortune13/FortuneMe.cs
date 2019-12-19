@@ -119,7 +119,9 @@ public class FortuneMe : MeMgr
         {
             changeDlg.myCards[i].SetValue(cardList[i]);
         }
-        changeDlg.UpdateHandSuitString();
+        
+        changeDlg.UpdateHandSuitString(true);
+
         //SetMyProperty((int)enumPlayerStatus.Fortune_OnChanging);
 
         //changeDlg.StartTimer();

@@ -87,6 +87,7 @@ public class FortuneMessageMgr : MessageMgr
                 break;
             case enumGameMessage.Fortune_OnShowLuckResult:
                 FortunePanMgr.Inst.OnShowLuckResult();
+                FortunePlayerMgr.Inst.OnShowLuckResult();
                 break;
             case enumGameMessage.Fortune_DoubleDownRequest:
                 FortunePlayerMgr.Inst.OnPlayerDealCard(enumPlayerStatus.Fortune_Doubled);

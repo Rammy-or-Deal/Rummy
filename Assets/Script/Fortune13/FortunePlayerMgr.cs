@@ -98,7 +98,14 @@ public class FortunePlayerMgr : SeatMgr
         GameMgr.Inst.m_gameStatus = enumGameStatus.OnGameStarted;
 
 
-        List<List<Card>> cardList = generateRandomCards();
+        List<List<Card>> cardList = generateRandomCards(true);
+
+        GameMgr.Inst.Log("Generated Card", enumLogLevel.FortuneLuckyLog);
+        for (int i = 0; i < cardList.Count; i++)
+        {
+            GameMgr.Inst.Log(i+" - " + string.Join(",", cardList[i].Select(x=>x.cardString)), enumLogLevel.FortuneLuckyLog);
+        }
+
         //var seatList = PlayerManagement.Inst.getSeatList();
 
         var seatList = GameMgr.Inst.seatMgr.m_playerList;
@@ -113,6 +120,7 @@ public class FortunePlayerMgr : SeatMgr
 
             string cardString = "";
             cardString = string.Join(",", cardList[pList.m_playerList.IndexOf(player)].Select(x => x.cardString));
+            GameMgr.Inst.Log(string.Format("player: {0} , cardString = {1}", player.m_actorNumber, cardString));
 
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Fortune_OnCardDistributed},
@@ -127,11 +135,30 @@ public class FortunePlayerMgr : SeatMgr
 
     }
 
+    internal void OnShowLuckResult()
+    {
+        try
+        {
+            StopAllCoroutines();
+        }
+        catch { }
+        if (PhotonNetwork.IsMasterClient)
+            StartCoroutine(SetTicktimeTo0());
+    }
+
+    IEnumerator SetTicktimeTo0()
+    {
+        yield return new WaitForSeconds(3);
+        StartCoroutine(TickTime(0));
+    }
+
     internal void OnLucky(Player p)
     {
         var pList = new PlayerInfoContainer();
         pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         if (pList.m_playerList.Count(x => x.m_status == enumPlayerStatus.Fortune_Lucky) > 0) return;
+
+        UpdatePlayerCardList(p);
 
         StopAllCoroutines();
         FortuneUIController.Inst.changeDlg.StopAllCoroutines();
@@ -170,6 +197,8 @@ public class FortunePlayerMgr : SeatMgr
         try
         {
             var player = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
+            if (player.m_status == enumPlayerStatus.Fortune_Lucky) return;
+            if (player.m_status == enumPlayerStatus.Fortune_Doubled) return;
             player.m_status = status;
         }
         catch { }
@@ -286,13 +315,23 @@ public class FortunePlayerMgr : SeatMgr
         return res;
     }
 
-    private void UpdatePlayerCardList()
+    private void UpdatePlayerCardList(Player player = null)
     {
         FortuneUserCardList newUser = new FortuneUserCardList();
-        newUser.actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
-        newUser.frontCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_FRONT_CARD]);
-        newUser.middleCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_MIDDLE_CARD]);
-        newUser.backCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_BACK_CARD]);
+        if (player == null)
+        {
+            newUser.actorNumber = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+            newUser.frontCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_FRONT_CARD]);
+            newUser.middleCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_MIDDLE_CARD]);
+            newUser.backCard = FortuneUserCardList.stringToCardList((string)PhotonNetwork.CurrentRoom.CustomProperties[Common.FORTUNE_PLAYER_BACK_CARD]);
+        }
+        else
+        {
+            newUser.actorNumber = player.ActorNumber;
+            newUser.frontCard = FortuneUserCardList.stringToCardList((string)player.CustomProperties[Common.FORTUNE_PLAYER_FRONT_CARD]);
+            newUser.middleCard = FortuneUserCardList.stringToCardList((string)player.CustomProperties[Common.FORTUNE_PLAYER_MIDDLE_CARD]);
+            newUser.backCard = FortuneUserCardList.stringToCardList((string)player.CustomProperties[Common.FORTUNE_PLAYER_BACK_CARD]);
+        }
 
         try
         {
@@ -387,7 +426,7 @@ public class FortunePlayerMgr : SeatMgr
         catch { }
     }
 
-    private List<List<Card>> generateRandomCards()
+    private List<List<Card>> generateRandomCards(bool shouldAddLucky = false)
     {
         List<List<Card>> res = new List<List<Card>>();
 
@@ -395,7 +434,15 @@ public class FortunePlayerMgr : SeatMgr
             res.Add(new List<Card>());
 
         List<Card> totalCard = new List<Card>();
-        for (int i = 0; i < 4 * 13; i++)
+        int remainPlayer = 4;
+
+        if (shouldAddLucky)
+        {
+            totalCard.AddRange(GetLuckyCards());
+            remainPlayer = 3;
+        }
+
+        for (int i = 0; i < remainPlayer * 13; i++)
         {
             int num = Random.Range(1, 14);
             int col = Random.Range(0, 4);
@@ -404,19 +451,26 @@ public class FortunePlayerMgr : SeatMgr
                 num = Random.Range(1, 14);
                 col = Random.Range(0, 4);
             }
-
             totalCard.Add(new Card(num, col));
         }
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 13; j++)
             {
-                res[j].Add(totalCard[i * 4 + j]);
+                res[i].Add(totalCard[i * 13 + j]);
             }
         }
 
         return res;
+    }
+
+    private List<Card> GetLuckyCards()
+    {
+        int luckyNo = Random.Range(0, 13);
+        var luckyArray = staticFunction_Fortune.GetLuckyList(luckyNo);
+
+        return luckyArray;
     }
 
     private void SetAllPlayersStatus(enumPlayerStatus status)
@@ -442,6 +496,18 @@ public class FortuneUserCardList
     public List<Card> frontCard;
     public List<Card> middleCard;
     public List<Card> backCard;
+    internal string stringForLog
+    {
+        get
+        {
+            var strfront = cardlistTostring(frontCard);
+            var strmiddle = cardlistTostring(middleCard);
+            var strback = cardlistTostring(backCard);
+
+            return string.Format("Front:={0}, Middle:={1}, Back:={2}", strfront, strmiddle, strback);
+        }
+        set { }
+    }
 
     public static List<Card> stringToCardList(string cardString)
     {
