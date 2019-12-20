@@ -31,7 +31,7 @@ public class GameUIController : MonoBehaviour
 
     IEnumerator WaitforUserSeat()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         // Create Voice View Component  when joined Room.
         PhotonNetwork.Instantiate("Prefabs/VoiceView", Vector3.zero, Quaternion.identity, 0);
     }
