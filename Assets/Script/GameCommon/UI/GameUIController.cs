@@ -22,11 +22,11 @@ public class GameUIController : MonoBehaviour
     
     protected void Start()
     {
-        // Create Voice View Component  when joined Room.
-        PhotonNetwork.Instantiate("Prefabs/VoiceView", Vector3.zero, Quaternion.identity, 0);
-        
         UIController.Inst.userInfoPanel.gameObject.SetActive(false);
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
+        
+        // Create Voice View Component  when joined Room.
+        PhotonNetwork.Instantiate("Prefabs/VoiceView", Vector3.zero, Quaternion.identity, 0);
     }
     
     public void OnClickMenu()
