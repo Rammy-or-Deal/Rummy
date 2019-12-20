@@ -97,7 +97,7 @@ public static class Constants
     public const int BaccaratBPArea_prize = 11;
     
 
-    public static float BaccaratShowingCard_waitTime = 5;
+    public static float BaccaratShowingCard_waitTime = 20;
 
     public static float BaccaratDistributionTime = 1.0f;
 
