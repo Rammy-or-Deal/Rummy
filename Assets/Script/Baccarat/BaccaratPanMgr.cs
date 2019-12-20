@@ -1,4 +1,24 @@
-﻿using System;
+﻿/**
+ * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+ *
+ * You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
+ * copy, modify, and distribute this software in source code or binary form for use
+ * in connection with the web services and APIs provided by Facebook.
+ *
+ * As with any software that integrates with the Facebook platform, your use of
+ * this software is subject to the Facebook Developer Principles and Policies
+ * [http://developers.facebook.com/policy/]. This copyright notice shall be
+ * included in all copies or substantial portions of the software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -181,11 +201,25 @@ public class BaccaratPanMgr : MonoBehaviour
         betPanel.OnPlayerBet(originPos, moneyId, areaId);
     }
 
+    Transform[] leftCardOrgPos;
+    Transform[] rightCardOrgPos;
+    void SaveOrgPosition(){
+        if(leftCardOrgPos == null) leftCardOrgPos = new Transform[2];
+        if(rightCardOrgPos == null) rightCardOrgPos = new Transform[2];
+        leftCardOrgPos[0] = cardPanel.leftCards[0].transform;
+        leftCardOrgPos[1] = cardPanel.leftCards[1].transform;
+
+        rightCardOrgPos[0] = cardPanel.rightCards[0].transform;
+        rightCardOrgPos[1] = cardPanel.rightCards[1].transform;
+    }
     internal void OnCatchedCardDistributed()
     {
         InitTeamCard();
+        SaveOrgPosition();
         bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
         playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
+        GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
 
         if (!PhotonNetwork.IsMasterClient) return;
         SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnPlayerCardDistribute);
@@ -219,12 +253,12 @@ public class BaccaratPanMgr : MonoBehaviour
 
         if (playerCard.CardList.Count > 2)
         {
-            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player_additional);
             yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
         }
-        if (playerCard.CardList.Count > 2)
+        if (bankerCard.CardList.Count > 2)
         {
-            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker_additional);
             yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
         }
         BaccaratBankerMgr.Inst.CalcResult();
@@ -232,7 +266,7 @@ public class BaccaratPanMgr : MonoBehaviour
     internal void Baccarat_OnCardDistribute(bool v)
     {
         if (v == true)
-            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
 
         MoveDistributedCardToPlayer(v);
 
@@ -280,7 +314,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
         if (player != null)
         {
-            MoveDistributed_SmallCards(orgCards, card1, card2, player.cardPos, Constants.BaccaratDistributionTime);
+            MoveDistributed_SmallCards(orgCards, player.cardPos, Constants.BaccaratDistributionTime);
 
             if (max_better == PhotonNetwork.LocalPlayer.ActorNumber)
             {
@@ -299,7 +333,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
     }
 
-    private void MoveDistributed_SmallCards(UIBCard[] originCards, BaccaratCard card1, BaccaratCard card2, Transform[] destination_cardPos, float time)
+    private void MoveDistributed_SmallCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
     {
         Vector3 position;
         position = destination_cardPos[0].position;
@@ -388,7 +422,9 @@ public class BaccaratPanMgr : MonoBehaviour
 
     private void ShowingCatchedCard(int nowTurn)
     {
-        LogMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
+        GameMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("now Playercard=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("now Bankercard=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
 
         if (playerCard.CardList.Count == 0) return;
         if (bankerCard.CardList.Count == 0) return;
@@ -398,10 +434,12 @@ public class BaccaratPanMgr : MonoBehaviour
             case (int)BaccaratShowingCard_NowTurn.Player:
                 cardPanel.leftCards[0].ShowImage(playerCard.CardList[0].num, playerCard.CardList[0].color);
                 cardPanel.leftCards[1].ShowImage(playerCard.CardList[1].num, playerCard.CardList[1].color);
+                MoveDistributed_SmallCards(cardPanel.leftCards, leftCardOrgPos, Constants.BaccaratDistributionTime);
                 break;
             case (int)BaccaratShowingCard_NowTurn.Banker:
                 cardPanel.rightCards[0].ShowImage(bankerCard.CardList[0].num, bankerCard.CardList[0].color);
                 cardPanel.rightCards[1].ShowImage(bankerCard.CardList[1].num, bankerCard.CardList[1].color);
+                MoveDistributed_SmallCards(cardPanel.rightCards, rightCardOrgPos, Constants.BaccaratDistributionTime);
                 break;
             case (int)BaccaratShowingCard_NowTurn.Player_additional:
                 if (playerCard.CardList.Count > 2)

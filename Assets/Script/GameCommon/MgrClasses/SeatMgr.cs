@@ -91,11 +91,10 @@ public class SeatMgr : MonoBehaviour
     private SeatInfo Update_seatNumList(string v)
     {
         if (seatNumList == null) seatNumList = new Dictionary<int, int>();
-        GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, enumLogLevel.RoomLog);
-        seatNumList.Clear();
+        GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, enumLogLevel.RoomLog);        
         SeatInfo seatInfo = new SeatInfo();
         seatInfo.seatString = v;
-
+        seatNumList.Clear();
         foreach (var seat in seatInfo.seatList)
         {
             seatNumList.Add(seat.m_actorNumber, seat.m_seatNo);
