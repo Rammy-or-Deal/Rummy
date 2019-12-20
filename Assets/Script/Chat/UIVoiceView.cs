@@ -33,5 +33,7 @@ public class UIVoiceView : MonoBehaviour, IPunInstantiateMagicCallback
         int actorNr = GetComponent<PhotonView>().OwnerActorNr;
         speakerImage.transform.SetParent(GameMgr.Inst.seatMgr.GetUserSeat(actorNr).transform);
         speakerImage.transform.localPosition=Vector3.zero;
+        speakerImage.transform.localScale=Vector3.one;
+        speakerImage.transform.localRotation = Quaternion.identity;
     }
 }

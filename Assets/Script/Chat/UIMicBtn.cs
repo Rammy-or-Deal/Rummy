@@ -12,13 +12,11 @@ public class UIMicBtn : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerDown()
     {
-        Debug.Log("OnPointerDown");
         PhotonVoiceNetwork.Instance.PrimaryRecorder.TransmitEnabled = true;
     }
     
     public void OnPointerUp()
     {
-        Debug.Log("OnPointerUp");
         PhotonVoiceNetwork.Instance.PrimaryRecorder.TransmitEnabled = false;
     }
     
