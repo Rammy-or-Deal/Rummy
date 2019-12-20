@@ -29,6 +29,9 @@ public class MessageMgr : MonoBehaviour
             case enumGameMessage.OnPlayerLeftRoom_onlyMaster:
                 GameMgr.Inst.roomMgr.OnPlayerLeftRoom_onlyMaster(p.ActorNumber);
                 break;
+            case enumGameMessage.OnJoinSuccess:
+                
+                break;
             case enumGameMessage.OnPlayerLeftRoom_onlyMaster_bot:
                 try
                 {
