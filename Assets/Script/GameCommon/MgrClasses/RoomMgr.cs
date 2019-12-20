@@ -327,5 +327,14 @@ public class RoomMgr : MonoBehaviour
             {PhotonFields.RoomInfo, m_currentRoom.roomInfoString}
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
+
+        StartCoroutine(SendIamJoined());
+    }
+
+    IEnumerator SendIamJoined()
+    {
+        yield return new WaitForSeconds(1);
+        //enumGameMessage.OnJoinSuccess
+        //PhotonNetwork.LocalPlayer
     }
 }
