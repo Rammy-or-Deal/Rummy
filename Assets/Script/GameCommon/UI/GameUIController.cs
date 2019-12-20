@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using Photon.Voice.PUN;
@@ -24,7 +26,12 @@ public class GameUIController : MonoBehaviour
     {
         UIController.Inst.userInfoPanel.gameObject.SetActive(false);
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
-        
+        StartCoroutine(WaitOneFrame());
+    }
+
+    IEnumerator WaitOneFrame()
+    {
+        yield return new WaitForEndOfFrame();
         // Create Voice View Component  when joined Room.
         PhotonNetwork.Instantiate("Prefabs/VoiceView", Vector3.zero, Quaternion.identity, 0);
     }

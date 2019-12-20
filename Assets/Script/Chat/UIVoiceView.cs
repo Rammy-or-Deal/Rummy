@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Voice.PUN;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = System.Diagnostics.Debug;
 
 public class UIVoiceView : MonoBehaviour, IPunInstantiateMagicCallback
 {
@@ -23,7 +24,8 @@ public class UIVoiceView : MonoBehaviour, IPunInstantiateMagicCallback
     
     public void OnPhotonInstantiate(PhotonMessageInfo info) //called before Start()
     {
-        speakerImage.transform.SetParent(GameMgr.Inst.seatMgr.GetUserSeat(GetComponent<PhotonView>().OwnerActorNr).transform);
+        int actorNr = GetComponent<PhotonView>().OwnerActorNr;
+        speakerImage.transform.SetParent(GameMgr.Inst.seatMgr.GetUserSeat(actorNr).transform);
         speakerImage.transform.localPosition=Vector3.zero;
     }
 }
