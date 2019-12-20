@@ -26,13 +26,6 @@ public class GameUIController : MonoBehaviour
     {
         UIController.Inst.userInfoPanel.gameObject.SetActive(false);
         UIController.Inst.moneyPanel.gameObject.SetActive(false);
-        StartCoroutine(WaitforUserSeat());
-    }
-
-    IEnumerator WaitforUserSeat()
-    {
-        yield return new WaitForSeconds(3);
-        // Create Voice View Component  when joined Room.
         PhotonNetwork.Instantiate("Prefabs/VoiceView", Vector3.zero, Quaternion.identity, 0);
     }
     

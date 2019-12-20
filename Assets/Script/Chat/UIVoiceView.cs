@@ -24,6 +24,12 @@ public class UIVoiceView : MonoBehaviour, IPunInstantiateMagicCallback
     
     public void OnPhotonInstantiate(PhotonMessageInfo info) //called before Start()
     {
+        StartCoroutine(WaitforUserSeat());
+    }
+    
+    IEnumerator WaitforUserSeat()
+    {
+        yield return new WaitForSeconds(1);
         int actorNr = GetComponent<PhotonView>().OwnerActorNr;
         speakerImage.transform.SetParent(GameMgr.Inst.seatMgr.GetUserSeat(actorNr).transform);
         speakerImage.transform.localPosition=Vector3.zero;
