@@ -199,6 +199,10 @@ public class BaccaratBankerMgr : MonoBehaviour
     }
     List<int> CalcVictoryArea()
     {
+
+        GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        
         List<int> victoryArea = new List<int>();
         if (playerCard.score > bankerCard.score)
             victoryArea.Add(Constants.BaccaratPlayerArea);

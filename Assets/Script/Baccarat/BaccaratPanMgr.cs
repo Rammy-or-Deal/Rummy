@@ -186,8 +186,9 @@ public class BaccaratPanMgr : MonoBehaviour
         InitTeamCard();
         bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
         playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
-        GameMgr.Inst.Log("BankerCard=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
-        GameMgr.Inst.Log("PlayerCard=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+
         if (!PhotonNetwork.IsMasterClient) return;
         SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnPlayerCardDistribute);
     }
@@ -389,7 +390,7 @@ public class BaccaratPanMgr : MonoBehaviour
 
     private void ShowingCatchedCard(int nowTurn)
     {
-        LogMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);
+        GameMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, enumLogLevel.BaccaratDistributeCardLog);
 
         if (playerCard.CardList.Count == 0) return;
         if (bankerCard.CardList.Count == 0) return;
