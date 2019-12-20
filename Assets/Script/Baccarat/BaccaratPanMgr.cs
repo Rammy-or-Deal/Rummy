@@ -391,6 +391,8 @@ public class BaccaratPanMgr : MonoBehaviour
     private void ShowingCatchedCard(int nowTurn)
     {
         GameMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("now Playercard=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("now Bankercard=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
 
         if (playerCard.CardList.Count == 0) return;
         if (bankerCard.CardList.Count == 0) return;

@@ -177,9 +177,10 @@ public class BaccaratBankerMgr : MonoBehaviour
         {
             GameMgr.Inst.Log("Wait for new game.");
             StartCoroutine(StartGame());
+
+            var victoryArea = CalcVictoryArea();
+            CalcUserPrize(victoryArea);
         }
-        var victoryArea = CalcVictoryArea();
-        CalcUserPrize(victoryArea);
     }
     IEnumerator StartGame()
     {
@@ -202,7 +203,7 @@ public class BaccaratBankerMgr : MonoBehaviour
 
         GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
         GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
-        
+
         List<int> victoryArea = new List<int>();
         if (playerCard.score > bankerCard.score)
             victoryArea.Add(Constants.BaccaratPlayerArea);
@@ -327,7 +328,7 @@ public class BaccaratBankerMgr : MonoBehaviour
             }
             catch (Exception err)
             {
-                GameMgr.Inst.Log("error in Calc Prize: " + err.Message);                
+                GameMgr.Inst.Log("error in Calc Prize: " + err.Message);
             }
         }
 
