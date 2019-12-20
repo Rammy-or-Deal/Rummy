@@ -186,7 +186,8 @@ public class BaccaratPanMgr : MonoBehaviour
         InitTeamCard();
         bankerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
         playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
-
+        GameMgr.Inst.Log("BankerCard=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("PlayerCard=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
         if (!PhotonNetwork.IsMasterClient) return;
         SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnPlayerCardDistribute);
     }
@@ -219,12 +220,12 @@ public class BaccaratPanMgr : MonoBehaviour
 
         if (playerCard.CardList.Count > 2)
         {
-            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player_additional);
             yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
         }
-        if (playerCard.CardList.Count > 2)
+        if (bankerCard.CardList.Count > 2)
         {
-            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker);
+            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Banker_additional);
             yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
         }
         BaccaratBankerMgr.Inst.CalcResult();
