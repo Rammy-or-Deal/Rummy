@@ -19,17 +19,23 @@ public class UIMicBtn : MonoBehaviour, IPointerClickHandler
     {
         PhotonVoiceNetwork.Instance.PrimaryRecorder.TransmitEnabled = false;
     }
-    
+
+    private float lastTimeClick;
     // Start is called before the first frame update
     public void OnPointerClick(PointerEventData eventData)
     {
-        int clickCount = eventData.clickCount;
-        if (clickCount == 1)
-            OnSingleClick();
-        else if (clickCount == 2)
+        float currentTimeClick = eventData.clickTime;
+        if(Mathf.Abs(currentTimeClick - lastTimeClick) < 0.75f){
             OnDoubleClick();
-        else if (clickCount > 2)
-            OnMultiClick();
+        }
+        lastTimeClick = currentTimeClick;
+//        int clickCount = eventData.clickCount;
+//        if (clickCount == 1)
+//            OnSingleClick();
+//        else if (clickCount == 2)
+//            
+//        else if (clickCount > 2)
+//            OnMultiClick();
     }
 
     void OnSingleClick()
