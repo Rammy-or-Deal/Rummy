@@ -140,7 +140,10 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
 
     public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2)
     {
-        if (!photonView.IsMine) { photonView.RequestOwnership(); }
+        if (!photonView.IsMine) {
+            Debug.LogError("Request Ownership send");
+            photonView.RequestOwnership(); 
+        }
         cards[0].ChangeMaterial(card1);
         cards[1].ChangeMaterial(card2);
         StartCoroutine(ShowCard(destination_cardPos));
