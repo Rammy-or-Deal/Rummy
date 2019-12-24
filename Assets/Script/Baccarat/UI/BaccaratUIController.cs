@@ -8,7 +8,6 @@ public class BaccaratUIController : GameUIController
 {
     public static BaccaratUIController Inst;
     public GameObject bendCardBlankBtn;
-    public GameObject camera;
     
     public void Awake()
     {

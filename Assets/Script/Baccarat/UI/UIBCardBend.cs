@@ -18,8 +18,9 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     private int flippedCnt = 0;
     public static UIBCardBend Inst;
 
+    public GameObject camera;
     public Transform bigCamPos;
-    public Transform originCamPos;
+    public Vector3 originCamPos;
     
     [HideInInspector]
     public PhotonView photonView;
@@ -28,6 +29,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     {
         Inst = this;
         photonView = GetComponent<PhotonView>();
+        originCamPos = camera.transform.position;
     }
     
     void Update () {
@@ -123,7 +125,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     IEnumerator HideBigCard()
     {
         yield return new WaitForSeconds(0.5f);
-        iTween.MoveTo(BaccaratUIController.Inst.camera, originCamPos.position, 0.5f);
+        iTween.MoveTo(camera, originCamPos, 0.5f);
         yield return new WaitForSeconds(0.5f);
 //        ShowBigCard(false);
     }
@@ -136,11 +138,11 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         {
             photonView.RPC("FlipOn", RpcTarget.All);
             flippedCnt = 0;
-            iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, 0.5f);
+            iTween.MoveTo(camera, bigCamPos.position, 0.5f);
         }
         else
         {
-            BaccaratUIController.Inst.camera.transform.localPosition=new Vector3(0,0,0);
+            camera.transform.localPosition=new Vector3(0,0,0);
             transform.position = new Vector3(0,0,0);
         }
     }

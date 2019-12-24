@@ -3506,8 +3506,9 @@ MonoBehaviour:
   - {fileID: 1182595735}
   id: 0
   isClicked: 0
+  camera: {fileID: 1388095782}
   bigCamPos: {fileID: 1335871975}
-  originCamPos: {fileID: 1388095784}
+  originCamPos: {x: 0, y: 0, z: 0}
   photonView: {fileID: 0}
 --- !u!1001 &256450890
 PrefabInstance:
@@ -29954,7 +29955,6 @@ MonoBehaviour:
   mMenuPanel: {fileID: 1032242594}
   settingDlg: {fileID: 800958249}
   bendCardBlankBtn: {fileID: 778225344}
-  camera: {fileID: 1388095782}
 --- !u!114 &1253410378
 MonoBehaviour:
   m_ObjectHideFlags: 0
