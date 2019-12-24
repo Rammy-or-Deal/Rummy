@@ -336,6 +336,8 @@ public class BaccaratPanMgr : MonoBehaviour
         iTween.MoveTo(originCards[0].gameObject, position, Constants.BaccaratDistributionTime);
         position = destination_cardPos[1].position;
         iTween.MoveTo(originCards[1].gameObject, position, Constants.BaccaratDistributionTime);
+        
+        ShowSmallCard(false);
     }
 
     Coroutine ShowingCardRoutine;
@@ -418,34 +420,34 @@ public class BaccaratPanMgr : MonoBehaviour
 
     private void ShowingCatchedCard(int nowTurn)
     {
-        GameMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, enumLogLevel.BaccaratDistributeCardLog);
-        GameMgr.Inst.Log("now Playercard=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
-        GameMgr.Inst.Log("now Bankercard=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
-
-        if (playerCard.CardList.Count == 0) return;
-        if (bankerCard.CardList.Count == 0) return;
-
-        switch (nowTurn)
-        {
-            case (int)BaccaratShowingCard_NowTurn.Player:
-                cardPanel.leftCards[0].ShowImage(playerCard.CardList[0].num, playerCard.CardList[0].color);
-                cardPanel.leftCards[1].ShowImage(playerCard.CardList[1].num, playerCard.CardList[1].color);
-                MoveDistributed_SmallCards(cardPanel.leftCards, leftCardOrgPos, Constants.BaccaratDistributionTime);
-                break;
-            case (int)BaccaratShowingCard_NowTurn.Banker:
-                cardPanel.rightCards[0].ShowImage(bankerCard.CardList[0].num, bankerCard.CardList[0].color);
-                cardPanel.rightCards[1].ShowImage(bankerCard.CardList[1].num, bankerCard.CardList[1].color);
-                MoveDistributed_SmallCards(cardPanel.rightCards, rightCardOrgPos, Constants.BaccaratDistributionTime);
-                break;
-            case (int)BaccaratShowingCard_NowTurn.Player_additional:
-                if (playerCard.CardList.Count > 2)
-                    cardPanel.leftCards[2].ShowImage(playerCard.CardList[2].num, playerCard.CardList[2].color);
-                break;
-            case (int)BaccaratShowingCard_NowTurn.Banker_additional:
-                if (bankerCard.CardList.Count > 2)
-                    cardPanel.rightCards[2].ShowImage(bankerCard.CardList[2].num, bankerCard.CardList[2].color);
-                break;
-        }
+//        GameMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn)nowTurn, enumLogLevel.BaccaratDistributeCardLog);
+//        GameMgr.Inst.Log("now Playercard=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+//        GameMgr.Inst.Log("now Bankercard=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+//
+//        if (playerCard.CardList.Count == 0) return;
+//        if (bankerCard.CardList.Count == 0) return;
+//
+//        switch (nowTurn)
+//        {
+//            case (int)BaccaratShowingCard_NowTurn.Player:
+//                cardPanel.leftCards[0].ShowImage(playerCard.CardList[0].num, playerCard.CardList[0].color);
+//                cardPanel.leftCards[1].ShowImage(playerCard.CardList[1].num, playerCard.CardList[1].color);
+//                MoveDistributed_SmallCards(cardPanel.leftCards, leftCardOrgPos, Constants.BaccaratDistributionTime);
+//                break;
+//            case (int)BaccaratShowingCard_NowTurn.Banker:
+//                cardPanel.rightCards[0].ShowImage(bankerCard.CardList[0].num, bankerCard.CardList[0].color);
+//                cardPanel.rightCards[1].ShowImage(bankerCard.CardList[1].num, bankerCard.CardList[1].color);
+//                MoveDistributed_SmallCards(cardPanel.rightCards, rightCardOrgPos, Constants.BaccaratDistributionTime);
+//                break;
+//            case (int)BaccaratShowingCard_NowTurn.Player_additional:
+//                if (playerCard.CardList.Count > 2)
+//                    cardPanel.leftCards[2].ShowImage(playerCard.CardList[2].num, playerCard.CardList[2].color);
+//                break;
+//            case (int)BaccaratShowingCard_NowTurn.Banker_additional:
+//                if (bankerCard.CardList.Count > 2)
+//                    cardPanel.rightCards[2].ShowImage(bankerCard.CardList[2].num, bankerCard.CardList[2].color);
+//                break;
+//        }
 
         #region Card step by step   ------ not used
         /*

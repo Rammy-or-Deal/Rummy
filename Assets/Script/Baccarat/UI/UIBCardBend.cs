@@ -166,7 +166,6 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
         transform.position = destination_cardPos[0].position;
-        ShowSmallCard(false);
         if (isController)
         {
             ShowBigCard(true);         
