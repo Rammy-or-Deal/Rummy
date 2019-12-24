@@ -126,8 +126,8 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     IEnumerator HideBigCard()
     {
         yield return new WaitForSeconds(0.5f);
-        iTween.MoveTo(camera, originCamPos, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        iTween.MoveTo(camera, originCamPos, 0.8f);
+        yield return new WaitForSeconds(0.8f);
 //        ShowBigCard(false);
     }
 
@@ -146,6 +146,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             camera.transform.localPosition=new Vector3(0,0,0);
             transform.position = new Vector3(0,0,0);
             TouchEnd();
+            OnClickDistributedCard();
         }
     }
 
