@@ -336,8 +336,6 @@ public class BaccaratPanMgr : MonoBehaviour
         iTween.MoveTo(originCards[0].gameObject, position, Constants.BaccaratDistributionTime);
         position = destination_cardPos[1].position;
         iTween.MoveTo(originCards[1].gameObject, position, Constants.BaccaratDistributionTime);
-        
-        ShowSmallCard(false);
     }
 
     Coroutine ShowingCardRoutine;
