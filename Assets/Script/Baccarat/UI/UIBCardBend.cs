@@ -123,7 +123,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     IEnumerator HideBigCard()
     {
         yield return new WaitForSeconds(0.5f);
-        iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, 0.5f);
+        iTween.MoveTo(BaccaratUIController.Inst.camera, originCamPos.position, 0.5f);
         yield return new WaitForSeconds(0.5f);
 //        ShowBigCard(false);
     }
@@ -162,7 +162,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
         transform.position = destination_cardPos[0].position;
         ShowBigCard(true);
-        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-1);
         ShowBigCard(false);
     }
 
