@@ -8,7 +8,8 @@ using UnityEngine;
 
 public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
 {
-    // Start is called before the first frame update
+    //card position issue (other side) on center.
+    //blend frame position issue due to sync 
     public Vector3 lastPoint;
     public Transform[] bend;
     public UIBCardModel[] cards;
@@ -147,10 +148,9 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         }
     }
 
-    public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2)
+    public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2,int max_better_actor)
     {
         if (!photonView.IsMine) {
-            Debug.LogError("Request Ownership send");
             photonView.RequestOwnership();
             bend[0].GetComponent<PhotonView>().RequestOwnership();
             bend[1].GetComponent<PhotonView>().RequestOwnership();

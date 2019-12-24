@@ -6159,7 +6159,6 @@ GameObject:
   - component: {fileID: 612858429}
   - component: {fileID: 236207104}
   - component: {fileID: 612858430}
-  - component: {fileID: 1330447045237529884}
   m_Layer: 8
   m_Name: CardBend
   m_TagString: Untagged
@@ -6201,10 +6200,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 0
   OwnershipTransfer: 1
   ObservedComponents:
-  - {fileID: 1330447045237529884}
+  - {fileID: 0}
   viewIdField: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -58098,21 +58097,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbd67900235206d44a26fe3f96204b62, type: 3}
---- !u!114 &1330447045237529884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 612858428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0
 --- !u!1001 &3524922424285342447
 PrefabInstance:
   m_ObjectHideFlags: 0

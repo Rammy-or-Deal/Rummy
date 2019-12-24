@@ -315,17 +315,14 @@ public class BaccaratPanMgr : MonoBehaviour
         if (player != null)
         {
             MoveDistributed_SmallCards(orgCards, player.cardPos, Constants.BaccaratDistributionTime);
+            
+            UIBCardBend.Inst.ShowBigCard(player.cardPos, card1, card2,max_better);
 
             if (max_better == PhotonNetwork.LocalPlayer.ActorNumber)
             {
-                MoveDistributed_BigCards(orgCards, card1, card2, player.cardPos, Constants.BaccaratDistributionTime);
+                
             }
         }
-    }
-
-    private void MoveDistributed_BigCards(UIBCard[] originCards, BaccaratCard card1, BaccaratCard card2, Transform[] destination_cardPos, float time)
-    {
-        UIBCardBend.Inst.ShowBigCard(destination_cardPos, card1, card2);
     }
 
     public void OnClickDistributedCard()
