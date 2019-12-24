@@ -145,29 +145,39 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         {
             camera.transform.localPosition=new Vector3(0,0,0);
             transform.position = new Vector3(0,0,0);
+            TouchEnd();
         }
     }
 
-    public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2,int max_better_actor)
+    public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2,bool isController)
     {
-        if (!photonView.IsMine) {
+        if (isController && !photonView.IsMine) {
             photonView.RequestOwnership();
             bend[0].GetComponent<PhotonView>().RequestOwnership();
             bend[1].GetComponent<PhotonView>().RequestOwnership();
         }
-        photonView.RPC("ChangeMaterial", RpcTarget.All, card1.color,card1.num,card2.color,card2.num);
-        StartCoroutine(ShowCard(destination_cardPos));
+        if (isController)
+            photonView.RPC("ChangeMaterial", RpcTarget.All, card1.color,card1.num,card2.color,card2.num);
+        StartCoroutine(ShowCard(destination_cardPos,isController));
     }
     
-    IEnumerator ShowCard(Transform[] destination_cardPos)
+    IEnumerator ShowCard(Transform[] destination_cardPos,bool isController)
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
         transform.position = destination_cardPos[0].position;
-        ShowBigCard(true);
+        if (isController)
+        {
+            ShowBigCard(true);         
+        }
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-1);
         ShowBigCard(false);
     }
-
+    
+    [PunRPC]
+    void ChangePosition(Vector3 pos)
+    {
+        transform.position = pos;
+    }
     [PunRPC]
     void ChangeMaterial(int col0,int num0,int col1,int num1)
     {

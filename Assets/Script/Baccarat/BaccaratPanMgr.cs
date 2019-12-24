@@ -315,13 +315,8 @@ public class BaccaratPanMgr : MonoBehaviour
         if (player != null)
         {
             MoveDistributed_SmallCards(orgCards, player.cardPos, Constants.BaccaratDistributionTime);
-            
-            UIBCardBend.Inst.ShowBigCard(player.cardPos, card1, card2,max_better);
-
-            if (max_better == PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                
-            }
+            bool isController = (max_better == PhotonNetwork.LocalPlayer.ActorNumber);
+            UIBCardBend.Inst.ShowBigCard(player.cardPos, card1, card2,isController);
         }
     }
 
