@@ -118,7 +118,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         flippedCnt++;
         if (flippedCnt == 2)
         {
-            BaccaratPanMgr.Inst.OnClickDistributedCard();
+            photonView.RPC("OnClickDistributedCard", RpcTarget.All);
             StartCoroutine(HideBigCard());
         }
     }
@@ -171,6 +171,12 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         }
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-1);
         ShowBigCard(false);
+    }
+
+    [PunRPC]
+    void OnClickDistributedCard()
+    {
+        BaccaratPanMgr.Inst.OnClickDistributedCard();        
     }
     
     [PunRPC]

@@ -320,18 +320,30 @@ public class BaccaratPanMgr : MonoBehaviour
         }
     }
 
+    UIBCard[] originCards;
+    
     public void OnClickDistributedCard()
     {
-
+        originCards[0].gameObject.SetActive(true);
+        originCards[1].gameObject.SetActive(true);
     }
 
-    private void MoveDistributed_SmallCards(UIBCard[] originCards, Transform[] destination_cardPos, float time)
+    private void MoveDistributed_SmallCards(UIBCard[] originCards0, Transform[] destination_cardPos, float time)
     {
+        originCards = originCards0;
         Vector3 position;
         position = destination_cardPos[0].position;
-        iTween.MoveTo(originCards[0].gameObject, position, time);
+        iTween.MoveTo(originCards[0].gameObject, position, Constants.BaccaratDistributionTime);
         position = destination_cardPos[1].position;
-        iTween.MoveTo(originCards[1].gameObject, position, time);
+        iTween.MoveTo(originCards[1].gameObject, position, Constants.BaccaratDistributionTime);
+        StartCoroutine(HideCard());
+    }
+
+    IEnumerator HideCard()
+    {
+        yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
+        originCards[0].gameObject.SetActive(false);
+        originCards[1].gameObject.SetActive(false);
     }
 
     Coroutine ShowingCardRoutine;
