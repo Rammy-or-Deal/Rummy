@@ -15,10 +15,10 @@ public class UIBCardModel : MonoBehaviour
         
     }
 
-    public void ChangeMaterial(BaccaratCard card)
+    public void ChangeMaterial(int color,int num)
     {
         string colorCharacter = "";
-        switch (card.color)
+        switch (color)
         {
             case 0:
                 colorCharacter = "A"; break;
@@ -33,7 +33,7 @@ public class UIBCardModel : MonoBehaviour
         }
 //        LogMgr.Inst.Log(colorCharacter+card.num, (int)LogLevels.PlayerLog1);
 //        image.sprite = Resources.Load<Sprite>("Card/"+colorCharacter+card.num);
-        Texture tex = Resources.Load<Texture>("Card/"+colorCharacter+card.num);
+        Texture tex = Resources.Load<Texture>("Card/"+colorCharacter+num);
         material.SetTexture("_MainTex", tex);
     }
 

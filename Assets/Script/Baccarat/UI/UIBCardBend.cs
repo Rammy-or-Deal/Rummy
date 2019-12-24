@@ -110,7 +110,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     void FlipCard()
     {
         TouchEnd();
-        cards[id].FlipOver();
+        photonView.RPC("FlipOver", RpcTarget.All,id);
         flippedCnt++;
         if (flippedCnt == 2)
         {
@@ -125,8 +125,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         BaccaratUIController.Inst.bendCardBlankBtn.SetActive(isBigShow);
         if (isBigShow)
         {
-            for (int i=0;i<cards.Length;i++)
-                cards[i].FlipOn();
+            photonView.RPC("FlipOn", RpcTarget.All);
             float time = 0.5f;
             flippedCnt = 0;
             iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
@@ -146,8 +145,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             bend[0].GetComponent<PhotonView>().RequestOwnership();
             bend[1].GetComponent<PhotonView>().RequestOwnership();
         }
-        cards[0].ChangeMaterial(card1);
-        cards[1].ChangeMaterial(card2);
+        photonView.RPC("ChangeMaterial", RpcTarget.All, card1.color,card1.num,card2.color,card2.num);
         StartCoroutine(ShowCard(destination_cardPos));
     }
     
@@ -160,6 +158,25 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         ShowBigCard(false);
     }
 
+    [PunRPC]
+    void ChangeMaterial(int col0,int num0,int col1,int num1)
+    {
+        cards[0].ChangeMaterial(col0,num0);
+        cards[1].ChangeMaterial(col1,num1);
+    }
+
+    [PunRPC]
+    void FlipOn()
+    {
+        for (int i=0;i<cards.Length;i++)
+            cards[i].FlipOn();
+    }
+    
+    [PunRPC]
+    void FlipOver(int id0)
+    {
+        cards[id0].FlipOver();        
+    }
 
     public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
