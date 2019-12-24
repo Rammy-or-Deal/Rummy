@@ -14,7 +14,7 @@ public class DebugMgr : MonoBehaviour
         if (constantContainer.buildMethod == enumBuildMethod.Development_Debug || constantContainer.buildMethod == enumBuildMethod.Product_Debug)
         {
             //avail_logs.Add(enumLogLevel.initLog);
-            avail_logs.Add(enumLogLevel.RoomLog);  //amg  code  new            // avail_logs.Add(enumLogLevel.MeLog);
+            //avail_logs.Add(enumLogLevel.RoomLog);  //amg  code  new            // avail_logs.Add(enumLogLevel.MeLog);
             // avail_logs.Add(enumLogLevel.BotLog);
             // avail_logs.Add(enumLogLevel.ControllerMessage);
             // avail_logs.Add(enumLogLevel.RummySeatMgrLog);
