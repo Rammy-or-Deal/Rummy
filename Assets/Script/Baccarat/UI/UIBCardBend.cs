@@ -142,7 +142,9 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     {
         if (!photonView.IsMine) {
             Debug.LogError("Request Ownership send");
-            photonView.RequestOwnership(); 
+            photonView.RequestOwnership();
+            bend[0].GetComponent<PhotonView>().RequestOwnership();
+            bend[1].GetComponent<PhotonView>().RequestOwnership();
         }
         cards[0].ChangeMaterial(card1);
         cards[1].ChangeMaterial(card2);
