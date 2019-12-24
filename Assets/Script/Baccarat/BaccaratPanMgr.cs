@@ -324,8 +324,8 @@ public class BaccaratPanMgr : MonoBehaviour
     
     public void ShowSmallCard(bool isFlag)
     {
-        originCards[0].gameObject.SetActive(isFlag);
-        originCards[1].gameObject.SetActive(isFlag);
+//        originCards[0].gameObject.SetActive(isFlag);
+//        originCards[1].gameObject.SetActive(isFlag);
     }
 
     private void MoveDistributed_SmallCards(UIBCard[] originCards0, Transform[] destination_cardPos, float time)
