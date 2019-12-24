@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using Photon.Pun;
 using Photon.Realtime;
+using Unity.Collections;
 using UnityEngine;
 
 public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
@@ -115,8 +116,16 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         if (flippedCnt == 2)
         {
             BaccaratPanMgr.Inst.OnClickDistributedCard();
-            ShowBigCard(false);
+            StartCoroutine(HideBigCard());
         }
+    }
+
+    IEnumerator HideBigCard()
+    {
+        yield return new WaitForSeconds(0.5f);
+        iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+//        ShowBigCard(false);
     }
 
     public void ShowBigCard(bool isBigShow)
@@ -126,9 +135,8 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         if (isBigShow)
         {
             photonView.RPC("FlipOn", RpcTarget.All);
-            float time = 0.5f;
             flippedCnt = 0;
-            iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, time);
+            iTween.MoveTo(BaccaratUIController.Inst.camera, bigCamPos.position, 0.5f);
         }
         else
         {
