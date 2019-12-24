@@ -118,14 +118,14 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         flippedCnt++;
         if (flippedCnt == 2)
         {
-            photonView.RPC("OnClickDistributedCard", RpcTarget.All);
+            photonView.RPC("ShowSmallCard", RpcTarget.All,true);
             StartCoroutine(HideBigCard());
         }
     }
 
     IEnumerator HideBigCard()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         iTween.MoveTo(camera, originCamPos, 0.8f);
         yield return new WaitForSeconds(0.8f);
 //        ShowBigCard(false);
@@ -146,7 +146,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             camera.transform.localPosition=new Vector3(0,0,0);
             transform.position = new Vector3(0,0,0);
             TouchEnd();
-            OnClickDistributedCard();
+            ShowSmallCard(true);
         }
     }
 
@@ -166,6 +166,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
         transform.position = destination_cardPos[0].position;
+        ShowSmallCard(false);
         if (isController)
         {
             ShowBigCard(true);         
@@ -175,9 +176,9 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     }
 
     [PunRPC]
-    void OnClickDistributedCard()
+    void ShowSmallCard(bool isFlag)
     {
-        BaccaratPanMgr.Inst.OnClickDistributedCard();        
+        BaccaratPanMgr.Inst.ShowSmallCard(isFlag);        
     }
     
     [PunRPC]
