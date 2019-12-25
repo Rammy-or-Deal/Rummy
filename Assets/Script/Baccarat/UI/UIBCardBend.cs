@@ -170,6 +170,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         {
             ShowBigCard(true);         
         }
+        ShowSmallCard(false);
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-1);
         ShowBigCard(false);
     }
