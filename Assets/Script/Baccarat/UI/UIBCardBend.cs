@@ -54,6 +54,8 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     }
 
     private void HandleTouch(int touchFingerId, Vector3 touchPosition, TouchPhase touchPhase) {
+        if (!photonView.IsMine)
+            return;
         switch (touchPhase) {
             case TouchPhase.Began:
                 RaycastHit hit;
