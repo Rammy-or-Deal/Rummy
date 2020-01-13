@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,6 +48,13 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
         {
             Debug.LogError("You need to set the chat app ID in the PhotonServerSettings file in order to continue.");
         }
+
+        StartCoroutine(WaitOneFrame());
+    }
+
+    IEnumerator WaitOneFrame()
+    {
+        yield return WaitOneFrame();
         Connect();
     }
 
