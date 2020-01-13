@@ -54,7 +54,7 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
 
     IEnumerator WaitOneFrame()
     {
-        yield return WaitOneFrame();
+        yield return new WaitForFixedUpdate();
         Connect();
     }
 
