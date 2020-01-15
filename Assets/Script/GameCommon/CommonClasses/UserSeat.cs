@@ -37,10 +37,18 @@ public class UserSeat : MonoBehaviour
 
         name = m_playerInfo.m_userName;
         mUserName.text = m_playerInfo.m_userName;
-        mUserPic.sprite = Resources.Load<Sprite>(m_playerInfo.m_userPic);
+        
+        if (m_playerInfo.m_userPic.Contains("avatar_"))
+            mUserPic.sprite = Resources.Load<Sprite>(m_playerInfo.m_userPic);
+        else  //facebook Pic
+        {
+            StartCoroutine(DataController.Inst.getFBPicture(m_playerInfo.m_userPic));
+        }
+        
         mCoinValue.text = m_playerInfo.m_coinValue.ToString();
         mUserSkillName.text = m_playerInfo.m_skillLevel;
         frameId = m_playerInfo.m_frameId;
         isSeat = true;
     }
+    
 }

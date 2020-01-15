@@ -60,6 +60,7 @@ public class DataController : MonoBehaviour
     public void GetNameAndPicture()
     {
         userInfo.facebookId = AccessToken.CurrentAccessToken.UserId;
+        userInfo.pic = userInfo.facebookId;
         StartCoroutine(getFBPicture(userInfo.facebookId));
         FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
         {
@@ -76,7 +77,7 @@ public class DataController : MonoBehaviour
         });
     }
 
-    public IEnumerator getFBPicture(string facebookId)
+    public IEnumerator getFBPicture(string facebookId,Sprite pic=null)
     {
         var www = new WWW("http://graph.facebook.com/" + facebookId +
                           "/picture?width=250&height=250&type=square&redirect=true");
@@ -87,9 +88,14 @@ public class DataController : MonoBehaviour
         if (www.isDone)
         {
             Debug.Log("waiting" + www.bytesDownloaded);
-            facebookSprite=Sprite.Create(www.texture,new Rect(0,0, www.texture.width, www.texture.width), new Vector2());
-            userInfo.sprite = facebookSprite;
-            UIController.Inst.userInfoPanel.UpdateValue();
+            Sprite sprite=Sprite.Create(www.texture,new Rect(0,0, www.texture.width, www.texture.width), new Vector2());
+            if (pic)
+                pic = sprite;
+            else
+            {
+                userInfo.sprite = sprite;
+                UIController.Inst.userInfoPanel.UpdateValue();    
+            }
         }
     }
 }

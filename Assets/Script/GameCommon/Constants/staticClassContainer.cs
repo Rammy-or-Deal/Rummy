@@ -102,7 +102,6 @@ public class PlayerInfoContainer
 }
 public class PlayerInfo
 {
-
     public int m_actorNumber;
     public string m_userName;
     public string m_userPic;
