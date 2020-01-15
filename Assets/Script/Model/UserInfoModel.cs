@@ -9,6 +9,7 @@ namespace RummyScript.Model
     public class UserInfoModel
     {
         public int id;
+        public string facebookId;
         public string name;
         public Sprite sprite;
         public string pic;

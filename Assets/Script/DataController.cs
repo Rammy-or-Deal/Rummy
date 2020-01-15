@@ -59,7 +59,8 @@ public class DataController : MonoBehaviour
     
     public void GetNameAndPicture()
     {
-        StartCoroutine(getFBPicture(AccessToken.CurrentAccessToken.UserId));
+        userInfo.facebookId = AccessToken.CurrentAccessToken.UserId;
+        StartCoroutine(getFBPicture(userInfo.facebookId));
         FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
         {
             if (result.ResultDictionary != null)
