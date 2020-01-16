@@ -47,8 +47,6 @@ public class UIReadyDialog : MonoBehaviour
     public void OnReadyClick()
     {
         if(idx == -1) return;
-        
-        PunController.Inst.CreateOrJoinLuckyRoom(idx);
         //SceneManager.LoadScene("3_PlayFortune13");
     }
 

@@ -39,12 +39,6 @@ public class LobbyController : MonoBehaviour
         GameMgr.Inst.LoadGameScene2(enumGameType.Fortune13);
     }
 
-    void LoadGameScene(string scene)
-    {
-        UIController.Inst.loadingDlg.gameObject.SetActive(true);
-        PhotonNetwork.LoadLevel(scene);
-    }
-
     public void OnClikBack()
     {
         SceneManager.LoadScene("1_Title");
