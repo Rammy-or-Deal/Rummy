@@ -42,7 +42,7 @@ public class UserSeat : MonoBehaviour
             mUserPic.sprite = Resources.Load<Sprite>(m_playerInfo.m_userPic);
         else  //facebook Pic
         {
-            StartCoroutine(DataController.Inst.getFBPicture(m_playerInfo.m_userPic));
+            DataController.Inst.GetFBPicture(m_playerInfo.m_userPic,mUserPic.sprite);
         }
         
         mCoinValue.text = m_playerInfo.m_coinValue.ToString();

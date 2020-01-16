@@ -77,6 +77,12 @@ public class DataController : MonoBehaviour
         });
     }
 
+    public void GetFBPicture(string facebookId, Sprite pic = null)
+    {
+        StartCoroutine(getFBPicture(facebookId, pic));
+
+    }
+
     public IEnumerator getFBPicture(string facebookId,Sprite pic=null)
     {
         var www = new WWW("http://graph.facebook.com/" + facebookId +
