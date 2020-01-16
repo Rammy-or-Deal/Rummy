@@ -25,24 +25,17 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public void Start()
     {
-        Debug.Log("PunController started");
-        UIController.Inst.loadingDlg.gameObject.SetActive(true);
-        Login();
+        
     }
-    
+
     public void Login()
     {
-        string playerName = DataController.Inst.userInfo.name;
-
-        if (!playerName.Equals("") || !PhotonNetwork.IsConnected)
+        if (!PhotonNetwork.IsConnected)
         {
+            UIController.Inst.loadingDlg.gameObject.SetActive(true);
             Debug.Log("!PhotonNetwork.IsConnected");
-            PhotonNetwork.LocalPlayer.NickName = playerName;
+            PhotonNetwork.LocalPlayer.NickName = DataController.Inst.userInfo.name;
             PhotonNetwork.ConnectUsingSettings();
-        }
-        else
-        {
-            Debug.LogError("Player Name is invalid.");
         }
     }
 
@@ -51,7 +44,7 @@ public class PunController : MonoBehaviourPunCallbacks
         Debug.Log("leave game");
         PhotonNetwork.LeaveRoom();
     }
-    
+
     #region PUN CALLBACKS
 
     public override void OnConnectedToMaster()
@@ -96,7 +89,6 @@ public class PunController : MonoBehaviourPunCallbacks
         GameMgr.Inst.Log("room count:=" + roomList.Count);
         if (roomList == null) return;
         GameMgr.Inst.roomMgr.OnRoomListUpdate(roomList);
-
     }
 
     public override void OnLeftLobby()
@@ -111,59 +103,34 @@ public class PunController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-
-        // try
-        // {
-            GameMgr.Inst.messageMgr.OnMessageArrived((int)enumGameMessage.OnPlayerLeftRoom_onlyMaster, otherPlayer);
-        // }
-        // catch (Exception Log)
-        // {
-        //     Debug.LogError("OnPlayerLeftRoom Error: " + Log.Message);
-        // }
+        GameMgr.Inst.messageMgr.OnMessageArrived((int) enumGameMessage.OnPlayerLeftRoom_onlyMaster, otherPlayer);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-
     }
 
     public override void OnPlayerPropertiesUpdate(Player player, Hashtable updatedInfo)
     {
-        // try
-        // {
-            object value;
-            if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
-            {
-                GameMgr.Inst.messageMgr.OnMessageArrived((int)value, player);
-            }
-        // }
-        // catch (Exception Log)
-        // {
-        //     Debug.LogError("OnPlayerPropertiesUpdate Error: " + Log.Message);
-        // }
+        object value;
+        if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
+        {
+            GameMgr.Inst.messageMgr.OnMessageArrived((int) value, player);
+        }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable updatedInfo)
     {
-        // try
-        // {
-            object value;
-            if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
-            {
-                GameMgr.Inst.messageMgr.OnMessageArrived((int)value);
-            }
-        // }
-        // catch (Exception Log)
-        // {
-        //     Debug.LogError("OnRoomPropertiesUpdate Error: " + Log.Message);
-        // }
+        object value;
+        if (updatedInfo.TryGetValue(PhotonFields.GAME_MESSAGE, out value))
+        {
+            GameMgr.Inst.messageMgr.OnMessageArrived((int) value);
+        }
     }
 
     #endregion
-   
 }

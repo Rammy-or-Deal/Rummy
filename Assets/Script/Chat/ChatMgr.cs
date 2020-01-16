@@ -260,7 +260,7 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
     public void OnSubscribed(string[] channels, bool[] results)
     {
         
-        Debug.Log("OnSubscribed: " + string.Join(", ", channels));
+//        Debug.Log("OnSubscribed: " + string.Join(", ", channels));
 
         /*
         // select first subscribed channel in alphabetical order
@@ -402,7 +402,7 @@ public class ChatMgr : MonoBehaviour, IChatClientListener
 
         this.selectedChannelName = channelName;
         chatDlg.CurrentChannelText.text = channel.ToStringMessages();
-        Debug.Log("ShowChannel: " + this.selectedChannelName);
+//        Debug.Log("ShowChannel: " + this.selectedChannelName);
 
         foreach (KeyValuePair<string, Toggle> pair in this.channelToggles)
         {

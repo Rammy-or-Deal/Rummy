@@ -37,9 +37,7 @@ public class GameUIController : MonoBehaviour
 
     public void OnExitClick()
     {
-        Debug.Log("Exit clicked");
         PhotonNetwork.LeaveRoom();
-        //PunController.Inst.LeaveGame();
     }
 
     public void OnHelpClick()

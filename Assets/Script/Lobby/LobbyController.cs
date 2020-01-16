@@ -12,6 +12,7 @@ public class LobbyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PunController.Inst.Login();
         UIController.Inst.userInfoPanel.gameObject.SetActive(true);
         UIController.Inst.moneyPanel.gameObject.SetActive(true);
         UIController.Inst.userInfoPanel.transform.position = userInfoPanel.position;
