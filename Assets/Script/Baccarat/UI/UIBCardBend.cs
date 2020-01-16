@@ -22,6 +22,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     public GameObject camera;
     public Transform bigCamPos;
     public Vector3 originCamPos;
+    private bool isController;
     
     [HideInInspector]
     public PhotonView photonView;
@@ -54,7 +55,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     }
 
     private void HandleTouch(int touchFingerId, Vector3 touchPosition, TouchPhase touchPhase) {
-        if (!photonView.IsMine)
+        if (!isController)
             return;
         switch (touchPhase) {
             case TouchPhase.Began:
@@ -154,6 +155,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
 
     public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2,bool isController)
     {
+        this.isController = isController;
         if (isController && !photonView.IsMine) {
             photonView.RequestOwnership();
             bend[0].GetComponent<PhotonView>().RequestOwnership();
@@ -161,10 +163,10 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         }
         if (isController)
             photonView.RPC("ChangeMaterial", RpcTarget.All, card1.color,card1.num,card2.color,card2.num);
-        StartCoroutine(ShowCard(destination_cardPos,isController));
+        StartCoroutine(ShowCard(destination_cardPos));
     }
     
-    IEnumerator ShowCard(Transform[] destination_cardPos,bool isController)
+    IEnumerator ShowCard(Transform[] destination_cardPos)
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
         transform.position = destination_cardPos[0].position;
