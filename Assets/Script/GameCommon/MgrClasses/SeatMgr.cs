@@ -5,6 +5,7 @@ using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 public class SeatMgr : MonoBehaviour
 {
     public List<UserSeat> m_playerList;

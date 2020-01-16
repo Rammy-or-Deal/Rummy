@@ -100,7 +100,8 @@ public class DataController : MonoBehaviour
             else
             {
                 userInfo.sprite = sprite;
-                UIController.Inst.userInfoPanel.UpdateValue();    
+                UIController.Inst.userInfoPanel.UpdateValue();
+                Debug.Log("facebook pic updated");
             }
         }
     }

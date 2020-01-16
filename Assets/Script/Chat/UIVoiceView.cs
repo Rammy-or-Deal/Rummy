@@ -4,7 +4,7 @@ using Photon.Pun;
 using Photon.Voice.PUN;
 using UnityEngine;
 using UnityEngine.UI;
-using Debug = System.Diagnostics.Debug;
+
 
 public class UIVoiceView : MonoBehaviour, IPunInstantiateMagicCallback
 {
