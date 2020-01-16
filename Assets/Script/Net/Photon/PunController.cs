@@ -54,8 +54,6 @@ public class PunController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.JoinLobby();
         }
-
-        UIController.Inst.loadingDlg.gameObject.SetActive(false);
     }
 
     public override void OnJoinedLobby()
