@@ -16,6 +16,7 @@ public class UserSeat : MonoBehaviour
     public Text mUserName;
     public Text mUserSkillName;
     public Text mCoinValue;
+    public string facebookId;
     public int frameId;
     public bool isSeat {
         get{
@@ -42,7 +43,8 @@ public class UserSeat : MonoBehaviour
             mUserPic.sprite = Resources.Load<Sprite>(m_playerInfo.m_userPic);
         else  //facebook Pic
         {
-            DataController.Inst.GetFBPicture(m_playerInfo.m_userPic,mUserPic.sprite);
+            facebookId = m_playerInfo.m_userPic;
+//            DataController.Inst.GetFBPicture(m_playerInfo.m_userPic,mUserPic.sprite);
         }
         
         mCoinValue.text = m_playerInfo.m_coinValue.ToString();
@@ -50,5 +52,29 @@ public class UserSeat : MonoBehaviour
         frameId = m_playerInfo.m_frameId;
         isSeat = true;
     }
+
+    private void Start()
+    {
+        if (facebookId!="")
+            StartCoroutine(getFBPicture());
+    }
     
+    public IEnumerator getFBPicture()
+    {
+        var www = new WWW("http://graph.facebook.com/" + facebookId +
+                          "/picture?width=250&height=250&type=square&redirect=true");
+        Debug.Log("http://graph.facebook.com/" + facebookId +
+                  "/picture?width=250&height=250&type=normal&redirect=true" + "\t" + www.error);
+        yield return www;
+
+        if (www.isDone)
+        {
+            Debug.Log("waiting" + www.bytesDownloaded);
+            Sprite sprite=Sprite.Create(www.texture,new Rect(0,0, www.texture.width, www.texture.width), new Vector2());
+            
+            {
+                mUserPic.sprite= sprite;
+            }
+        }
+    }
 }
