@@ -174,7 +174,10 @@ public class LamiMe : MeMgr
         {
             nowFlush = nowFlush % availList.Count;
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
 
     internal void OnGameRestart()

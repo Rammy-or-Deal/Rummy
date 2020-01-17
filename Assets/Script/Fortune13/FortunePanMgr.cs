@@ -84,8 +84,9 @@ public class FortunePanMgr : MonoBehaviour
                 seat.ShowCards(lineNo, showList);
                 FortuneUIController.Inst.calcDlg.ShowCards(user, showList);
             }
-            catch
+            catch (Exception e)
             {
+                Debug.LogError(e);
                 break;
             }
         }

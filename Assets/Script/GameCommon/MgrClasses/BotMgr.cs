@@ -66,7 +66,10 @@ public class BotMgr : MonoBehaviour
         {
             StopCoroutine(creatingBotRoutine);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
     public IEnumerator PublishBotReady(PlayerInfo info)
     {

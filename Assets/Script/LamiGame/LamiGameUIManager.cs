@@ -88,18 +88,9 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
     {
         LamiCountdownTimer.Inst.StopTimer();
         readyButton.SetActive(false);
-        /*
-                Hashtable props = new Hashtable
-                {
-                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserReady},
-                    {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_Ready},
-                };
-                PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-                Debug.Log("ready click");              
-        */
-
+      
         var myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-        var info = GameMgr.Inst.seatMgr.m_playerList.Where(x => x.m_playerInfo.m_actorNumber == myActorNumber).First();
+        UserSeat info = GameMgr.Inst.seatMgr.GetUserSeatFromList(myActorNumber);
         BotMgr.PublishIamReady(info.m_playerInfo);
 
     }

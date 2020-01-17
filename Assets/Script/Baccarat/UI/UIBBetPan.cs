@@ -31,6 +31,9 @@ public class UIBBetPan : MonoBehaviour
         try{
         val.gameObject.SetActive(false);
         winObj.SetActive(false);
-        }catch{}
+        }catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
 }

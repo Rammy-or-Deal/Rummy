@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +25,10 @@ public class UIBMessage : MonoBehaviour
         {
             GetComponent<EasyTween>().OpenCloseObjectAnimation();
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
     }
 
     public void OnExitAnimation()

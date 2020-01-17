@@ -101,7 +101,10 @@ public class BaccaratPanMgr : MonoBehaviour
         {
             m_panClock.gameObject.SetActive(true);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
         betPanel.Init();
         cardPanel.Init();
         StartCoroutine(WaitFor1Second());
@@ -116,9 +119,9 @@ public class BaccaratPanMgr : MonoBehaviour
         {
             time = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CURRENT_TIME];
         }
-        catch
+        catch (Exception e)
         {
-
+            Debug.LogError(e);
         }
         m_panTime.text = time + "";
         yield return new WaitForSeconds(1.0f);
@@ -369,7 +372,10 @@ public class BaccaratPanMgr : MonoBehaviour
         {
             StopCoroutine(ShowingCardRoutine);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
 
         //nowTurn++;
         LogMgr.Inst.Log("New Card command Created. id=" + (BaccaratShowingCard_NowTurn)nowTurn, (int)LogLevels.PlayerLog1);

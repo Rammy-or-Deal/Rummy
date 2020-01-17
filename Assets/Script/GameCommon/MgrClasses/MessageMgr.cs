@@ -37,7 +37,10 @@ public class MessageMgr : MonoBehaviour
                 {
                     GameMgr.Inst.roomMgr.OnPlayerLeftRoom_onlyMaster((int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID]);
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
                 break;
             default:
                 GameMgr.Inst.Log(msg + " isn't my section. go to children");

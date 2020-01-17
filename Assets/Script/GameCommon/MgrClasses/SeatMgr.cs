@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
@@ -10,6 +9,29 @@ public class SeatMgr : MonoBehaviour
 {
     public List<UserSeat> m_playerList;
     [HideInInspector] public Dictionary<int, int> seatNumList;
+
+    public UserSeat GetUserSeatFromList(int actorNum)
+    {
+        UserSeat seat;
+        try
+        {
+            seat= m_playerList.First(x => x.m_playerInfo.m_actorNumber == actorNum);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            LogPlayerList();
+            throw;
+        }
+        return seat;
+    }
+
+    public void LogPlayerList()
+    {
+        Debug.LogError("m_playerList :"+m_playerList.Count);
+        for (int i=0;i<m_playerList.Count;i++)
+            Debug.LogError(m_playerList[i].m_playerInfo.m_actorNumber);
+    }
 
     public virtual void OnSeatStringUpdate()
     {
@@ -38,10 +60,13 @@ public class SeatMgr : MonoBehaviour
             try
             {
                 GameMgr.Inst.Log("now Seat:=" + seat.oneSeatString, enumLogLevel.RoomLog);
-                var user = pList.m_playerList.Where(x => x.m_userName == seat.m_userName).First();
+                var user = pList.m_playerList.First(x => x.m_userName == seat.m_userName);
                 UpdateUserSeat(seat, user);
             }
-            catch { }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         #region Code for Fortune
@@ -71,14 +96,14 @@ public class SeatMgr : MonoBehaviour
         {
             if (GameMgr.Inst.m_gameStatus == enumGameStatus.OnGameStarted)
             {
-                var player = m_playerList.Where(x => x.m_playerInfo.m_actorNumber == actorNumber).First();
+                var player =GetUserSeatFromList(actorNumber);
                 player.status = (int)enumPlayerStatus.Rummy_GiveUp;
             }
             else
             {
                 var pList = new PlayerInfoContainer();
                 pList.GetInfoContainerFromPhoton();
-                var p = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
+                var p = pList.m_playerList.First(x => x.m_actorNumber == actorNumber);
                 pList.m_playerList.Remove(p);
 
             }
@@ -106,7 +131,18 @@ public class SeatMgr : MonoBehaviour
 
     public UserSeat GetUserSeat(int actorNumber)
     {
-        return m_playerList[GetUserSeatPos(seatNumList[actorNumber])];
+        int pos = GetUserSeatPos(seatNumList[actorNumber]);
+        try
+        {
+            return m_playerList[pos];    
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            LogPlayerList();
+            System.Diagnostics.Debug
+            throw;
+        }
     }
 
     private int GetUserSeatPos(int id)

@@ -102,7 +102,10 @@ public class BaccaratBankerMgr : MonoBehaviour
         {
             dealLogString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_BETTING_LOG];
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
         dealLogString = dealLogString.Trim('/');
         if (dealLogString == "") return -1;
         var list = dealLogString.Split('/').ToList();
@@ -113,7 +116,10 @@ public class BaccaratBankerMgr : MonoBehaviour
             {
                 sum = list.Where(x => int.Parse(x.Split(':')[2]) == area && int.Parse(x.Split(':')[0]) == player.m_playerInfo.m_actorNumber).Sum(x => BaccaratBankerMgr.Inst.getCoinValue(int.Parse(x.Split(':')[1])));
             }
-            catch { }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
             if (moneySum < sum)
             {
                 res = player.m_playerInfo.m_actorNumber;

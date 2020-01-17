@@ -27,7 +27,10 @@ public class UIResultDialog : MonoBehaviour
         {
             StopCoroutine(exitEvent);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
         this.gameObject.SetActive(false);
         PhotonNetwork.LeaveRoom();
     }
@@ -37,7 +40,10 @@ public class UIResultDialog : MonoBehaviour
         {
             StopCoroutine(exitEvent);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
         this.gameObject.SetActive(false);
     }
     internal void Init(List<UserSeat> m_playerList)

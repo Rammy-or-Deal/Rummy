@@ -193,7 +193,10 @@ public class RoomMgr : MonoBehaviour
         {
             UIController.Inst.loadingDlg.gameObject.SetActive(false);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
         string sceneString = "";
         switch (GameMgr.Inst.m_gameType)
         {

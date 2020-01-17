@@ -20,52 +20,6 @@ public class BaccaratPlayerMgr : SeatMgr
         GameMgr.Inst.seatMgr = this;
     }
 
-    // internal void OnJoinSuccess()
-    // {
-    //     try
-    //     {
-    //         UIController.Inst.loadingDlg.gameObject.SetActive(false);
-    //     }
-    //     catch { }
-
-    //     BaccaratMe.Inst.PublishMe();
-
-    //     foreach (var player in PhotonNetwork.PlayerList)
-    //     {
-    //         if (player.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber) continue;
-
-    //         if (m_playerList.Count(x => x.isSeat == false) > 0)
-    //             (m_playerList.Where(x => x.isSeat == false).First()).SetMe((string)player.CustomProperties[Common.PLAYER_INFO]);
-    //     }
-    // }
-
-    // internal async void OnUserEnteredRoom()
-    // {
-    //     var infostring = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NEW_PLAYER_INFO];
-
-    //     if (int.Parse(infostring.Split(':')[0]) == PhotonNetwork.LocalPlayer.ActorNumber)
-    //     {
-    //         BaccaratPlayerMgr.Inst.m_playerList[0].SetMe(infostring);
-
-    //         BaccaratPanMgr.Inst.message.Show("Please wait until this pan is completed.");
-    //         await Task.Delay(3000);
-    //         BaccaratPanMgr.Inst.message.Hide();
-    //         foreach (var player in PhotonNetwork.PlayerList)
-    //         {
-    //             if (player.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber) continue;
-
-    //             if (m_playerList.Count(x => x.isSeat == false) > 0)
-    //                 m_playerList.Where(x => x.isSeat == false).First().SetMe((string)player.CustomProperties[Common.PLAYER_INFO]);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (m_playerList.Count(x => x.isSeat == false) > 0)
-    //             m_playerList.Where(x => x.isSeat == false).First().SetMe(infostring);
-    //     }
-
-    //     //BaccaratMe.Inst.PublishMe();
-    // }
 
     internal void OnPlayerBet()
     {
@@ -76,7 +30,10 @@ public class BaccaratPlayerMgr : SeatMgr
         {
             betString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_BET];
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
         if (betString == "") return;
 
         int moneyId = int.Parse(betString.Split(':')[0]);
@@ -136,14 +93,6 @@ public class BaccaratPlayerMgr : SeatMgr
             GameMgr.Inst.Log("Add Betting Log Error." + err.Message);
         }
     }
-
-    // internal void OnUserLeave(Player player)
-    // {
-    //     if (m_playerList.Count(x => x.m_playerInfo.m_actorNumber == player.ActorNumber) > 0)
-    //     {
-    //         m_playerList.Where(x => x.m_playerInfo.m_actorNumber == player.ActorNumber).First().OnUserLeave();
-    //     }
-    // }
 
     internal void OnUpdateMe(Player player)
     {

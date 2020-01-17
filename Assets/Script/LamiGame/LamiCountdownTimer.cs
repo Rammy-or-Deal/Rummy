@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
 using UnityEngine;
@@ -142,7 +143,10 @@ public class LamiCountdownTimer : MonoBehaviour
             StopCoroutine(myCoroutine);
             m_timer_description.gameObject.SetActive(false);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
 
     }
 }

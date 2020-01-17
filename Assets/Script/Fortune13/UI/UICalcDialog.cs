@@ -21,13 +21,13 @@ public class UICalcDialog : MonoBehaviour
 
     void Start()
     {
-
         m_calc_player = new List<UIFCalcPlayer>();
         var list = GetComponentsInChildren<UIFCalcPlayer>();
         foreach (var player in list)
         {
             m_calc_player.Add(player);
         }
+
         if (m_CardLineText == null)
             m_CardLineText = GetComponentsInChildren<Text>(true).Where(x => x.gameObject.name == "ImageText").First();
 
@@ -37,7 +37,6 @@ public class UICalcDialog : MonoBehaviour
         m_MiddleText = GetComponentsInChildren<Text>(true).Where(x => x.gameObject.name == "MiddleText").First();
         m_BackText = GetComponentsInChildren<Text>(true).Where(x => x.gameObject.name == "BackText").First();
         m_TotalText = GetComponentsInChildren<Text>(true).Where(x => x.gameObject.name == "TotalText").First();
-
     }
 
     public void OnClose()
@@ -48,10 +47,13 @@ public class UICalcDialog : MonoBehaviour
     internal void ShowCards(FortuneUserCardList user, List<Card> showList)
     {
         try
-        {            
+        {
             m_calc_player.Where(x => x.actorNumber == user.actorNumber).First().ShowCards(showList);
         }
-        catch { }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
     internal void Init(List<UserSeat> m_playerList)
@@ -64,7 +66,7 @@ public class UICalcDialog : MonoBehaviour
         LogMgr.Inst.Log("Calc Dialog Init is called. cardLineText=" + m_CardLineText.text);
         LogMgr.Inst.Log("Calc Dialog Init is called. playerCount=" + m_playerList.Count);
         for (int i = 0; i < m_playerList.Count; i++)
-        {            
+        {
             LogMgr.Inst.Log("calcPlayer[" + i + "].IsSet=" + m_playerList[i].isSeat);
             m_calc_player[i].Init(m_playerList[i]);
         }
@@ -115,6 +117,7 @@ public class UICalcDialog : MonoBehaviour
                 m_CardLineText.text = "Back Hand";
                 break;
         }
+
         LogMgr.Inst.Log("Card Line=" + m_CardLineText.text);
     }
 
@@ -129,22 +132,25 @@ public class UICalcDialog : MonoBehaviour
 
         foreach (var srcPlayer in m_calc_player.Where(x => x.IsSeat == true && x.isLucky != true))
         {
-            foreach (var tarPlayer in m_calc_player.Where(x => x.IsSeat == true && x.Score > srcPlayer.Score && x.isLucky != true))
+            foreach (var tarPlayer in m_calc_player.Where(x =>
+                x.IsSeat == true && x.Score > srcPlayer.Score && x.isLucky != true))
             {
                 //if (srcPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber || tarPlayer.actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
                 int basePrice = staticFunction_Fortune.GetBasePrice(GameMgr.Inst.m_gameTier);
                 int price = 0;
-                if(srcPlayer.isDoubled) price += basePrice * 2;
-                if(tarPlayer.isDoubled) price += basePrice * 2;
-                if(tarPlayer.isMissioned && !srcPlayer.isMissioned)
+                if (srcPlayer.isDoubled) price += basePrice * 2;
+                if (tarPlayer.isDoubled) price += basePrice * 2;
+                if (tarPlayer.isMissioned && !srcPlayer.isMissioned)
                 {
                     price += basePrice * tarPlayer.mission.missionPrice;
                 }
-                if(tarPlayer.specialBonus > 0)
+
+                if (tarPlayer.specialBonus > 0)
                 {
                     price += basePrice * tarPlayer.specialBonus;
                 }
-                if(price == 0)
+
+                if (price == 0)
                 {
                     price = basePrice;
                 }
@@ -158,20 +164,25 @@ public class UICalcDialog : MonoBehaviour
         int myCoin = m_calc_player[0].totalCoin;
         LogMgr.Inst.Log(string.Format("{0} line. CurCoin={1}, TotalCoin={2}", lineNo, curCoin, myCoin));
         await Task.Delay(1000);
-        try{
-        switch (lineNo)
+        try
         {
-            case 0:
-                m_FrontText.text = string.Format("Front\t: {0}", curCoin);
-                m_TotalText.text = string.Format("Total \t: {0}", myCoin);
-                break;
-            case 1:
-                m_MiddleText.text = string.Format("Middle\t: {0}", curCoin);
-                break;
-            case 2:
-                m_BackText.text = string.Format("Back  \t: {0}", curCoin);
-                break;
+            switch (lineNo)
+            {
+                case 0:
+                    m_FrontText.text = string.Format("Front\t: {0}", curCoin);
+                    m_TotalText.text = string.Format("Total \t: {0}", myCoin);
+                    break;
+                case 1:
+                    m_MiddleText.text = string.Format("Middle\t: {0}", curCoin);
+                    break;
+                case 2:
+                    m_BackText.text = string.Format("Back  \t: {0}", curCoin);
+                    break;
+            }
         }
-        }catch{}
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 }
