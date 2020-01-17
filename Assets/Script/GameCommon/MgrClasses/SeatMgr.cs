@@ -140,7 +140,7 @@ public class SeatMgr : MonoBehaviour
         {
             Console.WriteLine(e);
             LogPlayerList();
-            System.Diagnostics.Debug
+            Debug.LogError(pos);
             throw;
         }
     }
