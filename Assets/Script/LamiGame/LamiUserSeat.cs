@@ -36,15 +36,6 @@ public class LamiUserSeat : UserSeat
         canShow = isSeat;
         status = (int)info.m_status;
         Show();
-
-        /*
-                switch (info.m_status)
-                {
-                    case enumPlayerStatus.Rummy_Ready:
-                        playerReadyImage.gameObject.SetActive(true);
-                        break;
-                }
-                */
     }
 
     #region OLD Code

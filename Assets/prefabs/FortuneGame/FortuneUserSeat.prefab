@@ -674,17 +674,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107c3ad87c000984cbf8e809f1648cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyObject: {fileID: 5794668613910608711}
+  canShow: 0
+  status: 0
+  mCardNum: {fileID: 0}
+  mClockTime: {fileID: 0}
   mUserFrame: {fileID: 3972332849825213488}
   mUserPic: {fileID: 539450851204876013}
   mUserSkillPic: {fileID: 1122334349949647445}
   mUserName: {fileID: 5877839854055745145}
   mUserSkillName: {fileID: 592984590453523233}
-  _mUserPic: 
   mCoinValue: {fileID: 2155537083632369487}
-  actorNumber: 0
-  isSeat: 0
-  _status: 0
+  facebookId: 
+  frameId: 0
   frontCards:
   - {fileID: 1736890874183422916}
   - {fileID: 1265860706800123428}
