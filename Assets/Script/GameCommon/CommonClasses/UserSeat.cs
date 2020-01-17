@@ -69,7 +69,7 @@ public class UserSeat : MonoBehaviour
 
         if (www.isDone)
         {
-            Debug.Log("waiting" + www.bytesDownloaded);
+            Debug.LogWarning("Facebook Image downloaded waiting" + www.bytesDownloaded);
             Sprite sprite=Sprite.Create(www.texture,new Rect(0,0, www.texture.width, www.texture.width), new Vector2());
             
             {

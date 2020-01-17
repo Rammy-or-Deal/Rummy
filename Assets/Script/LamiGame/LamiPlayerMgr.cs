@@ -7,6 +7,7 @@ using Photon.Realtime;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
+
 public class LamiPlayerMgr : SeatMgr
 {
     public string totalCardString = "";
@@ -18,6 +19,7 @@ public class LamiPlayerMgr : SeatMgr
     string master_seatString = "";
 
     public static LamiPlayerMgr Inst;
+
     private void Start()
     {
         if (!Inst)
@@ -39,10 +41,11 @@ public class LamiPlayerMgr : SeatMgr
         GameMgr.Inst.Log("Check if all players are ready.", enumLogLevel.RummySeatMgrLog);
         // Update User Seat
 
-        var userListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        var userListString = (string) PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
 
-        GameMgr.Inst.Log("userListString = " + userListString + ",  seatNumList=" + string.Join(",", seatNumList), enumLogLevel.RummySeatMgrLog);
+        GameMgr.Inst.Log("userListString = " + userListString + ",  seatNumList=" + string.Join(",", seatNumList),
+            enumLogLevel.RummySeatMgrLog);
 
         bool isAllReady = true;
         foreach (var seat in seatNumList)
@@ -71,15 +74,15 @@ public class LamiPlayerMgr : SeatMgr
                 p.m_status = enumPlayerStatus.Rummy_ReadyToStart;
             }
 
-            Hashtable props = new Hashtable{
-                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnSeatStringUpdate},
+            Hashtable props = new Hashtable
+            {
+                {PhotonFields.GAME_MESSAGE, (int) enumGameMessage.OnSeatStringUpdate},
                 {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
             LamiCardMgr.Inst.GenerateCard();
         }
-
 
 
         Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
@@ -96,12 +99,12 @@ public class LamiPlayerMgr : SeatMgr
         GameMgr.Inst.m_gameStatus = enumGameStatus.OnGameStarted;
 
         CreateBotsFromPhoton();
-        var cardListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
+        var cardListString = (string) PhotonNetwork.CurrentRoom.CustomProperties[Common.CARD_LIST_STRING];
         totalCardString = cardListString;
         totalRemainString = cardListString;
         totalPayString = "";
 
-        LogMgr.Inst.Log("Card Distributed: " + cardListString, (int)LogLevels.PlayerLog2);
+        LogMgr.Inst.Log("Card Distributed: " + cardListString, (int) LogLevels.PlayerLog2);
 
         var tmp = cardListString.Split('/');
 
@@ -112,6 +115,7 @@ public class LamiPlayerMgr : SeatMgr
             {
                 LamiMe.Inst.SetMyCards(tmp[i]);
             }
+
             if (tmpActor < 0)
             {
                 for (int j = 0; j < m_botList.Count; j++)
@@ -124,34 +128,37 @@ public class LamiPlayerMgr : SeatMgr
                 }
             }
         }
+
         foreach (var seat in m_playerList)
         {
-            ((LamiUserSeat)seat).InitStatus();
+            ((LamiUserSeat) seat).InitStatus();
         }
     }
 
     internal void OffAutoPlayer()
     {
-        int playerId = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        int playerId = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         foreach (LamiUserSeat player in m_playerList)
         {
             if (player.m_playerInfo.m_actorNumber == playerId)
             {
                 player.isAuto = false;
             }
+
             player.Show();
         }
     }
 
     internal void OnAutoPlayer()
     {
-        int playerId = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        int playerId = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         foreach (LamiUserSeat player in m_playerList)
         {
             if (player.m_playerInfo.m_actorNumber == playerId)
             {
                 player.isAuto = true;
             }
+
             player.Show();
         }
     }
@@ -160,44 +167,44 @@ public class LamiPlayerMgr : SeatMgr
     {
         foreach (LamiUserSeat seat in m_playerList)
         {
-            try
-            {
-                seat.cardList.Clear();
-            }
-            catch { }
+            seat.cardList.Clear();
             seat.cardListUpdate(totalCardString, totalPayString);
             seat.calcScore();
         }
+
         ShowFinishDlg();
     }
 
     internal void OnPlayerStatusChanged()
     {
-        string seat_string = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
+        string seat_string = (string) PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
         LogMgr.Inst.Log("Seat String:=" + seat_string);
         string tmpStr = "";
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            tmpStr += ((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber + "(" + m_playerList[i].status + "), ";
+            tmpStr += ((LamiUserSeat) m_playerList[i]).m_playerInfo.m_actorNumber + "(" + m_playerList[i].status +
+                      "), ";
         }
+
         LogMgr.Inst.Log("Current String:=" + tmpStr);
 
-        int player_id = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
-        int status = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_STATUS];
+        int player_id = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        int status = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_STATUS];
         LogMgr.Inst.Log("Current Request String:=" + player_id + ", " + status);
 
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == player_id)
+            if (((LamiUserSeat) m_playerList[i]).m_playerInfo.m_actorNumber == player_id)
             {
-                ((LamiUserSeat)m_playerList[i]).status = status;
-                ((LamiUserSeat)m_playerList[i]).Show();
+                ((LamiUserSeat) m_playerList[i]).status = status;
+                ((LamiUserSeat) m_playerList[i]).Show();
             }
         }
 
         for (int i = 0; i < m_botList.Count; i++)
         {
-            if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == player_id && ((LamiUserSeat)m_playerList[i]).isBot)
+            if (((LamiUserSeat) m_playerList[i]).m_playerInfo.m_actorNumber == player_id &&
+                ((LamiUserSeat) m_playerList[i]).isBot)
             {
                 m_botList[i].status = status;
                 //m_botList[i].PublishMe();
@@ -207,38 +214,30 @@ public class LamiPlayerMgr : SeatMgr
         if (!PhotonNetwork.IsMasterClient) return;
 
         TurnChange();
-
     }
+
     internal void OnDealCard()
     {
-        //         Hashtable gameCards = new Hashtable
-        // {   
-        //     {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnDealCard},
-        //     {Common.PLAYER_ID, PhotonNetwork.LocalPlayer.ActorNumber},
-        //     {Common.REMAIN_CARD_COUNT, remainCard},
-        //     {Common.GAME_CARD, cardStr},
-        //     {Common.GAME_CARD_PAN, 0},
-        // };
-
         // Change players list
-        int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
-        int remained = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.REMAIN_CARD_COUNT];
+        int actor = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        int remained = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.REMAIN_CARD_COUNT];
 
-        string cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD];
+        string cardString = (string) PhotonNetwork.CurrentRoom.CustomProperties[Common.GAME_CARD];
         UpdateRemainCards(cardString);
 
-        LogMgr.Inst.Log("User Dealt card -  actor=" + actor + ", remained=" + remained + ", nowTurn=" + nowTurn, (int)LogLevels.RoomLog2);
+        LogMgr.Inst.Log("User Dealt card -  actor=" + actor + ", remained=" + remained + ", nowTurn=" + nowTurn,
+            (int) LogLevels.RoomLog2);
         bool isGame = false;
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == actor)
+            if (((LamiUserSeat) m_playerList[i]).m_playerInfo.m_actorNumber == actor)
             {
                 m_playerList[i].mCardNum.text = remained + "";
                 if (remained == 0)
                     isGame = true;
 
                 string[] str = cardString.Split(':');
-                ((LamiUserSeat)m_playerList[i]).OnUserDealt(str[1]);
+                ((LamiUserSeat) m_playerList[i]).OnUserDealt(str[1]);
                 nowTurn = i;
             }
         }
@@ -256,9 +255,10 @@ public class LamiPlayerMgr : SeatMgr
         {
             if (isGame)
             {
-                Hashtable props = new Hashtable{
-                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnGameFinished_Game},
-            };
+                Hashtable props = new Hashtable
+                {
+                    {PhotonFields.GAME_MESSAGE, (int) enumGameMessage.Rummy_OnGameFinished_Game},
+                };
                 PhotonNetwork.CurrentRoom.SetCustomProperties(props);
                 //LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
 
@@ -273,8 +273,7 @@ public class LamiPlayerMgr : SeatMgr
 
     private void UpdateRemainCards(string cardString)
     {
-
-        int actor = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
+        int actor = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.PLAYER_ID];
         Debug.Log("CardString:=" + cardString + "   actor=" + actor);
 
         var numList = cardString.Split(':')[1].Split(',').Select(Int32.Parse).ToArray();
@@ -283,11 +282,6 @@ public class LamiPlayerMgr : SeatMgr
         {
             totalPayString += actor + ":" + numList[i] + ":" + colList[i] + "/";
         }
-
-
-        //totalPayString = totalPayString.Trim('/');
-
-        //Debug.Log(totalRemainString);
     }
 
     public void TurnChange()
@@ -295,18 +289,20 @@ public class LamiPlayerMgr : SeatMgr
         int first = nowTurn;
         nowTurn = (nowTurn + 1) % 4;
 
-        
 
-        while ((m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_GiveUp ||
-            m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_Burnt) && first != nowTurn)
+        while ((m_playerList[GetUserSeat(nowTurn)].status == (int) enumPlayerStatus.Rummy_GiveUp ||
+                m_playerList[GetUserSeat(nowTurn)].status == (int) enumPlayerStatus.Rummy_Burnt) && first != nowTurn)
         {
             nowTurn = (nowTurn + 1) % 4;
         }
+
         if (first == nowTurn &&
-            (m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_GiveUp || m_playerList[GetUserSeat(nowTurn)].status == (int)enumPlayerStatus.Rummy_Burnt))
+            (m_playerList[GetUserSeat(nowTurn)].status == (int) enumPlayerStatus.Rummy_GiveUp ||
+             m_playerList[GetUserSeat(nowTurn)].status == (int) enumPlayerStatus.Rummy_Burnt))
         {
-            Hashtable props = new Hashtable{
-                {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnGameFinished},
+            Hashtable props = new Hashtable
+            {
+                {PhotonFields.GAME_MESSAGE, (int) enumGameMessage.Rummy_OnGameFinished},
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
             //LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
@@ -322,8 +318,9 @@ public class LamiPlayerMgr : SeatMgr
     IEnumerator SendRestartEvent()
     {
         yield return new WaitForSeconds(5);
-        Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnGameRestart},
+        Hashtable props = new Hashtable
+        {
+            {PhotonFields.GAME_MESSAGE, (int) enumGameMessage.Rummy_OnGameRestart},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
@@ -333,16 +330,21 @@ public class LamiPlayerMgr : SeatMgr
         int turn = -1;
         try
         {
-            turn = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_TURN];
+            turn = (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.NOW_TURN];
         }
-        catch { }
-        LogMgr.Inst.Log("UserTurnChanged: turn = " + turn, (int)LogLevels.RoomLog2);
+        catch
+        {
+        }
+
+        LogMgr.Inst.Log("UserTurnChanged: turn = " + turn, (int) LogLevels.RoomLog2);
         nowTurn = turn;
         if (turn < 0) return;
         turn = GetUserSeat(turn);
 
-        int actor = ((LamiUserSeat)m_playerList[turn]).m_playerInfo.m_actorNumber;
-        LogMgr.Inst.Log("UserTurnChanged: Changed turn=" + turn + "  , Actor = " + actor + "   /myID=" + PhotonNetwork.LocalPlayer.ActorNumber, (int)LogLevels.RoomLog2);
+        int actor = ((LamiUserSeat) m_playerList[turn]).m_playerInfo.m_actorNumber;
+        LogMgr.Inst.Log(
+            "UserTurnChanged: Changed turn=" + turn + "  , Actor = " + actor + "   /myID=" +
+            PhotonNetwork.LocalPlayer.ActorNumber, (int) LogLevels.RoomLog2);
 
         if (actor == PhotonNetwork.LocalPlayer.ActorNumber)
         {
@@ -356,36 +358,32 @@ public class LamiPlayerMgr : SeatMgr
 
 
         #region showing timer
+
         LamiCountdownTimer.Inst.StopTurnTimer();
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == actor)
+            if (((LamiUserSeat) m_playerList[i]).m_playerInfo.m_actorNumber == actor)
             {
-                ((LamiUserSeat)m_playerList[i]).mClock.SetActive(true);
+                ((LamiUserSeat) m_playerList[i]).mClock.SetActive(true);
                 LamiCountdownTimer.Inst.turnTime = m_playerList[i].mClockTime;
             }
             else
             {
-                ((LamiUserSeat)m_playerList[i]).mClock.SetActive(false);
+                ((LamiUserSeat) m_playerList[i]).mClock.SetActive(false);
             }
         }
+
         LamiCountdownTimer.Inst.StartTurnTimer(actor == PhotonNetwork.LocalPlayer.ActorNumber);
+
         #endregion
 
-        if (!PhotonNetwork.IsMasterClient) return;   // If this isn't master, return.
+        if (!PhotonNetwork.IsMasterClient) return; // If this isn't master, return.
 
         if (actor < 0 && turn >= 0)
         {
             for (int i = 0; i < m_botList.Count; i++)
                 if (m_botList[i].id == actor)
                     m_botList[i].SetMyTurn();
-
-            // turn = (turn + 1) % 4;
-            // Hashtable props = new Hashtable{
-            //     {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserTurnChanged},
-            //     {Common.NOW_TURN, turn}
-            // };
-            // PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         }
     }
 
@@ -396,86 +394,65 @@ public class LamiPlayerMgr : SeatMgr
         // Check if all players are ready.
         foreach (var p in PhotonNetwork.PlayerList)
         {
-            if ((int)p.CustomProperties[Common.PLAYER_STATUS] != (int)enumPlayerStatus.Rummy_ReadyToStart)
+            if ((int) p.CustomProperties[Common.PLAYER_STATUS] != (int) enumPlayerStatus.Rummy_ReadyToStart)
             {
                 AllReady = false;
             }
         }
+
         if (AllReady != true) return;
 
         // If all players are ready, Set the turn
         int turn = UnityEngine.Random.Range(0, 4);
         SendTurnChangeMessage(turn);
 
-        LogMgr.Inst.Log("First Turn is determined. - " + turn, (int)LogLevels.RoomLog2);
+        LogMgr.Inst.Log("First Turn is determined. - " + turn, (int) LogLevels.RoomLog2);
     }
 
     private void SendTurnChangeMessage(int turn)
     {
-        try{
+        try
+        {
             StopCoroutine(rejectRoutine);
-        }catch{
-
         }
-        
-        Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnUserTurnChanged},
+        catch
+        {
+        }
+
+        Hashtable props = new Hashtable
+        {
+            {PhotonFields.GAME_MESSAGE, (int) enumGameMessage.Rummy_OnUserTurnChanged},
             {Common.NOW_TURN, turn}
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
         rejectRoutine = StartCoroutine(AutoRejectPlayer(turn));
     }
+
     Coroutine rejectRoutine;
+
     IEnumerator AutoRejectPlayer(int turn)
-    {   
-        GameMgr.Inst.Log("Will reject "+turn+" player after 32 seconds");
+    {
+        GameMgr.Inst.Log("Will reject " + turn + " player after 32 seconds");
         yield return new WaitForSeconds(32);
-        GameMgr.Inst.Log(turn+" player rejected");
+        GameMgr.Inst.Log(turn + " player rejected");
 
         int rejectActor = m_playerList[GetUserSeat(turn)].m_playerInfo.m_actorNumber;
 
-        Hashtable props = new Hashtable{
-            {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnPlayerStatusChanged},
+        Hashtable props = new Hashtable
+        {
+            {PhotonFields.GAME_MESSAGE, (int) enumGameMessage.Rummy_OnPlayerStatusChanged},
             {Common.PLAYER_ID, rejectActor},
-            {Common.PLAYER_STATUS, (int)enumPlayerStatus.Rummy_GiveUp},
+            {Common.PLAYER_STATUS, (int) enumPlayerStatus.Rummy_GiveUp},
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
     }
-
-    internal void OnUserLeave_M(int actorNumber)
-    {
-        /*
-        string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.SEAT_STRING];
-        var tmp = seatString.Split(',');
-        seatString = "";
-
-        for (int i = 0; i < tmp.Length; i++)
-        {
-            int tmpActor = int.Parse(tmp[i].Split(':')[0]);
-            if (actorNumber != tmpActor)
-            {
-                seatString += tmp[i] + ",";
-            }
-        }
-        seatString = seatString.Trim(',');
-        // Send RoomUpdate Messages to all players.
-        Debug.Log("SeatString updated: " + seatString);
-        Hashtable turnProps = new Hashtable
-                {
-                    {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnRoomSeatUpdate},
-                    {Common.SEAT_STRING, seatString},
-                };
-        master_seatString = seatString;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
-        */
-    }
-
+    
     internal void OnRoomSeatUpdate()
     {
         //OnBotInfoChanged();
 
-        string seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
+        string seatString = (string) PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
 
         //LogMgr.Inst.Log("OnRoomSeatUpdate: " + seatString, (int)LogLevels.PlayerLog1);
         //Debug.Log("OnRoomSeatUpdate: " + seatString);
@@ -499,34 +476,36 @@ public class LamiPlayerMgr : SeatMgr
             int tmpActor = int.Parse(tmp[i].Split(':')[0]);
             int tmpSeat = int.Parse(tmp[i].Split(':')[1]);
 
-            ((LamiUserSeat)m_playerList[GetUserSeat(tmpSeat)]).SetProperty(tmpActor);
+            ((LamiUserSeat) m_playerList[GetUserSeat(tmpSeat)]).SetProperty(tmpActor);
         }
 
         // Show/Hide players;
         for (int i = 0; i < m_playerList.Count; i++)
-            ((LamiUserSeat)m_playerList[i]).Show();
+            ((LamiUserSeat) m_playerList[i]).Show();
     }
 
     #endregion
+
     internal void OnStartGame()
     {
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            m_playerList[i].status = (int)enumPlayerStatus.Rummy_Init;
-            ((LamiUserSeat)m_playerList[i]).Show();
+            m_playerList[i].status = (int) enumPlayerStatus.Rummy_Init;
+            ((LamiUserSeat) m_playerList[i]).Show();
         }
     }
+
     internal void OnUserReady(int actornumber)
     {
-        LogMgr.Inst.Log(actornumber + " Clicked Ready button.", (int)LogLevels.PlayerLog1);
+        LogMgr.Inst.Log(actornumber + " Clicked Ready button.", (int) LogLevels.PlayerLog1);
 
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (((LamiUserSeat)m_playerList[i]).m_playerInfo.m_actorNumber == actornumber)
+            if (((LamiUserSeat) m_playerList[i]).m_playerInfo.m_actorNumber == actornumber)
             {
-                m_playerList[i].status = (int)enumPlayerStatus.Rummy_Ready;
+                m_playerList[i].status = (int) enumPlayerStatus.Rummy_Ready;
                 m_playerList[i].canShow = true;
-                ((LamiUserSeat)m_playerList[i]).Show();
+                ((LamiUserSeat) m_playerList[i]).Show();
                 break;
             }
         }
@@ -537,22 +516,24 @@ public class LamiPlayerMgr : SeatMgr
         int readyUsers = 0;
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (m_playerList[i].canShow && m_playerList[i].status == (int)enumPlayerStatus.Rummy_Ready)
+            if (m_playerList[i].canShow && m_playerList[i].status == (int) enumPlayerStatus.Rummy_Ready)
             {
                 readyUsers++;
             }
         }
+
         if (PhotonNetwork.IsMasterClient)
         {
             if (readyUsers == 4) // if All users are ready and there are 4 users, send StartGame message
             {
                 // Send Game Start Message
-                Hashtable props = new Hashtable{
-                        {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.Rummy_OnStartGame}
-                    };
+                Hashtable props = new Hashtable
+                {
+                    {PhotonFields.GAME_MESSAGE, (int) enumGameMessage.Rummy_OnStartGame}
+                };
                 PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
-                LogMgr.Inst.Log("All players are ready.", (int)LogLevels.RoomLog1);
+                LogMgr.Inst.Log("All players are ready.", (int) LogLevels.RoomLog1);
                 // Distribute all cards
                 LamiCardMgr.Inst.GenerateCard();
 
@@ -564,10 +545,11 @@ public class LamiPlayerMgr : SeatMgr
     }
 
     #region  Bot Section
+
     internal void CreateBotsFromPhoton()
     {
         PlayerInfoContainer pList = new PlayerInfoContainer();
-        string playerListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
+        string playerListString = (string) PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         m_botList.Clear();
         //LogMgr.Inst.Log(botListString, (int)LogLevels.BotLog);
         pList.m_playerInfoListString = playerListString;
@@ -580,9 +562,8 @@ public class LamiPlayerMgr : SeatMgr
             bot.SetBotInfo(p.playerInfoString);
 
             m_botList.Add(bot);
-            LogMgr.Inst.Log("Bot Created : " + bot.getBotString(), (int)LogLevels.BotLog);
+            LogMgr.Inst.Log("Bot Created : " + bot.getBotString(), (int) LogLevels.BotLog);
         }
-
     }
 
     public string getBotString()
@@ -592,6 +573,7 @@ public class LamiPlayerMgr : SeatMgr
         {
             botString += m_botList[i].getBotString() + ",";
         }
+
         botString = botString.Trim(',');
         return botString;
     }
@@ -628,15 +610,17 @@ public class LamiPlayerMgr : SeatMgr
         if (seatNumList[p.ActorNumber] == seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
         {
             Debug.Log(p.NickName + "///" + p.ActorNumber);
-            userSeat = ((LamiUserSeat)m_playerList[0]);
+            userSeat = ((LamiUserSeat) m_playerList[0]);
         }
         else if (seatNumList[p.ActorNumber] > seatNumList[PhotonNetwork.LocalPlayer.ActorNumber])
         {
-            userSeat = ((LamiUserSeat)m_playerList[seatNumList[p.ActorNumber] - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber]]);
+            userSeat = ((LamiUserSeat) m_playerList[
+                seatNumList[p.ActorNumber] - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber]]);
         }
         else
         {
-            userSeat = ((LamiUserSeat)m_playerList[4 - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + seatNumList[p.ActorNumber]]);
+            userSeat = ((LamiUserSeat) m_playerList[
+                4 - seatNumList[PhotonNetwork.LocalPlayer.ActorNumber] + seatNumList[p.ActorNumber]]);
         }
 
         return userSeat;
@@ -654,5 +638,4 @@ public class LamiPlayerMgr : SeatMgr
         yield return new WaitForSeconds(3);
         LamiGameUIManager.Inst.finishDlg.gameObject.SetActive(true);
     }
-
 }
