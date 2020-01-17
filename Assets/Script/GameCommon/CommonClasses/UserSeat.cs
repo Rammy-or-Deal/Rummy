@@ -28,6 +28,12 @@ public class UserSeat : MonoBehaviour
     }
 
     public PlayerInfo m_playerInfo = null;
+    
+    private void Start()
+    {
+        if (facebookId!="")
+            StartCoroutine(getFBPicture());
+    }
 
     public virtual void SetPlayerInfo(PlayerInfo info)
     {
@@ -51,12 +57,6 @@ public class UserSeat : MonoBehaviour
         mUserSkillName.text = m_playerInfo.m_skillLevel;
         frameId = m_playerInfo.m_frameId;
         isSeat = true;
-    }
-
-    private void Start()
-    {
-        if (facebookId!="")
-            StartCoroutine(getFBPicture());
     }
     
     public IEnumerator getFBPicture()

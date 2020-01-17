@@ -55,16 +55,6 @@ public class LamiUserSeat : UserSeat
         PlayerNumbering.OnPlayerNumberingChanged += OnPlayerNumberingChanged;
     }
 
-    private void Awake()
-    {
-
-    }
-
-    public void Start()
-    {
-        //        mClock.SetActive(false);
-    }
-
     public void OnDisable()
     {
         PlayerNumbering.OnPlayerNumberingChanged -= OnPlayerNumberingChanged;
