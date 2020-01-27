@@ -118,7 +118,7 @@ public class BaccaratBankerMgr : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+//                Debug.LogError(e);
             }
             if (moneySum < sum)
             {

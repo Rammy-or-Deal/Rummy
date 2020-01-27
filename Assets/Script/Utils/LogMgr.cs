@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum LogLevels
+public enum LogLevels
 {
     RoomLog1,
     RoomLog2,
@@ -20,6 +20,7 @@ enum LogLevels
     CardLog,
     LamiFinishLog,
     Lami_Second_Working,
+    Baccarat_Card,
 }
 
 public class LogMgr : MonoBehaviour
@@ -52,10 +53,10 @@ public class LogMgr : MonoBehaviour
 
             //avail_logs.Add((int)LogLevels.CardLog);
             */
-
-            avail_logs.Add((int)LogLevels.LamiFinishLog);
-            avail_logs.Add((int)LogLevels.Lami_Second_Working);
+//            avail_logs.Add((int)LogLevels.LamiFinishLog);
+//            avail_logs.Add((int)LogLevels.Lami_Second_Working);
         }
+        avail_logs.Add((int)LogLevels.Baccarat_Card);
 
     }
     // Start is called before the first frame update
@@ -64,6 +65,13 @@ public class LogMgr : MonoBehaviour
         if (avail_logs.Contains(level))
             Debug.Log(log);
     }
+    
+    public void LogD(string log, LogLevels level = 0)
+    {
+        if (avail_logs.Contains((int)level))
+            Debug.Log(log);
+    }
+    
     public void ShowLog(List<List<Card>> allList, string header = "", int loglevel = (int)LogLevels.SpecialLog)
     {
         foreach (var line in allList)

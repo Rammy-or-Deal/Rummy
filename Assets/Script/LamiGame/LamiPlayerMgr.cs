@@ -85,7 +85,7 @@ public class LamiPlayerMgr : SeatMgr
         }
 
 
-        Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
+//        Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
     }
 
     internal void OnGameFinished_Game()

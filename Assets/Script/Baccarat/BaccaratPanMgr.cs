@@ -29,8 +29,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-
-
 public class BaccaratPanMgr : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -315,14 +313,21 @@ public class BaccaratPanMgr : MonoBehaviour
     {
         BaccaratUserSeat player = null;
         if (BaccaratPlayerMgr.Inst.m_playerList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better) > 0)
-            player = (BaccaratUserSeat)BaccaratPlayerMgr.Inst.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better).First();
+            player = (BaccaratUserSeat)BaccaratPlayerMgr.Inst.m_playerList.First(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better);
 
+        LogMgr.Inst.LogD("max_better:"+max_better,LogLevels.Baccarat_Card);
+        LogMgr.Inst.LogD("Card1:"+card1.num+"  Card2:"+card2.num,LogLevels.Baccarat_Card);
         if (player != null)
         {
             MoveDistributed_SmallCards(orgCards, player.cardPos, Constants.BaccaratDistributionTime);
             bool isController = (max_better == PhotonNetwork.LocalPlayer.ActorNumber);
+            LogMgr.Inst.LogD("localPlayer actorNumber:"+PhotonNetwork.LocalPlayer.ActorNumber,LogLevels.Baccarat_Card);
             originCards = orgCards;
             UIBCardBend.Inst.ShowBigCard(player.cardPos, card1, card2,isController);
+        }
+        else
+        {
+            LogMgr.Inst.LogD("count:"+BaccaratPlayerMgr.Inst.m_playerList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better),LogLevels.Baccarat_Card);
         }
     }
 
