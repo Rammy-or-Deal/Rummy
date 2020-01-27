@@ -44,7 +44,7 @@ public class UserSeat : MonoBehaviour
 
         name = m_playerInfo.m_userName;
         mUserName.text = m_playerInfo.m_userName;
-        Debug.Log(m_playerInfo.m_userPic);
+//        Debug.Log(m_playerInfo.m_userPic);
         if (m_playerInfo.m_userPic.Contains("avatar_"))
             mUserPic.sprite = Resources.Load<Sprite>(m_playerInfo.m_userPic);
         else  //facebook Pic
