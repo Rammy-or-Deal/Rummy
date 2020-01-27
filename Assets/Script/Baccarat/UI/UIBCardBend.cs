@@ -140,7 +140,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         BaccaratUIController.Inst.bendCardBlankBtn.SetActive(isBigShow);
         if (isBigShow)
         {
-            photonView.RPC("FlipOn", RpcTarget.All);
+//            photonView.RPC("FlipOn", RpcTarget.All);
             flippedCnt = 0;
             iTween.MoveTo(camera, bigCamPos.position, 0.5f);
         }
@@ -170,6 +170,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
         transform.position = destination_cardPos[0].position;
+        FlipOn();
         if (isController)
         {
             ShowBigCard(true);         
