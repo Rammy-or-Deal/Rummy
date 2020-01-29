@@ -9,15 +9,6 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="CrystalFramework" t="Include">
-          <e p="Utility" t="Include">
-            <e p="Demos" t="Include">
-              <e p="SafeAreaDemo.cs" t="Include" />
-              <e p="SafeAreaDemo.txt" t="Include" />
-            </e>
-            <e p="SafeArea.cs" t="Include" />
-          </e>
-        </e>
         <e p="Editor" t="Include">
           <e p="ChangeSibiling.cs" t="Include" />
           <e p="ClearConsole.cs" t="Include" />
@@ -94,66 +85,6 @@
               <e p="BlurRenderer_Mobile.cs" t="Include" />
             </e>
           </e>
-        </e>
-        <e p="Lean" t="Include">
-          <e p="Common" t="Include">
-            <e p="Examples" t="Include">
-              <e p="Fonts" t="Include">
-                <e p="OFL.txt" t="Include" />
-              </e>
-              <e p="Scripts" t="Include">
-                <e p="LeanCircuit.cs" t="Include" />
-                <e p="LeanDocumentation.cs" t="Include" />
-                <e p="LeanLinkTo.cs" t="Include" />
-                <e p="LeanMarker.cs" t="Include" />
-                <e p="LeanOpenUrl.cs" t="Include" />
-              </e>
-              <e p="Shaders" t="Include">
-                <e p="Alpha.shader" t="Include" />
-                <e p="Object.shader" t="Include" />
-                <e p="Skybox.shader" t="Include" />
-              </e>
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="LeanHelper.cs" t="Include" />
-              <e p="LeanInspector.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Localization" t="Include">
-            <e p="Examples" t="Include">
-              <e p="Texts" t="Include">
-                <e p="English.txt" t="Include" />
-                <e p="Japanese.txt" t="Include" />
-                <e p="Spanish.txt" t="Include" />
-              </e>
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="Behaviours" t="Include">
-                <e p="LeanLocalizedAudioSource.cs" t="Include" />
-                <e p="LeanLocalizedDropdown.cs" t="Include" />
-                <e p="LeanLocalizedImage.cs" t="Include" />
-                <e p="LeanLocalizedRenderer.cs" t="Include" />
-                <e p="LeanLocalizedSpriteRenderer.cs" t="Include" />
-                <e p="LeanLocalizedText.cs" t="Include" />
-                <e p="LeanLocalizedTextFont.cs" t="Include" />
-                <e p="LeanLocalizedTextMesh.cs" t="Include" />
-                <e p="LeanLocalizedTextMeshFont.cs" t="Include" />
-              </e>
-              <e p="ILocalizationHandler.cs" t="Include" />
-              <e p="LeanLanguage.cs" t="Include" />
-              <e p="LeanLanguageCSV.cs" t="Include" />
-              <e p="LeanLanguageNameAttribute.cs" t="Include" />
-              <e p="LeanLocalization.cs" t="Include" />
-              <e p="LeanLocalizedBehaviour.cs" t="Include" />
-              <e p="LeanPhrase.cs" t="Include" />
-              <e p="LeanPrefab.cs" t="Include" />
-              <e p="LeanSource.cs" t="Include" />
-              <e p="LeanToken.cs" t="Include" />
-              <e p="LeanTranslation.cs" t="Include" />
-              <e p="LeanTranslationNameAttribute.cs" t="Include" />
-            </e>
-          </e>
-          <e p="READ ME.txt" t="Include" />
         </e>
         <e p="LeanTween" t="Include">
           <e p="Editor" t="Include">
@@ -1087,6 +1018,75 @@
         <e p="Plugins" t="Include">
           <e p="Android" t="Include">
             <e p="AndroidManifest.xml" t="Include" />
+          </e>
+          <e p="CrystalFramework" t="Include">
+            <e p="Utility" t="Include">
+              <e p="Demos" t="Include">
+                <e p="SafeAreaDemo.cs" t="Include" />
+                <e p="SafeAreaDemo.txt" t="Include" />
+              </e>
+              <e p="SafeArea.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Lean" t="Include">
+            <e p="Common" t="Include">
+              <e p="Examples" t="Include">
+                <e p="Fonts" t="Include">
+                  <e p="OFL.txt" t="Include" />
+                </e>
+                <e p="Scripts" t="Include">
+                  <e p="LeanCircuit.cs" t="Include" />
+                  <e p="LeanDocumentation.cs" t="Include" />
+                  <e p="LeanLinkTo.cs" t="Include" />
+                  <e p="LeanMarker.cs" t="Include" />
+                  <e p="LeanOpenUrl.cs" t="Include" />
+                </e>
+                <e p="Shaders" t="Include">
+                  <e p="Alpha.shader" t="Include" />
+                  <e p="Object.shader" t="Include" />
+                  <e p="Skybox.shader" t="Include" />
+                </e>
+              </e>
+              <e p="Scripts" t="Include">
+                <e p="LeanHelper.cs" t="Include" />
+                <e p="LeanInspector.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Localization" t="Include">
+              <e p="Examples" t="Include">
+                <e p="Texts" t="Include">
+                  <e p="English.txt" t="Include" />
+                  <e p="Japanese.txt" t="Include" />
+                  <e p="Spanish.txt" t="Include" />
+                </e>
+              </e>
+              <e p="Scripts" t="Include">
+                <e p="Behaviours" t="Include">
+                  <e p="LeanLocalizedAudioSource.cs" t="Include" />
+                  <e p="LeanLocalizedDropdown.cs" t="Include" />
+                  <e p="LeanLocalizedImage.cs" t="Include" />
+                  <e p="LeanLocalizedRenderer.cs" t="Include" />
+                  <e p="LeanLocalizedSpriteRenderer.cs" t="Include" />
+                  <e p="LeanLocalizedText.cs" t="Include" />
+                  <e p="LeanLocalizedTextFont.cs" t="Include" />
+                  <e p="LeanLocalizedTextMesh.cs" t="Include" />
+                  <e p="LeanLocalizedTextMeshFont.cs" t="Include" />
+                </e>
+                <e p="ILocalizationHandler.cs" t="Include" />
+                <e p="LeanLanguage.cs" t="Include" />
+                <e p="LeanLanguageCSV.cs" t="Include" />
+                <e p="LeanLanguageNameAttribute.cs" t="Include" />
+                <e p="LeanLocalization.cs" t="Include" />
+                <e p="LeanLocalizedBehaviour.cs" t="Include" />
+                <e p="LeanPhrase.cs" t="Include" />
+                <e p="LeanPrefab.cs" t="Include" />
+                <e p="LeanSource.cs" t="Include" />
+                <e p="LeanToken.cs" t="Include" />
+                <e p="LeanTranslation.cs" t="Include" />
+                <e p="LeanTranslationNameAttribute.cs" t="Include" />
+              </e>
+            </e>
+            <e p="READ ME.txt" t="Include" />
           </e>
           <e p="Pixelplacement" t="Include">
             <e p="iTween" t="Include">
