@@ -20,17 +20,19 @@ public class SeatMgr : MonoBehaviour
         catch (Exception e)
         {
             Console.WriteLine(e);
+            Debug.LogError("actorNum:"+actorNum);
             LogPlayerList();
-            throw;
+            seat = null;
         }
         return seat;
     }
 
     public void LogPlayerList()
     {
-        Debug.LogError("m_playerList :"+m_playerList.Count);
+        Debug.LogError("m_playerList count:"+m_playerList.Count);
         for (int i=0;i<m_playerList.Count;i++)
-            Debug.LogError(m_playerList[i].m_playerInfo.m_actorNumber);
+            if (m_playerList[i].isSeat)
+                Debug.LogError(m_playerList[i].m_playerInfo.m_actorNumber);
     }
 
     public virtual void OnSeatStringUpdate()

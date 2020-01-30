@@ -188,25 +188,10 @@ public class BaccaratPanMgr : MonoBehaviour
         //        LogMgr.Inst.Log(string.Format("Player Bet. x={0}, y={1}, moneyId={2}, areaId={3}", moneyId, areaId), (int)LogLevels.PanLog);
         betPanel.OnPlayerBet(originPos, moneyId, areaId);
     }
-
-    Transform[] leftCardOrgPos;
-    Transform[] rightCardOrgPos;
-
-    void SaveOrgPosition()
-    {
-        if (leftCardOrgPos == null) leftCardOrgPos = new Transform[2];
-        if (rightCardOrgPos == null) rightCardOrgPos = new Transform[2];
-        leftCardOrgPos[0] = cardPanel.leftCards[0].transform;
-        leftCardOrgPos[1] = cardPanel.leftCards[1].transform;
-
-        rightCardOrgPos[0] = cardPanel.rightCards[0].transform;
-        rightCardOrgPos[1] = cardPanel.rightCards[1].transform;
-    }
-
+    
     internal void OnCatchedCardDistributed()
     {
         InitTeamCard();
-        SaveOrgPosition();
         
         bankerCard.cardString =
             (string) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
@@ -251,40 +236,26 @@ public class BaccaratPanMgr : MonoBehaviour
     private void AddAnimationForDistributedCard(UIBCard[] orgCards, int maxBetter, BaccaratCard card1,
         BaccaratCard card2, bool isBanker)
     {
-        BaccaratUserSeat player = null;
-        if (BaccaratPlayerMgr.Inst.m_playerList.Count(x => x.isSeat && x.m_playerInfo.m_actorNumber == maxBetter) > 0)
-            player = (BaccaratUserSeat) BaccaratPlayerMgr.Inst.m_playerList.First(x => x.isSeat && x.m_playerInfo.m_actorNumber == maxBetter);
-
         LogMgr.Inst.LogD("max_better:" + maxBetter, LogLevels.Baccarat_Card);
+        if (maxBetter == -1)
+            return;
+        BaccaratUserSeat player = (BaccaratUserSeat) BaccaratPlayerMgr.Inst.GetUserSeatFromList(maxBetter);
         
         if (player != null)
         {
-            MoveDistributed_SmallCards(orgCards, player.cardPos, Constants.BaccaratDistributionTime);
+            for (int i = 0; i < 2; i++)
+            {
+                iTween.MoveTo(orgCards[i].gameObject, player.cardPos[i].position, Constants.BaccaratDistributionTime);
+            }
+            
             bool isController = (maxBetter == PhotonNetwork.LocalPlayer.ActorNumber);
-            LogMgr.Inst.LogD("localPlayer actorNumber:" + PhotonNetwork.LocalPlayer.ActorNumber,
-                LogLevels.Baccarat_Card);
             int bendId = 0;
             if (isBanker)
                 bendId = 1;
             bend[bendId].ShowBigCard(player.cardPos, card1, card2, isController,orgCards);
         }
-        else
-        {
-            LogMgr.Inst.LogD(
-                "count:" + BaccaratPlayerMgr.Inst.m_playerList.Count(x =>
-                    x.isSeat == true && x.m_playerInfo.m_actorNumber == maxBetter), LogLevels.Baccarat_Card);
-        }
     }
 
-    private void MoveDistributed_SmallCards(UIBCard[] originCards0, Transform[] destination_cardPos, float time)
-    {
-        GameMgr.Inst.Log("Tween " + originCards0[0].image.sprite.name , LogLevel.BaccaratDistributeCardLog);
-        GameMgr.Inst.Log("Tween to" + destination_cardPos[0].position , LogLevel.BaccaratDistributeCardLog);
-        for (int i = 0; i < 2; i++)
-        {
-            iTween.MoveTo(originCards0[i].gameObject, destination_cardPos[i].position, Constants.BaccaratDistributionTime);
-        }
-    }
     
     private void ShowingCatchedCard(BaccaratShowingCard_NowTurn nowTurn)
     {
@@ -302,11 +273,11 @@ public class BaccaratPanMgr : MonoBehaviour
             case BaccaratShowingCard_NowTurn.Top:
                 cardPanel.leftCards[0].ShowImage(playerCard.CardList[0].num, playerCard.CardList[0].color);
                 cardPanel.leftCards[1].ShowImage(playerCard.CardList[1].num, playerCard.CardList[1].color);
-                MoveDistributed_SmallCards(cardPanel.leftCards, leftCardOrgPos, Constants.BaccaratDistributionTime);
                 
                 cardPanel.rightCards[0].ShowImage(bankerCard.CardList[0].num, bankerCard.CardList[0].color);
                 cardPanel.rightCards[1].ShowImage(bankerCard.CardList[1].num, bankerCard.CardList[1].color);
-                MoveDistributed_SmallCards(cardPanel.rightCards, rightCardOrgPos, Constants.BaccaratDistributionTime);
+                
+                cardPanel.TweenOriginalPos();
                 break;
             case BaccaratShowingCard_NowTurn.Player_additional:
                 if (playerCard.CardList.Count > 2)
