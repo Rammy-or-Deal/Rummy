@@ -130,28 +130,9 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         yield return new WaitForSeconds(0.8f);
         iTween.MoveTo(camera, _originCamPos, 0.8f);
         yield return new WaitForSeconds(0.8f);
-//        photonView.RPC("ShowSmallCard", RpcTarget.All,true);  //this will be run automatically
 //        ShowBigCard(false);  //this will be run automatically 
     }
-
-    public void ShowBigCard(bool isBigShow)
-    {
-//        gameObject.SetActive(isBigShow);
-        BaccaratUIController.Inst.bendCardBlankBtn.SetActive(isBigShow);
-        if (isBigShow)
-        {
-//            photonView.RPC("FlipOn", RpcTarget.All);
-            flippedCnt = 0;
-            iTween.MoveTo(camera, bigCamPos.position, 0.5f);
-        }
-        else
-        {
-            camera.transform.localPosition=new Vector3(0,0,0);
-            transform.position = new Vector3(0,0,0);
-            TouchEnd();
-        }
-    }
-
+    
     UIBCard[] originCards;
     
     public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2,bool isController,UIBCard[] orgCards)
@@ -165,22 +146,30 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         }
         if (isController)
             photonView.RPC("ChangeMaterial", RpcTarget.All, card1.color,card1.num,card2.color,card2.num);
+        
         StartCoroutine(ShowCard(destination_cardPos));
     }
     
     IEnumerator ShowCard(Transform[] destination_cardPos)
     {
         yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
-        transform.position = destination_cardPos[0].position;
+        transform.position = destination_cardPos[0].transform.position;
         FlipOn();
         if (isController)
         {
-            ShowBigCard(true);         
+            BaccaratUIController.Inst.bendCardBlankBtn.SetActive(true);
+            flippedCnt = 0;
+            iTween.MoveTo(camera, bigCamPos.position, 0.5f);
         }
         ShowSmallCard(false);
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-1);
-        ShowBigCard(false);
-        yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
+        if (isController)
+        {
+            BaccaratUIController.Inst.bendCardBlankBtn.SetActive(false);
+            camera.transform.localPosition=new Vector3(0,0,0);
+        }
+        transform.position = new Vector3(0,0,0);
+        TouchEnd();
         ShowSmallCard(true);
     }
 

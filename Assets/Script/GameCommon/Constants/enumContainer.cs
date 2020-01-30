@@ -105,7 +105,6 @@ public enum enumGameMessage
     Baccarat_OnEndPan,
     Baccarat_OnPlayerBet,
     Baccarat_OnCatchedCardDistributed,
-    Baccarat_OnShowingCatchedCard,
     Baccarat_OnShowingVictoryArea,
     Baccarat_OnPrizeAwarded,
     Baccarat_OnUpdateMe,
@@ -122,9 +121,6 @@ public enum enumGameMessage
     Fortune_DoubleDownRequest,
     Fortune_Lucky,
     Fortune_OnShowLuckResult,
-//    Baccarat_OnPlayerCardDistribute,
-//    Baccarat_OnBankerCardDistribute,
-//    BaccaratAdditionalCardDistribute,
     #endregion
 
     #region Baccarat Game Messages
