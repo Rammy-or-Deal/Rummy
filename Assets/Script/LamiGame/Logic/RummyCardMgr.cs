@@ -86,7 +86,7 @@ public class RummyCardMgr : MonoBehaviour
             { PhotonFields.CARD_LIST_STRING, totalCardString }
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        GameMgr.Inst.Log("Prepare CardList: " + totalCardString, enumLogLevel.RummyCardMgrLog);
+        GameMgr.Inst.Log("Prepare CardList: " + totalCardString, LogLevel.RummyCardMgrLog);
     }
 
     public static string ConvertCardListToString(Card[] cardList)

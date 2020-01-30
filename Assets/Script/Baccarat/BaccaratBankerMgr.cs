@@ -201,8 +201,8 @@ public class BaccaratBankerMgr : MonoBehaviour
     List<int> CalcVictoryArea()
     {
 
-        GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
-        GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, LogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, LogLevel.BaccaratDistributeCardLog);
 
         List<int> victoryArea = new List<int>();
         if (playerCard.score > bankerCard.score)
@@ -257,7 +257,7 @@ public class BaccaratBankerMgr : MonoBehaviour
         PlayerInfoContainer pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
 
-        GameMgr.Inst.Log("playerListString:=" + pList.m_playerInfoListString, enumLogLevel.BaccaratLogicLog);
+        GameMgr.Inst.Log("playerListString:=" + pList.m_playerInfoListString, LogLevel.BaccaratLogicLog);
 
         foreach (var player in GameMgr.Inst.seatMgr.m_playerList.Where(x => x.m_playerInfo != null))
         {
@@ -306,7 +306,7 @@ public class BaccaratBankerMgr : MonoBehaviour
                 // prize_area = prize_area.Trim(',');
                 // try
                 // {
-                GameMgr.Inst.Log("now Player String:=" + player.m_playerInfo.playerInfoString, enumLogLevel.BaccaratLogicLog);
+                GameMgr.Inst.Log("now Player String:=" + player.m_playerInfo.playerInfoString, LogLevel.BaccaratLogicLog);
                 pList.m_playerList.Where(x => x.m_actorNumber == player.m_playerInfo.m_actorNumber).First().m_coinValue += prize;
                 // }
                 // catch (Exception err)

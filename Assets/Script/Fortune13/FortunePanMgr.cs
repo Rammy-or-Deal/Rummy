@@ -112,12 +112,12 @@ public class FortunePanMgr : MonoBehaviour
 
         var pList = new PlayerInfoContainer();
         pList.GetInfoContainerFromPhoton();
-        GameMgr.Inst.Log("playerList=" + pList.stringForLog, enumLogLevel.FortuneLuckyLog);
+        GameMgr.Inst.Log("playerList=" + pList.stringForLog, LogLevel.FortuneLuckyLog);
         int luckyActor = pList.m_playerList.Where(x => x.m_status == enumPlayerStatus.Fortune_Lucky).First().m_actorNumber;
         FortuneUIController.Inst.luckyDlg.players[0].Init(GameMgr.Inst.seatMgr.m_playerList.Where(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == luckyActor).First());
 
         Lucky luckName = (Lucky)PhotonNetwork.PlayerList.Where(x => x.ActorNumber == luckyActor).First().CustomProperties[Common.LUCKY_NAME];
-        GameMgr.Inst.Log("LuckyActor=" + luckyActor + ", LuckyName="+luckName, enumLogLevel.FortuneLuckyLog);
+        GameMgr.Inst.Log("LuckyActor=" + luckyActor + ", LuckyName="+luckName, LogLevel.FortuneLuckyLog);
         int index = 1;
         int penalty = staticFunction_Fortune.GetPenaltyFromLucky(luckName);
         penalty = penalty * staticFunction_Fortune.GetBasePrice(GameMgr.Inst.m_gameTier);
@@ -130,7 +130,7 @@ public class FortunePanMgr : MonoBehaviour
             FortuneUIController.Inst.luckyDlg.players[index].SetLuckyScore(-penalty);
             luckyBonus += penalty;
             index++;
-            GameMgr.Inst.Log("otherActor=" + player.m_actorNumber + ", totalPenalty="+luckyBonus, enumLogLevel.FortuneLuckyLog);
+            GameMgr.Inst.Log("otherActor=" + player.m_actorNumber + ", totalPenalty="+luckyBonus, LogLevel.FortuneLuckyLog);
             //GameMgr.Inst.Log("card=" + FortunePlayerMgr.Inst.userCardList.Where(x=>x.actorNumber == player.m_actorNumber).First().stringForLog, enumLogLevel.FortuneLuckyLog);             
         }
 

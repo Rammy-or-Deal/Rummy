@@ -94,7 +94,7 @@ public class PlayerInfoContainer
         }
         catch
         {
-            GameMgr.Inst.Log("No player list info.", enumLogLevel.staticClassLog);
+            GameMgr.Inst.Log("No player list info.", LogLevel.staticClassLog);
             return null;
         }
         return this;

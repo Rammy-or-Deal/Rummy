@@ -35,10 +35,10 @@ public class SeatMgr : MonoBehaviour
 
     public virtual void OnSeatStringUpdate()
     {
-        GameMgr.Inst.Log("SeatMgr->OnSeatStringUpdate() is called.", enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("SeatMgr->OnSeatStringUpdate() is called.", LogLevel.RoomLog);
 
-        GameMgr.Inst.Log("seatString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING], enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("playerString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING], enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("seatString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING], LogLevel.RoomLog);
+        GameMgr.Inst.Log("playerString=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING], LogLevel.RoomLog);
 
         // Update seatNumList variable
         var seatInfo = Update_seatNumList((string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING]);
@@ -48,8 +48,8 @@ public class SeatMgr : MonoBehaviour
         string infoString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         pList.m_playerInfoListString = infoString;
 
-        GameMgr.Inst.Log("seatList=" + seatInfo.seatString, enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("playerNumList=" + pList.m_playerInfoListString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("seatList=" + seatInfo.seatString, LogLevel.RoomLog);
+        GameMgr.Inst.Log("playerNumList=" + pList.m_playerInfoListString, LogLevel.RoomLog);
         foreach (var player in m_playerList)
         {
             player.isSeat = false;
@@ -59,7 +59,7 @@ public class SeatMgr : MonoBehaviour
         {
             try
             {
-                GameMgr.Inst.Log("now Seat:=" + seat.oneSeatString, enumLogLevel.RoomLog);
+                GameMgr.Inst.Log("now Seat:=" + seat.oneSeatString, LogLevel.RoomLog);
                 var user = pList.m_playerList.First(x => x.m_userName == seat.m_userName);
                 UpdateUserSeat(seat, user);
             }
@@ -85,7 +85,7 @@ public class SeatMgr : MonoBehaviour
     private void UpdateUserSeat(SeatInfo.OneSeat seat, PlayerInfo playerInfo)
     {
         var seatNo = GetUserSeatPos(seat.m_seatNo);
-        GameMgr.Inst.Log("NewUserEnteredRoom. ActorNumber=" + seat.m_actorNumber + ", seatNo=" + seatNo, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("NewUserEnteredRoom. ActorNumber=" + seat.m_actorNumber + ", seatNo=" + seatNo, LogLevel.RoomLog);
         m_playerList[seatNo].SetPlayerInfo(playerInfo);
     }
 
@@ -117,7 +117,7 @@ public class SeatMgr : MonoBehaviour
     private SeatInfo Update_seatNumList(string v)
     {
         if (seatNumList == null) seatNumList = new Dictionary<int, int>();
-        GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, enumLogLevel.RoomLog);        
+        GameMgr.Inst.Log("SeatMgr->Update_seatNumList() is called. param:= " + v, LogLevel.RoomLog);        
         SeatInfo seatInfo = new SeatInfo();
         seatInfo.seatString = v;
         seatNumList.Clear();

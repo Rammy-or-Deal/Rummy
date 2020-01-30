@@ -26,13 +26,13 @@ public class RummySeatMgr : SeatMgr
 
         if (!PhotonNetwork.IsMasterClient) return;
 
-        GameMgr.Inst.Log("Check if all players are ready.", enumLogLevel.RummySeatMgrLog);
+        GameMgr.Inst.Log("Check if all players are ready.", LogLevel.RummySeatMgrLog);
         // Update User Seat
 
         var userListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
 
-        GameMgr.Inst.Log("userListString = " + userListString + ",  seatNumList=" + string.Join(",", seatNumList), enumLogLevel.RummySeatMgrLog);
+        GameMgr.Inst.Log("userListString = " + userListString + ",  seatNumList=" + string.Join(",", seatNumList), LogLevel.RummySeatMgrLog);
 
         bool isAllReady = true;
         foreach (var seat in seatNumList)
@@ -41,20 +41,20 @@ public class RummySeatMgr : SeatMgr
             var user = pList.m_playerList.Where(x => x.m_actorNumber == seat.Key).First();
             if (user.m_status != enumPlayerStatus.Rummy_Ready)
             {
-                GameMgr.Inst.Log(user.m_userName + " isn't ready.", enumLogLevel.RummySeatMgrLog);
+                GameMgr.Inst.Log(user.m_userName + " isn't ready.", LogLevel.RummySeatMgrLog);
                 isAllReady = false;
                 break;
             }
             else
             {
-                GameMgr.Inst.Log(user.m_userName + " is ready.", enumLogLevel.RummySeatMgrLog);
+                GameMgr.Inst.Log(user.m_userName + " is ready.", LogLevel.RummySeatMgrLog);
             }
         }
         Debug.Log(seatNumList.Count + " = " + GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer + "  / " + isAllReady);
 
         if (isAllReady && seatNumList.Count == GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
         {
-            GameMgr.Inst.Log("All Users are ready.", enumLogLevel.RoomLog);
+            GameMgr.Inst.Log("All Users are ready.", LogLevel.RoomLog);
 
             Hashtable props = new Hashtable{
                 {PhotonFields.GAME_MESSAGE, (int)enumGameMessage.OnGameStarted_Rummy}
@@ -82,7 +82,7 @@ public class RummySeatMgr : SeatMgr
         totalRemainString = cardListString;
         totalPayString = "";
 
-        GameMgr.Inst.Log("Card Accepted: " + cardListString, enumLogLevel.RummySeatMgrLog);
+        GameMgr.Inst.Log("Card Accepted: " + cardListString, LogLevel.RummySeatMgrLog);
 
         var tmp = cardListString.Split('/');
         for (int i = 0; i < tmp.Length; i++)

@@ -30,17 +30,17 @@ public class RoomMgr : MonoBehaviour
                 GameRoomInfo room = new GameRoomInfo();
 
                 var gameInfo = (string)info.CustomProperties[PhotonFields.RoomInfo];
-                GameMgr.Inst.Log("Created Room: name=" + info.Name + ", Info=" + gameInfo, enumLogLevel.RoomLog);
+                GameMgr.Inst.Log("Created Room: name=" + info.Name + ", Info=" + gameInfo, LogLevel.RoomLog);
                 room.roomInfoString = gameInfo;
                 m_roomList.Add(room);
             }
             catch (Exception err)
             {
-                GameMgr.Inst.Log("Room information isn't correct. Error:= " + err.Message, enumLogLevel.RoomLog);
+                GameMgr.Inst.Log("Room information isn't correct. Error:= " + err.Message, LogLevel.RoomLog);
             }
         }
-        GameMgr.Inst.Log("RoomListUpdate Called. RoomCount = " + roomList.Count, enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("Rooms:=" + string.Join("/", m_roomList.Select(x => x.m_maxPlayer)), enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("RoomListUpdate Called. RoomCount = " + roomList.Count, LogLevel.RoomLog);
+        GameMgr.Inst.Log("Rooms:=" + string.Join("/", m_roomList.Select(x => x.m_maxPlayer)), LogLevel.RoomLog);
     }
 
 
@@ -59,11 +59,11 @@ public class RoomMgr : MonoBehaviour
         {
             m_currentRoom.roomInfoString = m_roomList.Where(x => x.m_gameType == m_gameType && x.m_playerCount < x.m_maxPlayer).First().roomInfoString;
             PhotonNetwork.JoinRoom(m_currentRoom.m_roomName, null);
-            GameMgr.Inst.Log("joined room: " + m_currentRoom.m_roomName, enumLogLevel.RoomLog);
+            GameMgr.Inst.Log("joined room: " + m_currentRoom.m_roomName, LogLevel.RoomLog);
         }
         catch (Exception err)
         {
-            GameMgr.Inst.Log("JoinRoom Failed. So I should create a new room.(Error:" + err.Message + ")", enumLogLevel.RoomLog);
+            GameMgr.Inst.Log("JoinRoom Failed. So I should create a new room.(Error:" + err.Message + ")", LogLevel.RoomLog);
             CreateRoom(m_gameType, m_gameTier);
         }
     }
@@ -102,7 +102,7 @@ public class RoomMgr : MonoBehaviour
         m_currentRoom.roomInfoString = room.roomInfoString;
         PhotonNetwork.CreateRoom(room.m_roomName, options, TypedLobby.Default);
 
-        GameMgr.Inst.Log("room created " + room.m_roomName, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("room created " + room.m_roomName, LogLevel.RoomLog);
 
     }
     public void CreateRoom(enumGameType m_gameType, enumGameTier m_gameTier, string additionalString = "")
@@ -125,7 +125,7 @@ public class RoomMgr : MonoBehaviour
         m_currentRoom.roomInfoString = room.roomInfoString;
         PhotonNetwork.CreateRoom(room.m_roomName, options, TypedLobby.Default);
 
-        GameMgr.Inst.Log("room created " + room.m_roomName, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("room created " + room.m_roomName, LogLevel.RoomLog);
 
     }
 
@@ -248,8 +248,8 @@ public class RoomMgr : MonoBehaviour
         seatInfo.seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
 
         m_currentRoom.m_playerCount--;
-        GameMgr.Inst.Log("Before user left room. pList=" + pList.m_playerInfoListString, enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("Before user left room. seatInfo=" + seatInfo.seatString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("Before user left room. pList=" + pList.m_playerInfoListString, LogLevel.RoomLog);
+        GameMgr.Inst.Log("Before user left room. seatInfo=" + seatInfo.seatString, LogLevel.RoomLog);
         var p = pList.m_playerList.Where(x => x.m_actorNumber == actorNumber).First();
         pList.m_playerList.Remove(p);
         var s = seatInfo.seatList.Where(x => x.m_actorNumber == actorNumber).First();
@@ -264,8 +264,8 @@ public class RoomMgr : MonoBehaviour
         };
         PhotonNetwork.CurrentRoom.SetCustomProperties(turnProps);
 
-        GameMgr.Inst.Log("After user left room. pList=" + pList.m_playerInfoListString, enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("After user left room. seatInfo=" + seatInfo.seatString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("After user left room. pList=" + pList.m_playerInfoListString, LogLevel.RoomLog);
+        GameMgr.Inst.Log("After user left room. seatInfo=" + seatInfo.seatString, LogLevel.RoomLog);
     }
     internal void OnUserEnteredRoom_onlyMaster()
     {
@@ -274,7 +274,7 @@ public class RoomMgr : MonoBehaviour
 
         newPlayer.playerInfoString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.NEW_PLAYER_INFO];
 
-        GameMgr.Inst.Log("New Player Info: " + newPlayer.playerInfoString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("New Player Info: " + newPlayer.playerInfoString, LogLevel.RoomLog);
 
         int actorNumber = newPlayer.m_actorNumber;
 
@@ -285,11 +285,11 @@ public class RoomMgr : MonoBehaviour
         {
             seatInfo.AddOneSeat(actorNumber, 0, newPlayer.m_userName);
             pList.m_playerList.Add(newPlayer);
-            GameMgr.Inst.Log("I successfully created this room.", enumLogLevel.RoomLog);
+            GameMgr.Inst.Log("I successfully created this room.", LogLevel.RoomLog);
         }
         else
         {
-            GameMgr.Inst.Log("On JoinedRoom After", enumLogLevel.RoomLog);
+            GameMgr.Inst.Log("On JoinedRoom After", LogLevel.RoomLog);
 
             seatInfo.seatString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.SEAT_STRING];
             pList.m_playerInfoListString = (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
@@ -318,9 +318,9 @@ public class RoomMgr : MonoBehaviour
 
         seatString = seatInfo.seatString;
         m_currentRoom.m_playerCount = seatInfo.seatList.Count();
-        GameMgr.Inst.Log("current Room String:=" + m_currentRoom.roomInfoString, enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("current Room SeatString:=" + seatString, enumLogLevel.RoomLog);
-        GameMgr.Inst.Log("current Room PlayerListString:=" + pList.m_playerInfoListString, enumLogLevel.RoomLog);
+        GameMgr.Inst.Log("current Room String:=" + m_currentRoom.roomInfoString, LogLevel.RoomLog);
+        GameMgr.Inst.Log("current Room SeatString:=" + seatString, LogLevel.RoomLog);
+        GameMgr.Inst.Log("current Room PlayerListString:=" + pList.m_playerInfoListString, LogLevel.RoomLog);
 
         Hashtable turnProps = new Hashtable
         {

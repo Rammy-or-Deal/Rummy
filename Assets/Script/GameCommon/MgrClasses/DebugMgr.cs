@@ -6,10 +6,10 @@ using UnityEngine;
 public class DebugMgr : MonoBehaviour
 {
     // Start is called before the first frame update
-    List<enumLogLevel> avail_logs;
+    List<LogLevel> avail_logs;
 
     private void Awake() {
-        avail_logs = new List<enumLogLevel>();
+        avail_logs = new List<LogLevel>();
 
         if (constantContainer.buildMethod == enumBuildMethod.Development_Debug || constantContainer.buildMethod == enumBuildMethod.Product_Debug)
         {
@@ -21,11 +21,11 @@ public class DebugMgr : MonoBehaviour
             // avail_logs.Add(enumLogLevel.RummyCardMgrLog);
             //avail_logs.Add(enumLogLevel.BaccaratLogicLog);            
             //avail_logs.Add(enumLogLevel.FortuneLuckyLog);
-           avail_logs.Add(enumLogLevel.BaccaratDistributeCardLog);
+           avail_logs.Add(LogLevel.BaccaratDistributeCardLog);
         }
     }
     
-    public void Log(string log, enumLogLevel level = enumLogLevel.initLog)
+    public void Log(string log, LogLevel level = LogLevel.initLog)
     {
         enumGameType gameType = GameMgr.Inst.m_gameType;
         if (!avail_logs.Contains(level)) return;

@@ -28,7 +28,7 @@ public enum BaccaratShowingCard_NowTurn
     Banker2 = 3, 
     Player3 = 4, 
     Banker3 = 5,
-    Player = 6,
+    Top = 6,
     Banker = 7,
     Player_additional = 8,
     Banker_additional = 9

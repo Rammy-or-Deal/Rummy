@@ -20,7 +20,7 @@ public class MeMgr : MonoBehaviour
 
     public virtual void PublishMe()
     {
-        GameMgr.Inst.Log("Publish me called.", enumLogLevel.MeLog);
+        GameMgr.Inst.Log("Publish me called.", LogLevel.MeLog);
         GameMgr.Inst.m_playerStatus = enumPlayerStatus.Init;
         int status = (int)GameMgr.Inst.m_playerStatus;
 
@@ -37,7 +37,7 @@ public class MeMgr : MonoBehaviour
             };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-        GameMgr.Inst.Log("Tell I am entered. " + infoString, enumLogLevel.MeLog);
+        GameMgr.Inst.Log("Tell I am entered. " + infoString, LogLevel.MeLog);
         GameMgr.Inst.Log("This room info :=" + (string)PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.RoomInfo]);
     }
 

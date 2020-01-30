@@ -100,10 +100,10 @@ public class FortunePlayerMgr : SeatMgr
 
         List<List<Card>> cardList = generateRandomCards(false);
 
-        GameMgr.Inst.Log("Generated Card", enumLogLevel.FortuneLuckyLog);
+        GameMgr.Inst.Log("Generated Card", LogLevel.FortuneLuckyLog);
         for (int i = 0; i < cardList.Count; i++)
         {
-            GameMgr.Inst.Log(i + " - " + string.Join(",", cardList[i].Select(x => x.cardString)), enumLogLevel.FortuneLuckyLog);
+            GameMgr.Inst.Log(i + " - " + string.Join(",", cardList[i].Select(x => x.cardString)), LogLevel.FortuneLuckyLog);
         }
 
         //var seatList = PlayerManagement.Inst.getSeatList();
@@ -268,7 +268,7 @@ public class FortunePlayerMgr : SeatMgr
             isAllChecked = true;
             StopCoroutine(m_checkingTimer);            
             //CheckBadArrangedPlayer();
-            GameMgr.Inst.Log("Call to open card because all players are checekd", enumLogLevel.FortuneLuckyLog);
+            GameMgr.Inst.Log("Call to open card because all players are checekd", LogLevel.FortuneLuckyLog);
             SendPlayersCardToAll(2);
         }
     }

@@ -38,14 +38,14 @@ public class LamiPlayerMgr : SeatMgr
 
         if (!PhotonNetwork.IsMasterClient) return;
 
-        GameMgr.Inst.Log("Check if all players are ready.", enumLogLevel.RummySeatMgrLog);
+        GameMgr.Inst.Log("Check if all players are ready.", LogLevel.RummySeatMgrLog);
         // Update User Seat
 
         var userListString = (string) PhotonNetwork.CurrentRoom.CustomProperties[PhotonFields.PLAYER_LIST_STRING];
         PlayerInfoContainer pList = new PlayerInfoContainer(userListString);
 
         GameMgr.Inst.Log("userListString = " + userListString + ",  seatNumList=" + string.Join(",", seatNumList),
-            enumLogLevel.RummySeatMgrLog);
+            LogLevel.RummySeatMgrLog);
 
         bool isAllReady = true;
         foreach (var seat in seatNumList)
@@ -53,20 +53,20 @@ public class LamiPlayerMgr : SeatMgr
             var user = pList.m_playerList.Where(x => x.m_actorNumber == seat.Key).First();
             if (user.m_status != enumPlayerStatus.Rummy_Ready)
             {
-                GameMgr.Inst.Log(user.m_userName + " isn't ready.", enumLogLevel.RummySeatMgrLog);
+                GameMgr.Inst.Log(user.m_userName + " isn't ready.", LogLevel.RummySeatMgrLog);
                 isAllReady = false;
                 break;
             }
             else
             {
-                GameMgr.Inst.Log(user.m_userName + " is ready.", enumLogLevel.RummySeatMgrLog);
+                GameMgr.Inst.Log(user.m_userName + " is ready.", LogLevel.RummySeatMgrLog);
             }
         }
 
 
         if (isAllReady && seatNumList.Count == GameMgr.Inst.roomMgr.m_currentRoom.m_maxPlayer)
         {
-            GameMgr.Inst.Log("All Users are ready.", enumLogLevel.RoomLog);
+            GameMgr.Inst.Log("All Users are ready.", LogLevel.RoomLog);
 
 
             foreach (var p in pList.m_playerList)
@@ -558,7 +558,7 @@ public class LamiPlayerMgr : SeatMgr
         {
             LamiGameBot bot = new LamiGameBot();
             var p = pList.m_playerList.Where(x => x.m_actorNumber == player.m_playerInfo.m_actorNumber).First();
-            GameMgr.Inst.Log("bot info:=" + p.playerInfoString, enumLogLevel.BotLog);
+            GameMgr.Inst.Log("bot info:=" + p.playerInfoString, LogLevel.BotLog);
             bot.SetBotInfo(p.playerInfoString);
 
             m_botList.Add(bot);

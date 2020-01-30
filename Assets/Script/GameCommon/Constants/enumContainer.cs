@@ -44,7 +44,7 @@ public enum enumGameTier
 #endregion
 
 #region enum variables for Debug
-public enum enumLogLevel
+public enum LogLevel
 {
     initLog,
     MeLog,

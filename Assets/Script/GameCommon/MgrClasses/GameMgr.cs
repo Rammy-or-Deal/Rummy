@@ -69,7 +69,7 @@ public class GameMgr : MonoBehaviour
         m_gameStatus = enumGameStatus.InLobby;
         m_playerStatus = enumPlayerStatus.Init;
     }
-    public void Log(string logMessage, enumLogLevel level = enumLogLevel.initLog)
+    public void Log(string logMessage, LogLevel level = LogLevel.initLog)
     {
         debugMgr.Log(logMessage, level);
     }

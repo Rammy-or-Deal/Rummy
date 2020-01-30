@@ -40,7 +40,7 @@ public class BaccaratPlayerMgr : SeatMgr
         int areaId = int.Parse(betString.Split(':')[1]);
 
         GameMgr.Inst.Log(string.Format("Player bet - actorNumber={0}, money={1}, area={2}", actorNumber, BaccaratBankerMgr.Inst.getCoinValue(moneyId), areaId),
-                         enumLogLevel.BaccaratLogicLog);
+                         LogLevel.BaccaratLogicLog);
 
         if (PhotonNetwork.IsMasterClient)
         {

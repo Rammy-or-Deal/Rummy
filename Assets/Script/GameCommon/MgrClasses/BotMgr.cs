@@ -74,7 +74,7 @@ public class BotMgr : MonoBehaviour
     public IEnumerator PublishBotReady(PlayerInfo info)
     {
         yield return new WaitForSeconds(Random.Range(constantContainer.Rummy_BotReadyTime_min, constantContainer.Rummy_BotReadyTime_max));
-        GameMgr.Inst.Log("Bot Ready", enumLogLevel.BotLog);
+        GameMgr.Inst.Log("Bot Ready", LogLevel.BotLog);
         PublishIamReady(info);
     }
     public static void PublishIamReady(PlayerInfo info)
@@ -98,7 +98,7 @@ public class BotMgr : MonoBehaviour
         }
         catch (Exception err)
         {
-            GameMgr.Inst.Log("Game Player List infomation isn't correct. Error= " + err.Message, enumLogLevel.BotLog);
+            GameMgr.Inst.Log("Game Player List infomation isn't correct. Error= " + err.Message, LogLevel.BotLog);
         }
     }
 
