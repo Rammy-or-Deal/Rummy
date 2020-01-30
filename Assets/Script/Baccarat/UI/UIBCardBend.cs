@@ -20,7 +20,8 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
 
     public GameObject camera;
     public Transform bigCamPos;
-    public Vector3 originCamPos;
+    
+    Vector3 _originCamPos;
     private bool isController;
     
     [HideInInspector]
@@ -30,7 +31,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     {
     
         photonView = GetComponent<PhotonView>();
-        originCamPos = camera.transform.position;
+        _originCamPos = camera.transform.position;
     }
     
     void Update () {
@@ -120,7 +121,6 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         flippedCnt++;
         if (flippedCnt == 2)
         {
-            photonView.RPC("ShowSmallCard", RpcTarget.All,true);
             StartCoroutine(HideBigCard());
         }
     }
@@ -128,9 +128,10 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     IEnumerator HideBigCard()
     {
         yield return new WaitForSeconds(0.8f);
-        iTween.MoveTo(camera, originCamPos, 0.8f);
+        iTween.MoveTo(camera, _originCamPos, 0.8f);
         yield return new WaitForSeconds(0.8f);
-//        ShowBigCard(false);
+//        photonView.RPC("ShowSmallCard", RpcTarget.All,true);  //this will be run automatically
+//        ShowBigCard(false);  //this will be run automatically 
     }
 
     public void ShowBigCard(bool isBigShow)
@@ -148,7 +149,6 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             camera.transform.localPosition=new Vector3(0,0,0);
             transform.position = new Vector3(0,0,0);
             TouchEnd();
-            ShowSmallCard(true);
         }
     }
 
@@ -180,11 +180,18 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         ShowSmallCard(false);
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-1);
         ShowBigCard(false);
+        yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
+        ShowSmallCard(true);
     }
 
     [PunRPC]
     void ShowSmallCard(bool isFlag)
     {
+        if (originCards == null)
+        {
+            Debug.LogError("no originCards");
+            return;
+        }
         originCards[0].gameObject.SetActive(isFlag);
         originCards[1].gameObject.SetActive(isFlag);        
     }
