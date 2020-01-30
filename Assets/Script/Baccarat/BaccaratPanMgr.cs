@@ -213,29 +213,29 @@ public class BaccaratPanMgr : MonoBehaviour
 
     IEnumerator CardSqueezing()
     {
-        var maxBettingPlayer =
-            (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
-        DoCardSqueezing(maxBettingPlayer, teamCards[0].CardList[0],
-            teamCards[0].CardList[1], 0);
-
-        var maxBettingBanker =
-            (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
-        DoCardSqueezing(maxBettingBanker, teamCards[1].CardList[0],
-            teamCards[1].CardList[1], 1);
+        int[] maxBetter=new int[2];
+        maxBetter[0] =(int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
+        maxBetter[1] =(int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
+        for (int i = 0; i < 2; i++)
+        {
+            DoCardSqueezing(maxBetter[i], teamCards[i].CardList[0],teamCards[i].CardList[1], i);    
+        }
         
         yield return new WaitForSeconds(Constants.BSqueezeWaitTime);
         cardPanel.UpdateCardImages();
         yield return new WaitForSeconds(Constants.BTweenTime);
         cardPanel.TweenOriginalPos();
-
+        yield return new WaitForSeconds(Constants.BTweenTime);
         if (playerCard.CardList.Count > 2 || bankerCard.CardList.Count > 2) //additional cards
         {
-            if (playerCard.CardList.Count > 2)
-                DoCardSqueezing(maxBettingPlayer, playerCard.CardList[2],
-                    playerCard.CardList[1], 0,0);
-            if (bankerCard.CardList.Count > 2)
-                DoCardSqueezing(maxBettingBanker, bankerCard.CardList[2],
-                    bankerCard.CardList[1], 1,0);
+            for (int i = 0; i < 2; i++)
+            {
+                if (teamCards[i].CardList.Count > 2)
+                {
+                    cardPanel.cards[i][2].Init();
+                    DoCardSqueezing(maxBetter[i], teamCards[i].CardList[2],teamCards[i].CardList[1], i,0);    
+                }
+            }
             
             yield return new WaitForSeconds(Constants.B3rdWaitTime);
             for (int i = 0; i < 2; i++)

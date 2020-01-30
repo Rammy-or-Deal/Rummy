@@ -15,7 +15,7 @@ public class SeatMgr : MonoBehaviour
         UserSeat seat;
         try
         {
-            seat= m_playerList.First(x => x.m_playerInfo.m_actorNumber == actorNum);
+            seat= m_playerList.First(x => x.isSeat && x.m_playerInfo.m_actorNumber == actorNum);
         }
         catch (Exception e)
         {

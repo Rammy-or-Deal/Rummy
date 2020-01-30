@@ -39,9 +39,9 @@ public class UIBBetPanel : MonoBehaviour
         coinObj.transform.SetParent(panels[areaId]);
         coinObj.sprite = Resources.Load<Sprite>("baccarat/" + coinSpriteNames[moneyId]);
         coinObj.name = "coin" + coinCnt;
-        coinObj.gameObject.SetActive(true);
         Vector3 pos = RandomPos(panels[areaId].gameObject, diff);
         iTween.MoveTo(coinObj.gameObject, iTween.Hash("position", pos, "islocal", true, "time", 0.5));
+        coinObj.gameObject.SetActive(true);
     }
 
     public Vector3 RandomPos(GameObject obj, int diff)
