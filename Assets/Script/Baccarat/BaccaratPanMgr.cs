@@ -41,6 +41,8 @@ public class BaccaratPanMgr : MonoBehaviour
 
     public TeamCard bankerCard = new TeamCard();
     public TeamCard playerCard = new TeamCard();
+
+    public UIBCardBend[] bend;
     void Start()
     {
         if (!Inst)
@@ -298,18 +300,18 @@ public class BaccaratPanMgr : MonoBehaviour
         if (isBanker)
         {
             var max_betting_banker = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
-            AddAnimationForDistributedCard(cardPanel.rightCards ,max_betting_banker, bankerCard.CardList[0], bankerCard.CardList[1]);
+            AddAnimationForDistributedCard(cardPanel.rightCards ,max_betting_banker, bankerCard.CardList[0], bankerCard.CardList[1],isBanker);
         }
         else
         {
             var max_betting_player = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
-            AddAnimationForDistributedCard(cardPanel.leftCards, max_betting_player, playerCard.CardList[0], playerCard.CardList[1]);
+            AddAnimationForDistributedCard(cardPanel.leftCards, max_betting_player, playerCard.CardList[0], playerCard.CardList[1],isBanker);
         }
     }
 
     UIBCard[] originCards;
     
-    private void AddAnimationForDistributedCard(UIBCard[] orgCards, int max_better, BaccaratCard card1, BaccaratCard card2)
+    private void AddAnimationForDistributedCard(UIBCard[] orgCards, int max_better, BaccaratCard card1, BaccaratCard card2,bool isBanker)
     {
         BaccaratUserSeat player = null;
         if (BaccaratPlayerMgr.Inst.m_playerList.Count(x => x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better) > 0)
@@ -323,7 +325,10 @@ public class BaccaratPanMgr : MonoBehaviour
             bool isController = (max_better == PhotonNetwork.LocalPlayer.ActorNumber);
             LogMgr.Inst.LogD("localPlayer actorNumber:"+PhotonNetwork.LocalPlayer.ActorNumber,LogLevels.Baccarat_Card);
             originCards = orgCards;
-            UIBCardBend.Inst.ShowBigCard(player.cardPos, card1, card2,isController);
+            int bendId = 0;
+            if (isBanker)
+                bendId = 1;
+            bend[bendId].ShowBigCard(player.cardPos, card1, card2,isController);
         }
         else
         {

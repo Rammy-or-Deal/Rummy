@@ -17,7 +17,6 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     public bool isClicked;
     private float damping = 10;
     private int flippedCnt = 0;
-    public static UIBCardBend Inst;
 
     public GameObject camera;
     public Transform bigCamPos;
@@ -29,7 +28,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
    
     void Start()
     {
-        Inst = this;
+    
         photonView = GetComponent<PhotonView>();
         originCamPos = camera.transform.position;
     }

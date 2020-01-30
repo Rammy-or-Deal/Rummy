@@ -50,12 +50,6 @@ public class BaccaratBankerMgr : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     internal void OnEndPan()
     {
         bankerCard.CardList.Clear();
