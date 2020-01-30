@@ -215,13 +215,13 @@ public class BaccaratPanMgr : MonoBehaviour
     {
         var maxBettingPlayer =
             (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
-        DoCardSqueezing(maxBettingPlayer, playerCard.CardList[0],
-            playerCard.CardList[1], 0);
+        DoCardSqueezing(maxBettingPlayer, teamCards[0].CardList[0],
+            teamCards[0].CardList[1], 0);
 
         var maxBettingBanker =
             (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
-        DoCardSqueezing(maxBettingBanker, bankerCard.CardList[0],
-            bankerCard.CardList[1], 1);
+        DoCardSqueezing(maxBettingBanker, teamCards[1].CardList[0],
+            teamCards[1].CardList[1], 1);
         
         yield return new WaitForSeconds(Constants.BSqueezeWaitTime);
         cardPanel.UpdateCardImages();

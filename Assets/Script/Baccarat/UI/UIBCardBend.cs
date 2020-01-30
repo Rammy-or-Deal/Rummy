@@ -178,9 +178,9 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         }
         ShowSmallCard(false);
         if (isFirst==1)
-            yield return new WaitForSeconds(Constants.BSqueezeWaitTime-Constants.BTweenTime*2);
+            yield return new WaitForSeconds(Constants.BSqueezeWaitTime-Constants.BTweenTime);
         else
-            yield return new WaitForSeconds(Constants.B3rdWaitTime-Constants.BTweenTime*2);
+            yield return new WaitForSeconds(Constants.B3rdWaitTime-Constants.BTweenTime);
         if (isController)
         {
             BaccaratUIController.Inst.bendCardBlankBtn.SetActive(false);
@@ -188,7 +188,6 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         }
         transform.position = new Vector3(0,0,0);
         TouchEnd();
-        ShowSmallCard(true);
     }
 
     [PunRPC]

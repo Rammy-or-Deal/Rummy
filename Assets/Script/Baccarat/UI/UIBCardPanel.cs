@@ -16,13 +16,13 @@ public class UIBCardPanel : MonoBehaviour
     {
         cardOrgPos = new Vector3[2][];
         cards = new UIBCard[2][];
-        cards[0] = new UIBCard[3];
-        cards[1] = new UIBCard[3];
-        for (int j = 0; j < 3; j++)
-        {
-            cards[0][j] = leftCards[j];
-            cards[1][j] = rightCards[j];
-        }
+        cards[0] = leftCards;
+        cards[1] = rightCards;
+//        for (int j = 0; j < 3; j++)
+//        {
+//            cards[0][j] = leftCards[j];
+//            cards[1][j] = rightCards[j];
+//        }
 
         StartCoroutine(SetOriPos());
     }
@@ -58,7 +58,7 @@ public class UIBCardPanel : MonoBehaviour
 
     public void TweenOriginalPos()
     {
-//        GameMgr.Inst.Log("TweenOriginalPos=" + cards[0][0].transform.position+":"+cardOrgPos[0][0], LogLevel.BaccaratDistributeCardLog);
+        GameMgr.Inst.Log("TweenOriginalPos=" + cards[0][0].transform.position+":"+cardOrgPos[0][0], LogLevel.BaccaratDistributeCardLog);
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 2; j++)
