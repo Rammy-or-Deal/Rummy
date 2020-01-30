@@ -42,12 +42,17 @@ public class BaccaratPanMgr : MonoBehaviour
     public TeamCard bankerCard = new TeamCard();
     public TeamCard playerCard = new TeamCard();
 
+    public TeamCard[] teamCards;
+    
+
     public UIBCardBend[] bend;
 
     void Start()
     {
         if (!Inst)
             Inst = this;
+        teamCards=new TeamCard[2];
+        
         if (PhotonNetwork.IsMasterClient)
         {
             StartNewPan();
@@ -197,6 +202,9 @@ public class BaccaratPanMgr : MonoBehaviour
             (string) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_BANKER];
         playerCard.cardString =
             (string) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
+        teamCards[0] = playerCard;
+        teamCards[1] = bankerCard;
+        cardPanel.UpdateCardImages();
         GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, LogLevel.BaccaratDistributeCardLog);
         GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, LogLevel.BaccaratDistributeCardLog);
         
@@ -215,32 +223,32 @@ public class BaccaratPanMgr : MonoBehaviour
         DoCardSqueezing(maxBettingBanker, bankerCard.CardList[0],
             bankerCard.CardList[1], 1);
         
-        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
-        
-        ShowingCatchedCard(BaccaratShowingCard_NowTurn.Top);
+        yield return new WaitForSeconds(Constants.BSqueezeWaitTime);
+        cardPanel.TweenOriginalPos();
 
         if (playerCard.CardList.Count > 2 || bankerCard.CardList.Count > 2) //additional cards
         {
             if (playerCard.CardList.Count > 2)
-                DoCardSqueezing(maxBettingPlayer, playerCard.CardList[0],
-                    playerCard.CardList[1], 0);
+                DoCardSqueezing(maxBettingPlayer, playerCard.CardList[2],
+                    playerCard.CardList[1], 0,0);
             if (bankerCard.CardList.Count > 2)
-                ShowingCatchedCard(BaccaratShowingCard_NowTurn.Banker_additional);
+                DoCardSqueezing(maxBettingBanker, bankerCard.CardList[2],
+                    bankerCard.CardList[1], 1,0);
             
             yield return new WaitForSeconds(Constants.B3rdWaitTime);
 
-            if (playerCard.CardList.Count > 2)
-                ShowingCatchedCard(BaccaratShowingCard_NowTurn.Player_additional);
-            if (bankerCard.CardList.Count > 2)
-                ShowingCatchedCard(BaccaratShowingCard_NowTurn.Banker_additional);
-            
+            for (int i = 0; i < 2; i++)
+            {
+                if (teamCards[i].CardList.Count>2)
+                    cardPanel.TweenOriginalPos(i);    
+            }
             yield return new WaitForSeconds(Constants.B3rdWaitTime);
         }
         BaccaratBankerMgr.Inst.CalcResult(); //finished one game
     }
     
     private void DoCardSqueezing(int maxBetter, BaccaratCard card1,
-        BaccaratCard card2, int bendId,bool isExtra=false)
+        BaccaratCard card2, int bendId,int isFirst=1)
     {
         LogMgr.Inst.LogD("max_better:" + maxBetter, LogLevels.Baccarat_Card);
         if (maxBetter == -1)
@@ -249,7 +257,7 @@ public class BaccaratPanMgr : MonoBehaviour
         
         if (player != null)
         {
-            if (isExtra)
+            if (isFirst!=1)  //extra
                 iTween.MoveTo(cardPanel.cards[bendId][2].gameObject, player.cardPos[0].parent.position, Constants.BTweenTime);
             else
             {
@@ -259,37 +267,8 @@ public class BaccaratPanMgr : MonoBehaviour
                 }    
             }
             
-            
             bool isController = (maxBetter == PhotonNetwork.LocalPlayer.ActorNumber);
-            bend[bendId].ShowBigCard(player.cardPos, card1, card2, isController,cardPanel.cards[bendId]);
-        }
-    }
-
-    
-    private void ShowingCatchedCard(BaccaratShowingCard_NowTurn nowTurn)
-    {
-        if (playerCard.CardList.Count == 0) return;
-        if (bankerCard.CardList.Count == 0) return;
-
-        switch (nowTurn)
-        {
-            case BaccaratShowingCard_NowTurn.Top:
-                cardPanel.leftCards[0].ShowImage(playerCard.CardList[0].num, playerCard.CardList[0].color);
-                cardPanel.leftCards[1].ShowImage(playerCard.CardList[1].num, playerCard.CardList[1].color);
-                
-                cardPanel.rightCards[0].ShowImage(bankerCard.CardList[0].num, bankerCard.CardList[0].color);
-                cardPanel.rightCards[1].ShowImage(bankerCard.CardList[1].num, bankerCard.CardList[1].color);
-                
-                cardPanel.TweenOriginalPos();
-                break;
-            case BaccaratShowingCard_NowTurn.Player_additional:
-                if (playerCard.CardList.Count > 2)
-                    cardPanel.leftCards[2].ShowImage(playerCard.CardList[2].num, playerCard.CardList[2].color);
-                break;
-            case BaccaratShowingCard_NowTurn.Banker_additional:
-                if (bankerCard.CardList.Count > 2)
-                    cardPanel.rightCards[2].ShowImage(bankerCard.CardList[2].num, bankerCard.CardList[2].color);
-                break;
+            bend[bendId].ShowBigCard(player.cardPos, card1, card2, isController,cardPanel.cards[bendId],isFirst);
         }
     }
 
