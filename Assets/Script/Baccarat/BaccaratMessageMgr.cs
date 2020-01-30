@@ -55,12 +55,12 @@ public class BaccaratMessageMgr : MessageMgr
                 BaccaratPanMgr.Inst.OnCatchedCardDistributed();
                 break;
                 
-            case enumGameMessage.Baccarat_OnPlayerCardDistribute:
-                BaccaratPanMgr.Inst.Baccarat_OnCardDistribute(false);
-                break;
-            case enumGameMessage.Baccarat_OnBankerCardDistribute:
-                BaccaratPanMgr.Inst.Baccarat_OnCardDistribute(true);
-                break;
+//            case enumGameMessage.Baccarat_OnPlayerCardDistribute:
+//                BaccaratPanMgr.Inst.Baccarat_OnCardDistribute(false);
+//                break;
+//            case enumGameMessage.Baccarat_OnBankerCardDistribute:
+//                BaccaratPanMgr.Inst.Baccarat_OnCardDistribute(true);
+//                break;
             case enumGameMessage.BaccaratAdditionalCardDistribute:
                 BaccaratPanMgr.Inst.BaccaratAdditionalCardDistribute();
                 break;

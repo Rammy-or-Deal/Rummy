@@ -223,9 +223,39 @@ public class BaccaratPanMgr : MonoBehaviour
         playerCard.cardString = (string)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
         GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
         GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
-
-        if (!PhotonNetwork.IsMasterClient) return;
-        SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnPlayerCardDistribute);
+        
+        Baccarat_OnCardDistribute(false);
+        StartCoroutine(sendBankerCard());
+        Baccarat_OnCardDistribute(true);
+//        if (!PhotonNetwork.IsMasterClient) return;
+//        SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnPlayerCardDistribute);
+    }
+    
+    internal void Baccarat_OnCardDistribute(bool v)
+    {
+//        if (v == true)
+//            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
+        MoveDistributedCardToPlayer(v);
+//        if (!PhotonNetwork.IsMasterClient) return;
+//        if (v == false)
+//            StartCoroutine(sendBankerCard());
+//        if (v == true)
+//            StartCoroutine(sendAdditionalCard());
+        // LogMgr.Inst.Log("Card Distributed. banker:=" + bankerCard.cardString + ",  player:=" + playerCard.cardString, (int)LogLevels.PlayerLog1);
+        //ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player));
+    }
+    
+    IEnumerator sendAdditionalCard()
+    {
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        SendPlayersToDistributeCard((int)enumGameMessage.BaccaratAdditionalCardDistribute);
+    }
+    IEnumerator sendBankerCard()
+    {
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
+        SendPlayersToDistributeCard((int)enumGameMessage.BaccaratAdditionalCardDistribute);
+//        SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnBankerCardDistribute);
     }
 
     private void SendPlayersToDistributeCard(int msg)
@@ -266,35 +296,7 @@ public class BaccaratPanMgr : MonoBehaviour
         }
         BaccaratBankerMgr.Inst.CalcResult();
     }
-    internal void Baccarat_OnCardDistribute(bool v)
-    {
-        if (v == true)
-            ShowingCatchedCard((int)BaccaratShowingCard_NowTurn.Player);
-
-        MoveDistributedCardToPlayer(v);
-
-        if (!PhotonNetwork.IsMasterClient) return;
-        if (v == false)
-            StartCoroutine(sendBankerCard());
-
-        if (v == true)
-            StartCoroutine(sendAdditionalCard());
-
-        // LogMgr.Inst.Log("Card Distributed. banker:=" + bankerCard.cardString + ",  player:=" + playerCard.cardString, (int)LogLevels.PlayerLog1);
-
-        //ShowingCardRoutine = StartCoroutine(ShowingCard((int)BaccaratShowingCard_NowTurn.Player));
-    }
-    IEnumerator sendAdditionalCard()
-    {
-        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
-        SendPlayersToDistributeCard((int)enumGameMessage.BaccaratAdditionalCardDistribute);
-    }
-    IEnumerator sendBankerCard()
-    {
-        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
-        SendPlayersToDistributeCard((int)enumGameMessage.Baccarat_OnBankerCardDistribute);
-    }
-
+    
     private void MoveDistributedCardToPlayer(bool isBanker)
     {
         if (isBanker)
