@@ -21,7 +21,7 @@ public class DebugMgr : MonoBehaviour
             // avail_logs.Add(enumLogLevel.RummyCardMgrLog);
             //avail_logs.Add(enumLogLevel.BaccaratLogicLog);            
             //avail_logs.Add(enumLogLevel.FortuneLuckyLog);
-           // avail_logs.Add(enumLogLevel.BaccaratDistributeCardLog);
+           avail_logs.Add(enumLogLevel.BaccaratDistributeCardLog);
         }
     }
     
