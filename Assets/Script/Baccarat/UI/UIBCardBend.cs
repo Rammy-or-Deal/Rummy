@@ -134,10 +134,13 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     }
 
     private int isFirst;
+    
     public void ShowBigCard(Transform[] destination_cardPos, BaccaratCard card1, BaccaratCard card2,bool isController,UIBCard[] orgCards,int isFirst)
     {
         originCards = orgCards;
         this.isFirst = isFirst;
+        
+        
         this.isController = isController;
         if (isController && !photonView.IsMine) {
             photonView.RequestOwnership();
@@ -198,7 +201,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         }
 
         if (isFirst == 1)
-        {
+        {    
             originCards[0].gameObject.SetActive(isFlag);
             originCards[1].gameObject.SetActive(isFlag);    
         }
@@ -206,7 +209,6 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
         {
             originCards[2].gameObject.SetActive(isFlag);
         }
-                
     }
     
     [PunRPC]

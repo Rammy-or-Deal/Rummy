@@ -73,15 +73,21 @@ public class UIBCardPanel : MonoBehaviour
         iTween.MoveTo(cards[id][2].gameObject, cardOrgPos[id][2], Constants.BTweenTime);
     }
 
-    public void UpdateCardImages()
+    public void UpdateCardImages(int len = 2)
     {
         for (int i = 0; i < 2; i++)
         {
-            for (int j = 0; j < BaccaratPanMgr.Inst.teamCards[i].CardList.Count; j++)
+            for (int j = 0; j < len; j++)
             {
                 BaccaratCard card = BaccaratPanMgr.Inst.teamCards[i].CardList[j];
                 cards[i][j].ShowImage(card.num, card.color);
             }
         }
+    }
+
+    public void Update3CardImage(int id)
+    {
+        BaccaratCard card = BaccaratPanMgr.Inst.teamCards[id].CardList[2];
+        cards[id][2].ShowImage(card.num, card.color);
     }
 }

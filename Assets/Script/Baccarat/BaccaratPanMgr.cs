@@ -204,7 +204,7 @@ public class BaccaratPanMgr : MonoBehaviour
             (string) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
         teamCards[0] = playerCard;
         teamCards[1] = bankerCard;
-        cardPanel.UpdateCardImages();
+
         GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, LogLevel.BaccaratDistributeCardLog);
         GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, LogLevel.BaccaratDistributeCardLog);
         
@@ -224,6 +224,8 @@ public class BaccaratPanMgr : MonoBehaviour
             bankerCard.CardList[1], 1);
         
         yield return new WaitForSeconds(Constants.BSqueezeWaitTime);
+        cardPanel.UpdateCardImages();
+        yield return new WaitForSeconds(Constants.BTweenTime);
         cardPanel.TweenOriginalPos();
 
         if (playerCard.CardList.Count > 2 || bankerCard.CardList.Count > 2) //additional cards
@@ -236,7 +238,13 @@ public class BaccaratPanMgr : MonoBehaviour
                     bankerCard.CardList[1], 1,0);
             
             yield return new WaitForSeconds(Constants.B3rdWaitTime);
-
+            for (int i = 0; i < 2; i++)
+            {
+                if (teamCards[i].CardList.Count>2)
+                    cardPanel.Update3CardImage(i);        
+            }
+            
+            yield return new WaitForSeconds(Constants.BTweenTime);
             for (int i = 0; i < 2; i++)
             {
                 if (teamCards[i].CardList.Count>2)
