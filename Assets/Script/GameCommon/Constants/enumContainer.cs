@@ -122,9 +122,9 @@ public enum enumGameMessage
     Fortune_DoubleDownRequest,
     Fortune_Lucky,
     Fortune_OnShowLuckResult,
-    Baccarat_OnPlayerCardDistribute,
-    Baccarat_OnBankerCardDistribute,
-    BaccaratAdditionalCardDistribute,
+//    Baccarat_OnPlayerCardDistribute,
+//    Baccarat_OnBankerCardDistribute,
+//    BaccaratAdditionalCardDistribute,
     #endregion
 
     #region Baccarat Game Messages
