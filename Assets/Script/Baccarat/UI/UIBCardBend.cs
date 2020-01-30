@@ -152,7 +152,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
     
     IEnumerator ShowCard(Transform[] destination_cardPos)
     {
-        yield return new WaitForSeconds(Constants.BaccaratDistributionTime);
+        yield return new WaitForSeconds(Constants.BTweenTime);
         transform.position = destination_cardPos[0].transform.position;
         FlipOn();
         if (isController)
@@ -162,7 +162,7 @@ public class UIBCardBend : MonoBehaviour,IPunOwnershipCallbacks
             iTween.MoveTo(camera, bigCamPos.position, 0.5f);
         }
         ShowSmallCard(false);
-        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-1);
+        yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime-Constants.BTweenTime*2);
         if (isController)
         {
             BaccaratUIController.Inst.bendCardBlankBtn.SetActive(false);

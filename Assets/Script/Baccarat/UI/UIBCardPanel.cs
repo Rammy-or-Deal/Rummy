@@ -61,7 +61,7 @@ public class UIBCardPanel : MonoBehaviour
         {
             for (int j = 0; j < 2; j++)
             {
-                iTween.MoveTo(cards[i][j].gameObject, cardOrgPos[i][j], Constants.BaccaratDistributionTime);
+                iTween.MoveTo(cards[i][j].gameObject, cardOrgPos[i][j], Constants.BTweenTime);
             }
         }
     }

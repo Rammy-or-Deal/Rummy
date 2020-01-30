@@ -98,8 +98,9 @@ public static class Constants
     
 
     public static float BaccaratShowingCard_waitTime = 10;
+    public static float B3rdWaitTime = 5;
 
-    public static float BaccaratDistributionTime = 1.0f;
+    public static float BTweenTime = 1.0f;
 
     public static int FortuneWaitTimeForPlay = 90;
 
@@ -113,3 +114,6 @@ public static class Constants
 
     public static readonly string[] EmojiAnimations = { "cow_cry","cow_pray","cow_taunt","cow_winking","fox_0","fox_angry","fox_happy","fox_sad"};
 }
+
+
+

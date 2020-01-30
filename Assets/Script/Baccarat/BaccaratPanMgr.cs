@@ -207,13 +207,13 @@ public class BaccaratPanMgr : MonoBehaviour
     {
         var maxBettingPlayer =
             (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
-        AddAnimationForDistributedCard(cardPanel.leftCards, maxBettingPlayer, playerCard.CardList[0],
-            playerCard.CardList[1], false);
+        DoCardSqueezing(maxBettingPlayer, playerCard.CardList[0],
+            playerCard.CardList[1], 0);
 
         var maxBettingBanker =
             (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
-        AddAnimationForDistributedCard(cardPanel.rightCards, maxBettingBanker, bankerCard.CardList[0],
-            bankerCard.CardList[1], true);
+        DoCardSqueezing(maxBettingBanker, bankerCard.CardList[0],
+            bankerCard.CardList[1], 1);
         
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
         
@@ -221,20 +221,26 @@ public class BaccaratPanMgr : MonoBehaviour
 
         if (playerCard.CardList.Count > 2 || bankerCard.CardList.Count > 2) //additional cards
         {
-            yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
+            if (playerCard.CardList.Count > 2)
+                DoCardSqueezing(maxBettingPlayer, playerCard.CardList[0],
+                    playerCard.CardList[1], 0);
+            if (bankerCard.CardList.Count > 2)
+                ShowingCatchedCard(BaccaratShowingCard_NowTurn.Banker_additional);
+            
+            yield return new WaitForSeconds(Constants.B3rdWaitTime);
 
             if (playerCard.CardList.Count > 2)
                 ShowingCatchedCard(BaccaratShowingCard_NowTurn.Player_additional);
             if (bankerCard.CardList.Count > 2)
                 ShowingCatchedCard(BaccaratShowingCard_NowTurn.Banker_additional);
             
-            yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime / 2);
+            yield return new WaitForSeconds(Constants.B3rdWaitTime);
         }
         BaccaratBankerMgr.Inst.CalcResult(); //finished one game
     }
     
-    private void AddAnimationForDistributedCard(UIBCard[] orgCards, int maxBetter, BaccaratCard card1,
-        BaccaratCard card2, bool isBanker)
+    private void DoCardSqueezing(int maxBetter, BaccaratCard card1,
+        BaccaratCard card2, int bendId,bool isExtra=false)
     {
         LogMgr.Inst.LogD("max_better:" + maxBetter, LogLevels.Baccarat_Card);
         if (maxBetter == -1)
@@ -243,28 +249,25 @@ public class BaccaratPanMgr : MonoBehaviour
         
         if (player != null)
         {
-            for (int i = 0; i < 2; i++)
+            if (isExtra)
+                iTween.MoveTo(cardPanel.cards[bendId][2].gameObject, player.cardPos[0].parent.position, Constants.BTweenTime);
+            else
             {
-                iTween.MoveTo(orgCards[i].gameObject, player.cardPos[i].position, Constants.BaccaratDistributionTime);
+                for (int i = 0; i < 2; i++)
+                {
+                    iTween.MoveTo(cardPanel.cards[bendId][i].gameObject, player.cardPos[i].position, Constants.BTweenTime);
+                }    
             }
             
+            
             bool isController = (maxBetter == PhotonNetwork.LocalPlayer.ActorNumber);
-            int bendId = 0;
-            if (isBanker)
-                bendId = 1;
-            bend[bendId].ShowBigCard(player.cardPos, card1, card2, isController,orgCards);
+            bend[bendId].ShowBigCard(player.cardPos, card1, card2, isController,cardPanel.cards[bendId]);
         }
     }
 
     
     private void ShowingCatchedCard(BaccaratShowingCard_NowTurn nowTurn)
     {
-        GameMgr.Inst.Log("Card showing command called. id=" + (BaccaratShowingCard_NowTurn) nowTurn,
-            LogLevel.BaccaratDistributeCardLog);
-        GameMgr.Inst.Log("now Playercard=" + playerCard.cardString, LogLevel.BaccaratDistributeCardLog);
-        GameMgr.Inst.Log("now Bankercard=" + bankerCard.cardString, LogLevel.BaccaratDistributeCardLog);
-        
-        
         if (playerCard.CardList.Count == 0) return;
         if (bankerCard.CardList.Count == 0) return;
 
