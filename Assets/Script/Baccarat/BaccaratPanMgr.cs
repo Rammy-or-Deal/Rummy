@@ -233,23 +233,24 @@ public class BaccaratPanMgr : MonoBehaviour
             (string) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_CATCHED_CARD_PLAYER];
         GameMgr.Inst.Log("BankerCardString=" + bankerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
         GameMgr.Inst.Log("PlayerCardString=" + playerCard.cardString, enumLogLevel.BaccaratDistributeCardLog);
+        
+        var maxBettingPlayer =
+            (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
+        AddAnimationForDistributedCard(cardPanel.leftCards, maxBettingPlayer, playerCard.CardList[0],
+            playerCard.CardList[1], false);
 
         var maxBettingBanker =
             (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_BANKER];
         AddAnimationForDistributedCard(cardPanel.rightCards, maxBettingBanker, bankerCard.CardList[0],
             bankerCard.CardList[1], true);
-
-        var maxBettingPlayer =
-            (int) PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_MAX_BETTING_PLAYER_PLAYER];
-        AddAnimationForDistributedCard(cardPanel.leftCards, maxBettingPlayer, playerCard.CardList[0],
-            playerCard.CardList[1], false);
         
-        StartCoroutine(sendBankerCard());
+        StartCoroutine(CheckAdditionalCards());
     }
 
-    IEnumerator sendBankerCard()
+    IEnumerator CheckAdditionalCards()
     {
         yield return new WaitForSeconds(Constants.BaccaratShowingCard_waitTime);
+        
         ShowingCatchedCard((int) BaccaratShowingCard_NowTurn.Player);
         ShowingCatchedCard((int) BaccaratShowingCard_NowTurn.Banker);
 
@@ -262,7 +263,6 @@ public class BaccaratPanMgr : MonoBehaviour
             BaccaratBankerMgr.Inst.CalcResult();
         }
     }
-
 
     IEnumerator ShowingAdditionalCard()
     {
@@ -283,9 +283,6 @@ public class BaccaratPanMgr : MonoBehaviour
         BaccaratBankerMgr.Inst.CalcResult();
     }
 
-
-    UIBCard[] originCards;
-
     private void AddAnimationForDistributedCard(UIBCard[] orgCards, int max_better, BaccaratCard card1,
         BaccaratCard card2, bool isBanker)
     {
@@ -303,11 +300,10 @@ public class BaccaratPanMgr : MonoBehaviour
             bool isController = (max_better == PhotonNetwork.LocalPlayer.ActorNumber);
             LogMgr.Inst.LogD("localPlayer actorNumber:" + PhotonNetwork.LocalPlayer.ActorNumber,
                 LogLevels.Baccarat_Card);
-            originCards = orgCards;
             int bendId = 0;
             if (isBanker)
                 bendId = 1;
-            bend[bendId].ShowBigCard(player.cardPos, card1, card2, isController);
+            bend[bendId].ShowBigCard(player.cardPos, card1, card2, isController,orgCards);
         }
         else
         {
@@ -315,13 +311,6 @@ public class BaccaratPanMgr : MonoBehaviour
                 "count:" + BaccaratPlayerMgr.Inst.m_playerList.Count(x =>
                     x.isSeat == true && x.m_playerInfo.m_actorNumber == max_better), LogLevels.Baccarat_Card);
         }
-    }
-
-
-    public void ShowSmallCard(bool isFlag)
-    {
-        originCards[0].gameObject.SetActive(isFlag);
-        originCards[1].gameObject.SetActive(isFlag);
     }
 
     private void MoveDistributed_SmallCards(UIBCard[] originCards0, Transform[] destination_cardPos, float time)
