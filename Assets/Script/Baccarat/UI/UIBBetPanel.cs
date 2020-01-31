@@ -5,15 +5,16 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class UIBBetPanel : MonoBehaviour
 {
     public Transform[] panels;
     public UIBBetPan[] pans;
     public Image coinImg;
-    List<Image> coinList = new List<Image>();
-    private string[] coinSpriteNames = new string[] { "simbol_100", "simbol_500", "simbol_1000", "simbol_10000" };
+    List<Image>[] coinList;
+    private string[] coinSpriteNames = new string[] {"simbol_100", "simbol_500", "simbol_1000", "simbol_10000"};
     private const int diff = 40;
-    private int coinCnt = -1;
+    private int[] coinCnt;
 
     void Start()
     {
@@ -24,24 +25,37 @@ public class UIBBetPanel : MonoBehaviour
             pans[i] = pan;
         }
 
-        for (int i = 0; i < 150; i++)
+        coinCnt = new int[4];
+        coinList = new List<Image>[4];
+        for (int moneyId = 0; moneyId < 4; moneyId++)
         {
-            Image coinObj = Instantiate(coinImg, new Vector3(0, 0, 0), coinImg.transform.rotation, transform);
-            coinList.Add(coinObj);
+            coinList[moneyId]=new List<Image>();
+            for (int i = 0; i < 50; i++)
+            {
+                Image coinObj = Instantiate(coinImg, new Vector3(0, 0, 0), coinImg.transform.rotation, transform);
+                coinObj.sprite = Resources.Load<Sprite>("baccarat/" + coinSpriteNames[moneyId]);
+                coinList[moneyId].Add(coinObj);
+            }
         }
     }
 
     public void OnPlayerBet(Vector3 originPos, int moneyId, int areaId) //x,y: original position 
     {
-        coinCnt++;
-        Image coinObj = coinList[coinCnt];
+//        Debug.LogWarning(coinCnt[areaId]);
+        Image coinObj = coinList[areaId][coinCnt[areaId]];
+//        Debug.Log("k1");
         coinObj.transform.position = originPos;
+//        Debug.Log("k2");
         coinObj.transform.SetParent(panels[areaId]);
-        coinObj.sprite = Resources.Load<Sprite>("baccarat/" + coinSpriteNames[moneyId]);
-        coinObj.name = "coin" + coinCnt;
+//        Debug.Log("k3");
         Vector3 pos = RandomPos(panels[areaId].gameObject, diff);
+//        Debug.Log("k5");
         iTween.MoveTo(coinObj.gameObject, iTween.Hash("position", pos, "islocal", true, "time", 0.5));
-        coinObj.gameObject.SetActive(true);
+//        Debug.Log("k6");
+//        coinObj.gameObject.SetActive(true);
+        coinObj.name = "coin" + coinCnt[areaId];
+//        Debug.LogWarning(coinObj.name);
+        coinCnt[areaId]++;
     }
 
     public Vector3 RandomPos(GameObject obj, int diff)
@@ -62,11 +76,16 @@ public class UIBBetPanel : MonoBehaviour
             {
                 pan.Init();
             }
-            for (int i = 0; i <= coinCnt; i++)
+
+            for (int k = 0; k < 4; k++)
             {
-                coinList[i].gameObject.SetActive(false);
+                for (int i = 0; i <= coinCnt[k]; i++)
+                {
+                    coinList[k][i].transform.position = new Vector3(-1000, 0, 0);
+                }
+
+                coinCnt[k] = 0;
             }
-            coinCnt = -1;
         }
         catch
         {
