@@ -42,7 +42,7 @@ public class UIBBetPanel : MonoBehaviour
     public void OnPlayerBet(Vector3 originPos, int moneyId, int areaId) //x,y: original position 
     {
 //        Debug.LogWarning(coinCnt[areaId]);
-        Image coinObj = coinList[areaId][coinCnt[areaId]];
+        Image coinObj = coinList[moneyId][coinCnt[moneyId]];
 //        Debug.Log("k1");
         coinObj.transform.position = originPos;
 //        Debug.Log("k2");
@@ -53,9 +53,9 @@ public class UIBBetPanel : MonoBehaviour
         iTween.MoveTo(coinObj.gameObject, iTween.Hash("position", pos, "islocal", true, "time", 0.5));
 //        Debug.Log("k6");
 //        coinObj.gameObject.SetActive(true);
-        coinObj.name = "coin" + coinCnt[areaId];
+        coinObj.name = "coin" + coinCnt[moneyId];
 //        Debug.LogWarning(coinObj.name);
-        coinCnt[areaId]++;
+        coinCnt[moneyId]++;
     }
 
     public Vector3 RandomPos(GameObject obj, int diff)
