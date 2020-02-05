@@ -47,45 +47,6 @@
             </e>
           </e>
         </e>
-        <e p="GaussianBlur" t="Include">
-          <e p="FPSDisplay.cs" t="Include" />
-          <e p="GaussianBlur_LiveBlur" t="Include">
-            <e p="Demo" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="AlwaysFace.cs" t="Include" />
-                <e p="DemoSliderControl.cs" t="Include" />
-                <e p="Rotate.cs" t="Include" />
-                <e p="SyncCoordinates.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Resources" t="Include">
-              <e p="GaussianBlur_LiveBlur.shader" t="Include" />
-              <e p="GaussianBlur_LiveBlur_NoSmear.shader" t="Include" />
-            </e>
-          </e>
-          <e p="GaussianBlur_Mobile" t="Include">
-            <e p="Demo" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="AddTorqueOnStart.cs" t="Include" />
-                <e p="AlwaysFace.cs" t="Include" />
-                <e p="DemoSliderControl.cs" t="Include" />
-                <e p="Move.cs" t="Include" />
-                <e p="PausePlay.cs" t="Include" />
-                <e p="Rotate.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Resources" t="Include">
-              <e p="DropShadow_Mobile.shader" t="Include" />
-              <e p="GaussianBlur_Mobile(hidden).shader" t="Include" />
-              <e p="GaussianBlur_Mobile.shader" t="Include" />
-              <e p="GaussianBlur_Mobile_ScreenSpaceCamera.shader" t="Include" />
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="BlurRenderer.cs" t="Include" />
-              <e p="BlurRenderer_Mobile.cs" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="LeanTween" t="Include">
           <e p="Editor" t="Include">
             <e p="LeanTweenDocumentationEditor.cs" t="Include" />
@@ -1026,6 +987,45 @@
                 <e p="SafeAreaDemo.txt" t="Include" />
               </e>
               <e p="SafeArea.cs" t="Include" />
+            </e>
+          </e>
+          <e p="GaussianBlur" t="Include">
+            <e p="FPSDisplay.cs" t="Include" />
+            <e p="GaussianBlur_LiveBlur" t="Include">
+              <e p="Demo" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="AlwaysFace.cs" t="Include" />
+                  <e p="DemoSliderControl.cs" t="Include" />
+                  <e p="Rotate.cs" t="Include" />
+                  <e p="SyncCoordinates.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Resources" t="Include">
+                <e p="GaussianBlur_LiveBlur.shader" t="Include" />
+                <e p="GaussianBlur_LiveBlur_NoSmear.shader" t="Include" />
+              </e>
+            </e>
+            <e p="GaussianBlur_Mobile" t="Include">
+              <e p="Demo" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="AddTorqueOnStart.cs" t="Include" />
+                  <e p="AlwaysFace.cs" t="Include" />
+                  <e p="DemoSliderControl.cs" t="Include" />
+                  <e p="Move.cs" t="Include" />
+                  <e p="PausePlay.cs" t="Include" />
+                  <e p="Rotate.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Resources" t="Include">
+                <e p="DropShadow_Mobile.shader" t="Include" />
+                <e p="GaussianBlur_Mobile(hidden).shader" t="Include" />
+                <e p="GaussianBlur_Mobile.shader" t="Include" />
+                <e p="GaussianBlur_Mobile_ScreenSpaceCamera.shader" t="Include" />
+              </e>
+              <e p="Scripts" t="Include">
+                <e p="BlurRenderer.cs" t="Include" />
+                <e p="BlurRenderer_Mobile.cs" t="Include" />
+              </e>
             </e>
           </e>
           <e p="Lean" t="Include">
