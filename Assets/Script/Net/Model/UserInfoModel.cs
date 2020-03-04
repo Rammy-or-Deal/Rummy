@@ -40,6 +40,7 @@ namespace RummyScript.Model
         public int frameId;
         public int friendItemId;
         public int requestId;
+        public string udid;
         
         
 
