@@ -1213,8 +1213,6 @@
             <e p="UIMicBtn.cs" t="Include" />
             <e p="UIVoiceView.cs" t="Include" />
           </e>
-          <e p="Common.cs" t="Include" />
-          <e p="DataController.cs" t="Include" />
           <e p="Fortune13" t="Include">
             <e p="FortuneBotMgr.cs" t="Include" />
             <e p="FortuneCard.cs" t="Include" />
@@ -1244,6 +1242,7 @@
             </e>
           </e>
           <e p="GameCommon" t="Include">
+            <e p="Common.cs" t="Include" />
             <e p="CommonClasses" t="Include">
               <e p="UserSeat.cs" t="Include" />
             </e>
@@ -1256,6 +1255,7 @@
               <e p="enumContainer.cs" t="Include" />
               <e p="staticClassContainer.cs" t="Include" />
             </e>
+            <e p="IBot.cs" t="Include" />
             <e p="MgrClasses" t="Include">
               <e p="BotMgr.cs" t="Include" />
               <e p="DebugMgr.cs" t="Include" />
@@ -1270,10 +1270,6 @@
             <e p="UI" t="Include">
               <e p="GameUIController.cs" t="Include" />
             </e>
-          </e>
-          <e p="IBot.cs" t="Include" />
-          <e p="Intro" t="Include">
-            <e p="Intro.cs" t="Include" />
           </e>
           <e p="Lami" t="Include">
             <e p="LamiBot.cs" t="Include" />
@@ -1320,10 +1316,13 @@
             </e>
             <e p="UIMyCardPanel.cs" t="Include" />
           </e>
-          <e p="Lobby" t="Include">
+          <e p="Main" t="Include">
+            <e p="Intro.cs" t="Include" />
             <e p="LobbyController.cs" t="Include" />
+            <e p="Title.cs" t="Include" />
           </e>
           <e p="Net" t="Include">
+            <e p="DataController.cs" t="Include" />
             <e p="Model" t="Include">
               <e p="FrameItemModel.cs" t="Include" />
               <e p="FriendItemModel.cs" t="Include" />
@@ -1342,12 +1341,9 @@
               <e p="PunController.cs" t="Include" />
             </e>
           </e>
-          <e p="NoticeDlgManager.cs" t="Include" />
-          <e p="Title" t="Include">
-            <e p="Title.cs" t="Include" />
-          </e>
           <e p="UI" t="Include">
             <e p="GameSettingDialog.cs" t="Include" />
+            <e p="NoticeDlgManager.cs" t="Include" />
             <e p="UIAlertDialog.cs" t="Include" />
             <e p="UIAvatarDialog.cs" t="Include" />
             <e p="UIAvatarItem.cs" t="Include" />
@@ -1355,6 +1351,7 @@
             <e p="UIChatDialog.cs" t="Include" />
             <e p="UICollectionDialog.cs" t="Include" />
             <e p="UICollectionFrameItem.cs" t="Include" />
+            <e p="UIController.cs" t="Include" />
             <e p="UIDayItem.cs" t="Include" />
             <e p="UIEmailDialog.cs" t="Include" />
             <e p="UIEmojiBtn.cs" t="Include" />
@@ -1366,6 +1363,7 @@
             <e p="UIGiftItem.cs" t="Include" />
             <e p="UILoadingDialog.cs" t="Include" />
             <e p="UILuckySpinDialog.cs" t="Include" />
+            <e p="UIManager.cs" t="Include" />
             <e p="UIMoneyPanel.cs" t="Include" />
             <e p="UINoticeDialog.cs" t="Include" />
             <e p="UIRewardDialog.cs" t="Include" />
@@ -1377,8 +1375,6 @@
             <e p="UIUserInfoMenu.cs" t="Include" />
             <e p="UIUserInfoPanel.cs" t="Include" />
           </e>
-          <e p="UIController.cs" t="Include" />
-          <e p="UIManager.cs" t="Include" />
           <e p="Utils" t="Include">
             <e p="Constants.cs" t="Include" />
             <e p="LogMgr.cs" t="Include" />
