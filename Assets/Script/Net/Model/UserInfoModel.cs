@@ -54,7 +54,6 @@ namespace RummyScript.Model
             message = "There is no message";
             email = "There is no email";
             coinPic = "new_symbol/coin";
-            skillLevel = "expert";
             frameId = 3;
         }
 
