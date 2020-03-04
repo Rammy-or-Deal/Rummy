@@ -972,11 +972,6 @@
             </e>
           </e>
         </e>
-        <e p="PlayServicesResolver" t="Include">
-          <e p="Editor" t="Include">
-            <e p="play-services-resolver_v1.2.95.0.txt" t="Include" />
-          </e>
-        </e>
         <e p="Plugins" t="Include">
           <e p="Android" t="Include">
             <e p="AndroidManifest.xml" t="Include" />
@@ -1100,6 +1095,11 @@
                 <e p="RotateSample.cs" t="Include" />
                 <e p="SampleInfo.cs" t="Include" />
               </e>
+            </e>
+          </e>
+          <e p="PlayServicesResolver" t="Include">
+            <e p="Editor" t="Include">
+              <e p="play-services-resolver_v1.2.95.0.txt" t="Include" />
             </e>
           </e>
           <e p="RestClient" t="Include">
