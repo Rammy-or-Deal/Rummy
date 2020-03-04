@@ -6,19 +6,27 @@ using UnityEngine.UI;
 
 public class Intro : MonoBehaviour
 {
-
     public Image m_LoadingProgress;
     public float m_ProgPer = 0;
+    public GameObject btns;
+    public GameObject loadingObj;
 
     public void Start()
     {
         //AvataMgr.Instance.StartDownload();
+        SetLoading(true);
         StartCoroutine(ProgWork());
+    }
+
+    public void SetLoading(bool flag)
+    {
+        loadingObj.SetActive(flag);
+        btns.SetActive(!flag);
     }
 
     public void LoadTitleScene()
     {
-        SceneManager.LoadSceneAsync("1_Title");
+        SetLoading(false);
     }
 
     private IEnumerator ProgWork()

@@ -83,7 +83,6 @@ public class UISettingDialog : MonoBehaviour
 
     public void OnClickLogout()
     {
-        Debug.Log("log out");
         gameObject.SetActive(false);
         SceneManager.LoadScene("1_Title");
     }
