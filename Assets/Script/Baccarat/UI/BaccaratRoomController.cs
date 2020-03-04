@@ -24,7 +24,7 @@ public class BaccaratRoomController : MonoBehaviour
         }
         catch { }
         if (!DataController.Inst)
-            SceneManager.LoadScene("2_Lobby");
+            SceneManager.LoadScene(constantContainer.First);
     }
     void Start()
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -30,9 +31,15 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        if (!Inst)
-            Inst= this;
-        
+        if (!DataController.Inst)
+            SceneManager.LoadScene(constantContainer.First);
+        if (Inst)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Inst= this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()

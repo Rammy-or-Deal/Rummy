@@ -9,6 +9,7 @@ public static class constantContainer
     #endregion
 
     #region name of Scenes
+    public static string First = "1_Title";
     public static string strLobby = "2_Lobby";
     public static string strScene2Bacccarat = "2_Baccarat";
     public static string strScene2Lami = "2_Lami";
