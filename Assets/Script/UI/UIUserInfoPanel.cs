@@ -23,6 +23,6 @@ public class UIUserInfoPanel : MonoBehaviour
     {
         mUserPic.sprite = DataController.Inst.userInfo.sprite;
         mUserName.text = DataController.Inst.userInfo.name;
-        mUserLevel.text = DataController.Inst.userInfo.skillLevel;
+        mUserLevel.text = DataController.Inst.userInfo.skill_level;
     }
 }

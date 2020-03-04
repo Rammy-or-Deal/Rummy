@@ -9,7 +9,7 @@ namespace RummyScript.Model
     public class UserInfoModel
     {
         public int id;
-        public string facebookId;
+        public string facebook_id;
         public string name;
         public Sprite sprite;
         public string pic;
@@ -21,10 +21,10 @@ namespace RummyScript.Model
 //        public string starValue;
         
         public string coinPic;
-        public int coinValue;
+        public int coin_value;
         
         public string leafPic;
-        public int leafValue;
+        public int leaf_value;
 
         public string announce;
         public string message;
@@ -35,9 +35,9 @@ namespace RummyScript.Model
         
         public int skillId;
         public int skillValue;
-        public string skillLevel;
+        public string skill_level;
         
-        public int frameId;
+        public int frame_id;
         public int friendItemId;
         public int requestId;
         public string udid;
@@ -48,13 +48,13 @@ namespace RummyScript.Model
         {                        
             winRate = "12/20";                        
             leafPic = "new_symbol/leaf";
-            coinValue = 2500;
-            leafValue = 300;
+            coin_value = 2500;
+            leaf_value = 300;
             announce = "Announce Text";
             message = "There is no message";
             email = "There is no email";
             coinPic = "new_symbol/coin";
-            frameId = 3;
+            frame_id = 3;
         }
 
         public void Init(string prefixName="Guest")
@@ -63,9 +63,9 @@ namespace RummyScript.Model
             pic = "new_avatar/avatar_" + Random.Range(1,26).ToString();
             sprite= Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
             
-            coinValue = Random.Range(50000,99999);
-            leafValue = Random.Range(100,999);
-            skillLevel = constantContainer.skillLevelList[Random.Range(0, 6)];
+            coin_value = Random.Range(50000,99999);
+            leaf_value = Random.Range(100,999);
+            skill_level = constantContainer.skillLevelList[Random.Range(0, 6)];
         }
 
         public override string ToString()

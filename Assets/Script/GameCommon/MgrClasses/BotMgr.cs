@@ -109,9 +109,9 @@ public class BotMgr : MonoBehaviour
         PlayerInfo info = new PlayerInfo();
 
         info.m_actorNumber = -Random.Range(1000, 9999);
-        info.m_coinValue = data.coinValue;
-        info.m_frameId = data.frameId;
-        info.m_skillLevel = data.skillLevel;
+        info.m_coinValue = data.coin_value;
+        info.m_frameId = data.frame_id;
+        info.m_skillLevel = data.skill_level;
         info.m_status = enumPlayerStatus.Init;
         info.m_userName = data.name;
         info.m_userPic = data.pic;

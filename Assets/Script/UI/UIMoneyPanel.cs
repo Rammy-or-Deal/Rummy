@@ -21,8 +21,8 @@ public class UIMoneyPanel : MonoBehaviour
 
     public void UpdateValue()
     {
-        mCoinValue.text = DataController.Inst.userInfo.coinValue.ToString();
-        mLeafValue.text = DataController.Inst.userInfo.leafValue.ToString();
+        mCoinValue.text = DataController.Inst.userInfo.coin_value.ToString();
+        mLeafValue.text = DataController.Inst.userInfo.leaf_value.ToString();
     }
 
     // Update is called once per frame

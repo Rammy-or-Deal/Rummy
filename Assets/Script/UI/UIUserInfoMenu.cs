@@ -72,7 +72,7 @@ public class UIUserInfoMenu : MonoBehaviour
     {
         mUserPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
         mUserName.text = DataController.Inst.userInfo.name;
-        mSkillLevel.text = DataController.Inst.userInfo.skillLevel.ToString();
+        mSkillLevel.text = DataController.Inst.userInfo.skill_level.ToString();
     }
     
     public void OnClose(GameObject obj)

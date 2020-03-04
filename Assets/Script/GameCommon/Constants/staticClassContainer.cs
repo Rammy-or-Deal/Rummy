@@ -159,9 +159,9 @@ public class PlayerInfo
         m_actorNumber = actorNumber;
         m_userName = data.userInfo.name;
         m_userPic = data.userInfo.pic;
-        m_coinValue = data.userInfo.coinValue;
-        m_skillLevel = data.userInfo.skillLevel;
-        m_frameId = data.userInfo.frameId;
+        m_coinValue = data.userInfo.coin_value;
+        m_skillLevel = data.userInfo.skill_level;
+        m_frameId = data.userInfo.frame_id;
         m_status = status;
 
         return playerInfoString;

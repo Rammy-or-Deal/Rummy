@@ -26,8 +26,8 @@ public class Api : MonoBehaviour
     {
         RequestHelper requestOptions = null;
 
-        RestClient.GetArray<UserInfoModel>(basePath + "/users/udid/111")
-            .Then(res => { this.LogMessage(JsonHelper.ArrayToJsonString(res, true)); })
+        RestClient.Get<UserInfoModel>(basePath + "/users/udid/1111113")
+            .Then(res => { this.LogMessage(res.ToString()); })
             .Catch(err => this.LogMessage(err.Message));
     }
 
