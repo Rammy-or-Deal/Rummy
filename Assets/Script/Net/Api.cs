@@ -19,16 +19,19 @@ public class Api : MonoBehaviour
 
     void Start()
     {
-        Get();
+        
     }
 
-    public void Get()
+    public UserInfoModel GetUserbyUdid(string udid)
     {
-        RequestHelper requestOptions = null;
-
-        RestClient.Get<UserInfoModel>(basePath + "/users/udid/1111113")
-            .Then(res => { this.LogMessage(res.ToString()); })
+        RestClient.Get<UserInfoModel>(basePath + "/users/udid/"+udid)
+            .Then(res =>
+            {
+                this.LogMessage(res.ToString());
+                return res;
+            })
             .Catch(err => this.LogMessage(err.Message));
+        return null;
     }
 
     public void Post()

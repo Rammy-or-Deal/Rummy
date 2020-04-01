@@ -61,11 +61,15 @@ namespace RummyScript.Model
         {
             name = prefixName+"["+Random.Range(1000,9999).ToString() + "]";
             pic = "new_avatar/avatar_" + Random.Range(1,26).ToString();
-            sprite= Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
-            
             coin_value = Random.Range(50000,99999);
             leaf_value = Random.Range(100,999);
             skill_level = constantContainer.skillLevelList[Random.Range(0, 6)];
+            SetSprite();
+        }
+
+        public void SetSprite()
+        {
+            sprite= Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
         }
 
         public override string ToString()

@@ -42,7 +42,7 @@ public class DataController : MonoBehaviour
         tierInfo = new TierInfoModel();
         tierInfo.Init();
         userInfo = new UserInfoModel();
-        userInfo.Init("User");
+        
         sysExchangeItem = new SysExchangeItemModel();
         DontDestroyOnLoad(this.gameObject);
         userInfo.udid=SystemInfo.deviceUniqueIdentifier;
@@ -52,15 +52,25 @@ public class DataController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        userInfo = Api.Inst.GetUserbyUdid(userInfo.udid);
         if (FB.IsLoggedIn)
         {
+            userInfo.facebook_id = AccessToken.CurrentAccessToken.UserId;
+        }
+    }
+
+    public void UpdateAvatar()
+    {
+        if (userInfo.facebook_id!=null)
             GetNameAndPicture();
+        else
+        {
+            userInfo.SetSprite();   
         }
     }
     
     public void GetNameAndPicture()
     {
-        userInfo.facebook_id = AccessToken.CurrentAccessToken.UserId;
         userInfo.pic = userInfo.facebook_id;
         StartCoroutine(getFBPicture(userInfo.facebook_id));
         FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)

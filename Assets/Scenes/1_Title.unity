@@ -930,6 +930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2016418058}
   - component: {fileID: 2016418057}
+  - component: {fileID: 2016418059}
   m_Layer: 0
   m_Name: DataController
   m_TagString: Untagged
@@ -997,15 +998,15 @@ MonoBehaviour:
     max: 0
   userInfo:
     id: 0
-    facebookId: 
+    facebook_id: 
     name: 
     sprite: {fileID: 0}
     pic: 
     winRate: 12/20
     coinPic: new_symbol/coin
-    coinValue: 2500
+    coin_value: 2500
     leafPic: new_symbol/leaf
-    leafValue: 300
+    leaf_value: 300
     announce: Announce Text
     message: There is no message
     email: There is no email
@@ -1013,8 +1014,8 @@ MonoBehaviour:
     giftItemCount: 0
     skillId: 0
     skillValue: 0
-    skillLevel: expert
-    frameId: 3
+    skill_level: 
+    frame_id: 3
     friendItemId: 0
     requestId: 0
     udid: 
@@ -1039,6 +1040,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2016418059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016418056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaadcd74575f47a180ad4776f1643054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5436078713442707313
 MonoBehaviour:
   m_ObjectHideFlags: 0

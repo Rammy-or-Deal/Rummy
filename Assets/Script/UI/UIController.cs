@@ -45,6 +45,7 @@ public class UIController : MonoBehaviour
     void Start()
     {
         StartCoroutine(ActiveDlgs());
+        DataController.Inst.UpdateAvatar();
     }
 
     IEnumerator ActiveDlgs()
