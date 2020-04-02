@@ -40,6 +40,7 @@ public class Title : MonoBehaviour
         if (FB.IsLoggedIn) {
             // AccessToken class will have session details
             var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+            DataController.Inst.userInfo.facebook_id = AccessToken.CurrentAccessToken.UserId;
             // Print current access token's User ID
             Debug.Log(aToken.UserId);
             // Print current access token's granted permissions

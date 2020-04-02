@@ -52,10 +52,14 @@ public class DataController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        userInfo = Api.Inst.GetUserbyUdid(userInfo.udid);
-        if (FB.IsLoggedIn)
+        userInfo.facebook_id=PlayerPrefs.GetString("facebook_id", null);
+        if (userInfo.facebook_id==null)
         {
-            userInfo.facebook_id = AccessToken.CurrentAccessToken.UserId;
+            userInfo = Api.Inst.GetUserbyUdid(userInfo.udid);    
+        }
+        else
+        {
+            
         }
     }
 
