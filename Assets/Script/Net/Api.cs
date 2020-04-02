@@ -33,6 +33,18 @@ public class Api : MonoBehaviour
             .Catch(err => this.LogMessage(err.Message));
         return null;
     }
+    
+    public UserInfoModel GetUserbyFacebook(string fbId)
+    {
+        RestClient.Get<UserInfoModel>(basePath + "/users/facebook/"+fbId)
+            .Then(res =>
+            {
+                this.LogMessage(res.ToString());
+                return res;
+            })
+            .Catch(err => this.LogMessage(err.Message));
+        return null;
+    }
 
     public void Post()
     {

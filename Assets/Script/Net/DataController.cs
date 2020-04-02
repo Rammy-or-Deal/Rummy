@@ -59,7 +59,7 @@ public class DataController : MonoBehaviour
         }
         else
         {
-            
+            userInfo = Api.Inst.GetUserbyFacebook(userInfo.facebook_id);
         }
     }
 
