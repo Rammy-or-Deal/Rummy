@@ -65,37 +65,35 @@ public class DataController : MonoBehaviour
 
     public void UpdateAvatar()
     {
-        if (userInfo.facebook_id!=null)
-            GetNameAndPicture();
+        if (userInfo.facebook_id != null)
+        {
+            StartCoroutine(getFBPicture(userInfo.facebook_id));
+        }
         else
         {
             userInfo.SetSprite();   
         }
     }
     
-    public void GetNameAndPicture()
+    public void GetFbName()
     {
-        userInfo.pic = userInfo.facebook_id;
-        StartCoroutine(getFBPicture(userInfo.facebook_id));
         FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
         {
+            Debug.Log(result );
             if (result.ResultDictionary != null)
             {
+                Debug.Log(result.ResultDictionary);
                 foreach (string key in result.ResultDictionary.Keys)
                 {
-                    Debug.Log(key + " : " + result.ResultDictionary[key]);
+                    Debug.Log(key + " : " );
+//                    Debug.Log(key + " : " + result.ResultDictionary[key]);
                 }
                 userInfo.name = result.ResultDictionary["name"].ToString();
+                userInfo.pic = userInfo.facebook_id;
                 ChatMgr.Inst.chatClient.UserId = userInfo.name;
                 UIController.Inst.userInfoPanel.UpdateValue();
             }
         });
-    }
-
-    public void GetFBPicture(string facebookId, Sprite pic = null)
-    {
-        StartCoroutine(getFBPicture(facebookId, pic));
-
     }
 
     public IEnumerator getFBPicture(string facebookId,Sprite pic=null)

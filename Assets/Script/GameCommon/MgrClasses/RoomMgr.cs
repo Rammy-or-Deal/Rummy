@@ -201,13 +201,13 @@ public class RoomMgr : MonoBehaviour
         switch (GameMgr.Inst.m_gameType)
         {
             case enumGameType.Lami:
-                sceneString = Constant.strScene3Lami;
+                sceneString = Constant.LamiPScene;
                 break;
             case enumGameType.Baccarat:
-                sceneString = Constant.strScene3Bacccarat;
+                sceneString = Constant.BPScene;
                 break;
             case enumGameType.Fortune13:
-                sceneString = Constant.strScene3Fortune;
+                sceneString = Constant.FortunePScene;
                 break;
             default:
                 sceneString = "";
@@ -231,7 +231,7 @@ public class RoomMgr : MonoBehaviour
     internal void OnLeftRoom()
     {
         GameMgr.Inst.Log(PhotonNetwork.NickName + "/me/Left Room");
-        PhotonNetwork.LoadLevel(Constant.strLobby);
+        PhotonNetwork.LoadLevel(Constant.LobbyScene);
         m_roomList.Clear();
 
         GameMgr.Inst.InitStatus();

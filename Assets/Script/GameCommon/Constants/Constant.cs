@@ -10,13 +10,13 @@ public static class Constant
 
     #region name of Scenes
     public static string First = "1_Title";
-    public static string strLobby = "2_Lobby";
-    public static string strScene2Bacccarat = "2_Baccarat";
-    public static string strScene2Lami = "2_Lami";
-    public static string strScene2Fortune = "2_Fortune13";
-    internal static string strScene3Lami = "3_PlayLami";
-    internal static string strScene3Bacccarat = "3_PlayBaccarat";
-    internal static string strScene3Fortune = "3_PlayFortune13";
+    public static string LobbyScene = "2_Lobby";
+    public static string BScene = "2_Baccarat";
+    public static string LamiScene = "2_Lami";
+    public static string FortuneScene = "2_Fortune13";
+    internal static string LamiPScene = "3_PlayLami";
+    internal static string BPScene = "3_PlayBaccarat";
+    internal static string FortunePScene = "3_PlayFortune13";
     
     #endregion
 

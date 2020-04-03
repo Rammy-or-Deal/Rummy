@@ -17,13 +17,13 @@ public class SceneMgr : MonoBehaviour
         switch (v)
         {
             case enumGameType.Lami:
-                sceneString = Constant.strScene2Lami;
+                sceneString = Constant.LamiScene;
                 break;
             case enumGameType.Baccarat:
-                sceneString = Constant.strScene2Bacccarat;
+                sceneString = Constant.BScene;
                 break;
             case enumGameType.Fortune13:
-                sceneString = Constant.strScene2Fortune;
+                sceneString = Constant.FortuneScene;
                 break;
             default:
                 sceneString = "";

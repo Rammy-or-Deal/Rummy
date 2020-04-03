@@ -30,7 +30,7 @@ public class TierController : MonoBehaviour
 
     public void OnClickBack()
     {
-        SceneManager.LoadScene(Constant.strLobby);
+        SceneManager.LoadScene(Constant.LobbyScene);
     }
 
     public void OnClickMoneyPanel()
