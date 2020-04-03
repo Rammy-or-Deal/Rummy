@@ -114,7 +114,7 @@ public class FortuneMe : MeMgr
         var changeDlg = FortuneUIController.Inst.changeDlg;
         
         changeDlg.gameObject.SetActive(true);
-        changeDlg.mClockText.text =  constantContainer.FortuneChangingTime.ToString();
+        changeDlg.mClockText.text =  Constant.FortuneChangingTime.ToString();
         for (int i = 0; i < cardList.Count; i++)
         {
             changeDlg.myCards[i].SetValue(cardList[i]);

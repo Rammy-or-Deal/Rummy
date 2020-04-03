@@ -63,7 +63,7 @@ namespace RummyScript.Model
             pic = "new_avatar/avatar_" + Random.Range(1,26).ToString();
             coin_value = Random.Range(50000,99999);
             leaf_value = Random.Range(100,999);
-            skill_level = constantContainer.skillLevelList[Random.Range(0, 6)];
+            skill_level = Constant.skillLevelList[Random.Range(0, 6)];
             SetSprite();
         }
 

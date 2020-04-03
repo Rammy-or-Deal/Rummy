@@ -11,7 +11,7 @@ public class RummyCardMgr : MonoBehaviour
     // Start is called before the first frame update
     public Card[][] playerCard = new Card[4][];
     public int[][] initCard = new int[4][];
-    public int maxJoker = constantContainer.Rummy_MaxJokerCount;
+    public int maxJoker = Constant.Rummy_MaxJokerCount;
     public const int JokerNum = 15;
     public void GenerateCard()
     {

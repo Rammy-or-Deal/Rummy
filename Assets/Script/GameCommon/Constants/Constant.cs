@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class constantContainer
+public static class Constant
 {
     #region constants for game
     public static enumBuildMethod buildMethod = enumBuildMethod.Development_Debug;

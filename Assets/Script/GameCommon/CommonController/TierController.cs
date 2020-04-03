@@ -14,7 +14,7 @@ public class TierController : MonoBehaviour
     void Start()
     {
         if (!DataController.Inst)
-            SceneManager.LoadScene(constantContainer.First);
+            SceneManager.LoadScene(Constant.First);
         try
         {
             UIController.Inst.loadingDlg.gameObject.SetActive(false);
@@ -30,7 +30,7 @@ public class TierController : MonoBehaviour
 
     public void OnClickBack()
     {
-        SceneManager.LoadScene(constantContainer.strLobby);
+        SceneManager.LoadScene(Constant.strLobby);
     }
 
     public void OnClickMoneyPanel()

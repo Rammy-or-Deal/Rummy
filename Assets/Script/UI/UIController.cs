@@ -32,7 +32,7 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         if (!DataController.Inst)
-            SceneManager.LoadScene(constantContainer.First);
+            SceneManager.LoadScene(Constant.First);
         if (Inst)
         {
             Destroy(this.gameObject);

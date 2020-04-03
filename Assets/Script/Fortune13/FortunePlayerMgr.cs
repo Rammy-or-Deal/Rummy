@@ -127,7 +127,7 @@ public class FortunePlayerMgr : SeatMgr
                 {Common.PLAYER_ID, player.m_actorNumber},
                 {Common.CARD_LIST_STRING, string.Join(",", cardString)},
                 {Common.FORTUNE_MISSION_CARD, missionString},
-                {Common.FORTUNE_REMAIN_TIME, constantContainer.FortuneChangingTime+1},
+                {Common.FORTUNE_REMAIN_TIME, Constant.FortuneChangingTime+1},
                 {PhotonFields.PLAYER_LIST_STRING, pList.m_playerInfoListString}
             };
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);

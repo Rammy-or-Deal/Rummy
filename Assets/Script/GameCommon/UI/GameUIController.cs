@@ -16,7 +16,7 @@ public class GameUIController : MonoBehaviour
     public void Awake()
     {
         if (!DataController.Inst)
-            SceneManager.LoadScene(constantContainer.First);
+            SceneManager.LoadScene(Constant.First);
 
         if (!Inst)
             Inst = this;

@@ -32,7 +32,7 @@ public class existingRoomPanelController : MonoBehaviour
         GameMgr.Inst.Log("Fit room count:=" + GameMgr.Inst.roomMgr.m_roomList.Count(x => x.m_gameType == GameMgr.Inst.m_gameType && x.m_gameTier == GameMgr.Inst.m_gameTier));
         foreach (var room in GameMgr.Inst.roomMgr.m_roomList.Where(x => x.m_gameType == GameMgr.Inst.m_gameType
                                                                         && x.m_gameTier == GameMgr.Inst.m_gameTier
-                                                                        && !x.m_roomName.Contains(constantContainer.defaultRoomPrefix)))
+                                                                        && !x.m_roomName.Contains(Constant.defaultRoomPrefix)))
         {
             roomInfoList.Add(room.roomInfoString);
             GameMgr.Inst.Log("Room Info:=" + room.roomInfoString);
@@ -56,8 +56,8 @@ public class existingRoomPanelController : MonoBehaviour
     private void ShowDefaultRoom(enumGameTier m_gameTier)
     {
         // Create a default room.
-        int roomCount = constantContainer.BaccaratDefaultRoomCount;
-        string defaultRoomPrefix = constantContainer.defaultRoomPrefix;
+        int roomCount = Constant.BaccaratDefaultRoomCount;
+        string defaultRoomPrefix = Constant.defaultRoomPrefix;
         defaultRoomPrefix += m_gameTier;
 
         for (int i = 1; i <= roomCount; i++)

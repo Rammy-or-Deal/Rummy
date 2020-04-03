@@ -11,7 +11,7 @@ public class DebugMgr : MonoBehaviour
     private void Awake() {
         avail_logs = new List<LogLevel>();
 
-        if (constantContainer.buildMethod == enumBuildMethod.Development_Debug || constantContainer.buildMethod == enumBuildMethod.Product_Debug)
+        if (Constant.buildMethod == enumBuildMethod.Development_Debug || Constant.buildMethod == enumBuildMethod.Product_Debug)
         {
             //avail_logs.Add(enumLogLevel.initLog);
             //avail_logs.Add(enumLogLevel.RoomLog);  //amg  code  new            // avail_logs.Add(enumLogLevel.MeLog);

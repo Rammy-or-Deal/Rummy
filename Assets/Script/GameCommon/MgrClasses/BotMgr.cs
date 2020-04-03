@@ -21,7 +21,7 @@ public class BotMgr : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds((float)Random.Range(constantContainer.BotCreateTime_min, constantContainer.BotCreateTime_max));
+            yield return new WaitForSeconds((float)Random.Range(Constant.BotCreateTime_min, Constant.BotCreateTime_max));
             var pList = new PlayerInfoContainer();
             pList.GetInfoContainerFromPhoton();
             if (PhotonNetwork.IsMasterClient)
@@ -73,7 +73,7 @@ public class BotMgr : MonoBehaviour
     }
     public IEnumerator PublishBotReady(PlayerInfo info)
     {
-        yield return new WaitForSeconds(Random.Range(constantContainer.Rummy_BotReadyTime_min, constantContainer.Rummy_BotReadyTime_max));
+        yield return new WaitForSeconds(Random.Range(Constant.Rummy_BotReadyTime_min, Constant.Rummy_BotReadyTime_max));
         GameMgr.Inst.Log("Bot Ready", LogLevel.BotLog);
         PublishIamReady(info);
     }
