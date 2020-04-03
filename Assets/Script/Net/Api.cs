@@ -5,6 +5,7 @@ using RummyScript.Model;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class Api : MonoBehaviour
 {
@@ -34,16 +35,17 @@ public class Api : MonoBehaviour
         return null;
     }
     
-    public UserInfoModel GetUserbyFacebook(string fbId)
+    public void GetUserbyFacebook(string fbId)
     {
         RestClient.Get<UserInfoModel>(basePath + "/users/facebook/"+fbId)
             .Then(res =>
             {
                 this.LogMessage(res.ToString());
-                return res;
+                DataController.Inst.userInfo = res;
+                SceneManager.LoadScene("2_Lobby");
             })
             .Catch(err => this.LogMessage(err.Message));
-        return null;
+        return;
     }
 
     public void Post()

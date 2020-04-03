@@ -59,7 +59,7 @@ public class DataController : MonoBehaviour
         }
         else
         {
-            userInfo = Api.Inst.GetUserbyFacebook(userInfo.facebook_id);
+            Api.Inst.GetUserbyFacebook(userInfo.facebook_id);
         }
     }
 
@@ -119,5 +119,12 @@ public class DataController : MonoBehaviour
                 Debug.Log("facebook pic updated");
             }
         }
+    }
+
+    public void SetFbId(string fbId)
+    {
+        userInfo.facebook_id = fbId;
+        PlayerPrefs.SetString("facebook_id", fbId);
+        Api.Inst.GetUserbyFacebook(userInfo.facebook_id);
     }
 }
