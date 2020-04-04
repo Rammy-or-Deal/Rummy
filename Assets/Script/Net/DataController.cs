@@ -71,7 +71,7 @@ public class DataController : MonoBehaviour
         }
         else
         {
-            userInfo.SetSprite();   
+            UIController.Inst.userInfoPanel.SetAvatar();   
         }
     }
     
@@ -112,8 +112,7 @@ public class DataController : MonoBehaviour
                 pic = sprite;
             else
             {
-                userInfo.sprite = sprite;
-                UIController.Inst.userInfoPanel.UpdateValue();
+                UIController.Inst.userInfoPanel.mUserPic.sprite = sprite;
                 Debug.Log("facebook pic updated");
             }
         }

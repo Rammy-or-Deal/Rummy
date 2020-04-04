@@ -21,8 +21,12 @@ public class UIUserInfoPanel : MonoBehaviour
     // Update is called once per frame
     public void UpdateValue()
     {
-        mUserPic.sprite = DataController.Inst.userInfo.sprite;
         mUserName.text = DataController.Inst.userInfo.name;
         mUserLevel.text = DataController.Inst.userInfo.skill_level;
+    }
+
+    public void SetAvatar()
+    {
+        mUserPic.sprite= Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
     }
 }

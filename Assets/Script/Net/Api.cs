@@ -42,24 +42,20 @@ public class Api : MonoBehaviour
             {
                 this.LogMessage(res.ToString());
                 DataController.Inst.userInfo = res;
-                SceneManager.LoadScene(Constant.LobbyScene);
+                PostUser(DataController.Inst.userInfo);
+//                SceneManager.LoadScene(Constant.LobbyScene);
             })
             .Catch(err => this.LogMessage(err.Message));
         return;
     }
-    public void PostUser()
+    public void PostUser(UserInfoModel user)
     {
         currentRequest = new RequestHelper
         {
-            Uri = basePath + "/posts",
-            Body = new Post
-            {
-                title = "foo",
-                body = "bar",
-                userId = 1
-            }
+            Uri = basePath + "/users/update",
+            Body = user
         };
-        RestClient.Post<Post>(currentRequest)
+        RestClient.Post<UserInfoModel>(currentRequest)
             .Then(res => this.LogMessage(JsonUtility.ToJson(res, true)))
             .Catch(err => this.LogMessage(err.Message));
     }

@@ -11,49 +11,27 @@ namespace RummyScript.Model
         public int id;
         public string facebook_id;
         public string name;
-        public Sprite sprite;
         public string pic;
         
-        public string winRate;
 //        public string remark;
         
 //        public string starPic;
 //        public string starValue;
         
-        public string coinPic;
         public int coin_value;
-        
-        public string leafPic;
         public int leaf_value;
-
-        public string announce;
-        public string message;
-        public string email;
         
-        public int giftItemId;
-        public int giftItemCount;
-        
-        public int skillId;
-        public int skillValue;
         public string skill_level;
         
         public int frame_id;
-        public int friendItemId;
-        public int requestId;
         public string udid;
         
         
 
         public UserInfoModel()
-        {                        
-            winRate = "12/20";                        
-            leafPic = "new_symbol/leaf";
+        {   
             coin_value = 2500;
             leaf_value = 300;
-            announce = "Announce Text";
-            message = "There is no message";
-            email = "There is no email";
-            coinPic = "new_symbol/coin";
             frame_id = 3;
         }
 
@@ -64,17 +42,11 @@ namespace RummyScript.Model
             coin_value = Random.Range(50000,99999);
             leaf_value = Random.Range(100,999);
             skill_level = Constant.skillLevelList[Random.Range(0, 6)];
-            SetSprite();
-        }
-
-        public void SetSprite()
-        {
-            sprite= Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
         }
 
         public override string ToString()
         {
-            return UnityEngine.JsonUtility.ToJson(this, true);
+            return JsonUtility.ToJson(this, true);
         }
     }
 }
