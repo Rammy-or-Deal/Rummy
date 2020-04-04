@@ -23,16 +23,15 @@ public class Api : MonoBehaviour
         
     }
 
-    public UserInfoModel GetUserbyUdid(string udid)
+    public void GetUserbyUdid(string udid)
     {
         RestClient.Get<UserInfoModel>(basePath + "/users/udid/"+udid)
             .Then(res =>
             {
                 this.LogMessage(res.ToString());
-                return res;
+                DataController.Inst.userInfo.Set(res);
             })
             .Catch(err => this.LogMessage(err.Message));
-        return null;
     }
     
     public void GetUserbyFacebook(string fbId)
@@ -41,11 +40,10 @@ public class Api : MonoBehaviour
             .Then(res =>
             {
                 this.LogMessage(res.ToString());
-                DataController.Inst.userInfo = res;
+                DataController.Inst.userInfo.Set(res);
                 SceneManager.LoadScene(Constant.LobbyScene);
             })
             .Catch(err => this.LogMessage(err.Message));
-        return;
     }
     public void PostUser()
     {
@@ -70,7 +68,7 @@ public class Api : MonoBehaviour
             .Then(res =>
             {
                 this.LogMessage(JsonUtility.ToJson(res, true));
-                DataController.Inst.userInfo = res;
+                DataController.Inst.userInfo.Set(res);
                 SceneManager.LoadScene(Constant.LobbyScene);
             })
             .Catch(err => this.LogMessage(err.Message));

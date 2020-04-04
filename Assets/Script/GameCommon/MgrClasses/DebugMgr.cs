@@ -10,6 +10,9 @@ public class DebugMgr : MonoBehaviour
 
     private void Awake() {
         avail_logs = new List<LogLevel>();
+#if !UNITY_EDITOR
+        return;
+#endif
 
         if (Constant.buildMethod == enumBuildMethod.Development_Debug || Constant.buildMethod == enumBuildMethod.Product_Debug)
         {
@@ -30,6 +33,13 @@ public class DebugMgr : MonoBehaviour
         enumGameType gameType = GameMgr.Inst.m_gameType;
         if (!avail_logs.Contains(level)) return;
         Debug.Log(gameType + ": " + log);
+    }
+    
+    public void Log(object p)
+    {
+#if UNITY_EDITOR
+        Debug.Log(p);
+#endif
     }
 
 }

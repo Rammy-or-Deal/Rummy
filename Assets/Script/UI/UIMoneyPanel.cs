@@ -17,7 +17,7 @@ public class UIMoneyPanel : MonoBehaviour
     {
 //        mCoinPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.coinPic);
 //        mLeafPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.leafPic);
-        LogMgr.Inst.Log(DataController.Inst.userInfo.ToString());
+        GameMgr.Inst.Log(DataController.Inst.userInfo.ToString());
         UpdateValue();
     }
 

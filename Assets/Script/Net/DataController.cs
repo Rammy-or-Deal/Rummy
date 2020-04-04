@@ -53,7 +53,7 @@ public class DataController : MonoBehaviour
         userInfo.facebook_id=PlayerPrefs.GetString("facebook_id", "null");
         if (userInfo.facebook_id=="null")
         {
-            userInfo = Api.Inst.GetUserbyUdid(userInfo.udid);    
+            Api.Inst.GetUserbyUdid(userInfo.udid);    
         }
         else
         {
@@ -63,6 +63,7 @@ public class DataController : MonoBehaviour
 
     public void UpdateAvatar()
     {
+        GameMgr.Inst.Log("facebook:"+userInfo.facebook_id);
         if (userInfo.facebook_id != null)
         {
             StartCoroutine(getFBPicture(userInfo.facebook_id));

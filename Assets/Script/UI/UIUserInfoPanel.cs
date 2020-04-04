@@ -12,7 +12,6 @@ public class UIUserInfoPanel : MonoBehaviour
     
     void Start()
     {
-        ChatMgr.Inst.chatClient.UserId = DataController.Inst.userInfo.name;
         UpdateValue();
     }
 
@@ -25,6 +24,7 @@ public class UIUserInfoPanel : MonoBehaviour
 
     public void SetAvatar()
     {
+        GameMgr.Inst.Log(DataController.Inst.userInfo.pic);
         mUserPic.sprite= Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
     }
 }

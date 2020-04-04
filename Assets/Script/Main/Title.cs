@@ -20,8 +20,7 @@ public class Title : MonoBehaviour
 
     public void GuestBtnClick()
     {
-        Debug.Log(DataController.Inst.userInfo.ToString());
-//        SceneManager.LoadScene(Constant.LobbyScene);
+        SceneManager.LoadScene(Constant.LobbyScene);
     }
     public void FaceBookBtnClick()
     {
