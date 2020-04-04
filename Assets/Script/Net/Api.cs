@@ -59,6 +59,23 @@ public class Api : MonoBehaviour
             .Catch(err => this.LogMessage(err.Message));
     }
     
+    public void PostUserFacebook()
+    {
+        currentRequest = new RequestHelper
+        {
+            Uri = basePath + "/users/facebook",
+            Body = DataController.Inst.userInfo
+        };
+        RestClient.Post<UserInfoModel>(currentRequest)
+            .Then(res =>
+            {
+                this.LogMessage(JsonUtility.ToJson(res, true));
+                DataController.Inst.userInfo = res;
+                SceneManager.LoadScene(Constant.LobbyScene);
+            })
+            .Catch(err => this.LogMessage(err.Message));
+    }
+    
     public void AbortRequest()
     {
         if (currentRequest != null)

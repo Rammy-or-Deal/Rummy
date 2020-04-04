@@ -100,7 +100,7 @@ public class DataController : MonoBehaviour
     public void SetFbId(string fbId)
     {
         userInfo.facebook_id = fbId;
+        userInfo.pic = fbId;
         PlayerPrefs.SetString("facebook_id", fbId);
-        Api.Inst.GetUserbyFacebook(userInfo.facebook_id);
     }
 }

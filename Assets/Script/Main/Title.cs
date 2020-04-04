@@ -32,9 +32,8 @@ public class Title : MonoBehaviour
         if (FB.IsLoggedIn) {
             // AccessToken class will have session details
             var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
-            DataController.Inst.userInfo.pic = aToken.UserId;
-            GetFbName();
             DataController.Inst.SetFbId(aToken.UserId);
+            GetFbName();
             // Print current access token's granted permissions
             foreach (string perm in aToken.Permissions) {
 //                Debug.Log(perm);
@@ -58,7 +57,7 @@ public class Title : MonoBehaviour
 //                    Debug.Log(key + " : " + result.ResultDictionary[key]);
                 }
                 DataController.Inst.userInfo.name = result.ResultDictionary["name"].ToString();
-                Api.Inst.PostUser();
+                Api.Inst.PostUserFacebook();
                 //when lobby 
                 ChatMgr.Inst.chatClient.UserId = userInfo.name;
                 UIController.Inst.userInfoPanel.UpdateValue();
