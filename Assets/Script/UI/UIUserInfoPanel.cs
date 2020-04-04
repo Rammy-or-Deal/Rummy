@@ -12,9 +12,7 @@ public class UIUserInfoPanel : MonoBehaviour
     
     void Start()
     {
-//        mUserPic.sprite = Resources.Load<Sprite>("new_avatar/avatar_4");
-//        mUserName.text = "Chai";
-//        mUserLevel.text = "Novice";
+        ChatMgr.Inst.chatClient.UserId = DataController.Inst.userInfo.name;
         UpdateValue();
     }
 

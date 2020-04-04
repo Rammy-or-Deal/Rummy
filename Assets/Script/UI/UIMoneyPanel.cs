@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class UIMoneyPanel : MonoBehaviour
 {
 
@@ -16,6 +17,7 @@ public class UIMoneyPanel : MonoBehaviour
     {
 //        mCoinPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.coinPic);
 //        mLeafPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.leafPic);
+        LogMgr.Inst.Log(DataController.Inst.userInfo.ToString());
         UpdateValue();
     }
 

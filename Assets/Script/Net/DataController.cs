@@ -19,7 +19,6 @@ public class DataController : MonoBehaviour
     public UserInfoModel userInfo;
     public SysExchangeItemModel sysExchangeItem;    
     public SettingModel setting;
-    public Sprite facebookSprite;
 
     void Awake()
     {
@@ -46,14 +45,13 @@ public class DataController : MonoBehaviour
         sysExchangeItem = new SysExchangeItemModel();
         DontDestroyOnLoad(this.gameObject);
         userInfo.udid=SystemInfo.deviceUniqueIdentifier;
-        Debug.Log(userInfo.udid);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        userInfo.facebook_id=PlayerPrefs.GetString("facebook_id", null);
-        if (userInfo.facebook_id==null)
+        userInfo.facebook_id=PlayerPrefs.GetString("facebook_id", "null");
+        if (userInfo.facebook_id=="null")
         {
             userInfo = Api.Inst.GetUserbyUdid(userInfo.udid);    
         }

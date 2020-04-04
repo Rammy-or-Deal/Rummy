@@ -32,7 +32,10 @@ public class LogMgr : MonoBehaviour
     {
         if (!Inst)
             Inst = this;
-
+        
+#if !UNITY_EDITOR
+        return;
+#endif
         if (Constants.LamiBuildMethod == BuildMethod.Develop_Message)
         {
             /*
@@ -86,9 +89,11 @@ public class LogMgr : MonoBehaviour
         }
     }
 
-    internal void Log(object p)
+    public void Log(object p)
     {
-        throw new NotImplementedException();
+#if UNITY_EDITOR
+        Debug.Log(p);
+#endif
     }
 
     public void ShowLog(List<Card> list, string header = "", int loglevel = (int)LogLevels.SpecialLog)

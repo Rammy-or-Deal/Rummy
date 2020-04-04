@@ -20,7 +20,8 @@ public class Title : MonoBehaviour
 
     public void GuestBtnClick()
     {
-        SceneManager.LoadScene(Constant.LobbyScene);
+        Debug.Log(DataController.Inst.userInfo.ToString());
+//        SceneManager.LoadScene(Constant.LobbyScene);
     }
     public void FaceBookBtnClick()
     {
@@ -58,9 +59,6 @@ public class Title : MonoBehaviour
                 }
                 DataController.Inst.userInfo.name = result.ResultDictionary["name"].ToString();
                 Api.Inst.PostUserFacebook();
-                //when lobby 
-                ChatMgr.Inst.chatClient.UserId = userInfo.name;
-                UIController.Inst.userInfoPanel.UpdateValue();
             }
         });
     }
