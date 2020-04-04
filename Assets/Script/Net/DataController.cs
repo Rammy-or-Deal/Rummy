@@ -109,7 +109,7 @@ public class DataController : MonoBehaviour
     {
         userInfo.coin = coin;
         RestClient.Get<UserInfoModel>(Api.basePath + "/users/updateCoin/"+userInfo.id+"/"+userInfo.coin)
-            .Then(res =>{})
+            .Then(res => { GameMgr.Inst.Log(res);})
             .Catch(err => GameMgr.Inst.Log(err.Message));
     }
 }

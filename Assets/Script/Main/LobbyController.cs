@@ -14,7 +14,7 @@ public class LobbyController : MonoBehaviour
     {
         PunController.Inst.Login();
         UIController.Inst.userInfoPanel.gameObject.SetActive(true);
-        UIController.Inst.moneyPanel.gameObject.SetActive(true);
+        UIController.Inst.moneyPanel.SetActive();
         UIController.Inst.userInfoPanel.transform.position = userInfoPanel.position;
         UIController.Inst.moneyPanel.transform.position = moneyPanel.position;
         UIController.Inst.userInfoPanel.transform.localScale = userInfoPanel.localScale;

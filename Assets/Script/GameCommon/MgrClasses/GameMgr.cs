@@ -44,9 +44,7 @@ public class GameMgr : MonoBehaviour
     #endregion
     internal void LoadGameScene2(enumGameType v)
     {
-        Log("Load 2 Scene");
         sceneMgr.LoadGameScene2(v);
-
         m_gameType = v;
         m_gameStatus = enumGameStatus.InGameLevelSelect;       
     }
@@ -72,5 +70,11 @@ public class GameMgr : MonoBehaviour
     public void Log(string logMessage, LogLevel level = LogLevel.initLog)
     {
         debugMgr.Log(logMessage, level);
+    }
+    public void Log(object p)
+    {
+#if UNITY_EDITOR
+        Debug.Log(p);
+#endif
     }
 }

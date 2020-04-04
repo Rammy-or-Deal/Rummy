@@ -26,9 +26,6 @@ namespace RummyScript.Model
 
         public UserInfoModel()
         {
-            coin = 2500;
-            leaf_value = 300;
-            frame_id = 3;
         }
 
         public void Init(string prefixName = "Guest")
