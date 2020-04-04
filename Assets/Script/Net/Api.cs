@@ -42,87 +42,23 @@ public class Api : MonoBehaviour
             {
                 this.LogMessage(res.ToString());
                 DataController.Inst.userInfo = res;
-                PostUser(DataController.Inst.userInfo);
-//                SceneManager.LoadScene(Constant.LobbyScene);
+                SceneManager.LoadScene(Constant.LobbyScene);
             })
             .Catch(err => this.LogMessage(err.Message));
         return;
     }
-    public void PostUser(UserInfoModel user)
+    public void PostUser()
     {
         currentRequest = new RequestHelper
         {
             Uri = basePath + "/users/update",
-            Body = user
+            Body = DataController.Inst.userInfo
         };
         RestClient.Post<UserInfoModel>(currentRequest)
             .Then(res => this.LogMessage(JsonUtility.ToJson(res, true)))
             .Catch(err => this.LogMessage(err.Message));
     }
     
-    public void Post()
-    {
-        currentRequest = new RequestHelper
-        {
-            Uri = basePath + "/posts",
-            Body = new Post
-            {
-                title = "foo",
-                body = "bar",
-                userId = 1
-            }
-        };
-        RestClient.Post<Post>(currentRequest)
-            .Then(res => this.LogMessage(JsonUtility.ToJson(res, true)))
-            .Catch(err => this.LogMessage(err.Message));
-    }
-
-    public void Put()
-    {
-        currentRequest = new RequestHelper
-        {
-            Uri = basePath + "/posts/1",
-            Body = new Post
-            {
-                title = "foo",
-                body = "bar",
-                userId = 1
-            },
-            Retries = 5,
-            RetrySecondsDelay = 1,
-            RetryCallback = (err, retries) =>
-            {
-                Debug.Log(string.Format("Retry #{0} Status {1}\nError: {2}", retries, err.StatusCode, err));
-            }
-        };
-        RestClient.Put<Post>(currentRequest, (err, res, body) =>
-        {
-            if (err != null)
-            {
-                this.LogMessage(err.Message);
-            }
-            else
-            {
-                this.LogMessage(JsonUtility.ToJson(body, true));
-            }
-        });
-    }
-
-    public void Delete()
-    {
-        RestClient.Delete(basePath + "/posts/1", (err, res) =>
-        {
-            if (err != null)
-            {
-                this.LogMessage(err.Message);
-            }
-            else
-            {
-                this.LogMessage("Status: " + res.StatusCode.ToString());
-            }
-        });
-    }
-
     public void AbortRequest()
     {
         if (currentRequest != null)

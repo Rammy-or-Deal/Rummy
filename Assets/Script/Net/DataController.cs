@@ -75,27 +75,6 @@ public class DataController : MonoBehaviour
         }
     }
     
-    public void GetFbName()
-    {
-        FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
-        {
-            Debug.Log(result );
-            if (result.ResultDictionary != null)
-            {
-                Debug.Log(result.ResultDictionary);
-                foreach (string key in result.ResultDictionary.Keys)
-                {
-                    Debug.Log(key + " : " );
-//                    Debug.Log(key + " : " + result.ResultDictionary[key]);
-                }
-                userInfo.name = result.ResultDictionary["name"].ToString();
-                userInfo.pic = userInfo.facebook_id;
-                ChatMgr.Inst.chatClient.UserId = userInfo.name;
-                UIController.Inst.userInfoPanel.UpdateValue();
-            }
-        });
-    }
-
     public IEnumerator getFBPicture(string facebookId,Sprite pic=null)
     {
         var www = new WWW("http://graph.facebook.com/" + facebookId +

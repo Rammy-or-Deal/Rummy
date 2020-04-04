@@ -32,7 +32,9 @@ public class Title : MonoBehaviour
         if (FB.IsLoggedIn) {
             // AccessToken class will have session details
             var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
-            DataController.Inst.SetFbId(AccessToken.CurrentAccessToken.UserId);
+            DataController.Inst.userInfo.pic = aToken.UserId;
+            GetFbName();
+            DataController.Inst.SetFbId(aToken.UserId);
             // Print current access token's granted permissions
             foreach (string perm in aToken.Permissions) {
 //                Debug.Log(perm);
@@ -40,6 +42,28 @@ public class Title : MonoBehaviour
         } else {
             Debug.Log("User cancelled login");
         }
+    }
+    
+    public void GetFbName()
+    {
+        FB.API("me?fields=name", Facebook.Unity.HttpMethod.GET, delegate (IGraphResult result)
+        {
+            Debug.Log(result );
+            if (result.ResultDictionary != null)
+            {
+                Debug.Log(result.ResultDictionary);
+                foreach (string key in result.ResultDictionary.Keys)
+                {
+                    Debug.Log(key + " : " );
+//                    Debug.Log(key + " : " + result.ResultDictionary[key]);
+                }
+                DataController.Inst.userInfo.name = result.ResultDictionary["name"].ToString();
+                Api.Inst.PostUser();
+                //when lobby 
+                ChatMgr.Inst.chatClient.UserId = userInfo.name;
+                UIController.Inst.userInfoPanel.UpdateValue();
+            }
+        });
     }
     
     private void InitCallback ()
