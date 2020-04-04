@@ -23,7 +23,7 @@ public class UIMoneyPanel : MonoBehaviour
 
     public void UpdateValue()
     {
-        mCoinValue.text = DataController.Inst.userInfo.coin_value.ToString();
+        mCoinValue.text = DataController.Inst.userInfo.coin.ToString();
         mLeafValue.text = DataController.Inst.userInfo.leaf_value.ToString();
     }
 

@@ -50,7 +50,7 @@ public class newRoomPanelController : MonoBehaviour
     {
         if(moneyList[0].isSelected)
         {
-            DataController.Inst.userInfo.coin_value -= roomInfo.coin;
+            DataController.Inst.userInfo.coin -= roomInfo.coin;
         }
         else{
             DataController.Inst.userInfo.leaf_value -= roomInfo.gem;

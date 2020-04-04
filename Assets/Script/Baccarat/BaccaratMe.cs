@@ -30,7 +30,7 @@ public class BaccaratMe : MeMgr
     {
         if (!canDeal) return;
         if (!isPanStarted) return;
-        if (DataController.Inst.userInfo.coin_value < BaccaratBankerMgr.Inst.getCoinValue(moneyId)) return;
+        if (DataController.Inst.userInfo.coin < BaccaratBankerMgr.Inst.getCoinValue(moneyId)) return;
 
         //DataController.Inst.userInfo.coinValue -= BaccaratBankerMgr.Inst.getCoinValue(moneyId);
         //UpdateMyCoin(DataController.Inst.userInfo.coinValue);
@@ -48,7 +48,7 @@ public class BaccaratMe : MeMgr
         coinValue = (int)pList.m_playerList.Where(x=>x.m_actorNumber == PhotonNetwork.LocalPlayer.ActorNumber).First().m_coinValue;
         var mySeat = GameMgr.Inst.seatMgr.m_playerList[0];
         mySeat.mCoinValue.text = coinValue.ToString();
-        DataController.Inst.userInfo.coin_value = coinValue;
+        DataController.Inst.UpdateUserCoin(coinValue);
     }
 
     public static void Bet(int moneyId, int areaId, int actorNumber)
@@ -72,7 +72,7 @@ public class BaccaratMe : MeMgr
     internal void OnPrizeAwarded()
     {
         var prize = (int)PhotonNetwork.CurrentRoom.CustomProperties[Common.BACCARAT_PRIZE];
-        DataController.Inst.userInfo.coin_value += prize;
+        DataController.Inst.userInfo.coin += prize;
 
         //UpdateMe();
     }

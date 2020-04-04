@@ -2,6 +2,7 @@
 using RummyScript.Model;
 using UnityEngine;
 using Facebook.Unity;
+using Proyecto26;
 using UnityEngine.UI;
 
 public class DataController : MonoBehaviour
@@ -19,6 +20,8 @@ public class DataController : MonoBehaviour
     public UserInfoModel userInfo;
     public SysExchangeItemModel sysExchangeItem;    
     public SettingModel setting;
+    
+    private RequestHelper currentRequest;
 
     void Awake()
     {
@@ -63,8 +66,7 @@ public class DataController : MonoBehaviour
 
     public void UpdateAvatar()
     {
-        GameMgr.Inst.Log("facebook:"+userInfo.facebook_id);
-        if (userInfo.facebook_id != null)
+        if (userInfo.facebook_id != "")
         {
             StartCoroutine(getFBPicture(userInfo.facebook_id));
         }
@@ -101,5 +103,13 @@ public class DataController : MonoBehaviour
         userInfo.facebook_id = fbId;
         userInfo.pic = fbId;
         PlayerPrefs.SetString("facebook_id", fbId);
+    }
+    
+    public void UpdateUserCoin(int coin)
+    {
+        userInfo.coin = coin;
+        RestClient.Get<UserInfoModel>(Api.basePath + "/users/updateCoin/"+userInfo.id+"/"+userInfo.coin)
+            .Then(res =>{})
+            .Catch(err => GameMgr.Inst.Log(err.Message));
     }
 }

@@ -22,7 +22,7 @@ public class UIRewardDialog : MonoBehaviour
     public void OnClickConfirm()
     {
         mRewardView.text = "You earn 500 Gold !";
-        DataController.Inst.userInfo.coin_value += 500;
+        DataController.Inst.userInfo.coin += 500;
         UIController.Inst.moneyPanel.UpdateValue();
     }
     

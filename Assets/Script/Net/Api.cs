@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class Api : MonoBehaviour
 {
     public static Api Inst;
-    private readonly string basePath = "http://52.221.195.64/api/";
+    public static string basePath = "http://52.221.195.64/api/";
     private RequestHelper currentRequest;
 
     void Awake()
