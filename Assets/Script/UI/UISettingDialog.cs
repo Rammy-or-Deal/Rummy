@@ -84,6 +84,6 @@ public class UISettingDialog : MonoBehaviour
     public void OnClickLogout()
     {
         gameObject.SetActive(false);
-        SceneManager.LoadScene("1_Title");
+        SceneManager.LoadScene(Constant.First);
     }
 }
