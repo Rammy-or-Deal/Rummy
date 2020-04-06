@@ -13,8 +13,6 @@ public class TierController : MonoBehaviour
 
     void Start()
     {
-        if (!DataController.Inst)
-            SceneManager.LoadScene(Constant.First);
         try
         {
             UIController.Inst.loadingDlg.gameObject.SetActive(false);

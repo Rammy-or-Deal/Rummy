@@ -6,11 +6,6 @@ using UnityEngine;
 
 public class SceneMgr : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-    
     public void LoadGameScene2(enumGameType v)
     {
         string sceneString = "";

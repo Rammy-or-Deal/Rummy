@@ -23,8 +23,6 @@ public class BaccaratRoomController : MonoBehaviour
             GameMgr.Inst.m_gameTier = enumGameTier.BaccaratRegular;
         }
         catch { }
-        if (!DataController.Inst)
-            SceneManager.LoadScene(Constant.First);
     }
     void Start()
     {

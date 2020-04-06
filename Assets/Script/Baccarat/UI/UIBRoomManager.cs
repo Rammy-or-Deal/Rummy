@@ -13,6 +13,6 @@ public class UIBRoomManager : MonoBehaviour
 
     public void OnClickBackBtn()
     {
-        SceneManager.LoadScene("2_Lobby");
+        SceneLoader.LoadScene(Constant.LobbyScene);
     }
 }

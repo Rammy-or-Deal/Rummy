@@ -13,6 +13,7 @@ public class LobbyController : MonoBehaviour
     void Start()
     {
         PunController.Inst.Login();
+        DataController.Inst.UpdateAvatar();
         UIController.Inst.userInfoPanel.gameObject.SetActive(true);
         UIController.Inst.moneyPanel.SetActive();
         UIController.Inst.userInfoPanel.transform.position = userInfoPanel.position;
@@ -42,7 +43,7 @@ public class LobbyController : MonoBehaviour
 
     public void OnClikBack()
     {
-        SceneManager.LoadScene("1_Title");
+        SceneLoader.LoadScene(Constant.First);
     }
     public void OnClickLobbyBottomBtn(int type)
     {

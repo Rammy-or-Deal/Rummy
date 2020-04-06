@@ -34,7 +34,7 @@ public class Title : MonoBehaviour
 
     public void GuestBtnClick()
     {
-        SceneManager.LoadScene(Constant.LobbyScene);
+        SceneLoader.LoadScene(Constant.LobbyScene);
     }
     public void FaceBookBtnClick()
     {

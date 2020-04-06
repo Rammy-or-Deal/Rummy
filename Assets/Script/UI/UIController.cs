@@ -31,8 +31,6 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        if (!DataController.Inst)
-            SceneManager.LoadScene(Constant.First);
         if (Inst)
         {
             Destroy(this.gameObject);
@@ -45,7 +43,6 @@ public class UIController : MonoBehaviour
     void Start()
     {
         StartCoroutine(ActiveDlgs());
-        DataController.Inst.UpdateAvatar();
     }
 
     IEnumerator ActiveDlgs()
