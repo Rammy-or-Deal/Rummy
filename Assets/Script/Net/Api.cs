@@ -41,7 +41,7 @@ public class Api : MonoBehaviour
             {
                 this.LogMessage(res.ToString());
                 DataController.Inst.userInfo.Set(res);
-                SceneManager.LoadScene(Constant.LobbyScene);
+                SceneLoader.LoadScene(Constant.LobbyScene);
             })
             .Catch(err => this.LogMessage(err.Message));
     }
@@ -69,7 +69,7 @@ public class Api : MonoBehaviour
             {
                 this.LogMessage(JsonUtility.ToJson(res, true));
                 DataController.Inst.userInfo.Set(res);
-                SceneManager.LoadScene(Constant.LobbyScene);
+                SceneLoader.LoadScene(Constant.LobbyScene);
             })
             .Catch(err => this.LogMessage(err.Message));
     }

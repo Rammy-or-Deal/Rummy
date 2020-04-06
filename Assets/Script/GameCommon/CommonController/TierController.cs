@@ -28,7 +28,7 @@ public class TierController : MonoBehaviour
 
     public void OnClickBack()
     {
-        SceneManager.LoadScene(Constant.LobbyScene);
+        SceneLoader.LoadScene(Constant.LobbyScene);
     }
 
     public void OnClickMoneyPanel()

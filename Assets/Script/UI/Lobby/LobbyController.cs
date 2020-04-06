@@ -41,10 +41,6 @@ public class LobbyController : MonoBehaviour
         GameMgr.Inst.LoadGameScene2(enumGameType.Fortune13);
     }
 
-    public void OnClikBack()
-    {
-        SceneLoader.LoadScene(Constant.First);
-    }
     public void OnClickLobbyBottomBtn(int type)
     {
         Debug.Log("Lobby bottom click");
