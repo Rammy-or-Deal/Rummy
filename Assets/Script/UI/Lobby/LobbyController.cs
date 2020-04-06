@@ -13,7 +13,11 @@ public class LobbyController : MonoBehaviour
     void Start()
     {
         PunController.Inst.Login();
-        DataController.Inst.UpdateAvatar();
+        if (SceneLoader.isFromFirst)
+        {
+            DataController.Inst.UpdateAvatar();
+            SceneLoader.isFromFirst = false;
+        }
         UIController.Inst.userInfoPanel.gameObject.SetActive(true);
         UIController.Inst.moneyPanel.SetActive();
         UIController.Inst.userInfoPanel.transform.position = userInfoPanel.position;
