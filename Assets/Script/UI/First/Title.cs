@@ -18,6 +18,20 @@ public class Title : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        string facebook_id=PlayerPrefs.GetString("facebook_id", "null");
+        if (facebook_id=="null")
+        {
+            
+            Api.Inst.GetUserbyUdid(SystemInfo.deviceUniqueIdentifier);    
+        }
+        else
+        {
+            Api.Inst.GetUserbyFacebook(facebook_id);
+        }
+    }
+
     public void GuestBtnClick()
     {
         SceneManager.LoadScene(Constant.LobbyScene);

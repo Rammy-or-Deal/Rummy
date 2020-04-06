@@ -83,6 +83,7 @@ public class UISettingDialog : MonoBehaviour
 
     public void OnClickLogout()
     {
+        PlayerPrefs.SetString("facebook_id", "null");
         gameObject.SetActive(false);
         SceneManager.LoadScene(Constant.First);
     }

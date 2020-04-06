@@ -1315,11 +1315,6 @@
             </e>
             <e p="UIMyCardPanel.cs" t="Include" />
           </e>
-          <e p="Main" t="Include">
-            <e p="Intro.cs" t="Include" />
-            <e p="LobbyController.cs" t="Include" />
-            <e p="Title.cs" t="Include" />
-          </e>
           <e p="Net" t="Include">
             <e p="Api.cs" t="Include" />
             <e p="DataController.cs" t="Include" />
@@ -1342,7 +1337,14 @@
             </e>
           </e>
           <e p="UI" t="Include">
+            <e p="First" t="Include">
+              <e p="Intro.cs" t="Include" />
+              <e p="Title.cs" t="Include" />
+            </e>
             <e p="GameSettingDialog.cs" t="Include" />
+            <e p="Lobby" t="Include">
+              <e p="LobbyController.cs" t="Include" />
+            </e>
             <e p="NoticeDlgManager.cs" t="Include" />
             <e p="UIAlertDialog.cs" t="Include" />
             <e p="UIAvatarDialog.cs" t="Include" />

@@ -47,23 +47,8 @@ public class DataController : MonoBehaviour
         
         sysExchangeItem = new SysExchangeItemModel();
         DontDestroyOnLoad(this.gameObject);
-        userInfo.udid=SystemInfo.deviceUniqueIdentifier;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        userInfo.facebook_id=PlayerPrefs.GetString("facebook_id", "null");
-        if (userInfo.facebook_id=="null")
-        {
-            Api.Inst.GetUserbyUdid(userInfo.udid);    
-        }
-        else
-        {
-            Api.Inst.GetUserbyFacebook(userInfo.facebook_id);
-        }
-    }
-
+    
     public void UpdateAvatar()
     {
         if (userInfo.facebook_id != "")
