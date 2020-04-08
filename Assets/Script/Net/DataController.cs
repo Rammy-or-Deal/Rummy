@@ -60,6 +60,7 @@ public class DataController : MonoBehaviour
             UIController.Inst.ChangeAvatar(Resources.Load<Sprite>(userInfo.pic));   
         }
         UIController.Inst.userInfoPanel.UpdateValue();
+        UIController.Inst.userInfoMenu.UpdateUserInfoMenu();
     }
     
     public IEnumerator getFBPicture(string facebookId,Sprite pic=null)

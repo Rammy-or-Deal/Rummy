@@ -7,12 +7,6 @@ public class UIAvatarItem : MonoBehaviour
 {
     public int id;
     public Image pic;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void AvatarClick()
     {
         DataController.Inst.userInfo.pic = "new_avatar/avatar_" + (id + 1).ToString();

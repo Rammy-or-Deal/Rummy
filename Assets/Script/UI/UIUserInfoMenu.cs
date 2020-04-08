@@ -38,9 +38,6 @@ public class UIUserInfoMenu : MonoBehaviour
         _mLeafPic = Resources.Load<Sprite>("new_symbol/leaf");
         
         mFramePic.sprite = Resources.Load<Sprite>("new_frame/frame_legend");
-        mUserPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
-        mUserName.text = DataController.Inst.userInfo.name;
-
         mWinRate.text = "50%(100/200)";
 
         
@@ -67,12 +64,10 @@ public class UIUserInfoMenu : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     public void UpdateUserInfoMenu()
     {
-        mUserPic.sprite = Resources.Load<Sprite>(DataController.Inst.userInfo.pic);
         mUserName.text = DataController.Inst.userInfo.name;
-        mSkillLevel.text = DataController.Inst.userInfo.skill_level.ToString();
+        mSkillLevel.text = DataController.Inst.userInfo.skill_level;
     }
     
     public void OnClose(GameObject obj)
