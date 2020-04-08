@@ -51,4 +51,10 @@ public class UIController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         alertDlg.gameObject.SetActive(false);
     }
+
+    public void ChangeAvatar(Sprite sprite)
+    {
+        userInfoPanel.mUserPic.sprite = sprite;
+        userInfoMenu.mUserPic.sprite = sprite;
+    }
 }
